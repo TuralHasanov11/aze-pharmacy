@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+
+    {% include "components/admin/imports/links.html" %}
+
+    <title>Dashboard - SB Admin Pro</title>
+  </head>
+  <body class="nav-fixed">
+    {% include "components/admin/navbar.html" %}
+
+    <div id="layoutSidenav">
+      <div id="layoutSidenav_nav">
+        {% include "components/admin/sidenav.html" %}
+      </div>
+      <div id="layoutSidenav_content">
+        <main>{% block content %}{% endblock content %}</main>
+        {% include "components/admin/footer.html" %}
+      </div>
+    </div>
+
+    {% include "components/admin/imports/scripts.html" %}
+  </body>
+</html>
