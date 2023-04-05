@@ -20,12 +20,12 @@
     {% include "components/preloader.html" %}
     {% include "components/scroll_top.html" %}
 
-    {% include "components/header.html" %}
+    {% include "components/default/header.html" %}
 
     {% block content %} 
     {% endblock content %} 
 
-    {% include "components/footer.html" %}
+    {% include "components/default/footer.html" %}
 
     {% include "components/default/imports/scripts.html" %}
     {% block scripts %}{% endblock scripts %}
