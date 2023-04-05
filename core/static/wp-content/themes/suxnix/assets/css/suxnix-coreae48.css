@@ -1299,9 +1299,14 @@ body.search-visible {
 .brand-item {
 	display: flex;
 	min-height: 48px;
-	max-height: 48px;
+	max-height: 80px;
 	align-items: center;
 	justify-content: center;
+}
+
+.brand-item img {
+	max-height: 80px !important;
+	height: auto;
 }
 
 /* 8. Features */
@@ -3249,6 +3254,10 @@ body.search-visible {
 
 .formula-content .btn-two::before {
 	background: #fff;
+}
+
+.formula-content p {
+	color: #fff;
 }
 
 /* 15. Pricing */

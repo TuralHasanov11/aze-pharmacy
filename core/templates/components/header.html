@@ -19,93 +19,13 @@
               </div>
               <div class="navbar-wrap main-menu d-none d-xl-flex">
                 <ul id="menu-main-menu" class="navigation">
-                  <li
-                    id="menu-item-105"
-                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-65 current_page_item menu-item-105"
+                  {% for item in default_menu %}
+                  <li id="{{forloop.counter}}" 
+                      class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item current_page_item menu-item-home menu-item-{{forloop.counter}}"
                   >
-                    <a href="index.html" aria-current="page">Home</a>
+                    <a href="{% url item.route %}" aria-current="page">{{item.title}}</a>
                   </li>
-                  <li
-                    id="menu-item-106"
-                    class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-106"
-                  >
-                    <a href="index.html#features" aria-current="page"
-                      >Features</a
-                    >
-                  </li>
-                  <li
-                    id="menu-item-107"
-                    class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-107"
-                  >
-                    <a href="index.html#paroller" aria-current="page"
-                      >Product</a
-                    >
-                  </li>
-                  <li
-                    id="menu-item-108"
-                    class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-108"
-                  >
-                    <a href="index.html#ingredient" aria-current="page"
-                      >Ingredient</a
-                    >
-                  </li>
-                  <li
-                    id="menu-item-109"
-                    class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-109"
-                  >
-                    <a href="index.html#pricing" aria-current="page">Pricing</a>
-                  </li>
-                  <li
-                    id="menu-item-110"
-                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-110"
-                  >
-                    <a href="#">Shop</a>
-                    <ul class="sub-menu">
-                      <li
-                        id="menu-item-112"
-                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-112"
-                      >
-                        <a href="shop/index.html">Our Shop</a>
-                      </li>
-                      <li
-                        id="menu-item-111"
-                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-111"
-                      >
-                        <a href="product/sneaky-supplements/index.html"
-                          >Shop Details</a
-                        >
-                      </li>
-                    </ul>
-                  </li>
-                  <li
-                    id="menu-item-114"
-                    class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-has-children menu-item-114"
-                  >
-                    <a href="index.html#news" aria-current="page">Blog</a>
-                    <ul class="sub-menu">
-                      <li
-                        id="menu-item-115"
-                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-115"
-                      >
-                        <a href="blog/index.html">Our Blog</a>
-                      </li>
-                      <li
-                        id="menu-item-116"
-                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-116"
-                      >
-                        <a
-                          href="culpa-qui-officia-deserunt-mollit-anim-id-est-laborum-sed-ut-perspiciatis/index.html"
-                          >Blog Details</a
-                        >
-                      </li>
-                    </ul>
-                  </li>
-                  <li
-                    id="menu-item-113"
-                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-113"
-                  >
-                    <a href="contact-us/index.html">Contacts</a>
-                  </li>
+                  {% endfor %}
                 </ul>
               </div>
               <div class="header-action d-none d-sm-block">

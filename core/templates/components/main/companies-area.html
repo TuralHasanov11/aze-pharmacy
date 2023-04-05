@@ -1,0 +1,20 @@
+<div class="brand-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="brand-title text-center mb-50">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="title">Perfect Brand is Featured on</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row brand-active">
+      {% for company in companies %} 
+      {% include "components/companies/company_mini.html" with company=company %} 
+      {% endfor %}
+    </div>
+  </div>
+</div>

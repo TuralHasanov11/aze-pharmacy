@@ -1,4 +1,6 @@
-{% extends 'layouts/default.html' %} {% block content %}
+{% extends 'layouts/default.html' %} 
+{% load static %}
+{% block content %}
 <main class="main-area fix">
   <div
     data-elementor-type="wp-page"
@@ -24,15 +26,14 @@
               data-widget_type="hero-banner.default"
             >
               <div class="elementor-widget-container">
-                <!-- banner-area -->
                 {% include "components/banner.html" %}
-                <!-- banner-area-end -->
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
     <section
       class="elementor-section elementor-top-section elementor-element elementor-element-c3ee463 elementor-section-full_width elementor-section-height-default elementor-section-height-default"
       data-id="c3ee463"
@@ -52,153 +53,46 @@
               data-widget_type="brand.default"
             >
               <div class="elementor-widget-container">
-                <script>
-                  jQuery(document).ready(function ($) {
-                    /*=============================================
-          =    		Brand Active		      =
-      =============================================*/
-                    $(".brand-active").slick({
-                      dots: false,
-                      infinite: true,
-                      speed: 1000,
-                      autoplay: true,
-                      arrows: false,
-                      slidesToShow: 6,
-                      slidesToScroll: 2,
-                      responsive: [
-                        {
-                          breakpoint: 1200,
-                          settings: {
-                            slidesToShow: 5,
-                            slidesToScroll: 1,
-                            infinite: true,
-                          },
-                        },
-                        {
-                          breakpoint: 992,
-                          settings: {
-                            slidesToShow: 4,
-                            slidesToScroll: 1,
-                          },
-                        },
-                        {
-                          breakpoint: 767,
-                          settings: {
-                            slidesToShow: 3,
-                            slidesToScroll: 1,
-                            arrows: false,
-                          },
-                        },
-                        {
-                          breakpoint: 575,
-                          settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 1,
-                            arrows: false,
-                          },
-                        },
-                      ],
-                    });
-                  });
-                </script>
-
-                <!-- brand-area -->
-                <div class="brand-area">
-                  <div class="container">
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="brand-title text-center mb-50">
-                          <div class="row">
-                            <div class="col-12">
-                              <h2 class="title">
-                                Perfect Brand is Featured on
-                              </h2>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row brand-active">
-                      <div class="col-2">
-                        <div class="brand-item">
-                          <a href="#"
-                            ><img
-                              decoding="async"
-                              src="wp-content/uploads/2022/09/brand_01.png"
-                              alt=""
-                          /></a>
-                        </div>
-                      </div>
-                      <div class="col-2">
-                        <div class="brand-item">
-                          <a href="#"
-                            ><img
-                              decoding="async"
-                              src="wp-content/uploads/2022/09/brand_02.png"
-                              alt=""
-                          /></a>
-                        </div>
-                      </div>
-                      <div class="col-2">
-                        <div class="brand-item">
-                          <a href="#"
-                            ><img
-                              decoding="async"
-                              src="wp-content/uploads/2022/09/brand_03.png"
-                              alt=""
-                          /></a>
-                        </div>
-                      </div>
-                      <div class="col-2">
-                        <div class="brand-item">
-                          <a href="#"
-                            ><img
-                              decoding="async"
-                              src="wp-content/uploads/2022/09/brand_04.png"
-                              alt=""
-                          /></a>
-                        </div>
-                      </div>
-                      <div class="col-2">
-                        <div class="brand-item">
-                          <a href="#"
-                            ><img
-                              decoding="async"
-                              src="wp-content/uploads/2022/09/brand_05.png"
-                              alt=""
-                          /></a>
-                        </div>
-                      </div>
-                      <div class="col-2">
-                        <div class="brand-item">
-                          <a href="#"
-                            ><img
-                              decoding="async"
-                              src="wp-content/uploads/2022/09/brand_06.png"
-                              alt=""
-                          /></a>
-                        </div>
-                      </div>
-                      <div class="col-2">
-                        <div class="brand-item">
-                          <a href="#"
-                            ><img
-                              decoding="async"
-                              src="wp-content/uploads/2022/09/brand_03.png"
-                              alt=""
-                          /></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- brand-area-end -->
+                {% include "components/main/companies-area.html" with companies=companies %}
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <section
+      class="elementor-section elementor-top-section elementor-element elementor-element-be24124 elementor-section-full_width elementor-section-height-default elementor-section-height-default"
+      data-id="be24124"
+      data-element_type="section"
+    >
+      <div class="elementor-container elementor-column-gap-no">
+        <div
+          class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-faa853f"
+          data-id="faa853f"
+          data-element_type="column"
+        >
+          <div class="elementor-widget-wrap elementor-element-populated">
+            <div
+              class="elementor-element elementor-element-9690b0f elementor-widget elementor-widget-formula"
+              data-id="9690b0f"
+              data-element_type="widget"
+              data-widget_type="formula.default"
+            >
+              <div class="elementor-widget-container">
+                {% include "components/main/about.html" %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {% include "components/main/blog-area.html" with posts=posts %}
   </div>
 </main>
-{% endblock content %}
+{% endblock content %} 
+
+{% block scripts %}
+<script src="{% static 'js/pages/main.js' %}"></script>
+{% endblock scripts %}

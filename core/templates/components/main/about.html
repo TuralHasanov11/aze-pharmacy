@@ -1,0 +1,39 @@
+{% load static %}
+<section
+  class="formula-area formula-bg"
+  data-background="https://themegenix.net/wp/suxnix/wp-content/uploads/2022/09/formula_bg.jpg"
+>
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 order-0 order-lg-2">
+        <div class="formula-img">
+          <img
+            decoding="async"
+            src="{% static 'wp-content/uploads/2022/09/formula_img.png' %}"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="formula-content">
+          <div class="section-title white-title mb-50">
+            <h2 class="title">About Us</h2>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis,
+            laudantium fugit? Ex iste id eos, voluptatibus earum beatae eum
+            amet.
+          </p>
+          <a
+            href="{% url 'main:about' %}"
+            target="_self"
+            rel="nofollow"
+            class="btn btn-two"
+          >
+            More
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
