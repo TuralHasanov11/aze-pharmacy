@@ -1,6 +1,26 @@
+from django.core import paginator
 from django.http import HttpRequest
 from django.shortcuts import render
+from django.views.decorators.http import require_http_methods
+from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
+from news.models import Post
 
 
-def index(request: HttpRequest):
-    return render(request, 'main/index.html')
+class PostListView(ListView):
+    model = Post
+    template_name = "news/index.html"
+    paginate_by = 2
+    context_object_name = "posts"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["popular_posts"] = Post.objects.all()[:4]
+        return context
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = "news/detail.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["popular_posts"] = Post.objects.all()[:4]
+        return context

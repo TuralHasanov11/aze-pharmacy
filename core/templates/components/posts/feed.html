@@ -1,0 +1,17 @@
+<div class="rc-post">
+  <div class="rc-post-thumb">
+    <a href="{{post.get_absolute_url}}">
+      <img src="{{post.cover_image.url}}" alt="img" />
+    </a>
+  </div>
+
+  <div class="rc-post-content">
+    <h5 class="title">
+      <a href="{{post.get_absolute_url}}">{{post.title}}</a>
+    </h5>
+    <div class="rc-post-date">
+      <i class="far fa-calendar-alt"></i>
+      {{post.created_at|date:"j M Y"}}
+    </div>
+  </div>
+</div>

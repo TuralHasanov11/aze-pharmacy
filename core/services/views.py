@@ -1,6 +1,8 @@
-from django.http import HttpRequest
-from django.shortcuts import render
+from django.views.generic.list import ListView
+from services.models import Service
 
 
-def index(request: HttpRequest):
-    return render(request, 'main/index.html')
+class ServiceListView(ListView):
+    model = Service
+    template_name = "services/index.html"
+    context_object_name = "services"

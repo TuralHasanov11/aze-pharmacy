@@ -1,0 +1,85 @@
+{% extends 'layouts/default.html' %} {% load static %} {% block content %}
+<main class="main-area fix">
+  {%include "components/breadcrumb.html" with title=post.title home_title='Home'%}
+
+  <section class="blog-area pt-120 pb-120 blog-details-area">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="postbox__wrapper">
+            <article
+              id="post-52"
+              class="blog--post--item mb-50 format-image post-52 post type-post status-publish format-standard has-post-thumbnail hentry category-technology tag-popular tag-usability tag-ux"
+            >
+              <div class="blog--post--thumb">
+                <img
+                  width="850"
+                  height="480"
+                  src="{{post.cover_image.url}}"
+                  class="img-responsive wp-post-image"
+                  alt="{{post.title}}"
+                  decoding="async"
+                  srcset="{{post.cover_image.url}} 850w,{{post.cover_image.url}} 300w,{{post.cover_image.url}} 768w,{{post.cover_image.url}} 650w"
+                  sizes="(max-width: 850px) 100vw, 850px"
+                />
+              </div>
+              <div class="blog--post--content blog-details-content">
+                <h2 class="title">{{post.title}}</h2>
+                <div class="blog--post--meta mb-20">
+                  <ul class="list-wrap">
+                    <li>
+                      <i class="far fa-calendar-alt"></i>
+                      {{post.created_at|date:"j M Y"}}
+                    </li>
+                  </ul>
+                </div>
+                <div class="post-text">
+                  <div class="blog-details-wrap">
+                    <h3 class="title">{{post.title}}</h3>
+                    {{post.description|safe}}
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-7">
+          <aside class="blog-sidebar pl-20">
+            <div
+              id="search-2"
+              class="sidebar-widget widget mb-40 widget_search"
+            >
+              <div class="sidebar-title mb-25">
+                <h3 class="title">Search Objects</h3>
+              </div>
+              <div class="sidebar-search-form position-relative">
+                <form action="{% url 'news:index' %}" method="get">
+                  <input
+                    type="search"
+                    value=""
+                    required
+                    name="search"
+                    placeholder="Search"
+                  />
+                  <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+              </div>
+            </div>
+            <div
+              id="tp-latest-posts-2"
+              class="sidebar-widget widget mb-40 widget_tp-latest-posts"
+            >
+              <div class="sidebar-title mb-25">
+                <h3 class="title">Popular Feeds</h3>
+              </div>
+              <div class="rc__post-wrapper">
+                {% for post in popular_posts %} {% include "components/posts/feed.html" with post=post %} {% endfor %}
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock content %}

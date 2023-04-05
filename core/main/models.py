@@ -3,7 +3,7 @@ from django.utils.text import slugify
 
 
 def company_cover_image_path(instance, filename):
-    return f"companies/{instance.id}/{slugify(instance.name)}-{filename}"
+    return f"companies/{slugify(instance.name)}/{filename}"
 
 
 class Company(models.Model):

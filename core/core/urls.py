@@ -8,11 +8,11 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
 
     path('', include('main.urls')),
-    path('news', include('news.urls', namespace="news")),
-    path('services', include('services.urls', namespace="services")),
-    path('library', include('library.urls', namespace="library")),
-    path('store', include('store.urls', namespace="store")),
-    path('admin', include('administration.urls', namespace="administration"))
+    path('news/', include('news.urls', namespace="news")),
+    path('services/', include('services.urls', namespace="services")),
+    path('library/', include('library.urls', namespace="library")),
+    path('store/', include('store.urls', namespace="store")),
+    path('admin/', include('administration.urls', namespace="administration"))
 ]
 
 if settings.DEBUG:

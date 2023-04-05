@@ -4,5 +4,5 @@ from library import views
 app_name = "library"
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.DocumentListView.as_view(), name='index'),
 ]
