@@ -11,43 +11,23 @@
 </header>
 
 <div class="container-xl px-4">
-  <h2 class="mt-5 mb-0">Dashboards</h2>
-  <p>Three dashboard examples to get you started!</p>
+  <h2 class="mt-5 mb-0">Creator Dashboards</h2>
   <hr class="mt-0 mb-4" />
   <div class="row">
+    {% for dashboard in creator_dashboards %}
     <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
       <a
         class="d-block lift rounded overflow-hidden mb-2"
-        href="dashboard-1.html"
+        href="{% url dashboard.route %}"
         ><img
           class="img-fluid"
           src="{% static 'images/admin/dashboards/default.png' %}"
           alt="..."
       /></a>
-      <div class="text-center small">Default Dashboard</div>
+      <div class="text-center small">{{dashboard.name}}</div>
     </div>
-    <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
-      <a
-        class="d-block lift rounded overflow-hidden mb-2"
-        href="dashboard-3.html"
-        ><img
-          class="img-fluid"
-          src="{% static 'images/admin/dashboards/affiliate.png' %}"
-          alt="..."
-      /></a>
-      <div class="text-center small">Affiliate Dashboard</div>
-    </div>
-    <div class="col-md-6 col-xl-4">
-      <a
-        class="d-block lift rounded overflow-hidden mb-2"
-        href="dashboard-2.html"
-        ><img
-          class="img-fluid"
-          src="{% static 'images/admin/dashboards/multipurpose.png' %}"
-          alt="..."
-      /></a>
-      <div class="text-center small">Multipurpose Dashboard</div>
-    </div>
+    {% endfor %}
+    
   </div>
   <h2 class="mt-5 mb-0">App Pages</h2>
   <p>App pages to cover common use pages to help build your app!</p>

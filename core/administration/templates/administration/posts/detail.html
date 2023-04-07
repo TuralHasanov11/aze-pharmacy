@@ -1,0 +1,52 @@
+
+
+{% extends 'layouts/admin.html' %} {% load static %} {% block content %}
+
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="file"></i></div>
+                            {{post.title}}
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-3">
+                        <a class="btn btn-sm btn-primary text-light" href="{% url 'administration:post-update' pk=post.pk %}">
+                            <i class="me-1" data-feather="edit"></i>
+                            Edit post
+                        </a>
+                        <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:post-list' %}">
+                            <i class="me-1" data-feather="list"></i>
+                            Back to posts
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid px-4">
+        <div class="card">
+            <div class="card-header">{{post.title}}</div>
+            <img class="card-img-top" src="{{post.cover_image.url}}" alt="{{post.title}}">
+            <div class="card-body">
+                <h5 class="card-title">{{post.title}}</h5>
+                <p class="card-text">{{post.description|safe}}</p>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
