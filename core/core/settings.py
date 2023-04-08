@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'services',
     'library',
     'store',
+    'user',
     'administration'
 ]
 
@@ -80,6 +81,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'user.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -96,7 +98,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGIN_URL = "login"
+LOGIN_URL = "administration:auth-login"
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

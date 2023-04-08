@@ -38,9 +38,7 @@
         >
           <nav class="sidenav-menu-nested nav">
             {% for route in routeContainer.children %}
-            <a class="nav-link" href="{% url route.route %}"
-              >{{route.title}}</a
-            >
+            <a class="nav-link" href="{% url route.route %}">{{route.title}}</a>
             {% endfor %}
             
           </nav>
@@ -58,7 +56,7 @@
   <div class="sidenav-footer">
     <div class="sidenav-footer-content">
       <div class="sidenav-footer-subtitle">Logged in as:</div>
-      <div class="sidenav-footer-title">Valerie Luna</div>
+      <div class="sidenav-footer-title">{{request.user.username}}</div>
     </div>
   </div>
 </nav>

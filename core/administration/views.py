@@ -1,6 +1,9 @@
-from administration.forms import (CompanyForm, DocumentForm, PostForm,
-                                  ServiceForm)
+from administration import forms
+from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core import paginator
 from django.http import HttpRequest
@@ -17,6 +20,7 @@ from services.models import Service
 
 
 @require_http_methods(["GET"])
+@login_required
 def index(request: HttpRequest):
     creator_dashboards = [
         {"name": "Services", "route": "administration:service-list"},
@@ -29,7 +33,7 @@ def index(request: HttpRequest):
 
 class ServiceListCreateView(SuccessMessageMixin, CreateView):
     model = Service
-    form_class = ServiceForm
+    form_class = forms.ServiceForm
     template_name = 'administration/services/index.html'
     success_message = "%(name)s was created successfully"
 
@@ -43,7 +47,7 @@ class ServiceListCreateView(SuccessMessageMixin, CreateView):
     
 
 class ServiceUpdateView(SuccessMessageMixin, UpdateView):
-    form_class = ServiceForm
+    form_class = forms.ServiceForm
     model = Service
     template_name = 'administration/services/detail.html'
     context_object_name = 'service'
@@ -61,7 +65,7 @@ class ServiceDeleteView(SuccessMessageMixin, DeleteView):
 
 class DocumentListCreateView(SuccessMessageMixin, CreateView):
     model = Document
-    form_class = DocumentForm
+    form_class = forms.DocumentForm
     template_name = 'administration/documents/index.html'
     success_message = "%(name)s was created successfully"
 
@@ -78,7 +82,7 @@ class DocumentListCreateView(SuccessMessageMixin, CreateView):
     
 
 class DocumentUpdateView(SuccessMessageMixin, UpdateView):
-    form_class = DocumentForm
+    form_class = forms.DocumentForm
     model = Document
     template_name = 'administration/documents/detail.html'
     context_object_name = 'document'
@@ -96,7 +100,7 @@ class DocumentDeleteView(SuccessMessageMixin, DeleteView):
 
 class CompanyListCreateView(SuccessMessageMixin, CreateView):
     model = Company
-    form_class = CompanyForm
+    form_class = forms.CompanyForm
     template_name = 'administration/companies/index.html'
     success_message = "%(name)s was created successfully"
 
@@ -110,7 +114,7 @@ class CompanyListCreateView(SuccessMessageMixin, CreateView):
     
 
 class CompanyUpdateView(SuccessMessageMixin, UpdateView):
-    form_class = CompanyForm
+    form_class = forms.CompanyForm
     model = Company
     template_name = 'administration/companies/detail.html'
     context_object_name = 'company'
@@ -142,7 +146,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(SuccessMessageMixin, CreateView):
     model = Post
-    form_class = PostForm
+    form_class = forms.PostForm
     template_name = 'administration/posts/create.html'
     success_message = "%(title)s was created successfully"
     success_url = reverse_lazy('administration:post-list')
@@ -150,7 +154,7 @@ class PostCreateView(SuccessMessageMixin, CreateView):
 
 class PostUpdateView(SuccessMessageMixin, UpdateView):
     model = Post
-    form_class = PostForm
+    form_class = forms.PostForm
     template_name = 'administration/posts/edit.html'
     context_object_name = 'post'
     success_message = "%(title)s was updated successfully"
@@ -163,3 +167,67 @@ class PostDeleteView(SuccessMessageMixin, DeleteView):
     model = Post
     success_message = "Post was deleted successfully"
     success_url = reverse_lazy('administration:post-list')
+
+
+@require_http_methods(['GET', 'POST'])
+def profile(request):
+    if request.method == 'POST':
+        form = forms.UserUpdateForm(instance=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Account updated successfully")
+            return redirect('administration:auth-profile')
+        messages.error(request, "Account could not be updated")
+        return render(request, 'administration/auth/profile.html', context={
+            "form": form,
+        })
+
+    form = forms.UserUpdateForm(instance=request.user)
+    return render(request, 'administration/auth/profile.html', context={
+        "form": form,
+    })
+
+class LoginView(auth_views.LoginView):
+    authentication_form = forms.UserLoginForm
+    template_name = 'administration/auth/login.html'
+
+class LogoutView(auth_views.LogoutView):
+    next_page = reverse_lazy('main:index')
+
+
+class PasswordChangeView(auth_views.PasswordChangeView):    
+    template_name = 'administration/auth/password-change.html'
+    success_url = reverse_lazy("administration:auth-profile")
+    form_class = forms.PasswordChangeForm
+    
+
+class UserListView(ListView):
+    model = get_user_model()
+    template_name = 'administration/users/index.html'
+    paginate_by = 20
+    context_object_name = "users"
+    
+
+class UserCreateView(SuccessMessageMixin, CreateView):
+    model = get_user_model()
+    form_class = forms.UserCreateForm
+    template_name = 'administration/users/create.html'
+    success_message = "%(username)s was created successfully"
+    success_url = reverse_lazy('administration:user-list')
+
+
+class UserUpdateView(SuccessMessageMixin, UpdateView):
+    model = get_user_model()
+    form_class = forms.UserUpdateForm
+    template_name = 'administration/users/edit.html'
+    context_object_name = 'user'
+    success_message = "%(username)s was updated successfully"
+
+    def get_success_url(self):
+        return reverse("administration:user-update", kwargs={"pk": self.object.pk})
+
+
+class UserDeleteView(SuccessMessageMixin, DeleteView):
+    model = get_user_model()
+    success_message = "User was deleted successfully"
+    success_url = reverse_lazy('administration:user-list')

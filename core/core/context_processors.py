@@ -55,6 +55,18 @@ def admin_menu(request):
                         ]
                     },
                 ]
+            },
+            {
+                "type": "Authentication",
+                "children": [
+                    {
+                        "title": "Users",
+                        "children": [
+                            {"title": "User List", "route": "administration:user-list"},
+                            {"title": "Add User", "route": "administration:user-create"},
+                        ]
+                    },
+                ]
             }
         ]
     }

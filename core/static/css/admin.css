@@ -19624,3 +19624,12 @@ pre[class*=language-] {
   padding: 0;
   display: inline-block;
 }
+
+.errorlist li{
+  padding: 0.2em;
+}
+
+.errorlist li{
+  font-size: 0.8em !important;
+  color: var(--bs-red) !important;
+}
