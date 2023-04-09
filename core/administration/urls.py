@@ -1,5 +1,4 @@
 from administration import views
-from django.contrib.auth import views as auth_views
 from django.urls import path
 
 app_name = "administration"
@@ -28,4 +27,12 @@ urlpatterns = [
     path('auth/profile', views.profile, name='auth-profile'),
     path('auth/logout', views.LogoutView.as_view(), name='auth-logout'),
     path('auth/password-change', views.PasswordChangeView.as_view(), name='auth-password-change'),
+    path('store/categories', views.CategoryListCreateView.as_view(), name='store-category-list'),
+    path('store/categories/<int:pk>', views.CategoryUpdateView.as_view(), name='store-category-update'),
+    path('store/categories/<int:pk>/delete', views.CategoryDeleteView.as_view(), name='store-category-delete'),
+    path('store/products', views.ProductListView.as_view(), name='store-product-list'),
+    path('store/products/create', views.productCreate, name='store-product-create'),
+    path('store/products/<int:pk>', views.ProductDetailView.as_view(), name='store-product-detail'),
+    path('store/products/<int:pk>/update', views.productUpdate, name='store-product-update'),
+    path('store/products/<int:pk>/delete', views.ProductDeleteView.as_view(), name='store-product-delete'),
 ]

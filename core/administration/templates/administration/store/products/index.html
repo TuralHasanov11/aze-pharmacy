@@ -1,0 +1,90 @@
+
+
+{% extends 'layouts/admin.html' %} {% load static %} {% block content %}
+
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="list"></i></div>
+                            Product List
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-3">
+                        <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:store-product-create' %}">
+                            <i class="me-1" data-feather="plus"></i>
+                            Add product
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid px-4">
+        {% include 'components/messages.html' with messages=messages %}
+        <div class="card">
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Cover image</th>
+                            <th>Price</th>
+                            <th>Discount</th>
+                            <th>Discount Price</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Updated at</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Name</th>
+                            <th>Cover image</th>
+                            <th>Price</th>
+                            <th>Discount</th>
+                            <th>Discount Price</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Updated at</th>
+                            <th>Actions</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for product in products %}
+                        <tr>
+                            <td>{{product.name}}</td>
+                            <td>{% if product.product_image %}<img width="64" height="64" src="{{product.image_feature.0.image.url}}" alt="{{product.name}}">{% endif %}</td>
+                            <td>{{product.regular_price}}</td>
+                            <td>{{product.discount}}%</td>
+                            <td>{{product.discount_price}}</td>
+                            <td><a href="{% url 'administration:store-category-update' pk=product.category.id %}">{{product.category}}</a></td>
+                            <td>{{product.is_active}}</td>
+                            <td>{{product.updated_at|date:"d.m.Y"}}</td>
+                            <td>
+                                <a href="{% url 'administration:store-product-detail' pk=product.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="file"></i></a>
+                                <a href="{% url 'administration:store-product-update' pk=product.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
+                                <form class="delete-form" action="{% url 'administration:store-product-delete' pk=product.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark"><i data-feather="trash-2"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+
+
+
+

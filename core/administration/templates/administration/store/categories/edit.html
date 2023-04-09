@@ -1,0 +1,57 @@
+{% extends 'layouts/admin.html' %} {% load static %} {% block content %}
+
+<main>
+  <header
+    class="page-header page-header-compact page-header-light border-bottom bg-white mb-4"
+  >
+    <div class="container-fluid px-4">
+      <div class="page-header-content">
+        <div class="row align-items-center justify-content-between pt-3">
+          <div class="col-auto mb-3">
+            <h1 class="page-header-title">
+              <div class="page-header-icon">
+                <i data-feather="file-plus"></i>
+              </div>
+              Edit Category
+            </h1>
+          </div>
+          <div class="col-12 col-xl-auto mb-3">
+            <a
+              class="btn btn-sm btn-light text-primary"
+              href="{% url 'administration:store-category-list' %}"
+            >
+              <i class="me-1" data-feather="arrow-left"></i>
+              Back to All Categories
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container-fluid px-4">
+    {% include 'components/messages.html' with messages=messages %}
+    <div class="card mb-4">
+        <div class="card-header">Edit {{category.name}}</div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data"> 
+                {% csrf_token %}
+                {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
+                {{form.non_form_errors}}
+                <div class="mb-3">
+                    <label class="small mb-1" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                    {{ form.name }} 
+                    {{ form.name.errors }}
+                </div>
+                <div class="mb-3">
+                    <label class="small mb-1" for="{{ form.parent.id_for_label }}">{{ form.parent.label }}</label>
+                    {{ form.parent }} 
+                    {{ form.parent.errors }}
+                </div>
+                <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> Edit Category</button>
+            </form>
+        </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

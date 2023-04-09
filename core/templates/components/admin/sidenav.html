@@ -14,36 +14,33 @@
       </a>
 
       {% for item in admin_menu %}
-      <div class="sidenav-menu-heading">{{item.type}}</div>
       {% if item.children %}
-      {% for routeContainer in item.children %}
         <a
           class="nav-link collapsed"
           href="javascript:void(0);"
           data-bs-toggle="collapse"
-          data-bs-target="#collapse{{routeContainer.title}}"
+          data-bs-target="#collapse{{item.title}}"
           aria-expanded="false"
-          aria-controls="collapse{{routeContainer.title}}"
+          aria-controls="collapse{{item.title}}"
         >
           <div class="nav-link-icon"><i data-feather="repeat"></i></div>
-          {{routeContainer.title}}
+          {{item.title}}
           <div class="sidenav-collapse-arrow">
             <i class="fas fa-angle-down"></i>
           </div>
         </a>
         <div
           class="collapse"
-          id="collapse{{routeContainer.title}}"
+          id="collapse{{item.title}}"
           data-bs-parent="#accordionSidenav"
         >
           <nav class="sidenav-menu-nested nav">
-            {% for route in routeContainer.children %}
+            {% for route in item.children %}
             <a class="nav-link" href="{% url route.route %}">{{route.title}}</a>
             {% endfor %}
             
           </nav>
         </div>
-        {% endfor %}
       {% else %}
       <a class="nav-link" href="{% url item.route %}">
         <div class="nav-link-icon"><i data-feather="filter"></i></div>

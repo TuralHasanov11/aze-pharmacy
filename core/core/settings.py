@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'storages',
+    "mptt",
 
     'main',
     'news',

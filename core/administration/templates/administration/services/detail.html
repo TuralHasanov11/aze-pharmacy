@@ -34,7 +34,7 @@
     <div class="container-fluid px-4">
         {% include 'components/messages.html' with messages=messages %}
         <div class="card mb-4">
-            <div class="card-header">Edit Service</div>
+            <div class="card-header">Edit {{service}}</div>
             <div class="card-body">
                 <form method="post" enctype="multipart/form-data"> 
                     {% csrf_token %}

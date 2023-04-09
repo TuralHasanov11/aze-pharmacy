@@ -1,0 +1,86 @@
+
+
+{% extends 'layouts/admin.html' %} {% load static %} {% block content %}
+
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="file"></i></div>
+                            {{product.name}}
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-3">
+                        <a class="btn btn-sm btn-primary text-light" href="{% url 'administration:store-product-update' pk=product.pk %}">
+                            <i class="me-1" data-feather="eye"></i>
+                            View on website
+                        </a>
+                        <a class="btn btn-sm btn-warning text-dark" href="{% url 'administration:store-product-update' pk=product.pk %}">
+                            <i class="me-1" data-feather="edit"></i>
+                            Edit product
+                        </a>
+                        <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:store-product-list' %}">
+                            <i class="me-1" data-feather="list"></i>
+                            Back to products
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">{{product.name}}</div>
+                    <img class="card-img-top" src="{{product.image_feature.0.image.url}}" alt="{{product.name}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{product.name}}</h5>
+                        <p class="card-text">{{product.description|safe}}</p>
+                        {% for product_image in product.images %}
+                        <img width="256" height="256" src="{{product_image.image.url}}" />
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header"><a href="{% url 'administration:store-category-update' pk=product.category.pk %}">{{product.category}}</a></div>
+                    <div class="card-header">Pricing</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Regular Price</h5>
+                        <p class="card-text">{{product.regular_price}}</p>
+                        <h5 class="card-title">Discount</h5>
+                        <p class="card-text">{{product.discount}}</p>
+                        <h5 class="card-title">Discount Price</h5>
+                        <p class="card-text">{{product.discount_price}}</p>
+                        <h5 class="card-title">Weight</h5>
+                        <p class="card-text">{{product.weight|default:'-'}}</p>
+                    </div>
+                    <div class="card-header">Stock Data</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Available units</h5>
+                        <p class="card-text">{{product.product_stock.units}}</p>
+                        <h5 class="card-title">Sold units</h5>
+                        <p class="card-text">{{product.product_stock.units_sold}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+

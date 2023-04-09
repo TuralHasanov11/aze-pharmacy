@@ -19633,3 +19633,7 @@ pre[class*=language-] {
   font-size: 0.8em !important;
   color: var(--bs-red) !important;
 }
+
+.django-ckeditor-widget{
+  display: block !important;
+}
