@@ -1,6 +1,4 @@
-{% extends 'layouts/default.html' %} 
-{% load static %}
-{% block content %}
+{% extends 'layouts/default.html' %} {% load static %} {% block content %}
 <main class="main-area fix">
   <div
     data-elementor-type="wp-page"
@@ -62,6 +60,42 @@
     </section>
 
     <section
+      class="elementor-section elementor-top-section elementor-element elementor-element-105b343 elementor-section-full_width elementor-section-height-default elementor-section-height-default"
+      data-id="105b343"
+      data-element_type="section"
+    >
+      <div class="elementor-container elementor-column-gap-no">
+        <div
+          class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-c61b202"
+          data-id="c61b202"
+          data-element_type="column"
+        >
+          <div class="elementor-widget-wrap elementor-element-populated">
+            <div
+              class="elementor-element elementor-element-976fda6 elementor-widget elementor-widget-products"
+              data-id="976fda6"
+              data-element_type="widget"
+              data-widget_type="products.default"
+            >
+              <div class="elementor-widget-container">
+                <section class="home-shop-area">
+                  <div class="container">
+                    <div class="row home-shop-active">
+
+                      {% for product in products %}
+                      {% include "components/products/product-home.html" with product=product %}
+                      {% endfor %}
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
       class="elementor-section elementor-top-section elementor-element elementor-element-be24124 elementor-section-full_width elementor-section-height-default elementor-section-height-default"
       data-id="be24124"
       data-element_type="section"
@@ -92,7 +126,6 @@
   </div>
 </main>
 {% endblock content %} 
-
 {% block scripts %}
 <script src="{% static 'js/pages/main.js' %}"></script>
 {% endblock scripts %}

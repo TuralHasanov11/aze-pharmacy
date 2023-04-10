@@ -1,0 +1,85 @@
+{% extends 'layouts/default.html' %} {% load static %} {% block content %}
+<main class="main-area fix">
+  {%include "components/breadcrumb.html" with title='Product' home_title='Home'%}
+
+  <div class="inner-shop-area">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-9 col-lg-8 col-md-12 col-sm-8">
+          <div class="shop-top-wrap">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="shop-top-left">
+                  <div class="woocommerce-notices-wrapper"></div>
+                  <p>
+                    Showing <span>1</span>&ndash;<span>6</span> of
+                    <span>9</span> results
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="shop-top-right">
+                  <form class="woocommerce-ordering" method="get">
+                    <select
+                      name="order_by"
+                      class="form-select orderby"
+                      aria-label="Shop order"
+                    >
+                      {% for sortItem in orderingContainer %}
+                      <option value="{{sortItem.value}}" 
+                        {% if selectedOrderByValue == sortItem.value %}selected{% endif %}>
+                        {{sortItem.name}}
+                      </option>
+                      {% endfor %}
+                    </select>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-1">
+            {% for product in products %}
+            {% include "components/products/product.html" with product=product %}
+            {% endfor %}
+            
+          </div>
+          <div class="suxnix-shop-pagination">
+            {% include "components/pagination.html" with pagination=products %}
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-4 col-md-8 col-sm-8">
+          <aside class="shop-sidebar">
+            <div
+              id="woocommerce_price_filter-2"
+              class="product-widgets side-cat woocommerce widget_price_filter"
+            >
+              <h4 class="sidebar-title">Filter by Price</h4>
+              
+            </div>
+            <div
+              id="woocommerce_product_categories-2"
+              class="product-widgets side-cat woocommerce widget_product_categories"
+            >
+              <h4 class="sidebar-title">Product categories</h4>
+              <ul class="product-categories">
+                {% for category in categories %}
+                <li class="cat-item cat-item-{{category.pk}}">
+                  <a
+                    href="{% url 'store:category-products' category_slug=category.slug %}"
+                    >{{category.name}}</a
+                  >
+                  <span class="float-right">{{category.products_count}}</span>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
+
+

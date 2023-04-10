@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'library',
     'store',
     'user',
+    'cart',
     'administration'
 ]
 
@@ -63,6 +64,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'core.context_processors.default_menu',
                 'core.context_processors.admin_menu',
+                'store.context_processors.category_list',
+                'cart.context_processors.cart',
             ],
         },
     },

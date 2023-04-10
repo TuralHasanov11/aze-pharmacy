@@ -1,0 +1,25 @@
+<div class="col-xl-3">
+  <div class="home-shop-item">
+    <div class="home-shop-thumb">
+      <a decoding="async" href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}">
+        <img src="{{product.image_feature.0.image.url}}" alt="img">
+
+        {% if product.discount %}<div class="discount">-{{product.discount}}%</div>{% endif %}
+      </a>
+    </div>
+    <div class="home-shop-content">
+      <h4 class="title">
+        <a href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}">{{product.name}}</a>
+      </h4>
+
+      <span class="home-shop-price price">
+        <span class="woocommerce-Price-amount amount">
+          <span class="woocommerce-Price-currencySymbol">&#036;</span>{{product.regular_price}}</span>								
+        </span>
+      <div class="shop-content-bottom">
+        <a href="cart/index1950.html?add-to-cart=67" class="cart"><i class="flaticon-shopping-cart-1"></i></a>
+        <a href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}" class="btn btn-two">Buy Now</a>
+      </div>
+    </div>
+  </div>
+</div>

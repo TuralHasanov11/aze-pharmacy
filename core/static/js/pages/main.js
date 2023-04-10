@@ -1,4 +1,57 @@
 jQuery(document).ready(function ($) {
+  $('.home-shop-active').slick({
+    dots: true,
+    infinite: true,
+    speed: 1000,
+    autoplay: true,
+    arrows: true,
+    slidesToShow: 4,
+    prevArrow: '<button type="button" class="slick-prev"><i class="flaticon-left-arrow"></i></button>',
+    nextArrow: '<button type="button" class="slick-next"><i class="flaticon-right-arrow"></i></button>',
+    slidesToScroll: 1,
+    responsive: [
+      {
+      breakpoint: 1500,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+        }
+      },
+      {
+      breakpoint: 1200,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+        }
+      },
+      {
+      breakpoint: 992,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1
+        }
+      },
+      {
+      breakpoint: 767,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: true,
+        }
+      },
+      {
+      breakpoint: 575,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false,
+        }
+      },
+    ]
+  });
+  
     $(".brand-active").slick({
         dots: false,
         infinite: true,
@@ -48,4 +101,10 @@ jQuery(document).ready(function ($) {
             "url(" + $(this).attr("data-background") + ")"
         );
     });
+
+    $("[data-bg-color]").each(function () {
+        $(this).css("background-color", $(this).attr("data-bg-color"));
+      });
+    
+     
 });

@@ -11,7 +11,7 @@ from django.db.models import Prefetch
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_GET, require_http_methods
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
@@ -29,7 +29,7 @@ creator_dashboard_list = [
 ]
 
 
-@require_http_methods(["GET"])
+@require_GET
 @login_required
 def index(request: HttpRequest):
     creator_dashboards = [item for item in creator_dashboard_list if request.user.has_perm(item["permission"])]
@@ -325,7 +325,7 @@ class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     context_object_name = "products"
     
     def get_queryset(self):
-        return super().get_queryset().select_related('category').prefetch_related(Prefetch('product_image', queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature'))
+        return super().get_queryset().select_related('product_category').prefetch_related(Prefetch('product_image', queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature'))
 
 
 class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
@@ -336,7 +336,7 @@ class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
     context_object_name = "product"
 
     def get_queryset(self):
-        return super().get_queryset().select_related('category', 'product_stock').prefetch_related(
+        return super().get_queryset().select_related('product_category', 'product_stock').prefetch_related(
                     Prefetch('product_image', queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature'),
                     Prefetch('product_image', to_attr='images')
                 )

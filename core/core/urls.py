@@ -12,6 +12,7 @@ urlpatterns = [
     path('services/', include('services.urls', namespace="services")),
     path('library/', include('library.urls', namespace="library")),
     path('store/', include('store.urls', namespace="store")),
+    path('cart/', include('cart.urls', namespace="cart")),
     path('admin/', include('administration.urls', namespace="administration"))
 ]
 

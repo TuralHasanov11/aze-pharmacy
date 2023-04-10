@@ -32,7 +32,7 @@ class Category(MPTTModel):
 
 class ProductManager(models.Manager):
     def get_queryset(self):
-        return super(ProductManager, self).get_queryset().filter(is_active=True)
+        return super(ProductManager, self).get_queryset().order_by('-created_at').filter(is_active=True)
 
 
 class RichTextEditorField(ckeditorFields.RichTextUploadingField):
@@ -48,7 +48,7 @@ class Product(models.Model):
     slug = models.SlugField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     description = RichTextEditorField()
-    category = models.ForeignKey(Category, related_name="category", on_delete=models.SET_NULL, null=True, blank=True)
+    category = models.ForeignKey(Category, related_name="product_category", on_delete=models.SET_NULL, null=True, blank=True)
     is_active = models.BooleanField(default=False)
     regular_price = models.DecimalField(max_digits=6, decimal_places=2)
     discount = models.IntegerField(default=0, blank=True, validators=[MaxValueValidator(99)])
@@ -62,9 +62,6 @@ class Product(models.Model):
 
     class Meta:
         ordering = ('name',)
-
-    def get_absolute_url(self):
-        return urls.reverse("store:product_detail", kwargs={"slug": self.slug})
     
     def __str__(self):
         return self.name

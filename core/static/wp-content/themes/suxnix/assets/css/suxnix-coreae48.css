@@ -1661,7 +1661,7 @@ body.search-visible {
 
 .home-shop-thumb img {
 	display: inline-block;
-	height: 190px;
+	height: 190px !important;
 	object-fit: contain;
 	max-width: 126px;
 	object-position: top;
@@ -2334,14 +2334,14 @@ body.search-visible {
 	font-size: 14px;
 }
 
-.inner-shop-perched-info form {
-	display: flex;
-	align-items: center;
-	flex-wrap: wrap;
+.inner-shop-perched-info .suxnix-cart-action {
+	display: flex !important;
+	align-items: center !important;
+	flex-wrap: wrap !important;
 }
 
 .cart-btn,
-.inner-shop-perched-info form>.cart-btn {
+.inner-shop-perched-info .suxnix-cart-action>.cart-btn {
 	display: inline-flex;
 	align-items: center;
 	border: 1px solid #0D9B4D;
@@ -2358,7 +2358,7 @@ body.search-visible {
 	text-transform: uppercase;
 }
 
-.inner-shop-perched-info form>.wishlist-btn {
+.inner-shop-perched-info .suxnix-cart-action>.wishlist-btn {
 	margin-bottom: 12px;
 	height: 45px;
 	width: 45px;
@@ -2369,11 +2369,11 @@ body.search-visible {
 	border-radius: 5px;
 }
 
-.inner-shop-perched-info form>.wishlist-btn:hover {
+.inner-shop-perched-info .suxnix-cart-action>.wishlist-btn:hover {
 	background: #FAA432;
 }
 
-.inner-shop-perched-info form>.cart-btn:hover {
+.inner-shop-perched-info .suxnix-cart-action>.cart-btn:hover {
 	background: #FAA432;
 	border-color: #FAA432;
 	color: #fff;

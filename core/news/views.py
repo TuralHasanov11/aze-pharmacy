@@ -1,7 +1,3 @@
-from django.core import paginator
-from django.http import HttpRequest
-from django.shortcuts import render
-from django.views.decorators.http import require_http_methods
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from news.models import Post

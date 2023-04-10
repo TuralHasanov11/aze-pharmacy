@@ -1,0 +1,105 @@
+<div class="col">
+    <div class="suxnix-product-main">
+      <div class="home-shop-item inner-shop-item">
+        <div class="home-shop-thumb">
+          <a href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}"
+            ><img
+              width="605"
+              height="580"
+              src="{{product.image_feature.0.image.url}}"
+              class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
+              alt=""
+              decoding="async"
+              loading="lazy"
+              srcset="{{product.image_feature.0.image.url}} 605w,{{product.image_feature.0.image.url}} 300w"
+              sizes="(max-width: 605px) 100vw, 605px"
+          /></a>
+
+          <div class="on-sale-wrap">
+            {% if product.discount %}<span class="onsale">Sale!</span>{% endif %}
+          </div>
+        </div>
+
+        <div class="home-shop-content">
+          <div class="shop-item-cat">
+            <a href="{% url 'store:category-products' category_slug=product.category.slug %}"
+              >{{product.category.name}}</a
+            >
+          </div>
+          <h4 class="title">
+            <a href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}"
+              >{{product.name}}</a
+            >
+          </h4>
+          <div class="home-shop-price">
+            <span class="price">
+                {% if product.discount %}
+                <del aria-hidden="true">
+                    <span class="woocommerce-Price-amount amount">
+                        <bdi>
+                            <span class="woocommerce-Price-currencySymbol">&#36;</span>{{product.regular_price}}
+                        </bdi>
+                    </span>
+                </del>
+                <ins>
+                    <span class="woocommerce-Price-amount amount">
+                        <bdi>
+                            <span class="woocommerce-Price-currencySymbol">&#36;</span>{{product.discount_price}}
+                        </bdi>
+                    </span>
+                </ins>
+                {% else %}
+                <span class="woocommerce-Price-amount amount">
+                    <bdi>
+                        <span class="woocommerce-Price-currencySymbol">&#36;</span>{{product.regular_price}}
+                    </bdi>
+                </span>
+                {% endif %}
+            </span>
+          </div>
+          <div class="shop-content-bottom">
+            <a
+              href="index70f8.html?add-to-cart={{product.id}}"
+              data-quantity="1"
+              class="add-cart-btn cart-button icon-btn product_type_simple add_to_cart_button ajax_add_to_cart"
+              data-product_id="{{product.id}}"
+              aria-label="Add &ldquo;Antiaging and Longevity&rdquo; to your cart"
+              rel="nofollow"
+              ><i class="flaticon-shopping-cart-1"></i
+            ></a>
+            <a
+              href="../checkout/index70f8.html?add-to-cart={{product.id}}"
+              class="btn btn-two"
+              >Buy Now</a
+            >
+          </div>
+        </div>
+      </div>
+      <div
+        class="tinv-wraper woocommerce tinv-wishlist tinvwl-after-add-to-cart tinvwl-loop-button-wrapper"
+        data-tinvwl_product_id="{{product.id}}"
+      >
+        <div class="tinv-wishlist-clear"></div>
+        <a
+          role="button"
+          tabindex="0"
+          aria-label="Add to Wishlist"
+          class="tinvwl_add_to_wishlist_button tinvwl-icon-heart tinvwl-position-after tinvwl-loop"
+          data-tinv-wl-list="[]"
+          data-tinv-wl-product="{{product.id}}"
+          data-tinv-wl-productvariation="0"
+          data-tinv-wl-productvariations="[0]"
+          data-tinv-wl-producttype="simple"
+          data-tinv-wl-action="add"
+          ><span class="tinvwl_add_to_wishlist-text"
+            >Add to Wishlist</span
+          ></a
+        >
+        <div class="tinv-wishlist-clear"></div>
+        <div class="tinvwl-tooltip">Add to Wishlist</div>
+      </div>
+    </div>
+  </div>
+
+
+

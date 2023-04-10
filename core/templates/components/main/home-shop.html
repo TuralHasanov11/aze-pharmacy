@@ -1,0 +1,16 @@
+{% extends 'layouts/default.html' %} {% load static %} 
+{% block content %} 
+
+<section class="home-shop-area">
+  <div class="container">
+    <div class="row home-shop-active">
+      {% for product in products %}
+      {% include "components/products/product-home.html" with product=product %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
+
+

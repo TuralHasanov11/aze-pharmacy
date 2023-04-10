@@ -9,7 +9,7 @@ def default_menu(request):
             {"title": _("Library"), "route": "library:index"},
             {"title": _("News"), "route": "news:index"},
             {"title": _("Services"), "route": "services:index"},
-            {"title": _("Shop"), "route": "store:index"},
+            {"title": _("Shop"), "route": "store:products"},
             {"title": _("About Us"), "route": "main:about"},
             {"title": _("Career"), "route": "main:career"},
             {"title": _("Contact Us"), "route": "main:contact"},

@@ -10,7 +10,7 @@
           <div class="menu-wrap">
             <nav class="menu-nav">
               <div class="logo">
-                <a class="sticky-logo" href="index.html">
+                <a class="sticky-logo" href="{% url 'main:index' %}">
                   <img
                     src="{% static 'wp-content/themes/suxnix/assets/img/logo/secondary_logo.png' %}"
                     alt="Logo"
@@ -31,15 +31,46 @@
               <div class="header-action d-none d-sm-block">
                 <ul>
                   <li class="header-shop-cart">
-                    <a href="cart/index.html" class="cart-count"
-                      ><i class="flaticon-shopping-cart"></i>
-                      <span id="tp-cart-item" class="mini-cart-count">0</span>
+                    {% with total_quantity=cart|length %}
+                    <a href="{% static 'cart:index' %}" class="cart-count">
+                      <i class="flaticon-shopping-cart"></i>
+                      <span id="cart-quantity"  class="mini-cart-count">
+                        {% if total_quantity > 0 %}
+                        {{ total_quantity }}
+                        {% else %}
+                        0
+                        {% endif %}
+                      </span>
                     </a>
                     <div class="header-mini-cart">
+                      <div class="woocommerce-mini-cart cart_list product_list_widget ">
+                        
+                        {% comment %} {% for item in cart %}
+                        {% with product=item.product %}
+                        <div class="woocommerce-mini-cart-item mini_cart_item">
+                          <div class="mini-cart-thumb">
+                            <a href="../product/optimum-nutrition/index.html">
+                              <img width="350" height="350" src="../wp-content/uploads/2022/09/shop-details-thumb02-350x350.png" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" loading="lazy" />							
+                            </a>
+                          </div>
+                          <div class="min-cart-content">
+                            <h3 class="mini-cart-title"><a href="{% url 'store:product-detail' slug=product.slug %}">{{product.title}}</a></h3>
+                            <div class="min-cart-price">
+                            <span class="quantity">5 &times; <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>18.99</bdi></span></span>						</div>
+                          </div>
+                          <div class="mini-cart-remove">
+                            <button href="" class="remove remove_from_cart_button" aria-label="Remove this item" data-product_id="83" data-cart_item_key="fe9fc289c3ff0af142b6d3bead98a923" data-product_sku="QZX8VG-T5">&times;</button>					
+                          </div>
+                        </div>
+                        {% endwith %}
+                        {% endfor %} {% endcomment %}
+
+                      </div>
                       <p class="woocommerce-mini-cart__empty-message">
                         No products in the cart.
                       </p>
                     </div>
+                    {% endwith %}
                   </li>
 
                   <li class="header-search">
