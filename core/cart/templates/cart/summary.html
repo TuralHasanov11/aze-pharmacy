@@ -1,0 +1,174 @@
+{% extends 'layouts/default.html' %} {% load static %} {% block content %}
+<main class="main-area fix">
+  {%include "components/breadcrumb.html" with title='Product' home_title='Home'%}
+
+  <div class="tg-page-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="tg-page-content suxnix-page-content">
+            <div class="tp-page-post">
+              <div class="woocommerce">
+                <div class="row shoppong-car-wrap">
+                  <div class="col-lg-8">
+                    <form
+                      class="woocommerce-cart-form"
+                      method="POST"
+                    >
+                      <table
+                        class="shop_table shop_table_responsive cart woocommerce-cart-form__contents"
+                        cellspacing="0"
+                      >
+                        <thead>
+                          <tr>
+                            <th class="product-thumbnail">&nbsp;</th>
+                            <th class="product-name">Product</th>
+                            <th class="product-price">Price</th>
+                            <th class="product-quantity">Quantity</th>
+                            <th class="product-subtotal">Subtotal</th>
+                            <th class="product-remove">&nbsp;</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% if cart %}
+                            {% for item in cart %}
+                            {% with cartProduct=item.product %}
+                            <tr
+                                class="woocommerce-cart-form__cart-item cart_item"
+                            >
+                                <td class="product-thumbnail">
+                                <a
+                                    href="{% url 'store:product-detail' category_slug=cartProduct.category_slug product_slug=cartProduct.slug %}"
+                                    ><img
+                                    width="350"
+                                    height="350"
+                                    src="{{cartProduct.image_feature}}"
+                                    class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
+                                    alt=""
+                                    decoding="async"
+                                    loading="lazy"
+                                    srcset="{{cartProduct.image_feature}} 350w, {{cartProduct.image_feature}} 150w"
+                                    sizes="(max-width: 350px) 100vw, 350px"
+                                /></a>
+                                </td>
+                                <td class="product-name" data-title="Product">
+                                <a
+                                    href="{% url 'store:product-detail' category_slug=cartProduct.category_slug product_slug=cartProduct.slug %}"
+                                    >{{cartProduct.name}}</a
+                                >
+                                </td>
+                                <td class="product-price" data-title="Price">
+                                <span class="woocommerce-Price-amount amount"
+                                    ><bdi
+                                    ><span
+                                        class="woocommerce-Price-currencySymbol"
+                                        >&#36;</span
+                                    >{{item.price}}</bdi
+                                    ></span
+                                >
+                                </td>
+                                <td class="product-quantity" data-title="Quantity">
+                                <div class="quantity">
+                                    <label
+                                    class="screen-reader-text"
+                                    for="quantity_{{cartProduct.id}}"
+                                    >{{cartProduct.name}}</label
+                                    >
+                                    <div class="qty_button minus">-</div>
+                                    <input
+                                      type="text"
+                                      id="quantity_{{cartProduct.id}}"
+                                      class="input-text qty text product-quantity"
+                                      step="1"
+                                      min="0"
+                                      max=""
+                                      data-product_id="{{cartProduct.id}}"
+                                      value="{{item.quantity}}"
+                                      title="Qty"
+                                      size="4"
+                                      inputmode="numeric"
+                                      autocomplete="off"
+                                    />
+                                    <div class="qty_button plus">+</div>
+                                </div>
+                                </td>
+                                <td class="product-subtotal" data-title="Subtotal">
+                                <span class="woocommerce-Price-amount amount"
+                                    ><bdi
+                                    ><span
+                                        class="woocommerce-Price-currencySymbol"
+                                        >&#36;</span
+                                    >{{item.total_price}}</bdi
+                                    ></span
+                                >
+                                </td>
+                                <td class="product-remove">
+                                <button
+                                    class="remove remove_from_cart_button"
+                                    aria-label="Remove this item"
+                                    data-product_id="{{cartProduct.id}}"
+                                    data-product_sku="QZX8VG-T"
+                                    >&times;</button>
+                                </td>
+                            </tr>
+                            {% endwith %}
+                            {% endfor %}
+                            {% endif %}
+                            <tr>
+                              <td colspan="6" class="actions">   
+                                <div class="text-end f-right">
+                                  <button type="submit" class="update-cart btn" name="update_cart" value="Update cart">Update cart</button>
+                                </div>					
+                              </td>
+                            </tr>
+                        </tbody>
+                      </table>
+                    </form>
+                  </div>
+
+                  <div class="col-lg-4">
+                    <div class="cart-collaterals">
+                      <div class="cart_totals">
+                        <h2>Cart totals</h2>
+
+                        <table
+                          cellspacing="0"
+                          class="shop_table shop_table_responsive"
+                        >
+                          <tr class="cart-subtotal">
+                            <th>Total</th>
+                            <td data-title="Subtotal">
+                              <span class="woocommerce-Price-amount amount"
+                                ><bdi
+                                  ><span
+                                    class="woocommerce-Price-currencySymbol"
+                                    >&#36;</span
+                                  >{{cart.get_total_price}}</bdi
+                                ></span
+                              >
+                            </td>
+                          </tr>
+                        </table>
+
+                        <div class="wc-proceed-to-checkout">
+                          <a
+                            href="{% url 'checkout:index' %}"
+                            class="checkout-button btn w-100"
+                          >
+                            Proceed to checkout</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
+

@@ -132,10 +132,11 @@
                 </div>
 
                 <button
-                  id="add-to-cart-btn"
+                  id="addToCartButton"
+                  class="add_to_cart_button btn btn-primary"
                   type="submit"
                   name="add-to-cart"
-                  value="{{product.id}}"
+                  data-product_id="{{product.id}}"
                   class="cart-btn product-quantity-button"
                 >
                   Add to cart
@@ -466,12 +467,3 @@
   </div>
 </main>
 {% endblock content %}
-
-
-{% block scripts %}
-<script>
-  const csrftoken = "{{csrf_token}}"
-  const cartAddURL = '{% url "cart:add" %}'
-</script>
-<script src="{% static 'js/store.js' %}"></script>
-{% endblock scripts %}

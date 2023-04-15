@@ -32,7 +32,7 @@
                 <ul>
                   <li class="header-shop-cart">
                     {% with total_quantity=cart|length %}
-                    <a href="{% static 'cart:index' %}" class="cart-count">
+                    <a href="{% url 'cart:index' %}" class="cart-count">
                       <i class="flaticon-shopping-cart"></i>
                       <span id="cart-quantity"  class="mini-cart-count">
                         {% if total_quantity > 0 %}
@@ -43,31 +43,36 @@
                       </span>
                     </a>
                     <div class="header-mini-cart">
+                      {% if cart %}
                       <div class="woocommerce-mini-cart cart_list product_list_widget ">
-                        
-                        {% comment %} {% for item in cart %}
-                        {% with product=item.product %}
-                        <div class="woocommerce-mini-cart-item mini_cart_item">
+                        {% for item in cart %}
+                        {% with cartProduct=item.product %}
+                        <div class="woocommerce-mini-cart-item mini_cart_item" data-product_id="{{product.id}}">
                           <div class="mini-cart-thumb">
-                            <a href="../product/optimum-nutrition/index.html">
-                              <img width="350" height="350" src="../wp-content/uploads/2022/09/shop-details-thumb02-350x350.png" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" loading="lazy" />							
+                            <a href="{% url 'store:product-detail' category_slug=cartProduct.category_slug product_slug=cartProduct.slug %}">
+                              <img width="350" height="350" src="{{cartProduct.image_feature}}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" loading="lazy" />							
                             </a>
                           </div>
                           <div class="min-cart-content">
-                            <h3 class="mini-cart-title"><a href="{% url 'store:product-detail' slug=product.slug %}">{{product.title}}</a></h3>
+                            <h3 class="mini-cart-title"><a href="{% url 'store:product-detail' category_slug=cartProduct.category_slug product_slug=cartProduct.slug %}">{{cartProduct.name}}</a></h3>
                             <div class="min-cart-price">
-                            <span class="quantity">5 &times; <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>18.99</bdi></span></span>						</div>
+                            <span class="quantity">{{item.quantity}} &times; <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>{{item.price}}</bdi></span></span>
                           </div>
-                          <div class="mini-cart-remove">
-                            <button href="" class="remove remove_from_cart_button" aria-label="Remove this item" data-product_id="83" data-cart_item_key="fe9fc289c3ff0af142b6d3bead98a923" data-product_sku="QZX8VG-T5">&times;</button>					
                           </div>
                         </div>
                         {% endwith %}
-                        {% endfor %} {% endcomment %}
-
+                        {% endfor %}
                       </div>
+                      {% else %}
                       <p class="woocommerce-mini-cart__empty-message">
                         No products in the cart.
+                      </p>
+                      {% endif %}
+                      <p class="woocommerce-mini-cart__total total">
+                        <strong>Subtotal:</strong> <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span><span id-"cart-total-price">{{cart.get_total_price}}</span></bdi></span>
+                      </p>
+                      <p class="woocommerce-mini-cart__buttons buttons"><a href="{% url 'cart:index' %}" class="button wc-forward">View cart</a>
+                        <a href="{% url 'checkout:index' %}" class="button checkout wc-forward">Checkout</a>
                       </p>
                     </div>
                     {% endwith %}
@@ -232,3 +237,59 @@
   <div class="search-backdrop"></div>
   <!-- header-search-end -->
 </header>
+
+{% block scripts %}
+<script type="text/javascript">
+  window.addEventListener("load", function() {
+    (function($) {
+      jQuery(document).ready(function ($) {
+        $('.add_to_cart_button').on('click', (e) => {
+          e.preventDefault();
+          const productId = $(e.currentTarget).data('product_id');
+          $.ajax({
+              type: 'POST',
+              url: cartAddURL,
+              data: {
+                product_id: productId,
+                product_quantity: $('#quantity').val(),
+                csrfmiddlewaretoken: csrftoken,
+              },
+              success: function (data) {
+                const url = "{% url 'store:product-detail' category_slug='category_slug_value' product_slug='product_slug_value' %}"
+                              .replace('category_slug_value', data.item.product.category_slug)
+                              .replace('product_slug_value', data.item.product.slug)
+                const product = `<div class="woocommerce-mini-cart-item mini_cart_item" data-product_id="${data.item.product.id}">
+                    <div class="mini-cart-thumb">
+                      <a href="${url}"">
+                        <img width="350" height="350" src="${data.item.product.image_feature}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" loading="lazy" />							
+                      </a>
+                    </div>
+                    <div class="min-cart-content">
+                      <h3 class="mini-cart-title"><a href="${url}">${data.item.product.name}</a></h3>
+                      <div class="min-cart-price">
+                      <span class="quantity">${data.item.quantity} &times; <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>${data.item.price}</bdi></span></span>
+                    </div>
+                    </div>
+                    <div class="mini-cart-remove">
+                      <button type="button" class="remove remove_from_cart_button" aria-label="Remove this item" data-product_id="${data.item.product.id}" data-product_sku="QZX8VG-T5">&times;</button>					
+                    </div>
+                  </div>`
+                
+                if($(`.mini_cart_item[data-product_id="${productId}"]`).length === 0){
+                  $(".cart_list" ).append(product);
+                }else{
+                  $(`.mini_cart_item[data-product_id="${productId}"]`).html(product)
+                }
+               
+                $("#cart-total-price").html(data.total_price);
+                $("#cart-quantity").html(data.quantity)
+              },
+              error: function (xhr, errmsg, err) { }
+          });
+        })
+      })
+      
+    })(jQuery);
+  });
+</script>
+{% endblock scripts %}

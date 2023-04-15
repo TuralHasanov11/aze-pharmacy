@@ -21,6 +21,7 @@
                                 {{form.password}}
                                 {{form.password.errors}}
                             </div>
+                            {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
                             {{form.non_form_errors}} 
                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                 <button type="submit" class="btn btn-success">Login</button>

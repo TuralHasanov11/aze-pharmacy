@@ -143,3 +143,11 @@
   src="{% static 'wp-content/plugins/elementor/assets/js/frontend.minac9e.js' %}"
   id="elementor-frontend-js"
 ></script>
+
+<script>  
+  const csrftoken = "{{csrf_token}}"
+  const cartAddURL = '{% url "cart:add" %}'
+  const cartUpdateURL = '{% url "cart:update" %}'
+  const cartRemoveURL = '{% url "cart:remove" %}'
+</script>
+<script src="{% static 'js/store.js' %}"></script>

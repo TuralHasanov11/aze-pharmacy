@@ -1,0 +1,263 @@
+{% extends 'layouts/default.html' %} {% load static %} {% block content %}
+<main class="main-area fix">
+  {%include "components/breadcrumb.html" with title='Product' home_title='Home'%}
+
+  <div class="tg-page-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="tg-page-content suxnix-page-content">
+            <div class="tp-page-post">
+              <div class="woocommerce">
+                <div class="woocommerce-notices-wrapper"></div>
+                <form
+                  name="checkout"
+                  method="POST"
+                  class="checkout woocommerce-checkout"
+                >
+                    {% csrf_token %}
+                  <div class="row" id="customer_details">
+                    <div class="col-lg-7">
+                      <div id="customer_form_details">
+                        <div class="woocommerce-billing-fields">
+                          <h3>Billing details</h3>
+                          <div
+                            class="woocommerce-billing-fields__field-wrapper"
+                          >
+                            <p
+                              class="form-row form-row-first validate-required"
+                              id="{{form.first_name.id_for_label}}_field"
+                            >
+                              <label for="{{form.first_name.id_for_label}}"
+                                >{{form.first_name.label}}&nbsp;<abbr
+                                  class="required"
+                                  title="required"
+                                  >*</abbr
+                                ></label
+                              ><span class="woocommerce-input-wrapper"
+                                >
+                                {{form.first_name}}
+                                {{form.first_name.errors}}
+                                </span>
+                            </p>
+                            <p
+                              class="form-row form-row-last validate-required"
+                              id="{{form.last_name.id_for_label}}_field"
+                            >
+                              <label for="{{form.last_name.id_for_label}}"
+                                >{{form.last_name.label}}&nbsp;<abbr
+                                  class="required"
+                                  title="required"
+                                  >*</abbr
+                                ></label
+                              ><span class="woocommerce-input-wrapper"
+                                >{{form.last_name}}
+                                {{form.last_name.errors}}
+                                </span>
+                            </p>
+                            <p
+                              class="form-row form-row-wide address-field validate-required"
+                              id="{{form.address.id_for_label}}_field"
+                            >
+                              <label for="{{form.address.id_for_label}}"
+                                >{{form.address.label}}&nbsp;<abbr
+                                  class="required"
+                                  title="required"
+                                  >*</abbr
+                                ></label
+                              ><span class="woocommerce-input-wrapper"
+                                >
+                                {{form.address}}
+                                {{form.address.errors}}
+                                </span>
+                            </p>
+                            <p
+                              class="form-row form-row-wide address-field validate-required validate-state"
+                              id="{{form.city.id_for_label}}_field"
+                            >
+                              <label for="{{form.city.id_for_label}}"
+                                >{{form.city.label}}&nbsp;<abbr
+                                  class="required"
+                                  title="required"
+                                  >*</abbr
+                                ></label
+                              ><span class="woocommerce-input-wrapper"
+                                >{{form.city}}
+                                {{form.city.errors}}
+                                </span
+                              >
+                            </p>
+                            <p
+                              class="form-row form-row-wide validate-required validate-phone"
+                              id="{{form.phone.id_for_label}}_field"
+                            >
+                              <label for="{{form.phone.id_for_label}}"
+                                >{{form.phone.label}}&nbsp;<abbr
+                                  class="required"
+                                  title="required"
+                                  >*</abbr
+                                ></label
+                              ><span class="woocommerce-input-wrapper"
+                                >
+                                {{form.phone}}
+                                {{form.phone.errors}}
+                                </span>
+                            </p>
+                            <p
+                              class="form-row form-row-wide validate-required validate-email"
+                              id="{{form.email.id_for_label}}_field"
+                            >
+                              <label for="{{form.email.id_for_label}}"
+                                >{{form.email.label}}&nbsp;<abbr
+                                  class="required"
+                                  title="required"
+                                  >*</abbr
+                                ></label
+                              ><span class="woocommerce-input-wrapper"
+                                >
+                                {{form.email}}
+                                {{form.email.errors}}
+                                </span>
+                            </p>
+                          </div>
+                        </div>
+
+                        <div class="woocommerce-additional-fields">
+                          <h3>Additional information</h3>
+
+                          <div
+                            class="woocommerce-additional-fields__field-wrapper"
+                          >
+                            <p
+                              class="form-row notes"
+                              id="{{form.notes.id_for_label}}_field"
+                            >
+                              <label for="{{form.notes.id_for_label}}"
+                                >{{form.notes.label}}&nbsp;<span class="optional"
+                                  >(optional)</span
+                                ></label
+                              ><span class="woocommerce-input-wrapper">
+                                {{form.notes}}
+                                {{form.notes.errors}}
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                      <div class="cart-wrapper">
+                        <div class="order-review-wrapper">
+                          <h3 id="order_review_heading">Your order</h3>
+
+                          <div
+                            id="order_review"
+                            class="woocommerce-checkout-review-order"
+                          >
+                            <table
+                              class="shop_table woocommerce-checkout-review-order-table"
+                            >
+                              <thead>
+                                <tr>
+                                  <th class="product-name">Product</th>
+                                  <th class="product-total">Subtotal</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% if cart %}
+                                {% for item in cart %}
+                                {% with cartProduct=item.product %}
+                                <tr class="cart_item">
+                                    <td class="product-name">
+                                    {{cartProduct.name}}&nbsp;
+                                    <strong class="product-quantity"
+                                        >&times;&nbsp;{{item.quantity}}</strong
+                                    >
+                                    </td>
+                                    <td class="product-total">
+                                    <span
+                                        class="woocommerce-Price-amount amount"
+                                        ><bdi
+                                        ><span
+                                            class="woocommerce-Price-currencySymbol"
+                                            >&#36;</span
+                                        >{{item.price}}</bdi
+                                        ></span
+                                    >
+                                    </td>
+                                </tr>
+                                {% endwith %}
+                                {% endfor %}
+                                {% endif %}
+                              </tbody>
+                              <tfoot>
+                                <tr class="order-total">
+                                  <th>Total</th>
+                                  <td>
+                                    <strong
+                                      ><span
+                                        class="woocommerce-Price-amount amount"
+                                        ><bdi
+                                          ><span
+                                            class="woocommerce-Price-currencySymbol"
+                                            >&#36;</span
+                                          >{{cart.get_total_price}}</bdi
+                                        ></span
+                                      ></strong
+                                    >
+                                  </td>
+                                </tr>
+                              </tfoot>
+                            </table>
+                            <div
+                              id="payment"
+                              class="woocommerce-checkout-payment"
+                            >
+                              <div class="form-row place-order">
+                                <div
+                                  class="woocommerce-terms-and-conditions-wrapper"
+                                >
+                                  <div class="woocommerce-privacy-policy-text">
+                                    <p>
+                                      Your personal data will be used to process
+                                      your order, support your experience
+                                      throughout this website, and for other
+                                      purposes described in our
+                                      <a
+                                        href="../index3b72.html?page_id=3"
+                                        class="woocommerce-privacy-policy-link"
+                                        target="_blank"
+                                        >privacy policy</a
+                                      >.
+                                    </p>
+                                  </div>
+                                </div>
+
+                                <button
+                                  type="submit"
+                                  class="btn w-100"
+                                  name="woocommerce_checkout_place_order"
+                                  id="place_order"
+                                  value="Place order"
+                                  data-value="Place order"
+                                >
+                                  Place order
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

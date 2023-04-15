@@ -1,19 +1,38 @@
 jQuery(document).ready(function ($) {
-    $('#add-to-cart-btn').on('click', (e) => {
+    
+    $('.remove_from_cart_button').on('click', async (e) => {
         e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: cartAddURL,
-            data: {
-                product_id: $('#add-to-cart-btn').val(),
-                product_quantity: $('#quantity').val(),
-                csrfmiddlewaretoken: csrftoken,
-            },
-            success: function (json) {
-                document.getElementById("cart-quantity").innerHTML = json.quantity
-                // document.getElementById("cart-total-price").innerHTML = json.total_price
-            },
-            error: function (xhr, errmsg, err) { }
+
+        const response = await fetch(cartRemoveURL, {
+            method: 'POST',
+            body: JSON.stringify({
+                product_id: $(e.currentTarget).data('product_id'), 
+            }),
+            headers: { "X-CSRFToken": csrftoken },
         });
+
+        if(response.ok){
+            location.reload();
+        }
     })
+
+    $('form.woocommerce-cart-form').on('submit', async (e) => {
+        e.preventDefault();
+        
+        const data = {}
+        $('input.product-quantity').each(function(){
+            data[$(this).data('product_id')] = $(this).val()
+        })
+
+        const response = await fetch(cartUpdateURL, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { "X-CSRFToken": csrftoken },
+        });
+
+        if(response.ok){
+            location.reload();
+        }
+    })
+
 });

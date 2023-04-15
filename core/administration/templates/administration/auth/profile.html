@@ -26,8 +26,8 @@
                     <div class="card-header">Account Details</div>
                     <div class="card-body">
                         <form method="POST">
-                            {% csrf_token %} {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %} 
-                            {{form.errors}}
+                            {% csrf_token %} 
+                            {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %} 
                             {{form.non_form_errors}} 
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">

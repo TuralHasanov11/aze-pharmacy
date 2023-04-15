@@ -1,12 +1,15 @@
+import json
+
 from cart.processor import CartProcessor
+from django.db.models import Prefetch
 from django.http import HttpResponseBadRequest, JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 from django.views.decorators.http import require_GET, require_POST
-from store import models
+from store.models import Product, ProductImage
 
 
 @require_GET
-def cart(request):
+def summary(request):
     cart = CartProcessor(request)
     return render(request, 'cart/summary.html', {'cart': cart}) 
 
@@ -18,34 +21,37 @@ def cartAdd(request):
         productId = int(request.POST.get('product_id'))
         productQuantity = int(request.POST.get('product_quantity'))
 
-        product = get_object_or_404(models.Product, id=productId)
-        cart.create(product=product, quantity=productQuantity)
+        product = Product.objects.select_related('category').prefetch_related(
+                    Prefetch('product_image', queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature'),
+                ).get(id=productId)
+        item = cart.create(product=product, quantity=productQuantity)
         
-        return JsonResponse({'quantity': cart.__len__(), 'total_price': cart.get_total_price})
+        return JsonResponse({'quantity': cart.__len__(), 'total_price': cart.get_total_price, "item": item})
     except Exception as err:
-        return HttpResponseBadRequest(err.message)
+        return HttpResponseBadRequest(str(err))
         
 
 @require_POST
-def cartDelete(request):
+def cartRemove(request):
     try:
         cart = CartProcessor(request)
-        productId = int(request.POST.get('product_id'))
-        cart.delete(product= productId)
+        data = json.load(request)
+        cart.remove(productId=data["product_id"])
 
         return JsonResponse({'quantity': cart.__len__(), 'total_price': cart.get_total_price}) 
     except Exception as err:
-        return HttpResponseBadRequest(err.message)
+        return HttpResponseBadRequest(str(err))
 
 
 @require_POST
 def cartUpdate(request):
     try:
         cart = CartProcessor(request)
-        productId = int(request.POST.get('product_id'))
-        productQuantity = int(request.POST.get('product_quantity'))
-        cart.update(productId= productId, quantity= productQuantity)
+        data = json.load(request)
 
+        for productId in data.keys():
+            cart.update(productId=productId, quantity=int(data[productId]))
+            
         return JsonResponse({'quantity': cart.__len__(), 'total_price': cart.get_total_price}) 
     except Exception as err:
         return HttpResponseBadRequest(err.message) 

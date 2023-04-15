@@ -34,7 +34,7 @@ def products(request: HttpRequest):
 @require_GET
 def categoryProducts(request: HttpRequest, category_slug: str):
     selectedOrderByValue = request.GET.get('order_by', 'name')
-    categories = Category.objects.annotate(products_count=Count("category")).all()
+    categories = Category.objects.annotate(products_count=Count("product_category")).all()
     category = Category.objects.get(slug=category_slug)
     products_queryset = Product.products.filter(category__slug=category_slug).select_related('category').prefetch_related(
                 Prefetch('product_image', queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature'),
