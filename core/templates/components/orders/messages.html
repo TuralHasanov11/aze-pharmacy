@@ -1,0 +1,9 @@
+{% if messages %}
+<div class="woocommerce-notices-wrapper">
+    {% for message in messages %}
+    <div class="woocommerce-message" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}

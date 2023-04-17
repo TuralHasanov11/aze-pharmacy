@@ -1,11 +1,13 @@
 import json
+import os
 
-import requests
 from django import forms
+from django.conf import settings
+from django.contrib.staticfiles import finders
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.core.files import File
 from django.utils.translation import gettext_lazy as _
 from orders.models import Order
-
-url = 'https://parseapi.back4app.com/classes/City?limit=5&order=-population,name&keys=name,country,countryCode,cityId,objectId'
 
 
 class OrderForm(forms.ModelForm):
@@ -30,9 +32,8 @@ class OrderForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        cities = json.loads(requests.get(url, headers={
-            'X-Parse-Application-Id': 'gJ1k7hOymzwNd0uAzWEquCYG7pI53yGaGwzxRdPi', 
-            'X-Parse-Master-Key': '0uAjGdZmuqtoiTpbFTiMj1jpMNmr0lWhREtyyCjM'
-        }).content.decode('utf-8'))
-
-        self.fields['city'].choices = []
+        result = finders.find("data/cities.json")
+        with open(result, "r", encoding='utf-8') as f:
+            citiesFile = File(f)
+            cities: list = json.loads(citiesFile.read())
+        self.fields['city'].choices = [tuple(item.values()) for item in cities]

@@ -1,0 +1,117 @@
+{% extends 'layouts/default.html' %} {% load static %} {% block content %}
+<main class="main-area fix">
+  {%include "components/breadcrumb.html" with title='Product' home_title='Home'%}
+
+  <div class="tg-page-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="tg-page-content suxnix-page-content">
+            <div class="tp-page-post">
+              <div class="woocommerce">
+                <div class="woocommerce-notices-wrapper"></div>
+                  <div class="row" id="customer_details">
+                    <div class="col-lg-7">
+                        {% include 'components/orders/messages.html' with messages=messages %}
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="cart-wrapper">
+                          <div class="order-review-wrapper">
+                            <h3 id="order_review_heading">Your order</h3>
+                            <div
+                              id="order_review"
+                              class="woocommerce-checkout-review-order"
+                            >
+                              <table
+                                class="shop_table woocommerce-checkout-review-order-table"
+                              >
+                                <thead>
+                                  <tr>
+                                    <th class="product-name">Product</th>
+                                    <th class="product-total">Subtotal</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for item in order.items.all %}
+                                  {% with product=item.product %}
+                                  <tr class="cart_item">
+                                      <td class="product-name">
+                                      {{product.name}}&nbsp;
+                                      <strong class="product-quantity"
+                                          >&times;&nbsp;{{item.quantity}}</strong
+                                      >
+                                      </td>
+                                      <td class="product-total">
+                                      <span
+                                          class="woocommerce-Price-amount amount"
+                                          ><bdi
+                                          ><span
+                                              class="woocommerce-Price-currencySymbol"
+                                              >&#36;</span
+                                          >{{item.price}}</bdi
+                                          ></span
+                                      >
+                                      </td>
+                                  </tr>
+                                  {% endwith %}
+                                  {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                  <tr class="order-total">
+                                    <th>Total</th>
+                                    <td>
+                                      <strong
+                                        ><span
+                                          class="woocommerce-Price-amount amount"
+                                          ><bdi
+                                            ><span
+                                              class="woocommerce-Price-currencySymbol"
+                                              >&#36;</span
+                                            >{{order.total_paid}}</bdi
+                                          ></span
+                                        ></strong
+                                      >
+                                    </td>
+                                  </tr>
+                                </tfoot>
+                              </table>
+                              <div
+                                id="payment"
+                                class="woocommerce-checkout-payment"
+                              >
+                                <div class="form-row place-order">
+                                  <div
+                                    class="woocommerce-terms-and-conditions-wrapper"
+                                  >
+                                    <div class="woocommerce-privacy-policy-text">
+                                      <p>
+                                        Your personal data will be used to process
+                                        your order, support your experience
+                                        throughout this website, and for other
+                                        purposes described in our
+                                        <a
+                                          href="../index3b72.html?page_id=3"
+                                          class="woocommerce-privacy-policy-link"
+                                          target="_blank"
+                                          >privacy policy</a
+                                        >.
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

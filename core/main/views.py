@@ -12,7 +12,7 @@ from store.models import Product, ProductImage
 def index(request: HttpRequest):
     posts = Post.objects.all()[:5]
     companies = Company.objects.all()
-    products = Product.products.all().select_related('product_category').prefetch_related(
+    products = Product.products.all().select_related('category').prefetch_related(
                 Prefetch('product_image', queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature'),
             )
     return render(request, 'main/index.html', context={"posts": posts, "companies": companies, "products": products})

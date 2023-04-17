@@ -3,6 +3,7 @@ from django.urls import path
 
 app_name = "administration"
 
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('services', views.ServiceListCreateView.as_view(), name='service-list'),
@@ -35,4 +36,5 @@ urlpatterns = [
     path('store/products/<int:pk>', views.ProductDetailView.as_view(), name='store-product-detail'),
     path('store/products/<int:pk>/update', views.productUpdate, name='store-product-update'),
     path('store/products/<int:pk>/delete', views.ProductDeleteView.as_view(), name='store-product-delete'),
+    path('orders', views.OrdersView.as_view(), name='orders'),
 ]

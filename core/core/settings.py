@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'storages',
     "mptt",
+    'rest_framework',
 
     'main',
     'news',
@@ -38,7 +39,8 @@ INSTALLED_APPS = [
     'cart',
     'checkout',
     'orders',
-    'administration'
+    'administration',
+    'api'
 ]
 
 MIDDLEWARE = [
@@ -64,8 +66,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'core.context_processors.default_menu',
-                'core.context_processors.admin_menu',
+                'main.context_processors.default_menu',
+                'main.context_processors.default_footer_menu',
+                'core.context_processors.config',
+                'administration.context_processors.admin_menu',
                 'store.context_processors.category_list',
                 'cart.context_processors.cart',
             ],
@@ -110,7 +114,7 @@ LOGIN_URL = "administration:auth-login"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'az'
 
 TIME_ZONE = 'UTC'
 

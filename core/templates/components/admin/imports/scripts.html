@@ -1,4 +1,5 @@
 {% load static %}
+<script src="{% static 'js/vue.global.min.js' %}"></script>
 <script
   data-search-pseudo-elements=""
   defer=""
@@ -35,48 +36,7 @@
 ></script>
 <script src="{% static 'js/litepicker.js' %}"></script>
 
-{% comment %} <script>
-  (function () {
-    var js =
-      "window['__CF$cv$params']={r:'7b2b4e9459539034',m:'9I0OirZH2D55OVWQbl4aHsF9tl_n3r_VV2iMpw.YbUA-1680629717-0-AVdnic6yIjN6ZZw9xplNn5oltJdcVJ9iAQ8/NDfd2BHqtUTXAFR6jMHPpbwedxNz1Z1sPAIVEnGQoNFWKi0CP98IOTTX3oHivaUe3sT/pki2dyPpilWMa8fPQ78BJpP7DpgC9StnB1Z3oiWZQSzW784=',s:[0xadc765dc4e,0xff57e3ba53],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='{% static 'js/invisible.js' %}?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";
-    var _0xh = document.createElement("iframe");
-    _0xh.height = 1;
-    _0xh.width = 1;
-    _0xh.style.position = "absolute";
-    _0xh.style.top = 0;
-    _0xh.style.left = 0;
-    _0xh.style.border = "none";
-    _0xh.style.visibility = "hidden";
-    document.body.appendChild(_0xh);
-    function handler() {
-      var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;
-      if (_0xi) {
-        var _0xj = _0xi.createElement("script");
-        _0xj.nonce = "";
-        _0xj.innerHTML = js;
-        _0xi.getElementsByTagName("head")[0].appendChild(_0xj);
-      }
-    }
-    if (document.readyState !== "loading") {
-      handler();
-    } else if (window.addEventListener) {
-      document.addEventListener("DOMContentLoaded", handler);
-    } else {
-      var prev = document.onreadystatechange || function () {};
-      document.onreadystatechange = function (e) {
-        prev(e);
-        if (document.readyState !== "loading") {
-          document.onreadystatechange = prev;
-          handler();
-        }
-      };
-    }
-  })();
-</script> {% endcomment %}
-{% comment %} <script
-  defer
-  src="https://static.cloudflareinsights.com/beacon.min.js/vb26e4fa9e5134444860be286fd8771851679335129114"
-  integrity="sha512-M3hN/6cva/SjwrOtyXeUa5IuCT0sedyfT+jK/OV+s+D0RnzrTfwjwJHhd+wYfMm9HJSrZ1IKksOdddLuN6KOzw=="
-  data-cf-beacon='{"rayId":"7b2b4e9459539034","version":"2023.3.0","b":1,"token":"6e2c2575ac8f44ed824cef7899ba8463","si":100}'
-  crossorigin="anonymous"
-></script> {% endcomment %}
+<script>
+  const csrftoken = "{{csrf_token}}"
+  const ordersURL = "{% url 'api:order-list' %}"
+</script>

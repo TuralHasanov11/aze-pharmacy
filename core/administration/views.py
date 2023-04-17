@@ -12,6 +12,7 @@ from django.http import HttpRequest
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views.decorators.http import require_GET, require_http_methods
+from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
@@ -22,17 +23,22 @@ from services.models import Service
 from store.models import Category, Product, ProductImage, Stock
 
 creator_dashboard_list = [
-    {"name": "Services", "route": "administration:service-list", "permission": "services.view_service"},
-    {"name": "Library", "route": "administration:document-list", "permission": "library.view_document"},
-    {"name": "News", "route": "administration:post-list", "permission": "news.view_post"},
-    {"name": "Career", "route": "administration:company-list", "permission": "main.view_company"}
+    {"name": "Services", "route": "administration:service-list",
+        "permission": "services.view_service"},
+    {"name": "Library", "route": "administration:document-list",
+        "permission": "library.view_document"},
+    {"name": "News", "route": "administration:post-list",
+        "permission": "news.view_post"},
+    {"name": "Career", "route": "administration:company-list",
+        "permission": "main.view_company"}
 ]
 
 
 @require_GET
 @login_required
 def index(request: HttpRequest):
-    creator_dashboards = [item for item in creator_dashboard_list if request.user.has_perm(item["permission"])]
+    creator_dashboards = [
+        item for item in creator_dashboard_list if request.user.has_perm(item["permission"])]
     return render(request, 'administration/index.html', context={"creator_dashboards": creator_dashboards})
 
 
@@ -40,7 +46,7 @@ class ServiceListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Success
     model = Service
     form_class = forms.ServiceForm
     permission_required = ["services.view_service", "services.add_service"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     template_name = 'administration/services/index.html'
     success_message = "%(name)s was created successfully"
 
@@ -48,28 +54,28 @@ class ServiceListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Success
         context = super().get_context_data(**kwargs)
         context['services'] = self.model.objects.all()
         return context
-    
+
     def get_success_url(self):
         return reverse("administration:service-list")
-    
+
 
 class ServiceUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = forms.ServiceForm
     model = Service
     permission_required = ["services.change_service"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     template_name = 'administration/services/detail.html'
     context_object_name = 'service'
     success_message = "%(name)s was updated successfully"
 
     def get_success_url(self):
         return reverse("administration:service-update", kwargs={"pk": self.object.pk})
-    
+
 
 class ServiceDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Service
     permission_required = ["services.delete_service"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     success_message = "Service was deleted successfully"
     success_url = reverse_lazy('administration:service-list')
 
@@ -78,39 +84,40 @@ class DocumentListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
     model = Document
     form_class = forms.DocumentForm
     permission_required = ["library.view_document", "library.add_document"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     template_name = 'administration/documents/index.html'
     success_message = "%(name)s was created successfully"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        pagination = paginator.Paginator(self.model.objects.all().values('pk', 'name', 'updated_at'), 2)
+        pagination = paginator.Paginator(
+            self.model.objects.all().values('pk', 'name', 'updated_at'), 2)
         pageNumber = self.request.GET.get('page')
         documents = pagination.get_page(pageNumber)
         context['documents'] = documents
         return context
-    
+
     def get_success_url(self):
         return reverse("administration:document-list")
-    
+
 
 class DocumentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = forms.DocumentForm
     model = Document
     permission_required = ["library.change_document"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     template_name = 'administration/documents/detail.html'
     context_object_name = 'document'
     success_message = "%(name)s was updated successfully"
 
     def get_success_url(self):
         return reverse("administration:document-update", kwargs={"pk": self.object.pk})
-    
+
 
 class DocumentDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Document
     permission_required = ["library.delete_document"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     success_message = "Document was deleted successfully"
     success_url = reverse_lazy('administration:document-list')
 
@@ -118,7 +125,7 @@ class DocumentDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
 class CompanyListCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = Company
     form_class = forms.CompanyForm
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     permission_required = ["main.view_company", "main.add_company"]
     template_name = 'administration/companies/index.html'
     success_message = "%(name)s was created successfully"
@@ -127,28 +134,28 @@ class CompanyListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Success
         context = super().get_context_data(**kwargs)
         context['companies'] = self.model.objects.all()
         return context
-    
+
     def get_success_url(self):
         return reverse("administration:company-list")
-    
+
 
 class CompanyUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = forms.CompanyForm
     model = Company
     permission_required = ["library.change_company"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     template_name = 'administration/companies/detail.html'
     context_object_name = 'company'
     success_message = "%(name)s was updated successfully"
 
     def get_success_url(self):
         return reverse("administration:company-update", kwargs={"pk": self.object.pk})
-    
+
 
 class CompanyDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Company
     permission_required = ["library.delete_document"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     success_message = "Company was deleted successfully"
     success_url = reverse_lazy('administration:company-list')
 
@@ -156,11 +163,11 @@ class CompanyDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
 class PostListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Post
     permission_required = ["news.view_post"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     template_name = 'administration/posts/index.html'
     paginate_by = 20
     context_object_name = "posts"
-    
+
     def get_queryset(self):
         return super().get_queryset()
 
@@ -168,7 +175,7 @@ class PostListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 class PostDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Post
     permission_required = ["news.view_post"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     template_name = 'administration/posts/detail.html'
     context_object_name = "post"
 
@@ -177,7 +184,7 @@ class PostCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
     model = Post
     form_class = forms.PostForm
     permission_required = ["news.add_post"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     template_name = 'administration/posts/create.html'
     success_message = "%(title)s was created successfully"
     success_url = reverse_lazy('administration:post-list')
@@ -187,19 +194,19 @@ class PostUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
     model = Post
     form_class = forms.PostForm
     permission_required = ["news.change_post"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     template_name = 'administration/posts/edit.html'
     context_object_name = 'post'
     success_message = "%(title)s was updated successfully"
 
     def get_success_url(self):
         return reverse("administration:post-update", kwargs={"pk": self.object.pk})
-    
+
 
 class PostDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Post
     permission_required = ["news.delete_post"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     success_message = "Post was deleted successfully"
     success_url = reverse_lazy('administration:post-list')
 
@@ -232,26 +239,26 @@ class LogoutView(LoginRequiredMixin, PermissionRequiredMixin, auth_views.LogoutV
     next_page = reverse_lazy('main:index')
 
 
-class PasswordChangeView(LoginRequiredMixin, PermissionRequiredMixin, auth_views.PasswordChangeView):    
+class PasswordChangeView(LoginRequiredMixin, PermissionRequiredMixin, auth_views.PasswordChangeView):
     template_name = 'administration/auth/password-change.html'
     success_url = reverse_lazy("administration:auth-profile")
     form_class = forms.PasswordChangeForm
-    
+
 
 class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = get_user_model()
     permission_required = ["user.view_user"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     template_name = 'administration/users/index.html'
     paginate_by = 20
     context_object_name = "users"
-    
+
 
 class UserCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = get_user_model()
     form_class = forms.UserCreateForm
     permission_required = ["user.add_user"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     template_name = 'administration/users/create.html'
     success_message = "%(username)s was created successfully"
     success_url = reverse_lazy('administration:user-list')
@@ -261,7 +268,7 @@ class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
     model = get_user_model()
     form_class = forms.UserUpdateForm
     permission_required = ["user.change_user"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     template_name = 'administration/users/edit.html'
     context_object_name = 'user'
     success_message = "%(username)s was updated successfully"
@@ -273,7 +280,7 @@ class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
 class UserDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     model = get_user_model()
     permission_required = ["user.delete_user"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     success_message = "User was deleted successfully"
     success_url = reverse_lazy('administration:user-list')
 
@@ -282,7 +289,7 @@ class CategoryListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
     model = Category
     form_class = forms.CategoryForm
     permission_required = ["store.view_category", "store.add_category"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     template_name = 'administration/store/categories/index.html'
     success_message = "%(name)s was created successfully"
 
@@ -290,28 +297,28 @@ class CategoryListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
         context = super().get_context_data(**kwargs)
         context['categories'] = self.model.objects.all()
         return context
-    
+
     def get_success_url(self):
         return reverse("administration:store-category-list")
-    
+
 
 class CategoryUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = forms.CategoryForm
     model = Category
     permission_required = ["store.change_category"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     template_name = 'administration/store/categories/edit.html'
     context_object_name = 'category'
     success_message = "%(name)s was updated successfully"
 
     def get_success_url(self):
         return reverse("administration:store-category-update", kwargs={"pk": self.object.pk})
-    
+
 
 class CategoryDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Category
     permission_required = ["store.delete_category"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     success_message = "Category was deleted successfully"
     success_url = reverse_lazy('administration:store-category-list')
 
@@ -319,27 +326,29 @@ class CategoryDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
 class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Product
     permission_required = ["store.view_product"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     template_name = 'administration/store/products/index.html'
     paginate_by = 20
     context_object_name = "products"
-    
+
     def get_queryset(self):
-        return super().get_queryset().select_related('product_category').prefetch_related(Prefetch('product_image', queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature'))
+        return super().get_queryset().select_related('product_category').prefetch_related(
+            Prefetch('product_image', queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature'))
 
 
 class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Product
     permission_required = ["store.view_product"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     template_name = 'administration/store/products/detail.html'
     context_object_name = "product"
 
     def get_queryset(self):
         return super().get_queryset().select_related('product_category', 'product_stock').prefetch_related(
-                    Prefetch('product_image', queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature'),
-                    Prefetch('product_image', to_attr='images')
-                )
+            Prefetch('product_image', queryset=ProductImage.objects.filter(
+                is_feature=True), to_attr='image_feature'),
+            Prefetch('product_image', to_attr='images')
+        )
 
 
 @require_http_methods(['GET', 'POST'])
@@ -348,8 +357,10 @@ class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
 def productCreate(request):
     if request.method == 'POST':
         form = forms.ProductForm(request.POST, request.FILES)
-        stock_formset = forms.StockFormSet(data=request.POST, files=request.FILES)
-        product_image_formset = forms.ProductImageFormSet(data=request.POST, files=request.FILES)
+        stock_formset = forms.StockFormSet(
+            data=request.POST, files=request.FILES)
+        product_image_formset = forms.ProductImageFormSet(
+            data=request.POST, files=request.FILES)
         if form.is_valid() and stock_formset.is_valid() and product_image_formset.is_valid():
             product = form.save()
             for item in stock_formset:
@@ -364,30 +375,34 @@ def productCreate(request):
             return redirect("administration:store-product-list")
         messages.error(request, "Product cannot be saved")
         return render(request, "administration/store/products/create.html", {
-                    "form": form, 
-                    "stock_formset": stock_formset, 
-                    "product_image_formset": product_image_formset
-                })
+            "form": form,
+            "stock_formset": stock_formset,
+            "product_image_formset": product_image_formset
+        })
     form = forms.ProductForm()
     stock_formset = forms.StockFormSet(queryset=Stock.objects.none())
-    product_image_formset = forms.ProductImageFormSet(queryset=ProductImage.objects.none())
+    product_image_formset = forms.ProductImageFormSet(
+        queryset=ProductImage.objects.none())
     return render(request, 'administration/store/products/create.html', context={
-                'form': form, 
-                'stock_formset': stock_formset,
-                'product_image_formset': product_image_formset,
-            })
+        'form': form,
+        'stock_formset': stock_formset,
+        'product_image_formset': product_image_formset,
+    })
 
 
 @require_http_methods(['GET', 'POST'])
 @login_required
 @permission_required('store.change_product', login_url=reverse_lazy('administration:index'))
-def productUpdate(request, pk:int):
+def productUpdate(request, pk: int):
     product = Product.objects.prefetch_related('product_image').get(id=pk)
 
     if request.method == 'POST':
-        form = forms.ProductForm(instance=product, data=request.POST, files=request.FILES)
-        stock_formset = forms.StockFormSet(instance=product, data=request.POST, files=request.FILES)
-        product_image_formset = forms.ProductImageFormSet(instance=product, data=request.POST, files=request.FILES)
+        form = forms.ProductForm(
+            instance=product, data=request.POST, files=request.FILES)
+        stock_formset = forms.StockFormSet(
+            instance=product, data=request.POST, files=request.FILES)
+        product_image_formset = forms.ProductImageFormSet(
+            instance=product, data=request.POST, files=request.FILES)
         if form.is_valid() and stock_formset.is_valid() and product_image_formset.is_valid():
             product = form.save()
             stock_formset.save()
@@ -396,27 +411,31 @@ def productUpdate(request, pk:int):
             return redirect("administration:store-product-list")
         messages.error(request, "Product cannot be saved")
         return render(request, "administration/store/products/edit.html", {
-                    "form": form, 
-                    "stock_formset": stock_formset, 
-                    "product_image_formset": product_image_formset,
-                    "product": product
-                })
+            "form": form,
+            "stock_formset": stock_formset,
+            "product_image_formset": product_image_formset,
+            "product": product
+        })
     form = forms.ProductForm(instance=product)
     stock_formset = forms.StockFormSet(instance=product)
     product_image_formset = forms.ProductImageFormSet(instance=product)
     return render(request, 'administration/store/products/edit.html', context={
-                "product": product,
-                'form': form, 
-                'stock_formset': stock_formset,
-                'product_image_formset': product_image_formset,
-            })
+        "product": product,
+        'form': form,
+        'stock_formset': stock_formset,
+        'product_image_formset': product_image_formset,
+    })
 
-    
+
 class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Product
     permission_required = ["store.delete_product"]
-    login_url=reverse_lazy('administration:index')
+    login_url = reverse_lazy('administration:index')
     success_message = "Product was deleted successfully"
     success_url = reverse_lazy('administration:store-product-list')
 
 
+class OrdersView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+    permission_required = ['orders.view_order', 'orders.change_order']
+    login_url = reverse_lazy('administration:index')
+    template_name = 'administration/orders/index.html'
