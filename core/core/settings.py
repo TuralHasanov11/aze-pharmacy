@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 
 from django.contrib import messages
+from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -29,6 +30,7 @@ INSTALLED_APPS = [
     'storages',
     "mptt",
     'rest_framework',
+    'rosetta',
 
     'main',
     'news',
@@ -67,6 +69,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'main.context_processors.default_menu',
+                'main.context_processors.site_info',
                 'main.context_processors.default_footer_menu',
                 'core.context_processors.config',
                 'administration.context_processors.admin_menu',
@@ -116,12 +119,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LANGUAGE_CODE = 'az'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Baku'
 
 USE_I18N = True
 
+USE_L10N = True
+
 USE_TZ = True
 
+LANGUAGES = (
+    ('en', _('English')),
+    ('az', _('Azerbaijani')),
+)
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale/'),
+)
 
 STATIC_URL = '/static/'
 
@@ -158,3 +171,13 @@ AWS_DEFAULT_ACL = os.environ.get("DEBUG",  None)
 AWS_QUERYSTRING_AUTH = False
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_HOST = os.environ.get("EMAIL_HOST", "")
+    EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "") 
+    EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "") 
+    EMAIL_PORT = os.environ.get("EMAIL_PORT", "")  
+    EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", True) 

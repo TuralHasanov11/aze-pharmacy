@@ -5,6 +5,7 @@ from django import urls
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
 
@@ -28,6 +29,10 @@ class Category(MPTTModel):
         if not self.slug:
             self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        return reverse("store:category-products", kwargs={"category_slug": self.slug})
+    
 
 
 class ProductManager(models.Manager):

@@ -1,5 +1,37 @@
 {% extends 'layouts/default.html' %} {% load static %} {% block content %}
 <main class="main-area fix">
   {%include "components/breadcrumb.html" with title='About Us' home_title='Home'%}
+  <div
+    data-elementor-type="wp-page"
+    data-elementor-id="65"
+    class="elementor elementor-65"
+  >
+    <section
+      class="elementor-section elementor-top-section elementor-element elementor-element-be24124 elementor-section-full_width elementor-section-height-default elementor-section-height-default"
+      data-id="be24124"
+      data-element_type="section"
+    >
+      <div class="elementor-container elementor-column-gap-no">
+        <div
+          class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-faa853f"
+          data-id="faa853f"
+          data-element_type="column"
+        >
+          <div class="elementor-widget-wrap elementor-element-populated">
+            <div
+              class="elementor-element elementor-element-9690b0f elementor-widget elementor-widget-formula"
+              data-id="9690b0f"
+              data-element_type="widget"
+              data-widget_type="formula.default"
+            >
+              <div class="elementor-widget-container">
+                {% include "components/main/about.html" with about=siteInfo.about %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </main>
 {% endblock content %}

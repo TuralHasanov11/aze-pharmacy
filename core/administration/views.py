@@ -1,3 +1,4 @@
+
 from administration import forms
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -17,7 +18,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 from library.models import Document
-from main.models import Company
+from main.models import Company, SiteInfo
 from news.models import Post
 from services.models import Service
 from store.models import Category, Product, ProductImage, Stock
@@ -439,3 +440,17 @@ class OrdersView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     permission_required = ['orders.view_order', 'orders.change_order']
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/orders/index.html'
+
+
+class SiteInfoUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    form_class = forms.SiteInfoForm
+    model = SiteInfo
+    permission_required = ['main.change_site_info', 'main.view_site_info']
+    login_url = reverse_lazy('administration:index')
+    template_name = 'administration/edit-site-info.html'
+    context_object_name = 'siteInfo'
+    success_message = "Site info was updated successfully"
+    success_url = reverse_lazy('administration:edit-site-info')
+    
+    def get_object(self):
+        return SiteInfo.objects.first()

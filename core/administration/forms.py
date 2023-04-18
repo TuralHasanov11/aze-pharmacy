@@ -6,7 +6,7 @@ from django.contrib.auth import models as auth_models
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
 from library.models import Document
-from main.models import Company
+from main.models import Company, SiteInfo
 from mptt.forms import TreeNodeChoiceField
 from news.models import Post
 from services.models import Service
@@ -184,6 +184,7 @@ class ProductForm(forms.ModelForm):
         product.save()
         return product
 
+
 class StockForm(forms.ModelForm): 
     units = forms.IntegerField(label=_('Units'), widget=forms.NumberInput(
         attrs={'class': 'form-control', 'placeholder': _('Units')}), initial=0, required=False)
@@ -205,3 +206,22 @@ class ProductImageForm(forms.ModelForm):
 
 StockFormSet = forms.inlineformset_factory(parent_model=Product, model = Stock, max_num=1, form=StockForm)
 ProductImageFormSet = forms.inlineformset_factory(parent_model=Product, model = ProductImage, form=ProductImageForm, max_num=6, extra=3, min_num=3, can_delete=True)
+
+
+class SiteInfoForm(forms.ModelForm):
+    phone = forms.CharField(label=_('Phone'), widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': _('Phone')}))
+    address = forms.CharField(label=_('Address'), widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': _('address')}))
+    email = forms.EmailField(label=_('Email'), widget=forms.EmailInput(
+        attrs={'class': 'form-control', 'placeholder': _('Email')}))
+    facebook_link = forms.URLField(label=_('Facebook link'), widget=forms.URLInput(
+        attrs={'class': 'form-control', 'placeholder': _('Facebook link')}))
+    instagram_link = forms.URLField(label=_('Instagram link'), widget=forms.URLInput(
+        attrs={'class': 'form-control', 'placeholder': _('Instagram link')}))
+    about = forms.CharField(label=_('About'), widget=forms.Textarea(
+        attrs={'class': 'form-control', 'placeholder': _('About'), 'rows': 20}))
+    
+    class Meta:
+        model = SiteInfo
+        fields = ['phone', 'address', 'email', 'facebook_link', 'instagram_link', 'about']

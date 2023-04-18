@@ -18,8 +18,8 @@
                   /></a>
                 </div>
                 <div class="footer-social">
-                  {% for item in social_links %}
-                  <a href="{{item.url}}"><i class="{{item.icon}}"></i></a>
+                  {% for item in site_info.social_links %}
+                  <a target="_blank" href="{{item.link}}"><i class="{{item.icon}}"></i></a>
                   {% endfor %}
                 </div>
               </div>
@@ -67,13 +67,13 @@
               <h4 class="fw-title">CONTACT US</h4>
               <div class="textwidget custom-html-widget">
                 <div class="footer-contact-wrap">
-                  <p>{{config.contact.company_address}}</p>
+                  <p>{{site_info.address}}</p>
                   <ul class="list-wrap">
                     <li class="phone">
-                      <i class="fas fa-phone"></i> {{config.contact.phone}}
+                      <i class="fas fa-phone"></i> {{site_info.phone}}
                     </li>
                     <li class="mail">
-                      <i class="fas fa-envelope"></i> {{config.contact.email}}
+                      <i class="fas fa-envelope"></i> {{site_info.email}}
                     </li>
                     <li class="website">
                       <i class="fas fa-globe"></i> {{config.app.site_url}}
