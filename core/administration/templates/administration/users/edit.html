@@ -1,6 +1,7 @@
 
 
 {% extends 'layouts/admin.html' %} {% load static %} {% block content %}
+{% translate "User" as subject %}
 
 <main>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -10,13 +11,13 @@
                     <div class="col-auto mb-3">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><i data-feather="user"></i></div>
-                            Edit User
+                            {% blocktranslate %}Edit {{subject}}{% endblocktranslate %}
                         </h1>
                     </div>
                     <div class="col-12 col-xl-auto mb-3">
                         <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:user-list' %}">
                             <i class="me-1" data-feather="arrow-left"></i>
-                            Back to Users List
+                            {% blocktranslate %}Back to {{subject}} List{% endblocktranslate %}
                         </a>
                     </div>
                 </div>
@@ -26,7 +27,7 @@
     <div class="container-xl px-4 mt-4">
         {% include 'components/messages.html' with messages=messages %}
                 <div class="card mb-4">
-                    <div class="card-header">Account Details</div>
+                    <div class="card-header">{% translate "Account Details" %}</div>
                     <div class="card-body">
                         <form method="POST">
                             {% csrf_token %} {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %} 
@@ -61,7 +62,7 @@
                                 {{ form.role }} 
                                 {{ form.role.errors  }}
                             </div>
-                            <button class="btn btn-primary" type="submit">Save</button>
+                            <button class="btn btn-primary" type="submit">{% translate "Save" %}</button>
                         </form>
                     </div>
                 </div>

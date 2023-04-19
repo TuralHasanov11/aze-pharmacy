@@ -1,7 +1,7 @@
 <nav class="sidenav shadow-right sidenav-light">
   <div class="sidenav-menu">
     <div class="nav accordion" id="accordionSidenav">
-      <div class="sidenav-menu-heading d-sm-none">Account</div>
+      <div class="sidenav-menu-heading d-sm-none">{% translate "Account" %}</div>
       <a class="nav-link d-sm-none" href="#!">
         <div class="nav-link-icon"><i data-feather="bell"></i></div>
         Alerts
@@ -19,9 +19,9 @@
           class="nav-link collapsed"
           href="javascript:void(0);"
           data-bs-toggle="collapse"
-          data-bs-target="#collapse{{item.title}}"
+          data-bs-target="#collapse{{forloop.counter}}"
           aria-expanded="false"
-          aria-controls="collapse{{item.title}}"
+          aria-controls="collapse{{forloop.counter}}"
         >
           <div class="nav-link-icon"><i data-feather="repeat"></i></div>
           {{item.title}}
@@ -31,7 +31,7 @@
         </a>
         <div
           class="collapse"
-          id="collapse{{item.title}}"
+          id="collapse{{forloop.counter}}"
           data-bs-parent="#accordionSidenav"
         >
           <nav class="sidenav-menu-nested nav">
@@ -52,7 +52,7 @@
   </div>
   <div class="sidenav-footer">
     <div class="sidenav-footer-content">
-      <div class="sidenav-footer-subtitle">Logged in as:</div>
+      <div class="sidenav-footer-subtitle">{% translate "Logged in as" %}:</div>
       <div class="sidenav-footer-title">{{request.user.username}}</div>
     </div>
   </div>

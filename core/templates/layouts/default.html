@@ -1,6 +1,12 @@
 {% load static %}
+{% load i18n %}
+{% load query_transform %}
+{% get_current_language as CURRENT_LANGUAGE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages%}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{CURRENT_LANGUAGE}}">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />

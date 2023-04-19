@@ -16,8 +16,10 @@ class RichTextEditorField(ckeditorFields.RichTextUploadingField):
         kwargs['blank'] = True
         super().__init__(*args, **kwargs)
 
+
 def post_cover_image_path(instance, filename):
     return f"posts/{instance.slug}/{filename}"
+
 
 class Post(models.Model):
     title = models.CharField(max_length=255)

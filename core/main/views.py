@@ -38,7 +38,7 @@ def contact(request: HttpRequest):
             except BadHeaderError:
                 messages.error(request, "Email cannot be sent")
                 return render(request, "main/contact.html", {"form": form, 'siteInfo': siteInfo})
-            messages.success(request, f'Email was sent successfully!')
+            messages.success(request, 'Email was sent successfully!')
             return redirect(reverse("main:contact")+"#contact-form")
         messages.error(request, "Email cannot be sent")
         return render(request, "main/contact.html", {"form": form, 'siteInfo': siteInfo})

@@ -1,6 +1,5 @@
-
-
-{% extends 'layouts/admin.html' %} {% load static %} {% block content %}
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
+{% translate "Service" as subject %}
 
 <main>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -10,7 +9,7 @@
                     <div class="col-auto mb-3">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><i data-feather="list"></i></div>
-                            Service List
+                            {% blocktranslate %}{{subject}} List{% endblocktranslate %}
                         </h1>
                     </div>
                 </div>
@@ -27,18 +26,18 @@
                         <table id="datatablesSimple">
                             <thead>
                                 <tr>
-                                    <th>Service</th>
-                                    <th>Cover Image</th>
-                                    <th>Description</th>
-                                    <th>Actions</th>
+                                    <th>{% translate "Service" %}</th>
+                                    <th>{% translate "Cover Image" %}</th>
+                                    <th>{% translate "Description" %}</th>
+                                    <th>{% translate "Actions" %}</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th>Service</th>
-                                    <th>Cover Image</th>
-                                    <th>Description</th>
-                                    <th>Actions</th>
+                                    <th>{% translate "Service" %}</th>
+                                    <th>{% translate "Cover Image" %}</th>
+                                    <th>{% translate "Description" %}</th>
+                                    <th>{% translate "Actions" %}</th>
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -63,7 +62,7 @@
             </div>
             <div class="col-xl-4 col-12">
                 <div class="card mb-4">
-                    <div class="card-header">Add Service</div>
+                    <div class="card-header">{% blocktranslate %}Add {{subject}}{% endblocktranslate %}</div>
                     <div class="card-body">
                         <form method="post" enctype="multipart/form-data"> 
                             {% csrf_token %}
@@ -84,7 +83,7 @@
                                 {{form.cover_image}} 
                                 {{ form.cover_image.errors  }}
                             </div>
-                            <button class="btn btn-success btn-sm" type="submit"><i class="me-1" data-feather="plus"></i> Add Service</button>
+                            <button class="btn btn-success btn-sm" type="submit"><i class="me-1" data-feather="plus"></i> {% translate "Save" %}</button>
                         </form>
                     </div>
                 </div>

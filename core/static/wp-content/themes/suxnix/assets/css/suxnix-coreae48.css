@@ -397,7 +397,8 @@ label {
 }
 
 .logo img {
-	max-width: 160px;
+	max-width: 128px;
+	max-height: 64px !important;
 }
 
 .navbar-wrap {
@@ -1912,15 +1913,14 @@ body.search-visible {
 	float: unset;
 }
 
-.inner-shop-area .shop-top-right {
+.inner-shop-area .shop-top-left {
 	display: flex;
 	align-items: center;
-	justify-content: flex-end;
+	justify-content: flex-start;
 	max-width: 185px;
-	margin-left: auto;
 }
 
-.inner-shop-area .shop-top-right form select {
+.inner-shop-area .shop-top-left form select {
 	border: none;
 	outline: none;
 	color: #777777;
@@ -3412,7 +3412,8 @@ body.search-visible {
 }
 
 .pricing__box .pricing-img img {
-	max-height: 190px;
+	max-height: 180px;
+	min-height: 120px;
 	max-width: 100%;
 }
 

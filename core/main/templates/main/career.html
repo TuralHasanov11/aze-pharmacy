@@ -1,6 +1,7 @@
-{% extends 'layouts/default.html' %} {% load static %} {% block content %}
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %} {% block content %}
 <main class="main-area fix">
-  {%include "components/breadcrumb.html" with title='Career' home_title='Home'%}
+  {% translate "Career" as pageTitle %}
+  {%include "components/breadcrumb.html" with pageTitle=pageTitle %}
 
   <div
     data-elementor-type="wp-page"
@@ -29,7 +30,7 @@
             >
               <div class="elementor-widget-container">
                 <div class="section-title">
-                  <h2 class="title">Companies</h2>
+                  <h2 class="title">{% translate "Companies" %}</h2>
                 </div>
               </div>
             </div>

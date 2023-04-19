@@ -1,4 +1,6 @@
 {% load static %}
+{% load i18n %}
+
 <section
   class="formula-area formula-bg"
   data-background="https://themegenix.net/wp/suxnix/wp-content/uploads/2022/09/formula_bg.jpg"
@@ -10,14 +12,13 @@
           <img
             decoding="async"
             src="{% static 'wp-content/uploads/2022/09/formula_img.png' %}"
-            alt=""
           />
         </div>
       </div>
       <div class="col-lg-6">
         <div class="formula-content">
           <div class="section-title white-title mb-50">
-            <h2 class="title">About Us</h2>
+            <h2 class="title">{% translate "About Us" %}</h2>
           </div>
           <p>
             {{about}}
@@ -28,7 +29,7 @@
             rel="nofollow"
             class="btn btn-two"
           >
-            More
+            {% translate "More" %}
           </a>
         </div>
       </div>

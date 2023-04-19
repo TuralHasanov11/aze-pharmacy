@@ -2,6 +2,8 @@ from django.core import paginator
 from django.db.models import Count, Prefetch
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
+from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_GET
 from store.models import Category, Product, ProductImage
 
@@ -42,12 +44,16 @@ def categoryProducts(request: HttpRequest, category_slug: str):
     pagination = paginator.Paginator(products_queryset, 1)
     pageNumber = request.GET.get('page')
     products = pagination.get_page(pageNumber)
+    breadcrumb = [
+        {"route": reverse("store:products"), "title": _("Products")},
+    ]
     return render(request, 'store/products/index.html', context={
             "products": products, 
             "category": category, 
             "categories": categories,
             "orderingContainer": orderingContainer,
-            "selectedOrderByValue": selectedOrderByValue
+            "selectedOrderByValue": selectedOrderByValue,
+            "breadcrumb": breadcrumb,
         })
 
 
@@ -58,6 +64,10 @@ def productDetail(request: HttpRequest, category_slug: str, product_slug: str):
                     Prefetch('product_image', queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature'),
                     Prefetch('product_image', to_attr='images')
                 ).get(slug=product_slug, category__slug=category_slug)
+        breadcrumb = [
+            {"route": reverse("store:products"), "title": _("Products")},
+            {"route": reverse("store:category-products", kwargs={"category_slug":product.category.slug}), "title": product.category.name}
+        ]
     except Product.DoesNotExist:
         return redirect('store:products')
-    return render(request, 'store/products/detail.html', context={"product": product})
+    return render(request, 'store/products/detail.html', context={"product": product, "breadcrumb": breadcrumb})

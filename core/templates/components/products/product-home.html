@@ -1,8 +1,9 @@
+{% load i18n %}
 <div class="col-xl-3">
   <div class="home-shop-item">
     <div class="home-shop-thumb">
       <a decoding="async" href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}">
-        <img src="{{product.image_feature.0.image.url}}" alt="img">
+        <img src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% else %}{% endif %}" alt="img">
 
         {% if product.discount %}<div class="discount">-{{product.discount}}%</div>{% endif %}
       </a>
@@ -17,8 +18,16 @@
           <span class="woocommerce-Price-currencySymbol">&#036;</span>{{product.regular_price}}</span>								
         </span>
       <div class="shop-content-bottom">
-        <a href="cart/index1950.html?add-to-cart=67" class="cart"><i class="flaticon-shopping-cart-1"></i></a>
-        <a href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}" class="btn btn-two">Buy Now</a>
+        <button
+          data-quantity="1"
+          class="add-cart-btn cart-button icon-btn product_type_simple add_to_cart_button ajax_add_to_cart"
+          data-product_id="{{product.id}}"
+          rel="nofollow"
+          ><i class="flaticon-shopping-cart-1"></i
+        ></button>
+        <a href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}" class="btn btn-two">
+          {% translate "Buy Now" %}
+        </a>
       </div>
     </div>
   </div>

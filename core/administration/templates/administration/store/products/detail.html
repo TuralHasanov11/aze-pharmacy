@@ -1,6 +1,7 @@
 
 
-{% extends 'layouts/admin.html' %} {% load static %} {% block content %}
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
+{% translate "Product" as subject %}
 
 <main>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -16,15 +17,18 @@
                     <div class="col-12 col-xl-auto mb-3">
                         <a class="btn btn-sm btn-primary text-light" href="{% url 'administration:store-product-update' pk=product.pk %}">
                             <i class="me-1" data-feather="eye"></i>
-                            View on website
+                            {% translate "View on website" %}
                         </a>
-                        <a class="btn btn-sm btn-warning text-dark" href="{% url 'administration:store-product-update' pk=product.pk %}">
-                            <i class="me-1" data-feather="edit"></i>
-                            Edit product
+                        <a class="btn btn-sm btn-warning text-dark" href="{% url 'administration:store-product-detail' pk=product.pk %}">
+                            <i class="me-1" data-feather="file"></i>
+                            {% blocktranslate %}View {{subject}}{% endblocktranslate %}
                         </a>
-                        <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:store-product-list' %}">
-                            <i class="me-1" data-feather="list"></i>
-                            Back to products
+                        <a
+                          class="btn btn-sm btn-light text-primary"
+                          href="{% url 'administration:store-product-list' %}"
+                        >
+                          <i class="me-1" data-feather="arrow-left"></i>
+                          {% blocktranslate %}Back to {{subject}} List{% endblocktranslate %}
                         </a>
                     </div>
                 </div>

@@ -1,3 +1,5 @@
+from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from news.models import Post
@@ -19,4 +21,5 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["popular_posts"] = Post.objects.all()[:4]
+        context["breadcrumb"] = [{"route": reverse("news:index"), "title": _("News")}]
         return context

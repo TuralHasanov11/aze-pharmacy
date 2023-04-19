@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 <footer class="footer-area not-show-instagram">
   <div class="footer-top-wrap">
@@ -13,7 +14,7 @@
                 <div class="footer-logo logo">
                   <a href="{% url 'main:index' %}"
                     ><img
-                      src="{% static 'wp-content/uploads/2022/09/white_logo.png' %}"
+                      src="{% static 'images/logo.png' %}"
                       alt="{{config.app.name}}"
                   /></a>
                 </div>
@@ -27,7 +28,7 @@
           </div>
           <div class="col-lg-3 col-md-5 col-sm-6">
             <div id="nav_menu-2" class="footer-widget column-2 widget_nav_menu">
-              <h4 class="fw-title">Services</h4>
+              <h4 class="fw-title">{% translate "Services" %}</h4>
               <div class="menu-services-container">
                 <ul id="menu-services" class="menu">
                   {% for item in default_footer_menu.services %}
@@ -44,7 +45,7 @@
           </div>
           <div class="col-lg-2 col-md-5 col-sm-6">
             <div id="nav_menu-3" class="footer-widget column-3 widget_nav_menu">
-              <h4 class="fw-title">Support</h4>
+              <h4 class="fw-title">{% translate "Support" %}</h4>
               <div class="menu-support-menu-container">
                 <ul id="menu-support-menu" class="menu">
                   {% for item in default_footer_menu.support %}
@@ -64,7 +65,7 @@
               id="custom_html-2"
               class="widget_text footer-widget column-4 widget_custom_html"
             >
-              <h4 class="fw-title">CONTACT US</h4>
+              <h4 class="fw-title">{% translate "Contact Us" %}</h4>
               <div class="textwidget custom-html-widget">
                 <div class="footer-contact-wrap">
                   <p>{{site_info.address}}</p>
@@ -93,7 +94,7 @@
       <div class="row align-items-center">
         <div class="col-12">
           <div class="copyright-text">
-            <p>Copyright © {% now "Y" %} {{config.app.name}} All Rights Reserved.</p>
+            <p>{% translate "Copyright" %} &#169; {% now "Y" %} {{config.app.name}} {% translate "All Rights Reserved" %}.</p>
           </div>
         </div>
       </div>

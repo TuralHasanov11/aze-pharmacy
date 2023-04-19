@@ -1,6 +1,7 @@
 
 
 {% extends 'layouts/admin.html' %} {% load static %} {% block content %}
+{% translate "Post" as subject %}
 
 <main>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -10,13 +11,13 @@
                     <div class="col-auto mb-3">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><i data-feather="list"></i></div>
-                            Post List
+                            {% blocktranslate %}{{subject}} List{% endblocktranslate %}
                         </h1>
                     </div>
                     <div class="col-12 col-xl-auto mb-3">
                         <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:post-create' %}">
                             <i class="me-1" data-feather="plus"></i>
-                            Add post
+                            {% blocktranslate %}Add {{subject}}{% endblocktranslate %}
                         </a>
                     </div>
                 </div>
@@ -31,20 +32,20 @@
                 <table id="datatablesSimple">
                     <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Cover image</th>
-                            <th>Created at</th>
-                            <th>Updated at</th>
-                            <th>Actions</th>
+                            <th>{% translate "Title" %}</th>
+                            <th>{% translate "Cover image" %}</th>
+                            <th>{% translate "Creation Date" %}</th>
+                            <th>{% translate "Update Date" %}</th>
+                            <th>{% translate "Actions" %}</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Title</th>
-                            <th>Cover image</th>
-                            <th>Created at</th>
-                            <th>Updated at</th>
-                            <th>Actions</th>
+                            <th>{% translate "Title" %}</th>
+                            <th>{% translate "Cover image" %}</th>
+                            <th>{% translate "Creation date" %}</th>
+                            <th>{% translate "Update date" %}</th>
+                            <th>{% translate "Actions" %}</th>
                         </tr>
                     </tfoot>
                     <tbody>

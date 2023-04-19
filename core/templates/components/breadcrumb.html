@@ -1,32 +1,42 @@
 {% load static %}
+{% load i18n %}
 <section
   class="breadcrumb-area breadcrumb-bg"
-  data-background="{% static 'wp-content/themes/suxnix/assets/img/bg/video_bg.jpg' %}"
+  data-background="{% static 'images/breadcrumb.jpg' %}"
 >
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-xl-10">
         <div class="breadcrumb-content text-center">
-          <h2 class="title">{{title}}</h2>
+          <h2 class="title">{{pageTitle}}</h2>
           <nav aria-label="breadcrumb" class="breadcrumb">
-            <span property="itemListElement" typeof="ListItem"
-              ><a
+            <span property="itemListElement" typeof="ListItem"><a
                 property="item"
                 typeof="WebPage"
-                title="Go to {{home_title}}"
                 href="{% url 'main:index' %}"
                 class="home"
-                ><span property="name">{{home_title}}</span></a
-              ><meta property="position" content="1" /></span
+                ><span property="name">{% translate "Home" %}</span></a
+              ></span
             ><span class="breadcrumb-separator"
               ><i class="fas fa-angle-right"></i></span
-            ><span property="itemListElement" typeof="ListItem"
-              ><span property="name" class="post post-page current-item"
-                >{{title}}</span
-              ><meta property="url" content="index.html" /><meta
-                property="position"
-                content="2"
-            /></span>
+            >
+            {% for item in breadcrumb %}
+            <span property="itemListElement" typeof="ListItem"><a
+              property="item"
+              typeof="WebPage"
+              href="{{item.route}}"
+              class="home"
+              ><span property="name">{{item.title}}</span></a
+              ></span
+            ><span class="breadcrumb-separator"
+              ><i class="fas fa-angle-right"></i></span
+            >
+            {% endfor %}
+            <span property="itemListElement" typeof="ListItem">
+              <span property="name" class="post post-page current-item">
+                {{endTitle}}
+              </span>
+            </span>
           </nav>
         </div>
       </div>

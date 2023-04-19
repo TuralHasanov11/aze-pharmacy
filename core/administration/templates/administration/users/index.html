@@ -1,7 +1,7 @@
 
 
-{% extends 'layouts/admin.html' %} {% load static %} {% block content %}
-
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
+{% translate "User" as subject %}
 <main>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
         <div class="container-fluid px-4">
@@ -10,17 +10,13 @@
                     <div class="col-auto mb-3">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><i data-feather="list"></i></div>
-                            User List
+                            {% blocktranslate %}{{subject}} List{% endblocktranslate %}
                         </h1>
                     </div>
                     <div class="col-12 col-xl-auto mb-3">
-                        {% comment %} <a class="btn btn-sm btn-light text-primary" href="user-management-groups-list.html">
-                            <i class="me-1" data-feather="users"></i>
-                            Manage Groups
-                        </a> {% endcomment %}
                         <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:user-create' %}">
                             <i class="me-1" data-feather="user-plus"></i>
-                            Add New User
+                            {% blocktranslate %}Add New {{subject}}{% endblocktranslate %}
                         </a>
                     </div>
                 </div>
@@ -35,20 +31,20 @@
                 <table id="datatablesSimple">
                     <thead>
                         <tr>
-                            <th>Username</th>
-                            <th>E-mail</th>
-                            <th>Role</th>
-                            <th>Last login</th>
-                            <th>Actions</th>
+                            <th>{% translate "Username" %}</th>
+                            <th>{% translate "E-mail" %}</th>
+                            <th>{% translate "Role" %}</th>
+                            <th>{% translate "Last login" %}</th>
+                            <th>{% translate "Actions" %}</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Username</th>
-                            <th>E-mail</th>
-                            <th>Role</th>
-                            <th>Last login</th>
-                            <th>Actions</th>
+                            <th>{% translate "Username" %}</th>
+                            <th>{% translate "E-mail" %}</th>
+                            <th>{% translate "Role" %}</th>
+                            <th>{% translate "Last login" %}</th>
+                            <th>{% translate "Actions" %}</th>
                         </tr>
                     </tfoot>
                     <tbody>

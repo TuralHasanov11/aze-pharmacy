@@ -1,6 +1,9 @@
-{% extends 'layouts/default.html' %} {% load static %} {% block content %}
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %} {% block content %}
 <main class="main-area fix">
-  {%include "components/breadcrumb.html" with title='Product' home_title='Home'%}
+  {% translate "Shop" as pageTitle %}
+  {%include "components/breadcrumb.html" with pageTitle=pageTitle breadcrumb=breadcrumb endTitle=product.name%}
+
+  {% translate "Add to Wishlist" as addToWishListText%}
 
   <div class="inner-shop-area">
     <div class="container">
@@ -139,7 +142,7 @@
                   data-product_id="{{product.id}}"
                   class="cart-btn product-quantity-button"
                 >
-                  Add to cart
+                  {% translate "Add to cart" %}
                 </button>
 
                 <div
@@ -150,7 +153,7 @@
                   <a
                     role="button"
                     tabindex="0"
-                    aria-label="Add to Wishlist"
+                    aria-label="{{addToWishListText}}"
                     class="tinvwl_add_to_wishlist_button tinvwl-icon-heart tinvwl-position-after"
                     data-tinv-wl-list="[]"
                     data-tinv-wl-product="80"
@@ -159,11 +162,11 @@
                     data-tinv-wl-producttype="simple"
                     data-tinv-wl-action="add"
                     ><span class="tinvwl_add_to_wishlist-text"
-                      >Add to Wishlist</span
+                      >{{addToWishListText}}</span
                     ></a
                   >
                   <div class="tinv-wishlist-clear"></div>
-                  <div class="tinvwl-tooltip">Add to Wishlist</div>
+                  <div class="tinvwl-tooltip">{{addToWishListText}}</div>
                 </div>
               </div>
             </div>
@@ -185,20 +188,20 @@
                 data-tinv-wl-producttype="simple"
                 data-tinv-wl-action="add"
                 ><span class="tinvwl_add_to_wishlist-text"
-                  >Add to Wishlist</span
+                  >{{addToWishListText}}</span
                 ></a>
               <div class="tinv-wishlist-clear"></div>
-              <div class="tinvwl-tooltip">Add to Wishlist</div>
+              <div class="tinvwl-tooltip">{{addToWishListText}}</div>
             </div>
             <div class="inner-shop-details-bottom">
               {% if product.weight %}
               <div>
-                <b>Weight :</b> {{product.weight}}
+                <b>{% translate "Weight" %} :</b> {{product.weight}}
               </div>
               {% endif %}
 
               <div class="posted_in">
-                <b>Category :</b>
+                <b>{% translate "Category" %} :</b>
                 <a
                   href="{% url 'store:category-products' category_slug=product.category.slug %}"
                   rel="tag"
@@ -220,7 +223,7 @@
                 role="tab"
                 aria-controls="tab-description"
               >
-                <a href="#tab-description" class="nav-link"> Description </a>
+                <a href="#tab-description" class="nav-link"> {% translate "Description" %} </a>
               </li>
             </ul>
             <div
@@ -229,10 +232,9 @@
               role="tabpanel"
               aria-labelledby="tab-title-description"
             >
-              <h2>Description</h2>
+              <h2>{% translate "Description" %}</h2>
 
               <div class="product-desc-content">
-                <h4 class="title">The true strength of Suxnix :</h4>
                 <p>{{product.description|safe}}</p>
               </div>
             </div>
@@ -332,120 +334,6 @@
                     class="tinvwl_add_to_wishlist_button tinvwl-icon-heart tinvwl-position-after tinvwl-loop"
                     data-tinv-wl-list="[]"
                     data-tinv-wl-product="77"
-                    data-tinv-wl-productvariation="0"
-                    data-tinv-wl-productvariations="[0]"
-                    data-tinv-wl-producttype="simple"
-                    data-tinv-wl-action="add"
-                    ><span class="tinvwl_add_to_wishlist-text"
-                      >Add to Wishlist</span
-                    ></a
-                  >
-                  <div class="tinv-wishlist-clear"></div>
-                  <div class="tinvwl-tooltip">Add to Wishlist</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-              <div class="suxnix-product-main">
-                <div class="home-shop-item inner-shop-item">
-                  <div class="home-shop-thumb">
-                    <a href="../antiaging-and-longevity/index.html"
-                      ><img
-                        width="605"
-                        height="580"
-                        src="../../wp-content/uploads/2022/09/shop-details-thumb03.png"
-                        class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
-                        alt=""
-                        decoding="async"
-                        loading="lazy"
-                        srcset="
-                          https://themegenix.net/wp/suxnix/wp-content/uploads/2022/09/shop-details-thumb03.png         605w,
-                          https://themegenix.net/wp/suxnix/wp-content/uploads/2022/09/shop-details-thumb03-300x288.png 300w
-                        "
-                        sizes="(max-width: 605px) 100vw, 605px"
-                    /></a>
-
-                    <div class="on-sale-wrap">
-                      <span class="onsale">Sale!</span>
-                    </div>
-                  </div>
-
-                  <div class="home-shop-content">
-                    <div class="shop-item-cat">
-                      <a href="../../product-category/protein/index.html"
-                        >Protein</a
-                      >
-                    </div>
-                    <h4 class="title">
-                      <a href="../antiaging-and-longevity/index.html"
-                        >Antiaging and Longevity</a
-                      >
-                    </h4>
-                    <div class="home-shop-price">
-                      <span class="price"
-                        ><del aria-hidden="true"
-                          ><span class="woocommerce-Price-amount amount"
-                            ><bdi
-                              ><span class="woocommerce-Price-currencySymbol"
-                                >&#36;</span
-                              >39.99</bdi
-                            ></span
-                          ></del
-                        >
-                        <ins
-                          ><span class="woocommerce-Price-amount amount"
-                            ><bdi
-                              ><span class="woocommerce-Price-currencySymbol"
-                                >&#36;</span
-                              >19.99</bdi
-                            ></span
-                          ></ins
-                        ></span
-                      >
-                    </div>
-                    <div class="home-shop-rating">
-                      <div
-                        class="details-rating shop-single-rating"
-                        title="Rating 0 out of 5"
-                      >
-                        <i class="far fa-star"></i><i class="far fa-star"></i
-                        ><i class="far fa-star"></i><i class="far fa-star"></i
-                        ><i class="far fa-star"></i
-                        ><span class="rating-count">( 0 out of 5 )</span>
-                      </div>
-                    </div>
-                    <div class="shop-content-bottom">
-                      <a
-                        href="index70f8.html?add-to-cart=79"
-                        data-quantity="1"
-                        class="add-cart-btn cart-button icon-btn product_type_simple add_to_cart_button ajax_add_to_cart"
-                        data-product_id="79"
-                        data-product_sku="QZX8VGF"
-                        aria-label="Add &ldquo;Antiaging and Longevity&rdquo; to your cart"
-                        rel="nofollow"
-                        ><i class="flaticon-shopping-cart-1"></i
-                      ></a>
-                      <a
-                        href="../../checkout/index70f8.html?add-to-cart=79"
-                        class="btn btn-two"
-                        >Buy Now</a
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="tinv-wraper woocommerce tinv-wishlist tinvwl-after-add-to-cart tinvwl-loop-button-wrapper"
-                  data-tinvwl_product_id="79"
-                >
-                  <div class="tinv-wishlist-clear"></div>
-                  <a
-                    role="button"
-                    tabindex="0"
-                    aria-label="Add to Wishlist"
-                    class="tinvwl_add_to_wishlist_button tinvwl-icon-heart tinvwl-position-after tinvwl-loop"
-                    data-tinv-wl-list="[]"
-                    data-tinv-wl-product="79"
                     data-tinv-wl-productvariation="0"
                     data-tinv-wl-productvariations="[0]"
                     data-tinv-wl-producttype="simple"

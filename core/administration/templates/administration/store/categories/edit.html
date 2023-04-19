@@ -1,4 +1,5 @@
-{% extends 'layouts/admin.html' %} {% load static %} {% block content %}
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
+{% translate "Category" as subject %}
 
 <main>
   <header
@@ -12,16 +13,23 @@
               <div class="page-header-icon">
                 <i data-feather="file-plus"></i>
               </div>
-              Edit Category
+              {% blocktranslate %}Edit {{subject}}{% endblocktranslate %}
             </h1>
           </div>
           <div class="col-12 col-xl-auto mb-3">
+            <form class="delete-form" action="{% url 'administration:store-category-delete' pk=category.pk %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-sm btn-danger">
+                  <i class="me-1" data-feather="trash-2"></i>
+                  {% blocktranslate %}Delete {{subject}}{% endblocktranslate %}
+              </button>
+            </form>
             <a
               class="btn btn-sm btn-light text-primary"
               href="{% url 'administration:store-category-list' %}"
             >
               <i class="me-1" data-feather="arrow-left"></i>
-              Back to All Categories
+              {% blocktranslate %}Back to {{subject}} List{% endblocktranslate %}
             </a>
           </div>
         </div>
@@ -32,7 +40,7 @@
   <div class="container-fluid px-4">
     {% include 'components/messages.html' with messages=messages %}
     <div class="card mb-4">
-        <div class="card-header">Edit {{category.name}}</div>
+        <div class="card-header">{% blocktranslate %}Edit {{category.name}}{% endblocktranslate %}</div>
         <div class="card-body">
             <form method="post" enctype="multipart/form-data"> 
                 {% csrf_token %}
@@ -48,7 +56,7 @@
                     {{ form.parent }} 
                     {{ form.parent.errors }}
                 </div>
-                <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> Edit Category</button>
+                <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% blocktranslate %}Edit {{subject}}{% endblocktranslate %}</button>
             </form>
         </div>
     </div>

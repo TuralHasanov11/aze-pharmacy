@@ -65,7 +65,7 @@ class CompanyForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
-    title = forms.CharField(label=_('Title'), widget=forms.TextInput(
+    title = forms.CharField(max_length=255, label=_('Title'), widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': _('Title')}))
     cover_image = forms.ImageField(label=_("Cover Image"), widget=forms.ClearableFileInput(
         attrs={'multiple': False, 'class': 'form-control'}))
@@ -196,7 +196,7 @@ class StockForm(forms.ModelForm):
 
 class ProductImageForm(forms.ModelForm): 
     image = forms.ImageField(label=_('Image'), widget=forms.ClearableFileInput(
-        attrs={'class': 'form-control', 'placeholder': _('Image'), 'multiple': False}))
+        attrs={'class': 'form-control', 'placeholder': _('Image'), 'multiple': False}), required=False)
     is_feature = forms.BooleanField(label=_('Is Feature'), widget=forms.CheckboxInput(attrs={ 'class': 'form-check-input'}), required=False)
     
     class Meta:
@@ -204,8 +204,8 @@ class ProductImageForm(forms.ModelForm):
         fields = ('image', 'is_feature')
 
 
-StockFormSet = forms.inlineformset_factory(parent_model=Product, model = Stock, max_num=1, form=StockForm)
-ProductImageFormSet = forms.inlineformset_factory(parent_model=Product, model = ProductImage, form=ProductImageForm, max_num=6, extra=3, min_num=3, can_delete=True)
+StockFormSet = forms.inlineformset_factory(parent_model=Product, model=Stock, max_num=1, form=StockForm)
+ProductImageFormSet = forms.inlineformset_factory(parent_model=Product, model=ProductImage, form=ProductImageForm, extra=3, min_num=3, can_delete=True)
 
 
 class SiteInfoForm(forms.ModelForm):

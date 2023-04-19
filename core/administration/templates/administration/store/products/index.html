@@ -1,6 +1,7 @@
 
 
-{% extends 'layouts/admin.html' %} {% load static %} {% block content %}
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
+{% translate "Product" as subject %}
 
 <main>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -10,13 +11,13 @@
                     <div class="col-auto mb-3">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><i data-feather="list"></i></div>
-                            Product List
+                            {% blocktranslate %}{{subject}} List{% endblocktranslate %}
                         </h1>
                     </div>
                     <div class="col-12 col-xl-auto mb-3">
                         <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:store-product-create' %}">
                             <i class="me-1" data-feather="plus"></i>
-                            Add product
+                            {% blocktranslate%}Add {{subject}}{% endblocktranslate %}
                         </a>
                     </div>
                 </div>

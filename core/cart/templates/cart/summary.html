@@ -1,6 +1,7 @@
-{% extends 'layouts/default.html' %} {% load static %} {% block content %}
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %} {% block content %}
 <main class="main-area fix">
-  {%include "components/breadcrumb.html" with title='Product' home_title='Home'%}
+  {% translate "Cart" as pageTitle %}
+  {%include "components/breadcrumb.html" with pageTitle=pageTitle endTitle=pageTitle%}
 
   <div class="tg-page-area">
     <div class="container">
@@ -22,10 +23,10 @@
                         <thead>
                           <tr>
                             <th class="product-thumbnail">&nbsp;</th>
-                            <th class="product-name">Product</th>
-                            <th class="product-price">Price</th>
-                            <th class="product-quantity">Quantity</th>
-                            <th class="product-subtotal">Subtotal</th>
+                            <th class="product-name">{% translate "Product" %}</th>
+                            <th class="product-price">{% translate "Price" %}</th>
+                            <th class="product-quantity">{% translate "Quantity" %}</th>
+                            <th class="product-subtotal">{% translate "Subtotal" %}</th>
                             <th class="product-remove">&nbsp;</th>
                           </tr>
                         </thead>
@@ -117,7 +118,7 @@
                             <tr>
                               <td colspan="6" class="actions">   
                                 <div class="text-end f-right">
-                                  <button type="submit" class="update-cart btn" name="update_cart" value="Update cart">Update cart</button>
+                                  <button type="submit" class="update-cart btn" name="update_cart">{% translate "Update cart" %}</button>
                                 </div>					
                               </td>
                             </tr>
@@ -129,14 +130,14 @@
                   <div class="col-lg-4">
                     <div class="cart-collaterals">
                       <div class="cart_totals">
-                        <h2>Cart totals</h2>
+                        <h2>{% translate "Cart totals" %}</h2>
 
                         <table
                           cellspacing="0"
                           class="shop_table shop_table_responsive"
                         >
                           <tr class="cart-subtotal">
-                            <th>Total</th>
+                            <th>{% translate "Total" %}</th>
                             <td data-title="Subtotal">
                               <span class="woocommerce-Price-amount amount"
                                 ><bdi
@@ -155,7 +156,7 @@
                             href="{% url 'checkout:index' %}"
                             class="checkout-button btn w-100"
                           >
-                            Proceed to checkout</a
+                            {% translate "Proceed to checkout" %}</a
                           >
                         </div>
                       </div>

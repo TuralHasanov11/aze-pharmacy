@@ -1,6 +1,7 @@
 {% extends 'layouts/default.html' %} {% load static %} {% block content %}
 <main class="main-area fix">
-  {%include "components/breadcrumb.html" with title='Product' home_title='Home'%}
+  {% translate "Order" as pageTitle %}
+  {%include "components/breadcrumb.html" with pageTitle=pageTitle endTitle=pageTitle%}
 
   <div class="tg-page-area">
     <div class="container">
@@ -17,7 +18,7 @@
                     <div class="col-lg-5">
                         <div class="cart-wrapper">
                           <div class="order-review-wrapper">
-                            <h3 id="order_review_heading">Your order</h3>
+                            <h3 id="order_review_heading">{% translate "Your order" %}</h3>
                             <div
                               id="order_review"
                               class="woocommerce-checkout-review-order"
@@ -27,8 +28,8 @@
                               >
                                 <thead>
                                   <tr>
-                                    <th class="product-name">Product</th>
-                                    <th class="product-total">Subtotal</th>
+                                    <th class="product-name">{% translate "Product" %}</th>
+                                    <th class="product-total">{% translate "Subtotal" %}</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -58,7 +59,7 @@
                                 </tbody>
                                 <tfoot>
                                   <tr class="order-total">
-                                    <th>Total</th>
+                                    <th>{% translate "Total" %}</th>
                                     <td>
                                       <strong
                                         ><span

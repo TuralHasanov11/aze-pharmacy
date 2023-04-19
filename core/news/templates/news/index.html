@@ -1,6 +1,8 @@
-{% extends 'layouts/default.html' %} {% load static %} {% block content %}
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %} {% block content %}
 <main class="main-area fix">
-  {%include "components/breadcrumb.html" with title='News' home_title='Home'%}
+  {% translate "News" as pageTitle %}
+  {%include "components/breadcrumb.html" with pageTitle=pageTitle endTitle=pageTitle%}
+
   <section class="blog-area pt-120 pb-120">
     <div class="container">
       <div class="row justify-content-center">

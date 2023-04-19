@@ -1,4 +1,5 @@
-{% extends 'layouts/admin.html' %} {% load static %} {% block content %}
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
+{% translate "Product" as subject %}
 
 <main>
   <header
@@ -12,7 +13,7 @@
               <div class="page-header-icon">
                 <i data-feather="file-plus"></i>
               </div>
-              Create Product
+              {% blocktranslate %}Add {{subject}}{% endblocktranslate %}
             </h1>
           </div>
           <div class="col-12 col-xl-auto mb-3">
@@ -21,7 +22,7 @@
               href="{% url 'administration:store-product-list' %}"
             >
               <i class="me-1" data-feather="arrow-left"></i>
-              Back to All Products
+              {% blocktranslate %}Back to {{subject}} List{% endblocktranslate %}
             </a>
           </div>
         </div>
@@ -33,7 +34,7 @@
     {% include 'components/messages.html' with messages=messages %}
     <form method="post" enctype="multipart/form-data">
         <div class="card mb-4">
-            <div class="card-header">Product details</div>
+            <div class="card-header">{% translate "Product details" %}</div>
             <div class="card-body">
                 {% csrf_token %}
                 {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
@@ -75,7 +76,7 @@
                     {{ form.is_active.errors }}
                 </div>
             </div>
-            <div class="card-header">Stock</div>
+            <div class="card-header">{% translate "Stock" %}</div>
             <div class="card-body">
                 {{ stock_formset.management_form }} 
                 {% for formset_item in stock_formset %}
@@ -88,7 +89,7 @@
                 </div>
                 {% endfor %}
             </div>
-            <div class="card-header">Images</div>
+            <div class="card-header">{% translate "Stock" %}</div>
             <div class="card-body">
                 {{ product_image_formset.management_form }} 
                 {% for formset_item in product_image_formset %}
@@ -106,7 +107,7 @@
                 </div>
                 {% endfor %}
 
-                <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> Add Product</button>
+                <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
             </div>
         </div>
     </form>

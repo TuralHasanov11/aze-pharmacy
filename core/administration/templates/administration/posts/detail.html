@@ -1,6 +1,7 @@
 
 
-{% extends 'layouts/admin.html' %} {% load static %} {% block content %}
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
+{% translate "Post" as subject %}
 
 <main>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -16,11 +17,15 @@
                     <div class="col-12 col-xl-auto mb-3">
                         <a class="btn btn-sm btn-primary text-light" href="{% url 'administration:post-update' pk=post.pk %}">
                             <i class="me-1" data-feather="edit"></i>
-                            Edit post
+                            {% blocktranslate %}Edit {{subject}}{% endblocktranslate %}
                         </a>
+                        <form class="delete-form" action="{% url 'administration:post-delete' pk=post.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger"><i data-feather="trash-2"></i></button>
+                          </form>
                         <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:post-list' %}">
                             <i class="me-1" data-feather="list"></i>
-                            Back to posts
+                            {% blocktranslate %}Back to {{subject}} List{% endblocktranslate %}
                         </a>
                     </div>
                 </div>

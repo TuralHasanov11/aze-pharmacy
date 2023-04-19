@@ -1,0 +1,774 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-19 18:53+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\administration\context_processors.py:64
+msgid "Sayt Məlumatları"
+msgstr ""
+
+#: .\administration\forms.py:17 .\administration\forms.py:18
+#: .\administration\forms.py:30 .\administration\forms.py:31
+#: .\administration\forms.py:44 .\administration\forms.py:45
+#: .\administration\forms.py:55 .\administration\forms.py:56
+#: .\administration\forms.py:162 .\administration\forms.py:163
+#: .\administration\templates\administration\companies\index.html:29
+#: .\administration\templates\administration\companies\index.html:36
+#: .\administration\templates\administration\store\categories\index.html:29
+#: .\administration\templates\administration\store\categories\index.html:36
+msgid "Name"
+msgstr ""
+
+#: .\administration\forms.py:19 .\administration\forms.py:59
+#: .\administration\forms.py:70
+#: .\administration\templates\administration\services\index.html:30
+#: .\administration\templates\administration\services\index.html:38
+msgid "Cover Image"
+msgstr ""
+
+#: .\administration\forms.py:21 .\administration\forms.py:22
+#: .\administration\forms.py:73 .\administration\forms.py:175
+#: .\administration\templates\administration\services\index.html:31
+#: .\administration\templates\administration\services\index.html:39
+#: .\store\templates\store\products\detail.html:226
+#: .\store\templates\store\products\detail.html:235
+msgid "Description"
+msgstr ""
+
+#: .\administration\forms.py:46
+msgid "File"
+msgstr ""
+
+#: .\administration\forms.py:57 .\administration\forms.py:58
+msgid "Link"
+msgstr ""
+
+#: .\administration\forms.py:68 .\administration\forms.py:69
+#: .\administration\templates\administration\posts\index.html:35
+#: .\administration\templates\administration\posts\index.html:44
+msgid "Title"
+msgstr ""
+
+#: .\administration\forms.py:92 .\administration\forms.py:127
+#: .\administration\templates\administration\users\index.html:34
+#: .\administration\templates\administration\users\index.html:43
+msgid "Username"
+msgstr ""
+
+#: .\administration\forms.py:94 .\administration\forms.py:129
+#: .\orders\forms.py:15
+msgid "First Name"
+msgstr ""
+
+#: .\administration\forms.py:96 .\administration\forms.py:131
+#: .\orders\forms.py:17
+msgid "Last Name"
+msgstr ""
+
+#: .\administration\forms.py:98 .\administration\forms.py:133
+#: .\administration\forms.py:216 .\administration\forms.py:217
+#: .\orders\forms.py:25
+msgid "Email"
+msgstr ""
+
+#: .\administration\forms.py:102
+msgid "Password"
+msgstr ""
+
+#: .\administration\forms.py:104
+msgid "Password Confirm"
+msgstr ""
+
+#: .\administration\forms.py:154
+msgid "Current Password"
+msgstr ""
+
+#: .\administration\forms.py:156
+msgid "New Password"
+msgstr ""
+
+#: .\administration\forms.py:158
+msgid "Confirm Password"
+msgstr ""
+
+#: .\administration\forms.py:164
+msgid "category"
+msgstr ""
+
+#: .\administration\forms.py:166 .\administration\forms.py:167
+msgid "Regular Price"
+msgstr ""
+
+#: .\administration\forms.py:168 .\administration\forms.py:169
+msgid "Discount"
+msgstr ""
+
+#: .\administration\forms.py:170 .\administration\forms.py:171
+#: .\store\templates\store\products\detail.html:199
+msgid "Weight"
+msgstr ""
+
+#: .\administration\forms.py:172 .\administration\forms.py:173
+msgid "Is Active"
+msgstr ""
+
+#: .\administration\forms.py:189 .\administration\forms.py:190
+msgid "Units"
+msgstr ""
+
+#: .\administration\forms.py:198 .\administration\forms.py:199
+msgid "Image"
+msgstr ""
+
+#: .\administration\forms.py:200
+msgid "Is Feature"
+msgstr ""
+
+#: .\administration\forms.py:212 .\administration\forms.py:213
+#: .\orders\forms.py:23
+msgid "Phone"
+msgstr ""
+
+#: .\administration\forms.py:214
+msgid "Address"
+msgstr ""
+
+#: .\administration\forms.py:215
+msgid "address"
+msgstr ""
+
+#: .\administration\forms.py:218 .\administration\forms.py:219
+msgid "Facebook link"
+msgstr ""
+
+#: .\administration\forms.py:220 .\administration\forms.py:221
+msgid "Instagram link"
+msgstr ""
+
+#: .\administration\forms.py:222 .\administration\forms.py:223
+msgid "About"
+msgstr ""
+
+#: .\administration\templates\administration\auth\login.html:8
+#: .\administration\templates\administration\auth\login.html:25
+#: .\templates\layouts\authentication.html:18
+msgid "Login"
+msgstr ""
+
+#: .\administration\templates\administration\auth\password-change.html:12
+#: .\administration\templates\administration\auth\profile.html:13
+msgid "Account Settings"
+msgstr ""
+
+#: .\administration\templates\administration\auth\password-change.html:12
+msgid "Security"
+msgstr ""
+
+#: .\administration\templates\administration\auth\password-change.html:24
+#: .\templates\components\admin\profile-nav.html:3
+msgid "Change Password"
+msgstr ""
+
+#: .\administration\templates\administration\auth\password-change.html:51
+#: .\administration\templates\administration\auth\profile.html:61
+#: .\administration\templates\administration\companies\detail.html:58
+#: .\administration\templates\administration\companies\index.html:83
+#: .\administration\templates\administration\documents\detail.html:53
+#: .\administration\templates\administration\documents\index.html:78
+#: .\administration\templates\administration\edit-site-info.html:72
+#: .\administration\templates\administration\posts\create.html:75
+#: .\administration\templates\administration\posts\edit.html:79
+#: .\administration\templates\administration\services\detail.html:58
+#: .\administration\templates\administration\services\index.html:86
+#: .\administration\templates\administration\store\categories\index.html:78
+#: .\administration\templates\administration\store\products\create.html:110
+#: .\administration\templates\administration\store\products\edit.html:135
+#: .\administration\templates\administration\users\create.html:76
+#: .\administration\templates\administration\users\edit.html:65
+msgid "Save"
+msgstr ""
+
+#: .\administration\templates\administration\auth\profile.html:13
+#: .\templates\components\admin\profile-nav.html:2
+msgid "Profile"
+msgstr ""
+
+#: .\administration\templates\administration\auth\profile.html:26
+#: .\administration\templates\administration\users\create.html:29
+#: .\administration\templates\administration\users\edit.html:30
+msgid "Account Details"
+msgstr ""
+
+#: .\administration\templates\administration\companies\detail.html:2
+#: .\administration\templates\administration\companies\index.html:2
+msgid "Company"
+msgstr ""
+
+#: .\administration\templates\administration\companies\detail.html:18
+#: .\administration\templates\administration\documents\detail.html:18
+#: .\administration\templates\administration\posts\create.html:25
+#: .\administration\templates\administration\posts\detail.html:28
+#: .\administration\templates\administration\posts\edit.html:29
+#: .\administration\templates\administration\services\detail.html:18
+#: .\administration\templates\administration\store\categories\edit.html:32
+#: .\administration\templates\administration\store\products\create.html:25
+#: .\administration\templates\administration\store\products\detail.html:31
+#: .\administration\templates\administration\store\products\edit.html:33
+#: .\administration\templates\administration\users\create.html:20
+#: .\administration\templates\administration\users\edit.html:20
+#, python-format
+msgid "Back to %(subject)s List"
+msgstr ""
+
+#: .\administration\templates\administration\companies\detail.html:24
+#: .\administration\templates\administration\documents\detail.html:24
+#: .\administration\templates\administration\services\detail.html:24
+#: .\administration\templates\administration\store\categories\edit.html:24
+#, python-format
+msgid "Delete %(subject)s"
+msgstr ""
+
+#: .\administration\templates\administration\companies\detail.html:36
+#, python-format
+msgid "Edit %(company)s"
+msgstr ""
+
+#: .\administration\templates\administration\companies\index.html:12
+#: .\administration\templates\administration\documents\index.html:12
+#: .\administration\templates\administration\posts\index.html:14
+#: .\administration\templates\administration\services\index.html:12
+#: .\administration\templates\administration\store\categories\index.html:12
+#: .\administration\templates\administration\store\products\index.html:14
+#: .\administration\templates\administration\users\index.html:13
+#, python-format
+msgid "%(subject)s List"
+msgstr ""
+
+#: .\administration\templates\administration\companies\index.html:30
+#: .\administration\templates\administration\companies\index.html:37
+#: .\administration\templates\administration\posts\index.html:36
+#: .\administration\templates\administration\posts\index.html:45
+msgid "Cover image"
+msgstr ""
+
+#: .\administration\templates\administration\companies\index.html:31
+#: .\administration\templates\administration\companies\index.html:38
+#: .\administration\templates\administration\posts\index.html:39
+#: .\administration\templates\administration\posts\index.html:48
+#: .\administration\templates\administration\services\index.html:32
+#: .\administration\templates\administration\services\index.html:40
+#: .\administration\templates\administration\store\categories\index.html:31
+#: .\administration\templates\administration\store\categories\index.html:38
+#: .\administration\templates\administration\users\index.html:38
+#: .\administration\templates\administration\users\index.html:47
+msgid "Actions"
+msgstr ""
+
+#: .\administration\templates\administration\companies\index.html:62
+#: .\administration\templates\administration\documents\index.html:62
+#: .\administration\templates\administration\posts\index.html:20
+#: .\administration\templates\administration\services\index.html:65
+#: .\administration\templates\administration\store\categories\index.html:62
+#: .\administration\templates\administration\store\products\create.html:16
+#: .\administration\templates\administration\store\products\index.html:20
+#: .\administration\templates\administration\users\create.html:14
+#, python-format
+msgid "Add %(subject)s"
+msgstr ""
+
+#: .\administration\templates\administration\documents\detail.html:2
+#: .\administration\templates\administration\documents\index.html:2
+msgid "Document"
+msgstr ""
+
+#: .\administration\templates\administration\documents\detail.html:36
+#, python-format
+msgid "Edit %(document)s"
+msgstr ""
+
+#: .\administration\templates\administration\edit-site-info.html:10
+msgid "Site Data"
+msgstr ""
+
+#: .\administration\templates\administration\edit-site-info.html:24
+msgid "Contact"
+msgstr ""
+
+#: .\administration\templates\administration\edit-site-info.html:31
+msgid "Info"
+msgstr ""
+
+#: .\administration\templates\administration\edit-site-info.html:45
+msgid "Contact details"
+msgstr ""
+
+#: .\administration\templates\administration\edit-site-info.html:45
+msgid "Social media links"
+msgstr ""
+
+#: .\administration\templates\administration\edit-site-info.html:81
+msgid "About text"
+msgstr ""
+
+#: .\administration\templates\administration\edit-site-info.html:81
+msgid "Terms and Privacy text"
+msgstr ""
+
+#: .\administration\templates\administration\index.html:5
+#, python-format
+msgid "Welcome to %(config.app.name)s Admin"
+msgstr ""
+
+#: .\administration\templates\administration\index.html:11
+msgid "Creator Dashboards"
+msgstr ""
+
+#: .\administration\templates\administration\posts\create.html:2
+#: .\administration\templates\administration\posts\detail.html:4
+#: .\administration\templates\administration\posts\edit.html:2
+#: .\administration\templates\administration\posts\index.html:4
+msgid "Post"
+msgstr ""
+
+#: .\administration\templates\administration\posts\create.html:16
+#, python-format
+msgid "Create %(subject)s"
+msgstr ""
+
+#: .\administration\templates\administration\posts\create.html:63
+#: .\administration\templates\administration\posts\edit.html:67
+msgid "Publish"
+msgstr ""
+
+#: .\administration\templates\administration\posts\detail.html:20
+#: .\administration\templates\administration\posts\edit.html:16
+#: .\administration\templates\administration\store\categories\edit.html:16
+#: .\administration\templates\administration\store\categories\edit.html:59
+#: .\administration\templates\administration\store\products\edit.html:16
+#: .\administration\templates\administration\users\edit.html:14
+#, python-format
+msgid "Edit %(subject)s"
+msgstr ""
+
+#: .\administration\templates\administration\posts\index.html:37
+msgid "Creation Date"
+msgstr ""
+
+#: .\administration\templates\administration\posts\index.html:38
+msgid "Update Date"
+msgstr ""
+
+#: .\administration\templates\administration\posts\index.html:46
+msgid "Creation date"
+msgstr ""
+
+#: .\administration\templates\administration\posts\index.html:47
+msgid "Update date"
+msgstr ""
+
+#: .\administration\templates\administration\services\detail.html:2
+#: .\administration\templates\administration\services\index.html:2
+#: .\administration\templates\administration\services\index.html:29
+#: .\administration\templates\administration\services\index.html:37
+msgid "Service"
+msgstr ""
+
+#: .\administration\templates\administration\services\detail.html:36
+#, python-format
+msgid "Edit %(service)s"
+msgstr ""
+
+#: .\administration\templates\administration\store\categories\edit.html:2
+#: .\administration\templates\administration\store\categories\index.html:2
+#: .\store\templates\store\products\detail.html:204
+msgid "Category"
+msgstr ""
+
+#: .\administration\templates\administration\store\categories\edit.html:43
+#, python-format
+msgid "Edit %(category.name)s"
+msgstr ""
+
+#: .\administration\templates\administration\store\categories\index.html:30
+#: .\administration\templates\administration\store\categories\index.html:37
+msgid "Parent"
+msgstr ""
+
+#: .\administration\templates\administration\store\categories\index.html:85
+msgid "Category Structure"
+msgstr ""
+
+#: .\administration\templates\administration\store\products\create.html:2
+#: .\administration\templates\administration\store\products\detail.html:4
+#: .\administration\templates\administration\store\products\edit.html:2
+#: .\administration\templates\administration\store\products\index.html:4
+#: .\cart\templates\cart\summary.html:26
+#: .\checkout\templates\checkout\index.html:164
+#: .\checkout\templates\checkout\success.html:31
+msgid "Product"
+msgstr ""
+
+#: .\administration\templates\administration\store\products\create.html:37
+#: .\administration\templates\administration\store\products\edit.html:45
+msgid "Product details"
+msgstr ""
+
+#: .\administration\templates\administration\store\products\create.html:79
+#: .\administration\templates\administration\store\products\create.html:92
+#: .\administration\templates\administration\store\products\edit.html:87
+msgid "Stock"
+msgstr ""
+
+#: .\administration\templates\administration\store\products\detail.html:20
+#: .\administration\templates\administration\store\products\edit.html:22
+msgid "View on website"
+msgstr ""
+
+#: .\administration\templates\administration\store\products\detail.html:24
+#: .\administration\templates\administration\store\products\edit.html:26
+#, python-format
+msgid "View %(subject)s"
+msgstr ""
+
+#: .\administration\templates\administration\store\products\edit.html:100
+msgid "Images"
+msgstr ""
+
+#: .\administration\templates\administration\users\create.html:4
+#: .\administration\templates\administration\users\edit.html:4
+#: .\administration\templates\administration\users\index.html:4
+msgid "User"
+msgstr ""
+
+#: .\administration\templates\administration\users\index.html:19
+#, python-format
+msgid "Add New %(subject)s"
+msgstr ""
+
+#: .\administration\templates\administration\users\index.html:35
+#: .\administration\templates\administration\users\index.html:44
+msgid "E-mail"
+msgstr ""
+
+#: .\administration\templates\administration\users\index.html:36
+#: .\administration\templates\administration\users\index.html:45
+msgid "Role"
+msgstr ""
+
+#: .\administration\templates\administration\users\index.html:37
+#: .\administration\templates\administration\users\index.html:46
+msgid "Last login"
+msgstr ""
+
+#: .\cart\templates\cart\summary.html:3
+msgid "Cart"
+msgstr ""
+
+#: .\cart\templates\cart\summary.html:27
+msgid "Price"
+msgstr ""
+
+#: .\cart\templates\cart\summary.html:28
+msgid "Quantity"
+msgstr ""
+
+#: .\cart\templates\cart\summary.html:29
+#: .\checkout\templates\checkout\index.html:165
+#: .\checkout\templates\checkout\success.html:32
+#: .\templates\components\default\header.html:89
+msgid "Subtotal"
+msgstr ""
+
+#: .\cart\templates\cart\summary.html:121
+msgid "Update cart"
+msgstr ""
+
+#: .\cart\templates\cart\summary.html:133
+msgid "Cart totals"
+msgstr ""
+
+#: .\cart\templates\cart\summary.html:140
+#: .\checkout\templates\checkout\index.html:197
+#: .\checkout\templates\checkout\success.html:62
+msgid "Total"
+msgstr ""
+
+#: .\cart\templates\cart\summary.html:159
+msgid "Proceed to checkout"
+msgstr ""
+
+#: .\checkout\templates\checkout\index.html:3
+#: .\templates\components\default\header.html:92
+msgid "Checkout"
+msgstr ""
+
+#: .\checkout\templates\checkout\index.html:24
+msgid "Billing details"
+msgstr ""
+
+#: .\checkout\templates\checkout\index.html:127
+msgid "Additional information"
+msgstr ""
+
+#: .\checkout\templates\checkout\index.html:138
+msgid "optional"
+msgstr ""
+
+#: .\checkout\templates\checkout\index.html:153
+#: .\checkout\templates\checkout\success.html:21
+msgid "Your order"
+msgstr ""
+
+#: .\checkout\templates\checkout\index.html:246
+msgid "Place order"
+msgstr ""
+
+#: .\checkout\templates\checkout\success.html:3
+msgid "Order"
+msgstr ""
+
+#: .\core\settings.py:130
+msgid "Russian"
+msgstr ""
+
+#: .\core\settings.py:131
+msgid "Azerbaijani"
+msgstr ""
+
+#: .\core\settings.py:132
+msgid "English"
+msgstr ""
+
+#: .\core\urls.py:17
+msgid "news/"
+msgstr ""
+
+#: .\core\urls.py:18
+msgid "services/"
+msgstr ""
+
+#: .\core\urls.py:19
+msgid "library/"
+msgstr ""
+
+#: .\core\urls.py:20
+msgid "store/"
+msgstr ""
+
+#: .\core\urls.py:21
+msgid "cart/"
+msgstr ""
+
+#: .\core\urls.py:22
+msgid "checkout/"
+msgstr ""
+
+#: .\core\urls.py:23
+msgid "admin/"
+msgstr ""
+
+#: .\library\templates\library\index.html:3 .\main\context_processors.py:13
+#: .\main\context_processors.py:36
+msgid "Library"
+msgstr ""
+
+#: .\main\context_processors.py:11 .\templates\components\breadcrumb.html:18
+msgid "Home"
+msgstr ""
+
+#: .\main\context_processors.py:12 .\templates\components\admin\navbar.html:12
+#: .\templates\layouts\authentication.html:18 .\user\models.py:38
+msgid "Admin"
+msgstr ""
+
+#: .\main\context_processors.py:14 .\main\context_processors.py:37
+#: .\news\templates\news\detail.html:3 .\news\templates\news\index.html:3
+#: .\news\views.py:24 .\templates\components\main\blog-area.html:9
+msgid "News"
+msgstr ""
+
+#: .\main\context_processors.py:15 .\main\context_processors.py:30
+#: .\services\templates\services\index.html:3
+#: .\templates\components\default\footer.html:31
+msgid "Services"
+msgstr ""
+
+#: .\main\context_processors.py:16 .\main\context_processors.py:31
+#: .\store\templates\store\products\detail.html:3
+#: .\store\templates\store\products\index.html:5
+msgid "Shop"
+msgstr ""
+
+#: .\main\context_processors.py:19 .\main\context_processors.py:32
+#: .\main\templates\main\about.html:3 .\templates\components\main\about.html:21
+msgid "About Us"
+msgstr ""
+
+#: .\main\context_processors.py:20 .\main\context_processors.py:33
+#: .\main\templates\main\career.html:3
+msgid "Career"
+msgstr ""
+
+#: .\main\context_processors.py:21 .\main\context_processors.py:38
+#: .\main\templates\main\contact.html:3
+#: .\templates\components\default\footer.html:68
+msgid "Contact Us"
+msgstr ""
+
+#: .\main\forms.py:7
+msgid "Delivery & Orders"
+msgstr ""
+
+#: .\main\forms.py:8
+msgid "Wholesale & Returns"
+msgstr ""
+
+#: .\main\forms.py:9
+msgid "Other"
+msgstr ""
+
+#: .\main\forms.py:9
+msgid "Digər"
+msgstr ""
+
+#: .\main\forms.py:12 .\main\forms.py:13
+msgid "Full Name"
+msgstr ""
+
+#: .\main\forms.py:14 .\main\forms.py:16
+msgid "Email Address"
+msgstr ""
+
+#: .\main\forms.py:17 .\main\forms.py:18
+msgid "Subject"
+msgstr ""
+
+#: .\main\forms.py:19 .\main\forms.py:20
+msgid "Message"
+msgstr ""
+
+#: .\main\templates\main\career.html:33
+#: .\templates\components\main\companies-area.html:10
+msgid "Companies"
+msgstr ""
+
+#: .\news\models.py:12 .\store\models.py:44
+msgid "Rich text editor field"
+msgstr ""
+
+#: .\orders\forms.py:19
+msgid "House number and street name"
+msgstr ""
+
+#: .\orders\forms.py:27
+msgid "Notes about your order, e.g. special notes for delivery."
+msgstr ""
+
+#: .\store\models.py:23
+msgid "categories"
+msgstr ""
+
+#: .\store\templates\store\products\detail.html:6
+#: .\templates\components\products\product.html:88
+#: .\templates\components\products\product.html:97
+#: .\templates\components\products\product.html:101
+msgid "Add to Wishlist"
+msgstr ""
+
+#: .\store\templates\store\products\detail.html:145
+msgid "Add to cart"
+msgstr ""
+
+#: .\store\templates\store\products\index.html:6 .\store\views.py:48
+#: .\store\views.py:68
+msgid "Products"
+msgstr ""
+
+#: .\store\templates\store\products\index.html:48
+msgid "Filter by Price"
+msgstr ""
+
+#: .\store\templates\store\products\index.html:55
+msgid "Product categories"
+msgstr ""
+
+#: .\templates\components\admin\navbar.html:229
+#: .\templates\components\admin\sidenav.html:4
+msgid "Account"
+msgstr ""
+
+#: .\templates\components\admin\navbar.html:235
+msgid "Logout"
+msgstr ""
+
+#: .\templates\components\admin\sidenav.html:55
+msgid "Logged in as"
+msgstr ""
+
+#: .\templates\components\default\footer.html:48
+msgid "Support"
+msgstr ""
+
+#: .\templates\components\default\footer.html:97
+msgid "Copyright"
+msgstr ""
+
+#: .\templates\components\default\footer.html:97
+msgid "All Rights Reserved"
+msgstr ""
+
+#: .\templates\components\default\header.html:85
+msgid "No products in the cart."
+msgstr ""
+
+#: .\templates\components\default\header.html:91
+msgid "View cart"
+msgstr ""
+
+#: .\templates\components\main\about.html:32
+msgid "More"
+msgstr ""
+
+#: .\templates\components\main\banner.html:16
+msgid "Shop Now"
+msgstr ""
+
+#: .\templates\components\main\blog-area.html:9
+msgid "Latest"
+msgstr ""
+
+#: .\templates\components\products\product-home.html:29
+#: .\templates\components\products\product.html:75
+msgid "Buy Now"
+msgstr ""
+
+#: .\templates\components\products\product.html:22
+msgid "Sale"
+msgstr ""
+
+#: .\user\models.py:39
+msgid "Editor"
+msgstr ""
+
+#: .\user\models.py:40
+msgid "Operator"
+msgstr ""
+
+#: .\user\models.py:41
+msgid "Staff"
+msgstr ""

@@ -1,6 +1,7 @@
-{% extends 'layouts/default.html' %} {% load static %} {% block content %}
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %} {% block content %}
 <main class="main-area fix">
-  {%include "components/breadcrumb.html" with title='Contact Us' home_title='Home'%}
+  {% translate "Contact Us" as pageTitle %}
+  {%include "components/breadcrumb.html" with pageTitle=pageTitle %}
 
   <div
     data-elementor-type="wp-page"
@@ -31,7 +32,7 @@
                   <div class="container">
                     <div class="contact-box-wrapper">
                       <div class="row justify-content-center">
-                        <div class="col-lg-3 col-md-6 col-sm-9">
+                        <div class="col-lg-4 col-md-6 col-sm-9">
                           <div class="contact-box">
                             <div class="contact-icon">
                               <span class="overlay-icon"
@@ -49,7 +50,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-sm-9">
+                        <div class="col-lg-4 col-md-6 col-sm-9">
                           <div class="contact-box">
                             <div class="contact-icon">
                               <span class="overlay-icon"
@@ -67,7 +68,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-sm-9">
+                        <div class="col-lg-4 col-md-6 col-sm-9">
                           <div class="contact-box">
                             <div class="contact-icon">
                               <span class="overlay-icon"
@@ -86,7 +87,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-sm-9">
+                        <div class="col-lg-4 col-md-6 col-sm-9">
                           <div class="contact-box">
                             <div class="contact-icon">
                               <span class="overlay-icon"

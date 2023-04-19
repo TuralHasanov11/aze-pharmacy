@@ -60,7 +60,12 @@ def admin_menu(request):
                     {"title": "Orders", "route": "administration:orders"},
                 ]
             },
+            {
+                "title": _("Sayt Məlumatları"),
+                "module_permission": "site_info",
+                "route": "administration:site-data"
+            },
         ]
     return {
-        "admin_menu": [item for item in menu if "module_permission" in item and request.user.has_module_perms(item["module_permission"])]
+        "admin_menu": [item for item in menu if ("module_permission" not in item) or ("module_permission" in item and request.user.has_module_perms(item["module_permission"]))]
     }

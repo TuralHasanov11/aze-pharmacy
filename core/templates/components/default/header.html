@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 <header id="home">
   <div id="header-top-fixed"></div>
@@ -12,7 +13,7 @@
               <div class="logo">
                 <a class="sticky-logo" href="{% url 'main:index' %}">
                   <img
-                    src="{% static 'wp-content/themes/suxnix/assets/img/logo/secondary_logo.png' %}"
+                    src="{% static 'images/logo.png' %}"
                     alt="Logo"
                   />
                 </a>
@@ -36,6 +37,11 @@
                     <a href="{% url item.route %}" aria-current="page">{{item.title}}</a>
                   </li>
                   {% endif %}
+                  {% endfor %}
+                  {% for lang in languages %}
+                  <li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item current_page_item menu-item-home">
+                    <a href="/{{ lang.code }}{{ request.get_full_path|slice:'3:' }}" aria-current="page">{{lang.code|upper}}</a>
+                  </li>
                   {% endfor %}
                 </ul>
               </div>
@@ -76,14 +82,14 @@
                       </div>
                       {% else %}
                       <p class="woocommerce-mini-cart__empty-message">
-                        No products in the cart.
+                        {% translate "No products in the cart." %}
                       </p>
                       {% endif %}
                       <p class="woocommerce-mini-cart__total total">
-                        <strong>Subtotal:</strong> <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span><span id-"cart-total-price">{{cart.get_total_price}}</span></bdi></span>
+                        <strong>{% translate "Subtotal" %}:</strong> <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span><span id-"cart-total-price">{{cart.get_total_price}}</span></bdi></span>
                       </p>
-                      <p class="woocommerce-mini-cart__buttons buttons"><a href="{% url 'cart:index' %}" class="button wc-forward">View cart</a>
-                        <a href="{% url 'checkout:index' %}" class="button checkout wc-forward">Checkout</a>
+                      <p class="woocommerce-mini-cart__buttons buttons"><a href="{% url 'cart:index' %}" class="button wc-forward">{% translate "View cart" %}</a>
+                        <a href="{% url 'checkout:index' %}" class="button checkout wc-forward">{% translate "Checkout" %}</a>
                       </p>
                     </div>
                     {% endwith %}
@@ -141,8 +147,6 @@
                   </li>
                   {% endif %}
                   {% endfor %}
-                  
-                  
                 </ul>
               </div>
 

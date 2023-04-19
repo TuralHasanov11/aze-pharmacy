@@ -1,4 +1,5 @@
-{% extends 'layouts/admin.html' %} {% load static %} {% block content %}
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
+{% translate "Post" as subject %}
 
 <main>
   <header
@@ -12,16 +13,20 @@
               <div class="page-header-icon">
                 <i data-feather="file-plus"></i>
               </div>
-              Edit Post
+              {% blocktranslate %}Edit {{subject}}{% endblocktranslate %}
             </h1>
           </div>
           <div class="col-12 col-xl-auto mb-3">
+            <form class="delete-form" action="{% url 'administration:post-delete' pk=post.pk %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-sm btn-danger"><i data-feather="trash-2"></i></button>
+            </form>
             <a
               class="btn btn-sm btn-light text-primary"
               href="{% url 'administration:post-list' %}"
             >
               <i class="me-1" data-feather="arrow-left"></i>
-              Back to All Posts
+              {% blocktranslate %}Back to {{subject}} List{% endblocktranslate %}
             </a>
           </div>
         </div>
@@ -59,7 +64,7 @@
         <div class="col-lg-3">
           <div class="card card-header-actions">
             <div class="card-header">
-              Publish
+              {% translate "Publish" %}
               <i
                 class="text-muted"
                 data-feather="info"
@@ -69,14 +74,9 @@
               ></i>
             </div>
             <div class="card-body">
-              <div class="d-grid mb-3">
-                <button type="submit" class="fw-500 btn btn-success-soft text-success">
-                  Save as Draft
-                </button>
-              </div>
               <div class="d-grid">
                 <button type="submit" class="fw-500 btn btn-success">
-                  Submit with Approval
+                  {% translate "Save" %}
                 </button>
               </div>
             </div>

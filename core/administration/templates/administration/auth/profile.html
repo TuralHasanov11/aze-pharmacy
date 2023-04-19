@@ -10,7 +10,7 @@
                     <div class="col-auto mb-3">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><i data-feather="user"></i></div>
-                            Account Settings - Profile
+                            {% translate "Account Settings" %} - {% translate "Profile" %}
                         </h1>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
             <div class="col-12">
                 {% include 'components/messages.html' with messages=messages %}
                 <div class="card mb-4">
-                    <div class="card-header">Account Details</div>
+                    <div class="card-header">{% translate "Account Details" %}</div>
                     <div class="card-body">
                         <form method="POST">
                             {% csrf_token %} 
@@ -58,7 +58,7 @@
                                 {{ form.role }} 
                                 {{ form.role.errors  }}
                             </div>
-                            <button class="btn btn-success" type="submit">Save</button>
+                            <button class="btn btn-success" type="submit">{% translate "Save" %}</button>
                         </form>
                     </div>
                 </div>

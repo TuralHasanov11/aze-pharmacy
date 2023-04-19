@@ -1,6 +1,7 @@
-{% extends 'layouts/default.html' %} {% load static %} {% block content %}
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %} {% block content %}
 <main class="main-area fix">
-  {%include "components/breadcrumb.html" with title='Product' home_title='Home'%}
+  {% translate "Checkout" as pageTitle %}
+  {%include "components/breadcrumb.html" with pageTitle=pageTitle endTitle=pageTitle%}
 
   <div class="tg-page-area">
     <div class="container">
@@ -20,7 +21,7 @@
                     <div class="col-lg-7">
                       <div id="customer_form_details">
                         <div class="woocommerce-billing-fields">
-                          <h3>Billing details</h3>
+                          <h3>{% translate "Billing details" %}</h3>
                           <div
                             class="woocommerce-billing-fields__field-wrapper"
                           >
@@ -123,7 +124,7 @@
                         </div>
 
                         <div class="woocommerce-additional-fields">
-                          <h3>Additional information</h3>
+                          <h3>{% translate "Additional information" %}</h3>
 
                           <div
                             class="woocommerce-additional-fields__field-wrapper"
@@ -134,7 +135,7 @@
                             >
                               <label for="{{form.notes.id_for_label}}"
                                 >{{form.notes.label}}&nbsp;<span class="optional"
-                                  >(optional)</span
+                                  >({% translate "optional" %})</span
                                 ></label
                               ><span class="woocommerce-input-wrapper">
                                 {{form.notes}}
@@ -149,7 +150,7 @@
                     <div class="col-lg-5">
                       <div class="cart-wrapper">
                         <div class="order-review-wrapper">
-                          <h3 id="order_review_heading">Your order</h3>
+                          <h3 id="order_review_heading">{% translate "Your order" %}</h3>
 
                           <div
                             id="order_review"
@@ -160,8 +161,8 @@
                             >
                               <thead>
                                 <tr>
-                                  <th class="product-name">Product</th>
-                                  <th class="product-total">Subtotal</th>
+                                  <th class="product-name">{% translate "Product" %}</th>
+                                  <th class="product-total">{% translate "Subtotal" %}</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -193,7 +194,7 @@
                               </tbody>
                               <tfoot>
                                 <tr class="order-total">
-                                  <th>Total</th>
+                                  <th>{% translate "Total" %}</th>
                                   <td>
                                     <strong
                                       ><span
@@ -242,7 +243,7 @@
                                   value="Place order"
                                   data-value="Place order"
                                 >
-                                  Place order
+                                  {% translate "Place order" %}
                                 </button>
                               </div>
                             </div>

@@ -333,7 +333,7 @@ class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     context_object_name = "products"
 
     def get_queryset(self):
-        return super().get_queryset().select_related('product_category').prefetch_related(
+        return super().get_queryset().select_related('category').prefetch_related(
             Prefetch('product_image', queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature'))
 
 
@@ -345,7 +345,7 @@ class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
     context_object_name = "product"
 
     def get_queryset(self):
-        return super().get_queryset().select_related('product_category', 'product_stock').prefetch_related(
+        return super().get_queryset().select_related('category', 'product_stock').prefetch_related(
             Prefetch('product_image', queryset=ProductImage.objects.filter(
                 is_feature=True), to_attr='image_feature'),
             Prefetch('product_image', to_attr='images')
@@ -442,15 +442,7 @@ class OrdersView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = 'administration/orders/index.html'
 
 
-class SiteInfoUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
-    form_class = forms.SiteInfoForm
-    model = SiteInfo
-    permission_required = ['main.change_site_info', 'main.view_site_info']
-    login_url = reverse_lazy('administration:index')
-    template_name = 'administration/edit-site-info.html'
-    context_object_name = 'siteInfo'
-    success_message = "Site info was updated successfully"
-    success_url = reverse_lazy('administration:edit-site-info')
-    
-    def get_object(self):
-        return SiteInfo.objects.first()
+@login_required
+@permission_required(['main.change_site_info', 'main.view_site_info'], login_url=reverse_lazy('administration:index'))
+def siteData(request, *args, **kwargs):
+    return render('administration/site-data.html')

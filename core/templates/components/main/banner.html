@@ -1,21 +1,19 @@
 {% load static %}
+{% load i18n %}
 
 <section class="banner-area">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-xxl-8 col-xl-7 col-lg-8 col-md-10">
         <div class="banner-content text-center">
-          <p class="banner-caption">.. Increased Energy With SUXNIX ..</p>
-
-          <h2 class="title">Mix Protein Provided Way To Growth</h2>
-
+          <h2 class="title">{{bannerText}}</h2>
           <a
             href="{% url 'store:products' %}"
             target="_self"
             rel="nofollow"
             class="btn btn-two"
           >
-            Shop Now
+            {% translate "Shop Now" %}
           </a>
         </div>
       </div>
@@ -26,7 +24,7 @@
         <div class="banner-images text-center">
           <img
             decoding="async"
-            src="{% static 'wp-content/uploads/2022/09/banner_img01.png' %}"
+            src="{% static 'images/banner.png' %}"
             alt=""
             class="main-img"
           />
