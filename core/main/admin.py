@@ -1,5 +1,5 @@
 from django.contrib import admin
-from main.models import Company, SiteInfo
+from main.models import Company, SiteInfo, SiteText
 
 
 @admin.register(Company)
@@ -10,4 +10,9 @@ class CompanyAdmin(admin.ModelAdmin):
 
 @admin.register(SiteInfo)
 class SiteInfoAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(SiteText)
+class SiteTextAdmin(admin.ModelAdmin):
     pass

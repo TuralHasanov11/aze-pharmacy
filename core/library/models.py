@@ -8,6 +8,7 @@ from django.utils.text import slugify
 def document_file_path(instance, filename):
     return f"documents/{slugify(instance.name)}/{filename}"
 
+
 class SupportedDocumentFormats(Enum):
     PDF: str = "pdf"
     DOC: str = "doc"
@@ -22,6 +23,7 @@ class SupportedDocumentFormats(Enum):
     @staticmethod
     def list():
         return list(map(lambda c: c.value, SupportedDocumentFormats))
+
 
 class Document(models.Model):
     name = models.CharField(max_length=255, unique=True)

@@ -13,9 +13,9 @@ def default_menu(request):
             {"title": _("Library"), "route": "library:index"},
             {"title": _("News"), "route": "news:index"},
             {"title": _("Services"), "route": "services:index"},
-            {"title": _("Shop"), "route": "store:products", 
-                "children": [{"route": category.get_absolute_url, "title": category.name} for category in categories ]
-            },
+            {"title": _("Shop"), "route": "store:products",
+                "children": [{"route": category.get_absolute_url, "title": category.name} for category in categories]
+             },
             {"title": _("About Us"), "route": "main:about"},
             {"title": _("Career"), "route": "main:career"},
             {"title": _("Contact Us"), "route": "main:contact"},
@@ -42,16 +42,18 @@ def default_footer_menu(request):
 
 
 def site_info(request):
-    siteInfo = SiteInfo.objects.values("phone", "address", "email", "facebook_link", "twitter_link", "instagram_link").first()
+    siteInfo = SiteInfo.objects.values(
+        "phone", "address", "email", "facebook_link", "twitter_link", "instagram_link").first()
     return {
         "site_info": {
-            "phone": siteInfo["phone"], 
-            "address": siteInfo["address"], 
-            "email": siteInfo["email"], 
+            "phone": siteInfo["phone"],
+            "address": siteInfo["address"],
+            "email": siteInfo["email"],
             "social_links": [
-                {"link": siteInfo["facebook_link"], "icon": "fab fa-facebook"}, 
-                {"link": siteInfo["twitter_link"], "icon": "fab fa-twitter"}, 
-                {"link": siteInfo["instagram_link"], "icon": "fab fa-instagram"}, 
+                {"link": siteInfo["facebook_link"], "icon": "fab fa-facebook"},
+                {"link": siteInfo["twitter_link"], "icon": "fab fa-twitter"},
+                {"link": siteInfo["instagram_link"],
+                    "icon": "fab fa-instagram"},
             ]
         }
     }

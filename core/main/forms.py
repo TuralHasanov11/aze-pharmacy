@@ -6,7 +6,7 @@ class ContactForm(forms.Form):
     SUBJECT_CHOICES =(
         (_("Delivery & Orders"), _("Delivery & Orders")),
         (_("Wholesale & Returns"), _("Wholesale & Returns")),
-        (_("Other"), _("Digər")),
+        (_("Other"), _("Other")),
     )
     
     name = forms.CharField(label=_('Full Name'), widget=forms.TextInput(
