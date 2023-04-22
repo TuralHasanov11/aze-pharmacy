@@ -163,6 +163,8 @@ class PasswordChangeForm(auth_forms.PasswordChangeForm):
 class ProductForm(forms.ModelForm):
     name = forms.CharField(label=_('Name'), widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': _('Name')}))
+    sku = forms.IntegerField(label=_('SKU'), widget=forms.NumberInput(
+        attrs={'class': 'form-control', 'placeholder': _('SKU')}))
     category = forms.ModelChoiceField(label=_('category'), widget=forms.Select(
         attrs={'class': 'form-select'}), queryset=Category.objects.all())
     regular_price = forms.DecimalField(label=_('Regular Price'), widget=forms.NumberInput(
@@ -178,13 +180,12 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ('name', 'description', 'regular_price',
+        fields = ('name', 'sku', 'description', 'regular_price',
                   'discount', 'weight', 'is_active', 'category')
 
     def save(self, commit=True):
         product = super().save(commit)
-        product.discount_price = product.regular_price - \
-            (product.regular_price * product.discount / 100)
+        product.discount_price = product.regular_price - (product.regular_price * product.discount / 100)
         product.save()
         return product
 
@@ -212,7 +213,7 @@ class ProductImageForm(forms.ModelForm):
 StockFormSet = forms.inlineformset_factory(
     parent_model=Product, model=Stock, max_num=1, form=StockForm)
 ProductImageFormSet = forms.inlineformset_factory(
-    parent_model=Product, model=ProductImage, form=ProductImageForm, extra=3, min_num=3, can_delete=True)
+    parent_model=Product, model=ProductImage, form=ProductImageForm, can_delete=True)
 
 
 class SiteInfoForm(forms.ModelForm):
@@ -241,10 +242,13 @@ class SiteInfoForm(forms.ModelForm):
 
 class SiteTextForm(forms.ModelForm):
     language = forms.ChoiceField(label=_("Language"), widget=forms.Select(
-        attrs={"class": "form-select"}), choices=settings.LANGUAGES)
+        attrs={"class": "form-select", 'readonly': True}), choices=settings.LANGUAGES)
     about = forms.CharField(label=_('About'), widget=forms.Textarea(
         attrs={'class': 'form-control', 'placeholder': _('About'), 'rows': 25}))
 
     class Meta:
         model = SiteText
         fields = ['about', 'language']
+
+
+SiteTextFormSet = forms.formset_factory(form=SiteTextForm, max_num=len(settings.LANGUAGES))

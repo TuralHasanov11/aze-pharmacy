@@ -1,7 +1,6 @@
 
 
 {% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
-{% translate "Product" as subject %}
 
 <main>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -15,21 +14,25 @@
                         </h1>
                     </div>
                     <div class="col-12 col-xl-auto mb-3">
-                        <a class="btn btn-sm btn-primary text-light" href="{% url 'administration:store-product-update' pk=product.pk %}">
+                        <a class="btn btn-sm btn-primary text-light" href="{% url 'store:product-detail' product_slug=product.slug category_slug=product.category.slug %}">
                             <i class="me-1" data-feather="eye"></i>
                             {% translate "View on website" %}
                         </a>
-                        <a class="btn btn-sm btn-warning text-dark" href="{% url 'administration:store-product-detail' pk=product.pk %}">
-                            <i class="me-1" data-feather="file"></i>
-                            {% blocktranslate %}View {{subject}}{% endblocktranslate %}
+                        <a class="btn btn-sm btn-warning text-dark" href="{% url 'administration:store-product-update' pk=product.pk %}">
+                            <i class="me-1" data-feather="edit"></i>
+                            {% translate "Edit Product" %}
                         </a>
                         <a
                           class="btn btn-sm btn-light text-primary"
                           href="{% url 'administration:store-product-list' %}"
                         >
-                          <i class="me-1" data-feather="arrow-left"></i>
-                          {% blocktranslate %}Back to {{subject}} List{% endblocktranslate %}
+                            <i class="me-1" data-feather="list"></i>
+                            {% translate "Back to Product List" %}
                         </a>
+                        <form class="delete-form" action="{% url 'administration:store-product-delete' pk=product.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger text-light"><i class="me-1" data-feather="trash-2"></i>{% translate "Delete Product" %}</button>
+                          </form>
                     </div>
                 </div>
             </div>
@@ -46,7 +49,7 @@
                         <h5 class="card-title">{{product.name}}</h5>
                         <p class="card-text">{{product.description|safe}}</p>
                         {% for product_image in product.images %}
-                        <img width="256" height="256" src="{{product_image.image.url}}" />
+                        {% if product_image.image %}<img width="256" height="256" src="{{product_image.image.url}}" />{% endif %}
                         {% endfor %}
                     </div>
                 </div>
@@ -54,22 +57,22 @@
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-header"><a href="{% url 'administration:store-category-update' pk=product.category.pk %}">{{product.category}}</a></div>
-                    <div class="card-header">Pricing</div>
+                    <div class="card-header">{% translate "Pricing" %}</div>
                     <div class="card-body">
-                        <h5 class="card-title">Regular Price</h5>
+                        <h5 class="card-title">{% translate "Regular Price" %}</h5>
                         <p class="card-text">{{product.regular_price}}</p>
-                        <h5 class="card-title">Discount</h5>
+                        <h5 class="card-title">{% translate "Discount" %}</h5>
                         <p class="card-text">{{product.discount}}</p>
-                        <h5 class="card-title">Discount Price</h5>
+                        <h5 class="card-title">{% translate "Discount Price" %}</h5>
                         <p class="card-text">{{product.discount_price}}</p>
-                        <h5 class="card-title">Weight</h5>
+                        <h5 class="card-title">{% translate "Weight" %}</h5>
                         <p class="card-text">{{product.weight|default:'-'}}</p>
                     </div>
-                    <div class="card-header">Stock Data</div>
+                    <div class="card-header">{% translate "Stock Data" %}</div>
                     <div class="card-body">
-                        <h5 class="card-title">Available units</h5>
+                        <h5 class="card-title">{% translate "Available units" %}</h5>
                         <p class="card-text">{{product.product_stock.units}}</p>
-                        <h5 class="card-title">Sold units</h5>
+                        <h5 class="card-title">{% translate "Sold units" %}</h5>
                         <p class="card-text">{{product.product_stock.units_sold}}</p>
                     </div>
                 </div>

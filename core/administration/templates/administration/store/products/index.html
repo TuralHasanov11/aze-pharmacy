@@ -1,8 +1,6 @@
 
 
 {% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
-{% translate "Product" as subject %}
-
 <main>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
         <div class="container-fluid px-4">
@@ -11,13 +9,13 @@
                     <div class="col-auto mb-3">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><i data-feather="list"></i></div>
-                            {% blocktranslate %}{{subject}} List{% endblocktranslate %}
+                            {% translate "Product List" %}
                         </h1>
                     </div>
                     <div class="col-12 col-xl-auto mb-3">
                         <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:store-product-create' %}">
                             <i class="me-1" data-feather="plus"></i>
-                            {% blocktranslate%}Add {{subject}}{% endblocktranslate %}
+                            {% translate "Add Product" %}
                         </a>
                     </div>
                 </div>
@@ -33,6 +31,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>SKU</th>
                             <th>Cover image</th>
                             <th>Price</th>
                             <th>Discount</th>
@@ -46,6 +45,7 @@
                     <tfoot>
                         <tr>
                             <th>Name</th>
+                            <th>SKU</th>
                             <th>Cover image</th>
                             <th>Price</th>
                             <th>Discount</th>
@@ -60,6 +60,7 @@
                         {% for product in products %}
                         <tr>
                             <td>{{product.name}}</td>
+                            <td>{{product.sku|default:""}}</td>
                             <td>{% if product.product_image %}<img width="64" height="64" src="{{product.image_feature.0.image.url}}" alt="{{product.name}}">{% endif %}</td>
                             <td>{{product.regular_price}}</td>
                             <td>{{product.discount}}%</td>

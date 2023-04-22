@@ -1,0 +1,63 @@
+
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
+<header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
+    <div class="container-xl px-4">
+        <div class="page-header-content pt-4">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-auto mt-4">
+                    <h1 class="page-header-title">
+                        <div class="page-header-icon"><i data-feather="arrow-right-circle"></i></div>
+                        {% translate "Site Data" %}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container-xl px-4 mt-n10">
+    <div class="card">
+        <div class="card-body">
+            {% include 'components/messages.html' with messages=messages %}
+            <form method="POST" action="{% url 'administration:site-info' %}">
+                {% csrf_token %}
+                <h5 class="card-title mb-4">{% translate "Contact details" %}, {% translate "Social media links" %}</h5>
+                <div class="mb-3">
+                    <label class="small mb-1" for="{{infoForm.phone.id_for_label}}">{{infoForm.phone.label}}</label>
+                    {{infoForm.phone}}
+                </div>
+                <div class="mb-3">
+                    <label class="small mb-1" for="{{infoForm.address.id_for_label}}">{{infoForm.address.label}}</label>
+                    {{infoForm.address}}
+                </div>
+                <div class="mb-3">
+                    <label class="small mb-1" for="{{infoForm.email.id_for_label}}">{{infoForm.email.label}}</label>
+                    {{infoForm.email}}
+                </div>
+                <div class="mb-3">
+                    <label class="small mb-1" for="{{infoForm.facebook_link.id_for_label}}">{{infoForm.facebook_link.label}}</label>
+                    {{infoForm.facebook_link}}
+                </div>
+                <div class="mb-3">
+                    <label class="small mb-1" for="{{infoForm.instagram_link.id_for_label}}">{{infoForm.instagram_link.label}}</label>
+                    {{infoForm.instagram_link}}
+                </div>
+                <hr class="my-4" />
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-primary" type="submit">{% translate "Save" %}</button>
+                </div>
+            </form>       
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,6 +1,4 @@
 {% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
-{% translate "Product" as subject %}
-
 <main>
   <header
     class="page-header page-header-compact page-header-light border-bottom bg-white mb-4"
@@ -13,7 +11,7 @@
               <div class="page-header-icon">
                 <i data-feather="file-plus"></i>
               </div>
-              {% blocktranslate %}Add {{subject}}{% endblocktranslate %}
+              {% translate "Add Product" %}
             </h1>
           </div>
           <div class="col-12 col-xl-auto mb-3">
@@ -21,8 +19,8 @@
               class="btn btn-sm btn-light text-primary"
               href="{% url 'administration:store-product-list' %}"
             >
-              <i class="me-1" data-feather="arrow-left"></i>
-              {% blocktranslate %}Back to {{subject}} List{% endblocktranslate %}
+              <i class="me-1" data-feather="list"></i>
+              {% translate "Back to Product List" %}
             </a>
           </div>
         </div>
@@ -40,40 +38,45 @@
                 {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
                 {{form.non_form_errors}}
                 {{ form.media }}
-                <div class="mb-3">
-                    <label class="small mb-1" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                <div class="mb-4">
+                    <label class="mb-1" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
                     {{ form.name }} 
                     {{ form.name.errors }}
                 </div>
-                <div class="mb-3">
-                    <label class="small mb-1" for="{{ form.category.id_for_label }}">{{ form.category.label }}</label>
+                <div class="mb-4">
+                  <label class="mb-1" for="{{ form.sku.id_for_label }}">{{ form.sku.label }}</label>
+                  {{ form.sku }} 
+                  {{ form.sku.errors }}
+                </div>
+                <div class="mb-4">
+                    <label class="mb-1" for="{{ form.category.id_for_label }}">{{ form.category.label }}</label>
                     {{ form.category }} 
                     {{ form.category.errors }}
                 </div>
-                <div class="mb-3">
-                    <label class="small mb-1" for="{{ form.regular_price.id_for_label }}">{{ form.regular_price.label }}</label>
+                <div class="mb-4">
+                    <label class="mb-1" for="{{ form.regular_price.id_for_label }}">{{ form.regular_price.label }}</label>
                     {{ form.regular_price }} 
                     {{ form.regular_price.errors }}
                 </div>
-                <div class="mb-3">
-                    <label class="small mb-1" for="{{ form.discount.id_for_label }}">{{ form.discount.label }}</label>
+                <div class="mb-4">
+                    <label class="mb-1" for="{{ form.discount.id_for_label }}">{{ form.discount.label }}</label>
                     {{ form.discount }} 
                     {{ form.discount.errors }}
                 </div>
-                <div class="mb-3">
-                    <label class="small mb-1" for="{{ form.weight.id_for_label }}">{{ form.weight.label }}</label>
+                <div class="mb-4">
+                    <label class="mb-1" for="{{ form.weight.id_for_label }}">{{ form.weight.label }}</label>
                     {{ form.weight }} 
                     {{ form.weight.errors }}
                 </div>
-                <div class="mb-3">
-                    <label class="form-label small mb-1" for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+                <div class="mb-4">
+                  <label class="mb-1" for="{{ form.is_active.id_for_label }}">{{ form.is_active.label }}</label>
+                  {{ form.is_active }} 
+                  {{ form.is_active.errors }}
+                </div>
+                <div class="mb-4">
+                    <label class="form-label mb-1" for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
                     {{ form.description }} 
                     {{ form.description.errors }}
-                </div>
-                <div class="mb-3">
-                    <label class="small mb-1" for="{{ form.is_active.id_for_label }}">{{ form.is_active.label }}</label>
-                    {{ form.is_active }} 
-                    {{ form.is_active.errors }}
                 </div>
             </div>
             <div class="card-header">{% translate "Stock" %}</div>
@@ -82,8 +85,8 @@
                 {% for formset_item in stock_formset %}
                 {% include "components/form/hidden-fields.html" with hidden_fields=formset_item.hidden_fields %}
                 {{formset_item.non_form_errors}}
-                <div class="mb-3">
-                    <label class="small mb-1" for="{{ formset_item.units.id_for_label }}">{{ formset_item.units.label }}</label>
+                <div class="mb-4">
+                    <label class="mb-1" for="{{ formset_item.units.id_for_label }}">{{ formset_item.units.label }}</label>
                     {{ formset_item.units }} 
                     {{ formset_item.units.errors }}
                 </div>
@@ -95,13 +98,13 @@
                 {% for formset_item in product_image_formset %}
                 {% include "components/form/hidden-fields.html" with hidden_fields=formset_item.hidden_fields %}
                 {{formset_item.non_form_errors}}
-                <div class="mb-3">
-                    <label class="small mb-1" for="{{ formset_item.image.id_for_label }}">{{ formset_item.image.label }}</label>
+                <div class="mb-4">
+                    <label class="mb-1" for="{{ formset_item.image.id_for_label }}">{{ formset_item.image.label }}</label>
                     {{ formset_item.image }} 
                     {{ formset_item.image.errors }}
                 </div>
-                <div class="mb-3">
-                    <label class="small mb-1" for="{{ formset_item.is_feature.id_for_label }}">{{ formset_item.is_feature.label }}</label>
+                <div class="mb-4">
+                    <label class="mb-1" for="{{ formset_item.is_feature.id_for_label }}">{{ formset_item.is_feature.label }}</label>
                     {{ formset_item.is_feature }} 
                     {{ formset_item.is_feature.errors }}
                 </div>

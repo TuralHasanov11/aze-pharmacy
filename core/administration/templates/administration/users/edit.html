@@ -1,7 +1,6 @@
 
 
-{% extends 'layouts/admin.html' %} {% load static %} {% block content %}
-{% translate "User" as subject %}
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
 
 <main>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -11,13 +10,20 @@
                     <div class="col-auto mb-3">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><i data-feather="user"></i></div>
-                            {% blocktranslate %}Edit {{subject}}{% endblocktranslate %}
+                            {% translate "Edit User" %}
                         </h1>
                     </div>
                     <div class="col-12 col-xl-auto mb-3">
+                        <form class="delete-form" action="{% url 'administration:user-delete' pk=user.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger text-light">
+                                <i class="me-1" data-feather="trash-2"></i>
+                                {% translate "Delete User" %}
+                            </button>
+                        </form>
                         <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:user-list' %}">
                             <i class="me-1" data-feather="arrow-left"></i>
-                            {% blocktranslate %}Back to {{subject}} List{% endblocktranslate %}
+                            {% translate "Back to User List" %}
                         </a>
                     </div>
                 </div>

@@ -38,6 +38,8 @@ class SiteInfo(models.Model):
     facebook_link = models.URLField(null=True, blank=True)
     twitter_link = models.URLField(null=True, blank=True)
     instagram_link = models.URLField(null=True, blank=True)
+    youtube_link = models.URLField(null=True, blank=True)
+    tiktok_link = models.URLField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

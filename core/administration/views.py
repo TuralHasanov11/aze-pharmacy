@@ -1,6 +1,5 @@
 
 from administration import forms
-from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
@@ -14,8 +13,7 @@ from django.http import HttpRequest
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.decorators.http import (require_GET, require_http_methods,
-                                          require_POST)
+from django.views.decorators.http import require_GET, require_http_methods
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -68,7 +66,7 @@ class ServiceUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
     model = Service
     permission_required = ["services.change_service"]
     login_url = reverse_lazy('administration:index')
-    template_name = 'administration/services/detail.html'
+    template_name = 'administration/services/edit.html'
     context_object_name = 'service'
     success_message = "%(name)s " + _("was updated successfully")
 
@@ -110,7 +108,7 @@ class DocumentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
     model = Document
     permission_required = ["library.change_document"]
     login_url = reverse_lazy('administration:index')
-    template_name = 'administration/documents/detail.html'
+    template_name = 'administration/documents/edit.html'
     context_object_name = 'document'
     success_message = "%(name)s " + _("was updated successfully")
 
@@ -148,7 +146,7 @@ class CompanyUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
     model = Company
     permission_required = ["library.change_company"]
     login_url = reverse_lazy('administration:index')
-    template_name = 'administration/companies/detail.html'
+    template_name = 'administration/companies/edit.html'
     context_object_name = 'company'
     success_message = "%(name)s " + _("was updated successfully")
 
@@ -375,7 +373,8 @@ def productCreate(request):
                 productImage = item.save(commit=False)
                 productImage.product = product
                 productImage.save()
-            messages.success(request, f'{product} ' + _("was saved successfully"))
+            messages.success(
+                request, f'{product} ' + _("was saved successfully"))
             return redirect("administration:store-product-list")
         messages.error(request, _("Product") + " " + _("cannot be saved"))
         return render(request, "administration/store/products/create.html", {
@@ -411,7 +410,8 @@ def productUpdate(request, pk: int):
             product = form.save()
             stock_formset.save()
             product_image_formset.save()
-            messages.success(request, f'{product} ' + _("was saved successfully"))
+            messages.success(
+                request, f'{product} ' + _("was saved successfully"))
             return redirect("administration:store-product-list")
         messages.error(request, _("Product") + " " + _("cannot be saved"))
         return render(request, "administration/store/products/edit.html", {
@@ -446,38 +446,32 @@ class OrdersView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
 
 
 @login_required
-@require_GET
-@permission_required(['main.change_site_info', 'main.view_site_info', 'main.change_site_text', 'main.view_site_text',], login_url=reverse_lazy('administration:index'))
-def siteData(request, *args, **kwargs):
-    infoForm = forms.SiteInfoForm(instance=SiteInfo.objects.first())
-    textForms = [forms.SiteTextForm(
-        instance=SiteText.objects.filter(language=lang).first()) for lang in settings.LANGUAGES]
-    return render('administration/site-data.html', {"infoForm": infoForm, "textForms": textForms})
+@require_http_methods(['GET', 'POST'])
+@permission_required(['main.change_site_text', 'main.view_site_text',], login_url=reverse_lazy('administration:index'))
+def siteTexts(request):
+    if request.method == 'POST':
+        form = forms.SiteTextFormSet(initial=SiteText.objects.all(), data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _('Texts') + " " + _("were saved successfully"))
+            return redirect("administration:site-texts")
+        messages.error(request, _('Texts') + " " + _("cannot be saved"))
+        return render('administration/site-texts.html', {"form": form})
+    formset = forms.SiteTextFormSet(initial=SiteText.objects.all())
+    return render('administration/site-texts.html', {"formset": formset})
 
 
 @login_required
-@require_POST
-@permission_required(['main.change_site_info'], login_url=reverse_lazy('administration:index'))
-def updateSiteInfo(request, *args, **kwargs):
-    form = forms.SiteInfoForm(
-        instance=SiteInfo.objects.first(), data=request.POST)
-    if form.is_valid():
-        form.save()
-        messages.success(request, _('Info') + " " + _("was saved successfully"))
-        return redirect("administration:site-data")
-    messages.error(request, _('Info')  + " " + _("cannot be saved"))
-    return redirect("administration:site-data")
-
-
-@login_required
-@require_POST
-@permission_required(['main.change_site_info'], login_url=reverse_lazy('administration:index'))
-def updateSiteInfo(request, *args, **kwargs):
-    form = forms.SiteTextForm(instance=SiteText.objects.filter(
-        language=request.POST.get("language")).first(), data=request.POST)
-    if form.is_valid():
-        form.save()
-        messages.success(request, _('Info') + _("was saved successfully"))
-        return redirect("administration:site-data")
-    messages.error(request, _('Info')  + " " + _("cannot be saved"))
-    return redirect("administration:site-data")
+@require_http_methods(['GET', 'POST'])
+@permission_required(['main.change_site_info', 'main.view_site_info',], login_url=reverse_lazy('administration:index'))
+def siteInfo(request):
+    if request.method == 'POST':
+        form = forms.SiteInfoForm(instance=SiteInfo.objects.first(), data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _('Info') + " " + _("was saved successfully"))
+            return redirect("administration:site-info")
+        messages.error(request, _('Info') + " " + _("cannot be saved"))
+        return render('administration/site-info.html', {"form": form})
+    form = forms.SiteInfoForm(instance=SiteInfo.objects.first())
+    return render('administration/site-info.html', {"form": form})

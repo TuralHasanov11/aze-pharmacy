@@ -1,8 +1,6 @@
 
 
 {% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
-{% translate "Post" as subject %}
-
 <main>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
         <div class="container-fluid px-4">
@@ -15,17 +13,26 @@
                         </h1>
                     </div>
                     <div class="col-12 col-xl-auto mb-3">
-                        <a class="btn btn-sm btn-primary text-light" href="{% url 'administration:post-update' pk=post.pk %}">
+                        <a class="btn btn-sm btn-primary text-light"
+                            href="{{post.get_absolute_url}}"
+                            >
+                            <i class="me-1" data-feather="eye"></i>
+                            {% translate "View on website" %}
+                        </a>
+                        <a class="btn btn-sm btn-warning text-dark" href="{% url 'administration:post-update' pk=post.pk %}">
                             <i class="me-1" data-feather="edit"></i>
-                            {% blocktranslate %}Edit {{subject}}{% endblocktranslate %}
+                            {% translate "Edit Post" %}
                         </a>
                         <form class="delete-form" action="{% url 'administration:post-delete' pk=post.pk %}" method="POST">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-sm btn-danger"><i data-feather="trash-2"></i></button>
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                <i class="me-1" data-feather="trash-2"></i> 
+                                {% translate "Delete Post" %}
+                            </button>
                           </form>
                         <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:post-list' %}">
                             <i class="me-1" data-feather="list"></i>
-                            {% blocktranslate %}Back to {{subject}} List{% endblocktranslate %}
+                            {% translate "Back to Post List" %}
                         </a>
                     </div>
                 </div>
@@ -39,6 +46,7 @@
             <img class="card-img-top" src="{{post.cover_image.url}}" alt="{{post.title}}">
             <div class="card-body">
                 <h5 class="card-title">{{post.title}}</h5>
+                <h6 class="card-title"><i class="far fa-calendar-alt"></i> {{post.created_at|date:"j M Y"}}</h6>
                 <p class="card-text">{{post.description|safe}}</p>
             </div>
         </div>

@@ -1,6 +1,4 @@
 {% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
-{% translate "Post" as subject %}
-
 <main>
   <header
     class="page-header page-header-compact page-header-light border-bottom bg-white mb-4"
@@ -13,7 +11,7 @@
               <div class="page-header-icon">
                 <i data-feather="file-plus"></i>
               </div>
-              {% blocktranslate %}Create {{subject}}{% endblocktranslate %}
+              {% translate "Create Post" %}
             </h1>
           </div>
           <div class="col-12 col-xl-auto mb-3">
@@ -22,7 +20,7 @@
               href="{% url 'administration:post-list' %}"
             >
               <i class="me-1" data-feather="arrow-left"></i>
-              {% blocktranslate %}Back to {{subject}} List{% endblocktranslate %}
+              {% translate "Back to Post List" %}
             </a>
           </div>
         </div>
@@ -45,15 +43,15 @@
             </div>
           </div>
           <div class="card mb-4">
-            <div class="card-header">{{ form.description.label }}</div>
-            <div class="card-body">
-              {{ form.description }} {{ form.description.errors }}
-            </div>
-          </div>
-          <div class="card mb-4">
             <div class="card-header">{{ form.cover_image.label }}</div>
             <div class="card-body">
               {{form.cover_image}} {{ form.cover_image.errors }}
+            </div>
+          </div>
+          <div class="card mb-4">
+            <div class="card-header">{{ form.description.label }}</div>
+            <div class="card-body">
+              {{ form.description }} {{ form.description.errors }}
             </div>
           </div>
         </div>

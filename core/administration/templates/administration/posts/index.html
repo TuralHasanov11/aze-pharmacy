@@ -1,8 +1,6 @@
 
 
-{% extends 'layouts/admin.html' %} {% load static %} {% block content %}
-{% translate "Post" as subject %}
-
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
 <main>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
         <div class="container-fluid px-4">
@@ -11,13 +9,13 @@
                     <div class="col-auto mb-3">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><i data-feather="list"></i></div>
-                            {% blocktranslate %}{{subject}} List{% endblocktranslate %}
+                            {% translate "Post List" %}
                         </h1>
                     </div>
                     <div class="col-12 col-xl-auto mb-3">
                         <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:post-create' %}">
                             <i class="me-1" data-feather="plus"></i>
-                            {% blocktranslate %}Add {{subject}}{% endblocktranslate %}
+                            {% translate "Create Post" %}
                         </a>
                     </div>
                 </div>

@@ -1,6 +1,4 @@
-{% extends 'layouts/admin.html' %} {% load static %} {% load mptt_tags %} {% block content %}
-{% translate "Category" as subject %}
-
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% load mptt_tags %} {% block content %}
 <main>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
         <div class="container-fluid px-4">
@@ -9,7 +7,7 @@
                     <div class="col-auto mb-3">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><i data-feather="list"></i></div>
-                            {% blocktranslate %}{{subject}} List{% endblocktranslate %}
+                            {% translate "Category List" %}
                         </h1>
                     </div>
                 </div>
@@ -42,7 +40,7 @@
                                 {% for category in categories %}
                                 <tr>
                                     <td>{{category.name}}</td>
-                                    <td>{{category.parent}}</td>
+                                    <td>{{category.parent|default:""}}</td>
                                     <td>
                                         <a href="{% url 'administration:store-category-update' pk=category.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
                                         <form class="delete-form" action="{% url 'administration:store-category-delete' pk=category.pk %}" method="POST">
@@ -59,7 +57,7 @@
             </div>
             <div class="col-xl-4 col-12 mb-4">
                 <div class="card mb-4">
-                    <div class="card-header">{% blocktranslate %}Add {{subject}}{% endblocktranslate %}</div>
+                    <div class="card-header">{% translate "Add Category" %}</div>
                     <div class="card-body">
                         <form method="post" enctype="multipart/form-data"> 
                             {% csrf_token %}

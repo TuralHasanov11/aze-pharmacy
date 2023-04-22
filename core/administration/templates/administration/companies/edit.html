@@ -1,6 +1,4 @@
 {% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
-{% translate "Company" as subject %}
-
 <main>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
         <div class="container-fluid px-4">
@@ -15,13 +13,13 @@
                     <div class="col-12 col-xl-auto mb-3">
                         <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:company-list' %}">
                             <i class="me-1" data-feather="list"></i>
-                            {% blocktranslate %}Back to {{subject}} List{% endblocktranslate %}
+                            {% translate "Back to Company List" %}
                         </a>
                         <form class="delete-form" action="{% url 'administration:company-delete' pk=company.pk %}" method="POST">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-sm btn-danger">
                                 <i class="me-1" data-feather="trash-2"></i>
-                                {% blocktranslate %}Delete {{subject}}{% endblocktranslate %}
+                                {% translate "Delete Company" %}
                             </button>
                         </form>
                     </div>
@@ -33,7 +31,7 @@
     <div class="container-fluid px-4">
         {% include 'components/messages.html' with messages=messages %}
         <div class="card mb-4">
-            <div class="card-header">{% blocktranslate %}Edit {{company}}{% endblocktranslate %}</div>
+            <div class="card-header">{% translate "Edit Company" %}</div>
             <div class="card-body">
                 <form method="post" enctype="multipart/form-data"> 
                     {% csrf_token %}
@@ -41,17 +39,17 @@
                     {{form.non_form_errors}}
                     {{ form.media }}
                     <div class="mb-3">
-                        <label class="small mb-1" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                        <label class="mb-1" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
                         {{ form.name }} 
                         {{ form.name.errors }}
                     </div>
                     <div class="mb-3">
-                        <label class="small mb-1" for="{{ form.link.id_for_label }}">{{ form.link.label }}</label>
+                        <label class="mb-1" for="{{ form.link.id_for_label }}">{{ form.link.label }}</label>
                         {{ form.link }} 
                         {{ form.link.errors }}
                     </div>
                     <div class="mb-4">
-                        <label class="small mb-1" for="{{ form.cover_image.id_for_label }}">{{ form.cover_image.label }}</label>
+                        <label class="mb-1" for="{{ form.cover_image.id_for_label }}">{{ form.cover_image.label }}</label>
                         {{form.cover_image}} 
                         {{ form.cover_image.errors }}
                     </div>
