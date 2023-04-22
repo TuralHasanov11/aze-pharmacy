@@ -1,6 +1,6 @@
 
 {% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
-<header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
+<header class="page-header page-header-dark bg-gradient-success-to-secondary pb-10">
     <div class="container-xl px-4">
         <div class="page-header-content pt-4">
             <div class="row align-items-center justify-content-between">
@@ -22,28 +22,40 @@
                 {% csrf_token %}
                 <h5 class="card-title mb-4">{% translate "Contact details" %}, {% translate "Social media links" %}</h5>
                 <div class="mb-3">
-                    <label class="small mb-1" for="{{infoForm.phone.id_for_label}}">{{infoForm.phone.label}}</label>
-                    {{infoForm.phone}}
+                    <label class="small mb-1" for="{{form.phone.id_for_label}}">{{form.phone.label}}</label>
+                    {{form.phone}}
                 </div>
                 <div class="mb-3">
-                    <label class="small mb-1" for="{{infoForm.address.id_for_label}}">{{infoForm.address.label}}</label>
-                    {{infoForm.address}}
+                    <label class="small mb-1" for="{{form.address.id_for_label}}">{{form.address.label}}</label>
+                    {{form.address}}
                 </div>
                 <div class="mb-3">
-                    <label class="small mb-1" for="{{infoForm.email.id_for_label}}">{{infoForm.email.label}}</label>
-                    {{infoForm.email}}
+                    <label class="small mb-1" for="{{form.email.id_for_label}}">{{form.email.label}}</label>
+                    {{form.email}}
                 </div>
                 <div class="mb-3">
-                    <label class="small mb-1" for="{{infoForm.facebook_link.id_for_label}}">{{infoForm.facebook_link.label}}</label>
-                    {{infoForm.facebook_link}}
+                    <label class="small mb-1" for="{{form.facebook_link.id_for_label}}">{{form.facebook_link.label}}</label>
+                    {{form.facebook_link}}
                 </div>
                 <div class="mb-3">
-                    <label class="small mb-1" for="{{infoForm.instagram_link.id_for_label}}">{{infoForm.instagram_link.label}}</label>
-                    {{infoForm.instagram_link}}
+                    <label class="small mb-1" for="{{form.instagram_link.id_for_label}}">{{form.instagram_link.label}}</label>
+                    {{form.instagram_link}}
+                </div>
+                <div class="mb-3">
+                    <label class="small mb-1" for="{{form.twitter_link.id_for_label}}">{{form.twitter_link.label}}</label>
+                    {{form.twitter_link}}
+                </div>
+                <div class="mb-3">
+                    <label class="small mb-1" for="{{form.youtube_link.id_for_label}}">{{form.youtube_link.label}}</label>
+                    {{form.youtube_link}}
+                </div>
+                <div class="mb-3">
+                    <label class="small mb-1" for="{{form.tiktok_link.id_for_label}}">{{form.tiktok_link.label}}</label>
+                    {{form.tiktok_link}}
                 </div>
                 <hr class="my-4" />
                 <div class="d-flex justify-content-between">
-                    <button class="btn btn-primary" type="submit">{% translate "Save" %}</button>
+                    <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
                 </div>
             </form>       
         </div>

@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n %} {% load route_list_contains %}
 <nav class="sidenav shadow-right sidenav-light">
   <div class="sidenav-menu">
     <div class="nav accordion" id="accordionSidenav">
@@ -25,14 +25,14 @@
           aria-expanded="false"
           aria-controls="collapse{{forloop.counter}}"
         >
-          <div class="nav-link-icon"><i data-feather="repeat"></i></div>
+          <div class="nav-link-icon"><i data-feather="{{item.icon}}"></i></div>
           {{item.title}}
           <div class="sidenav-collapse-arrow">
             <i class="fas fa-angle-down"></i>
           </div>
         </a>
         <div
-          class="collapse"
+          class="collapse {% if item.children|route_list_contains:request.resolver_match.url_name %}show{% endif %}"
           id="collapse{{forloop.counter}}"
           data-bs-parent="#accordionSidenav"
         >
@@ -40,12 +40,11 @@
             {% for route in item.children %}
             <a class="nav-link" href="{% url route.route %}">{{route.title}}</a>
             {% endfor %}
-            
           </nav>
         </div>
       {% else %}
       <a class="nav-link" href="{% url item.route %}">
-        <div class="nav-link-icon"><i data-feather="filter"></i></div>
+        <div class="nav-link-icon"><i data-feather="{{item.icon}}"></i></div>
         {{item.title}}
       </a>
       {% endif %}

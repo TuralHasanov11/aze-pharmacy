@@ -251,4 +251,4 @@ class SiteTextForm(forms.ModelForm):
         fields = ['about', 'language']
 
 
-SiteTextFormSet = forms.formset_factory(form=SiteTextForm, max_num=len(settings.LANGUAGES))
+SiteTextFormSet = forms.modelformset_factory(model=SiteText, form=SiteTextForm, max_num=len(settings.LANGUAGES))

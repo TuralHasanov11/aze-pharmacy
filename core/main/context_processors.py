@@ -9,7 +9,6 @@ def default_menu(request):
     return {
         "default_menu": [
             {"title": _("Home"), "route": "main:index"},
-            {"title": _("Admin"), "route": "administration:index"},
             {"title": _("Library"), "route": "library:index"},
             {"title": _("News"), "route": "news:index"},
             {"title": _("Services"), "route": "services:index"},
@@ -43,7 +42,7 @@ def default_footer_menu(request):
 
 def site_info(request):
     siteInfo = SiteInfo.objects.values(
-        "phone", "address", "email", "facebook_link", "twitter_link", "instagram_link").first()
+        "phone", "address", "email", "facebook_link", "twitter_link", "instagram_link", "youtube_link", "tiktok_link").first()
     return {
         "site_info": {
             "phone": siteInfo["phone"],
@@ -52,8 +51,9 @@ def site_info(request):
             "social_links": [
                 {"link": siteInfo["facebook_link"], "icon": "fab fa-facebook"},
                 {"link": siteInfo["twitter_link"], "icon": "fab fa-twitter"},
-                {"link": siteInfo["instagram_link"],
-                    "icon": "fab fa-instagram"},
+                {"link": siteInfo["instagram_link"], "icon": "fab fa-instagram"},
+                {"link": siteInfo["youtube_link"], "icon": "fab fa-youtube"},
+                {"link": siteInfo["tiktok_link"], "icon": "fab fa-tiktok"},
             ]
         }
     }

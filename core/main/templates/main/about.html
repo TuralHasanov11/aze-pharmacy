@@ -1,7 +1,7 @@
 {% extends 'layouts/default.html' %} {% load static %} {% load i18n %} {% block content %}
 <main class="main-area fix">
   {% translate "About Us" as pageTitle %}
-  {%include "components/breadcrumb.html" with pageTitle=pageTitle %}
+  {%include "components/breadcrumb.html" with pageTitle=pageTitle endTitle=pageTitle %}
 
   <div
     data-elementor-type="wp-page"
@@ -27,7 +27,7 @@
               data-widget_type="formula.default"
             >
               <div class="elementor-widget-container">
-                {% include "components/main/about.html" with about=siteInfo.about %}
+                {% include "components/main/about.html" with about=siteText.about %}
               </div>
             </div>
           </div>

@@ -482,8 +482,8 @@
 }
 
 .elementor img {
-    max-height: 256px !important;
-    min-height: 256px !important;
+    max-height: 128px !important;
+    min-height: 128px !important;
     max-width: 100%;
     border: none;
     border-radius: 0;

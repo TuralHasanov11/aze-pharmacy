@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-22 11:38+0200\n"
+"POT-Creation-Date: 2023-04-22 14:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,10 +21,6 @@ msgstr ""
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: .\administration\context_processors.py:7
-msgid "Core"
-msgstr ""
-
-#: .\administration\context_processors.py:8
 msgid "Dashboard"
 msgstr ""
 
@@ -35,95 +31,93 @@ msgstr ""
 msgid "Services"
 msgstr ""
 
-#: .\administration\context_processors.py:15
+#: .\administration\context_processors.py:16
 #: .\administration\templates\administration\services\index.html:10
 msgid "Service List"
 msgstr ""
 
-#: .\administration\context_processors.py:20 .\administration\views.py:30
+#: .\administration\context_processors.py:21 .\administration\views.py:30
 #: .\library\templates\library\index.html:3 .\main\context_processors.py:13
 #: .\main\context_processors.py:36
 msgid "Library"
 msgstr ""
 
-#: .\administration\context_processors.py:23
+#: .\administration\context_processors.py:25
 msgid "Documents"
 msgstr ""
 
-#: .\administration\context_processors.py:28 .\administration\views.py:32
+#: .\administration\context_processors.py:30 .\administration\views.py:32
 #: .\main\context_processors.py:14 .\main\context_processors.py:37
 #: .\news\templates\news\detail.html:3 .\news\templates\news\index.html:3
 #: .\news\views.py:24 .\templates\components\main\blog-area.html:9
 msgid "News"
 msgstr ""
 
-#: .\administration\context_processors.py:31
+#: .\administration\context_processors.py:34
 #: .\administration\templates\administration\posts\index.html:12
 msgid "Post List"
 msgstr ""
 
-#: .\administration\context_processors.py:33
+#: .\administration\context_processors.py:36
 msgid "Add Post"
 msgstr ""
 
-#: .\administration\context_processors.py:38 .\administration\views.py:34
+#: .\administration\context_processors.py:41 .\administration\views.py:34
 #: .\main\context_processors.py:20 .\main\context_processors.py:33
 #: .\main\templates\main\career.html:3
 msgid "Career"
 msgstr ""
 
-#: .\administration\context_processors.py:41
+#: .\administration\context_processors.py:45
 #: .\administration\templates\administration\companies\index.html:10
 msgid "Company List"
 msgstr ""
 
-#: .\administration\context_processors.py:46
+#: .\administration\context_processors.py:50 .\administration\views.py:36
 msgid "Authentication"
 msgstr ""
 
-#: .\administration\context_processors.py:49
+#: .\administration\context_processors.py:54
 #: .\administration\templates\administration\users\index.html:12
 msgid "User List"
 msgstr ""
 
-#: .\administration\context_processors.py:51
+#: .\administration\context_processors.py:56
 #: .\administration\templates\administration\users\create.html:12
 msgid "Add User"
 msgstr ""
 
-#: .\administration\context_processors.py:56
+#: .\administration\context_processors.py:61 .\administration\views.py:38
 msgid "Store"
 msgstr ""
 
-#: .\administration\context_processors.py:59
+#: .\administration\context_processors.py:65
 msgid "Categories"
 msgstr ""
 
-#: .\administration\context_processors.py:61
+#: .\administration\context_processors.py:67
 #: .\store\templates\store\products\index.html:6 .\store\views.py:48
 #: .\store\views.py:68
 msgid "Products"
 msgstr ""
 
-#: .\administration\context_processors.py:66
-#: .\administration\context_processors.py:69
+#: .\administration\context_processors.py:72
+#: .\administration\context_processors.py:76 .\administration\views.py:40
 msgid "Orders"
 msgstr ""
 
-#: .\administration\context_processors.py:73
+#: .\administration\context_processors.py:80
 msgid "Site Data Management"
 msgstr ""
 
-#: .\administration\context_processors.py:76
-#: .\administration\templates\administration\site-texts.html:24
-#: .\administration\views.py:472 .\administration\views.py:474
+#: .\administration\context_processors.py:84 .\administration\views.py:478
+#: .\administration\views.py:480
 msgid "Info"
 msgstr ""
 
-#: .\administration\context_processors.py:77
-#: .\administration\templates\administration\site-texts.html:31
-#: .\administration\templates\administration\site-texts.html:42
-#: .\administration\views.py:456 .\administration\views.py:458
+#: .\administration\context_processors.py:85
+#: .\administration\templates\administration\site-texts.html:24
+#: .\administration\views.py:462 .\administration\views.py:464
 msgid "Texts"
 msgstr ""
 
@@ -346,8 +340,8 @@ msgstr ""
 #: .\administration\templates\administration\posts\edit.html:84
 #: .\administration\templates\administration\services\edit.html:56
 #: .\administration\templates\administration\services\index.html:84
-#: .\administration\templates\administration\site-info.html:46
-#: .\administration\templates\administration\site-texts.html:55
+#: .\administration\templates\administration\site-info.html:58
+#: .\administration\templates\administration\site-texts.html:37
 #: .\administration\templates\administration\store\categories\edit.html:57
 #: .\administration\templates\administration\store\categories\index.html:76
 #: .\administration\templates\administration\store\products\create.html:113
@@ -430,7 +424,7 @@ msgid "Welcome to %(config.app.name)s Admin"
 msgstr ""
 
 #: .\administration\templates\administration\index.html:11
-msgid "Creator Dashboards"
+msgid "Dashboards"
 msgstr ""
 
 #: .\administration\templates\administration\posts\create.html:14
@@ -493,7 +487,7 @@ msgstr ""
 
 #: .\administration\templates\administration\services\index.html:27
 #: .\administration\templates\administration\services\index.html:35
-#: .\administration\views.py:81
+#: .\administration\views.py:87
 msgid "Service"
 msgstr ""
 
@@ -514,11 +508,11 @@ msgstr ""
 msgid "Social media links"
 msgstr ""
 
-#: .\administration\templates\administration\site-texts.html:43
+#: .\administration\templates\administration\site-texts.html:25
 msgid "About text"
 msgstr ""
 
-#: .\administration\templates\administration\site-texts.html:43
+#: .\administration\templates\administration\site-texts.html:25
 msgid "Terms and Privacy text"
 msgstr ""
 
@@ -629,64 +623,64 @@ msgstr ""
 msgid "Last login"
 msgstr ""
 
-#: .\administration\views.py:53 .\administration\views.py:91
-#: .\administration\views.py:133 .\administration\views.py:191
-#: .\administration\views.py:265 .\administration\views.py:296
+#: .\administration\views.py:59 .\administration\views.py:97
+#: .\administration\views.py:139 .\administration\views.py:197
+#: .\administration\views.py:271 .\administration\views.py:302
 msgid "was created successfully"
 msgstr ""
 
-#: .\administration\views.py:71 .\administration\views.py:113
-#: .\administration\views.py:151 .\administration\views.py:202
-#: .\administration\views.py:276 .\administration\views.py:314
+#: .\administration\views.py:77 .\administration\views.py:119
+#: .\administration\views.py:157 .\administration\views.py:208
+#: .\administration\views.py:282 .\administration\views.py:320
 msgid "was updated successfully"
 msgstr ""
 
-#: .\administration\views.py:81 .\administration\views.py:123
-#: .\administration\views.py:161 .\administration\views.py:212
-#: .\administration\views.py:286 .\administration\views.py:324
-#: .\administration\views.py:438
+#: .\administration\views.py:87 .\administration\views.py:129
+#: .\administration\views.py:167 .\administration\views.py:218
+#: .\administration\views.py:292 .\administration\views.py:330
+#: .\administration\views.py:444
 msgid "was deleted successfully"
 msgstr ""
 
-#: .\administration\views.py:123
+#: .\administration\views.py:129
 msgid "Document"
 msgstr ""
 
-#: .\administration\views.py:161
+#: .\administration\views.py:167
 msgid "Company"
 msgstr ""
 
-#: .\administration\views.py:212
+#: .\administration\views.py:218
 msgid "Post"
 msgstr ""
 
-#: .\administration\views.py:286
+#: .\administration\views.py:292
 msgid "User"
 msgstr ""
 
-#: .\administration\views.py:324
+#: .\administration\views.py:330
 #: .\store\templates\store\products\detail.html:204
 msgid "Category"
 msgstr ""
 
-#: .\administration\views.py:377 .\administration\views.py:414
-#: .\administration\views.py:472
+#: .\administration\views.py:383 .\administration\views.py:420
+#: .\administration\views.py:478
 msgid "was saved successfully"
 msgstr ""
 
-#: .\administration\views.py:379 .\administration\views.py:416
-#: .\administration\views.py:438 .\cart\templates\cart\summary.html:26
+#: .\administration\views.py:385 .\administration\views.py:422
+#: .\administration\views.py:444 .\cart\templates\cart\summary.html:26
 #: .\checkout\templates\checkout\index.html:164
 #: .\checkout\templates\checkout\success.html:31
 msgid "Product"
 msgstr ""
 
-#: .\administration\views.py:379 .\administration\views.py:416
-#: .\administration\views.py:458 .\administration\views.py:474
+#: .\administration\views.py:385 .\administration\views.py:422
+#: .\administration\views.py:464 .\administration\views.py:480
 msgid "cannot be saved"
 msgstr ""
 
-#: .\administration\views.py:456
+#: .\administration\views.py:462
 msgid "were saved successfully"
 msgstr ""
 
@@ -904,7 +898,7 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: .\templates\components\admin\sidenav.html:57
+#: .\templates\components\admin\sidenav.html:56
 msgid "Logged in as"
 msgstr ""
 

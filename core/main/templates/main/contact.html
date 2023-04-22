@@ -1,7 +1,7 @@
 {% extends 'layouts/default.html' %} {% load static %} {% load i18n %} {% block content %}
 <main class="main-area fix">
   {% translate "Contact Us" as pageTitle %}
-  {%include "components/breadcrumb.html" with pageTitle=pageTitle %}
+  {%include "components/breadcrumb.html" with pageTitle=pageTitle endTitle=pageTitle %}
 
   <div
     data-elementor-type="wp-page"
@@ -42,7 +42,7 @@
                               <i aria-hidden="true" class="far fa-map"></i>
                             </div>
                             <div class="contact-content">
-                              <h5 class="title">Office Address</h5>
+                              <h5 class="title">{% translate "Office Address" %}</h5>
 
                               <p class="contact-desc">
                                 {{siteInfo.address}}
@@ -60,7 +60,7 @@
                               <i aria-hidden="true" class="fas fa-phone"></i>
                             </div>
                             <div class="contact-content">
-                              <h5 class="title">Phone Number</h5>
+                              <h5 class="title">{% translate "Phone Number" %}</h5>
 
                               <p class="contact-desc">
                                 {{siteInfo.phone}}
@@ -78,7 +78,7 @@
                               <i aria-hidden="true" class="fas fa-globe"></i>
                             </div>
                             <div class="contact-content">
-                              <h5 class="title">Web Connect</h5>
+                              <h5 class="title">{% translate "Web Connect" %}</h5>
 
                               <p class="contact-desc">
                                 {{siteInfo.email}} <br />
@@ -97,7 +97,7 @@
                               <i aria-hidden="true" class="far fa-map"></i>
                             </div>
                             <div class="contact-content">
-                              <h5 class="title">Social Media</h5>
+                              <h5 class="title">{% translate "Social Media" %}</h5>
                               <p class="contact-desc">
                                 {% for item in site_info.social_links %}
                                 <a target="_blank" class="mx-2 fs-3" href="{{item.link}}"><i class="{{item.icon}}"></i></a>
@@ -116,82 +116,10 @@
                     <div class="contact-form-wrap">
                       <div class="section-title mb-50">
                         <h2 class="title">
-                          Contact Us
+                          {% translate "Contact Us" %}
                         </h2>
                       </div>
-
-                      <div
-                        role="form"
-                        class="wpcf7"
-                        id="contact-form"
-                        lang="en-US"
-                        dir="ltr"
-                      >
-                        <div class="screen-reader-response">
-                          <p
-                            role="status"
-                            aria-live="polite"
-                            aria-atomic="true"
-                          ></p>
-                          <ul></ul>
-                        </div>
-                        <form
-                          method="POST"
-                          class="wpcf7-form init"
-                          data-status="init"
-                        >
-                        {% csrf_token %}
-                        {% include 'components/messages.html' with messages=messages %}
-
-                          <div class="contact-form">
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="form-grp">
-                                  <label for="{{form.name.id_for_label}}">{{form.name.label}}</label>
-                                  <span
-                                    class="wpcf7-form-control-wrap"
-                                    data-name="your-name"
-                                    >{{form.name}}</span>
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <div class="form-grp">
-                                  <label for="{{form.email.id_for_label}}">{{form.email.label}}</label>
-                                  <span
-                                    class="wpcf7-form-control-wrap"
-                                    data-name="your-email"
-                                    >{{form.email}}</span>
-                                </div>
-                              </div>
-                              <div class="form-grp">
-                                <span
-                                class="wpcf7-form-control-wrap"
-                                data-name="your-subject"
-                                >
-                                <label for="{{form.subject.id_for_label}}">{{form.subject.label}}</label>
-                                {{form.subject}}</span
-                              >
-                              </div>
-                              <div class="form-grp">
-                                <label for="{{form.message.id_for_label}}">{{form.message.label}}</label>
-                                <span
-                                  class="wpcf7-form-control-wrap"
-                                  data-name="your-message"
-                                >
-                                  {{form.message}}
-                                </span>
-                              </div>
-                              <div class="form-btn">
-                                <button class="wpcf7-form-control has-spinner wpcf7-submit btn" type="submit">Send</button>
-                              </div>
-                            </div>
-                            <div
-                              class="wpcf7-response-output"
-                              aria-hidden="true"
-                            ></div>
-                          </div>
-                        </form>
-                      </div>
+                      {% include "components/contact-form.html" with form=form %}
                     </div>
                   </div>
                 </section>

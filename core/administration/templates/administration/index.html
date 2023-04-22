@@ -1,5 +1,5 @@
 {% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
-<header class="py-10 mb-4 bg-gradient-primary-to-secondary">
+<header class="py-10 mb-4 bg-gradient-success-to-secondary">
   <div class="container-xl px-4">
     <div class="text-center">
       <h1 class="text-white">{% blocktranslate %}Welcome to {{config.app.name}} Admin{% endblocktranslate %}</h1>
@@ -8,11 +8,11 @@
 </header>
 
 <div class="container-xl px-4">
-  <h2 class="mt-5 mb-0">{% translate "Creator Dashboards" %}</h2>
+  <h2 class="mt-5 mb-0">{% translate "Dashboards" %}</h2>
   <hr class="mt-0 mb-4" />
   <div class="row">
     {% for dashboard in creator_dashboards %}
-    <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
+    <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
       <a
         class="d-block lift rounded overflow-hidden mb-2"
         href="{% url dashboard.route %}"
@@ -23,183 +23,6 @@
       <div class="text-center small">{{dashboard.name}}</div>
     </div>
     {% endfor %}
-  </div>
-  <h2 class="mt-5 mb-0">App Pages</h2>
-  <p>App pages to cover common use pages to help build your app!</p>
-  <hr class="mt-0 mb-4" />
-  <div class="row">
-    <div class="col-sm-6 col-md-4 col-xl-3 mb-4">
-      <a
-        class="d-block lift rounded overflow-hidden mb-2"
-        href="account-billing.html"
-        ><img
-          class="img-fluid"
-          src="{% static 'images/admin/pages/account-billing.png' %}"
-          alt="..."
-      /></a>
-      <div class="text-center small">Account - Billing</div>
-    </div>
-    <div class="col-sm-6 col-md-4 col-xl-3 mb-4">
-      <a
-        class="d-block lift rounded overflow-hidden mb-2"
-        href="account-notifications.html"
-        ><img
-          class="img-fluid"
-          src="{% static 'images/admin/pages/account-notifications.png' %}"
-          alt="..."
-      /></a>
-      <div class="text-center small">Account - Notifications</div>
-    </div>
-
-    <div class="col-sm-6 col-md-4 col-xl-3 mb-4">
-      <a class="d-block lift rounded overflow-hidden mb-2" href="pricing.html"
-        ><img
-          class="img-fluid"
-          src="{% static '/images/admin/pages/pricing.png' %}"
-          alt="..."
-      /></a>
-      <div class="text-center small">Pricing</div>
-    </div>
-    <div class="col-sm-6 col-md-4 col-xl-3 mb-4">
-      <a class="d-block lift rounded overflow-hidden mb-2" href="wizard.html"
-        ><img
-          class="img-fluid"
-          src="{% static '/images/admin/pages/pricing.png' %}"
-          alt="..."
-      /></a>
-      <div class="text-center small">Wizard</div>
-    </div>
-  </div>
-  <h2 class="mt-5 mb-0">Starter Layouts</h2>
-  <p>Layouts for creating new pages within your project!</p>
-  <hr class="mt-0 mb-4" />
-  <div class="row">
-    <div class="col-sm-6 col-md-4 mb-4">
-      <div class="small mb-1">Navigation</div>
-      <div class="list-group mb-4">
-        <a
-          class="list-group-item list-group-item-action p-3"
-          href="layout-static.html"
-        >
-          <div class="d-flex align-items-center justify-content-between">
-            Static Sidenav
-            <i class="text-muted" data-feather="arrow-right"></i>
-          </div>
-        </a>
-        <a
-          class="list-group-item list-group-item-action p-3"
-          href="layout-dark.html"
-        >
-          <div class="d-flex align-items-center justify-content-between">
-            Dark Sidenav
-            <i class="text-muted" data-feather="arrow-right"></i>
-          </div>
-        </a>
-        <a
-          class="list-group-item list-group-item-action p-3"
-          href="layout-rtl.html"
-        >
-          <div class="d-flex align-items-center justify-content-between">
-            RTL Layout
-            <i class="text-muted" data-feather="arrow-right"></i>
-          </div>
-        </a>
-      </div>
-      <div class="small mb-1">Container Options</div>
-      <div class="list-group">
-        <a
-          class="list-group-item list-group-item-action p-3"
-          href="layout-boxed.html"
-        >
-          <div class="d-flex align-items-center justify-content-between">
-            Boxed Layouts
-            <i class="text-muted" data-feather="arrow-right"></i>
-          </div>
-        </a>
-        <a
-          class="list-group-item list-group-item-action p-3"
-          href="layout-fluid.html"
-        >
-          <div class="d-flex align-items-center justify-content-between">
-            Fluid Layout
-            <i class="text-muted" data-feather="arrow-right"></i>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-4 mb-4">
-      <div class="small mb-1">Page Headers</div>
-      <div class="list-group">
-        <a
-          class="list-group-item list-group-item-action p-3"
-          href="header-simplified.html"
-        >
-          <div class="d-flex align-items-center justify-content-between">
-            Simplified
-            <i class="text-muted" data-feather="arrow-right"></i>
-          </div>
-        </a>
-        <a
-          class="list-group-item list-group-item-action p-3"
-          href="header-compact.html"
-        >
-          <div class="d-flex align-items-center justify-content-between">
-            Compact
-            <i class="text-muted" data-feather="arrow-right"></i>
-          </div>
-        </a>
-        <a
-          class="list-group-item list-group-item-action p-3"
-          href="header-overlap.html"
-        >
-          <div class="d-flex align-items-center justify-content-between">
-            Content Overlap
-            <i class="text-muted" data-feather="arrow-right"></i>
-          </div>
-        </a>
-        <a
-          class="list-group-item list-group-item-action p-3"
-          href="header-breadcrumbs.html"
-        >
-          <div class="d-flex align-items-center justify-content-between">
-            Breadcrumbs
-            <i class="text-muted" data-feather="arrow-right"></i>
-          </div>
-        </a>
-        <a
-          class="list-group-item list-group-item-action p-3"
-          href="header-light.html"
-        >
-          <div class="d-flex align-items-center justify-content-between">
-            Light
-            <i class="text-muted" data-feather="arrow-right"></i>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-4 mb-4">
-      <div class="small mb-1">Starter Layouts</div>
-      <div class="list-group mb-4">
-        <a
-          class="list-group-item list-group-item-action p-3"
-          href="starter-default.html"
-        >
-          <div class="d-flex align-items-center justify-content-between">
-            Default
-            <i class="text-muted" data-feather="arrow-right"></i>
-          </div>
-        </a>
-        <a
-          class="list-group-item list-group-item-action p-3"
-          href="starter-minimal.html"
-        >
-          <div class="d-flex align-items-center justify-content-between">
-            Minimal
-            <i class="text-muted" data-feather="arrow-right"></i>
-          </div>
-        </a>
-      </div>
-    </div>
   </div>
 </div>
 {% endblock content %}

@@ -55,7 +55,7 @@ class SiteText(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name_plural = "Site Infos"
+        verbose_name_plural = "Site Texts"
 
     def __str__(self):
-        return f'Site Info - {self.created_at}'
+        return f'Site Info - {self.language}'

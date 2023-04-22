@@ -7,10 +7,11 @@ from django.db.models import Prefetch
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.utils.translation import get_language
 from django.views.decorators.http import require_GET, require_http_methods
 from django.views.generic.list import ListView
 from main.forms import ContactForm
-from main.models import Company, SiteInfo
+from main.models import Company, SiteInfo, SiteText
 from news.models import Post
 from store.models import Product, ProductImage
 
@@ -22,8 +23,8 @@ def index(request: HttpRequest):
     products = Product.products.all().select_related('category').prefetch_related(
                 Prefetch('product_image', queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature'),
             )
-    siteInfo = SiteInfo.objects.values('about').first()
-    return render(request, 'main/index.html', context={"posts": posts, "companies": companies, "products": products, "about": siteInfo["about"]})
+    siteText = SiteText.objects.values('about').filter(language=get_language()).first()
+    return render(request, 'main/index.html', context={"posts": posts, "companies": companies, "products": products, "about": siteText["about"]})
 
 
 @require_http_methods(['GET', 'POST'])
@@ -49,8 +50,8 @@ def contact(request: HttpRequest):
 
 @require_GET
 def about(request: HttpRequest):
-    siteInfo = SiteInfo.objects.first()
-    return render(request, 'main/about.html', {'siteInfo': siteInfo})
+    siteText = SiteText.objects.values('about').filter(language=get_language()).first()
+    return render(request, 'main/about.html', {'siteText': siteText})
 
 
 class CareerListView(ListView):

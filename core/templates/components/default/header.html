@@ -38,11 +38,17 @@
                   </li>
                   {% endif %}
                   {% endfor %}
-                  {% for lang in languages %}
-                  <li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item current_page_item menu-item-home">
-                    <a href="/{{ lang.code }}{{ request.get_full_path|slice:'3:' }}" aria-current="page">{{lang.code|upper}}</a>
+                  <li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-has-children">
+                    <a href="/{{ CURRENT_LANGUAGE }}{{ request.get_full_path|slice:'3:' }}" aria-current="page">{{CURRENT_LANGUAGE|upper}}</a>
+                    <ul class="sub-menu">
+                      {% for lang in languages %}
+                      <li class="menu-item menu-item-type-post_type menu-item-object-page">
+                        <a href="/{{ lang.code }}{{ request.get_full_path|slice:'3:' }}">{{lang.code|upper}}</a>
+                      </li>
+                      {% endfor %}
+                    </ul>
                   </li>
-                  {% endfor %}
+                  
                 </ul>
               </div>
               <div class="header-action d-none d-sm-block">

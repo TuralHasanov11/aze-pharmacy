@@ -4,13 +4,14 @@ from django.utils.translation import gettext_lazy as _
 def admin_menu(request):
     menu = [
         {
-            "type": _("Core"),
             "title": _("Dashboard"),
-            "route": "administration:index"
+            "route": "administration:index",
+            "icon": "activity",
         },
         {
             "title": _("Services"),
             "module_permission": "services",
+            "icon": "check-circle",
             "children": [
                 {"title": _("Service List"),
                  "route": "administration:service-list"},
@@ -19,6 +20,7 @@ def admin_menu(request):
         {
             "title": _("Library"),
             "module_permission": "library",
+            "icon": "book",
             "children": [
                 {"title": _("Documents"),
                  "route": "administration:document-list"},
@@ -27,6 +29,7 @@ def admin_menu(request):
         {
             "title": _("News"),
             "module_permission": "news",
+            "icon": "file-text",
             "children": [
                 {"title": _("Post List"),
                  "route": "administration:post-list"},
@@ -37,6 +40,7 @@ def admin_menu(request):
         {
             "title": _("Career"),
             "module_permission": "main",
+            "icon": "home",
             "children": [
                 {"title": _("Company List"),
                  "route": "administration:company-list"},
@@ -45,6 +49,7 @@ def admin_menu(request):
         {
             "title": _("Authentication"),
             "module_permission": "user",
+            "icon": "user",
             "children": [
                 {"title": _("User List"),
                  "route": "administration:user-list"},
@@ -55,6 +60,7 @@ def admin_menu(request):
         {
             "title": _("Store"),
             "module_permission": "store",
+            "icon": "shopping-cart",
             "children": [
                 {"title": _("Categories"),
                  "route": "administration:store-category-list"},
@@ -65,6 +71,7 @@ def admin_menu(request):
         {
             "title": _("Orders"),
             "module_permission": "orders",
+            "icon": "list",
             "children": [
                 {"title": _("Orders"), "route": "administration:orders"},
             ]
@@ -72,6 +79,7 @@ def admin_menu(request):
         {
             "title": _("Site Data Management"),
             "module_permission": "site_info",
+            "icon": "globe",
             "children": [
                 {"title": _("Info"), "route": "administration:site-info"},
                 {"title": _("Texts"), "route": "administration:site-texts"},

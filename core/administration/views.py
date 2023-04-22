@@ -32,7 +32,13 @@ creator_dashboard_list = [
     {"name": _("News"), "route": "administration:post-list",
         "permission": "news.view_post"},
     {"name": _("Career"), "route": "administration:company-list",
-        "permission": "main.view_company"}
+        "permission": "main.view_company"},
+    {"name": _("Authentication"), "route": "administration:user-list",
+        "permission": "user.view_user"},
+    {"name": _("Store"), "route": "administration:store-product-list",
+        "permission": "store.view_product"},
+    {"name": _("Orders"), "route": "administration:orders",
+        "permission": "orders.view_order"},
 ]
 
 
@@ -450,15 +456,15 @@ class OrdersView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
 @permission_required(['main.change_site_text', 'main.view_site_text',], login_url=reverse_lazy('administration:index'))
 def siteTexts(request):
     if request.method == 'POST':
-        form = forms.SiteTextFormSet(initial=SiteText.objects.all(), data=request.POST)
-        if form.is_valid():
-            form.save()
+        formset = forms.SiteTextFormSet(initial=SiteText.objects.all(), data=request.POST)
+        if formset.is_valid():
+            formset.save()
             messages.success(request, _('Texts') + " " + _("were saved successfully"))
             return redirect("administration:site-texts")
         messages.error(request, _('Texts') + " " + _("cannot be saved"))
-        return render('administration/site-texts.html', {"form": form})
+        return render('administration/site-texts.html', {"formset": formset})
     formset = forms.SiteTextFormSet(initial=SiteText.objects.all())
-    return render('administration/site-texts.html', {"formset": formset})
+    return render(request, 'administration/site-texts.html', {"formset": formset})
 
 
 @login_required
@@ -474,4 +480,4 @@ def siteInfo(request):
         messages.error(request, _('Info') + " " + _("cannot be saved"))
         return render('administration/site-info.html', {"form": form})
     form = forms.SiteInfoForm(instance=SiteInfo.objects.first())
-    return render('administration/site-info.html', {"form": form})
+    return render(request, 'administration/site-info.html', {"form": form})

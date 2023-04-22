@@ -8,6 +8,7 @@ class CompanyAdmin(admin.ModelAdmin):
     search_fields = ["name"]
     ordering = ["name"]
 
+
 @admin.register(SiteInfo)
 class SiteInfoAdmin(admin.ModelAdmin):
     pass

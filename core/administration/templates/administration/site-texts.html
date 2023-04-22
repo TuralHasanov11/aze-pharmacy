@@ -1,6 +1,6 @@
 
 {% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
-<header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
+<header class="page-header page-header-dark bg-gradient-success-to-secondary pb-10">
     <div class="container-xl px-4">
         <div class="page-header-content pt-4">
             <div class="row align-items-center justify-content-between">
@@ -16,46 +16,27 @@
 </header>
 <div class="container-xl px-4 mt-n10">
     <div class="card">
-        <div class="card-header border-bottom">
-            <div class="nav nav-pills nav-justified flex-column flex-xl-row nav-wizard" id="cardTab" role="tablist">
-                <a class="nav-item nav-link active" id="wizard1-tab" href="#wizard1" data-bs-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
-                    <div class="wizard-step-icon">1</div>
-                    <div class="wizard-step-text">
-                        <div class="wizard-step-text-name">{% translate "Info" %}</div>
-                    </div>
-                </a>
-
-                <a class="nav-item nav-link" id="wizard2-tab" href="#wizard2" data-bs-toggle="tab" role="tab" aria-controls="wizard2" aria-selected="true">
-                    <div class="wizard-step-icon">2</div>
-                    <div class="wizard-step-text">
-                        <div class="wizard-step-text-name">{% translate "Texts" %}</div>
-                    </div>
-                </a>
-            </div>
-        </div>
         <div class="card-body">
-            <div class="tab-content" id="cardTabContent">
-                {% include 'components/messages.html' with messages=messages %}
-                <form method="POST" action="{% url 'administration:site-texts' %}" >
-                    {% csrf_token %}
-                    {{ formset.management_form }}
-                    <h3 class="text-primary">{% translate "Texts" %}</h3>
-                    <h5 class="card-title mb-4">{% translate "About text" %}, {% translate "Terms and Privacy text" %}</h5>
-                    {% for form in formset %}
-                    <div class="mb-3">
-                        <h6 class="small mb-1">{{textForm.language.label}}</h6>
-                    </div>
-                    <div class="mb-3">
-                        <label class="small mb-1" for="{{textForm.about.id_for_label}}">{{textForm.about.label}}</label>
-                        {{textForm.about}}
-                    </div>
-                    {% endfor %}
-                    <hr class="my-4" />
-                    <div class="d-flex justify-content-between">
-                        <button class="btn btn-primary" type="submit">{% translate "Save" %}</button>
-                    </div>
-                </form>           
-            </div>
+            {% include 'components/messages.html' with messages=messages %}
+            <form method="POST" action="{% url 'administration:site-texts' %}" >
+                {% csrf_token %}
+                {{ formset.management_form }}
+                <h3 class="text-primary">{% translate "Texts" %}</h3>
+                <h5 class="card-title mb-4">{% translate "About text" %}, {% translate "Terms and Privacy text" %}</h5>
+                {% for formset_item in formset %}
+                <div class="mb-4">
+                    <h5 class="text-primary mb-1">{{formset_item.language.label}} - {{formset_item.language.value|upper}}</h5>
+                </div>
+                <div class="mb-4">
+                    <label class="mb-1" for="{{formset_item.about.id_for_label}}">{{formset_item.about.label}}</label>
+                    {{formset_item.about}}
+                </div>
+                <hr>
+                {% endfor %}
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-success btn-sm" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

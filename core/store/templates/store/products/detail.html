@@ -50,6 +50,7 @@
                 </div>
 
                 {% for product_image in product.images %}
+                {% if product_image.image %}
                 <div
                   data-thumb="{{product_image.image.url}}"
                   data-thumb-alt=""
@@ -75,6 +76,7 @@
                       sizes="(max-width: 605px) 100vw, 605px"
                   /></a>
                 </div>
+                {% endif %}
                 {% endfor %}
               </figure>
             </div>
