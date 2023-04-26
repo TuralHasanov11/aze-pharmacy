@@ -179,15 +179,14 @@
         <div class="row">
           <div class="col-12">
             <div class="search-form">
-              <form method="get" action="{% url 'main:search' %}">
-                {% csrf_token %}
+              <form method="get" action="{% url 'store:products' %}">
                 <input
                   type="text"
                   name="search"
-                  value=""
+                  value="{{request.GET.search}}"
                   placeholder="Enter your keyword..."
                 />
-                <button class="search-btn">
+                <button type="submit" class="search-btn">
                   <i class="flaticon-search"></i>
                 </button>
               </form>

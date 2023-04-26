@@ -1,9 +1,10 @@
 import json
 
-from cart.processor import CartProcessor
+from cart.processor import CartProcessor, WishlistProcessor
 from django.db.models import Prefetch
-from django.http import HttpResponseBadRequest, JsonResponse
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import render
+from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_GET, require_POST
 from store.models import Product, ProductImage
 
@@ -55,3 +56,29 @@ def cartUpdate(request):
         return JsonResponse({'quantity': cart.__len__(), 'total_price': cart.get_total_price}) 
     except Exception as err:
         return HttpResponseBadRequest(err.message) 
+
+
+@require_GET
+def wishlist(request):
+    result = WishlistProcessor(request)
+    return render(request, 'cart/summary.html', {'wishlist': result}) 
+
+
+@require_POST
+def wishlistAdd(request):    
+    try:
+        wishlist = WishlistProcessor(request) 
+        wishlist.add(productId=int(request.POST.get('product_id')))
+        return HttpResponse({"message": _("Product was added to Wishlist")})
+    except Exception as err:
+        return HttpResponseBadRequest(str(err))
+        
+
+@require_POST
+def wishlistRemove(request):
+    try:
+        wishlist = WishlistProcessor(request)
+        wishlist.remove(productId=request.POST.get('product_id'))
+        return HttpResponse({"message": _("Product was removed from Wishlist")})
+    except Exception as err:
+        return HttpResponseBadRequest(str(err))

@@ -35,4 +35,19 @@ jQuery(document).ready(function ($) {
         }
     })
 
+
+    $('').on('click', async (e) => {
+        e.preventDefault();
+        
+        const response = await fetch(cartUpdateURL, {
+            method: 'POST',
+            body: {},
+            headers: { "X-CSRFToken": csrftoken },
+        });
+
+        if(response.ok){
+            
+        }
+    })
+
 });

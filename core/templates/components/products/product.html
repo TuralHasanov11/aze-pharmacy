@@ -10,7 +10,6 @@
               height="580"
               src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% endif %}"
               class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
-              alt=""
               decoding="async"
               loading="lazy"
               srcset="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% endif %} 605w,
@@ -78,24 +77,14 @@
         </div>
       </div>
       <div
-        class="tinv-wraper woocommerce tinv-wishlist tinvwl-after-add-to-cart tinvwl-loop-button-wrapper"
-        data-tinvwl_product_id="{{product.id}}"
+        class="tinv-wraper woocommerce tinv-wishlist tinvwl-after-add-to-cart"
       >
         <div class="tinv-wishlist-clear"></div>
         <a
           role="button"
-          tabindex="0"
           aria-label="{% translate "Add to Wishlist" %}"
-          class="tinvwl_add_to_wishlist_button tinvwl-icon-heart tinvwl-position-after tinvwl-loop"
-          data-tinv-wl-list="[]"
-          data-tinv-wl-product="{{product.id}}"
-          data-tinv-wl-productvariation="0"
-          data-tinv-wl-productvariations="[0]"
-          data-tinv-wl-producttype="simple"
-          data-tinv-wl-action="add"
-          ><span class="tinvwl_add_to_wishlist-text"
-            >{% translate "Add to Wishlist" %}</span
-          ></a
+          class="tinvwl_add_to_wishlist_button"
+          ><i data-feather="heart"></i></a
         >
         <div class="tinv-wishlist-clear"></div>
         <div class="tinvwl-tooltip">{% translate "Add to Wishlist" %}</div>

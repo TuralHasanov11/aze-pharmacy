@@ -58,8 +58,3 @@ class CareerListView(ListView):
     model = Company
     template_name = "main/career.html"
     context_object_name = "companies"
-
-
-@require_GET
-def search(request: HttpRequest):
-    pass

@@ -4,7 +4,7 @@
 <main class="main-area fix">
   {% translate "Shop" as pageTitle %}
   {% translate "Products" as endTitle %}
-  {%include "components/breadcrumb.html" with pageTitle=pageTitle endTitle=endTitle%}
+  {%include "components/breadcrumb.html" with pageTitle=pageTitle endTitle=endTitle breadcrumb=breadcrumb%}
 
   <div class="inner-shop-area">
     <div class="container">
@@ -32,7 +32,6 @@
             {% for product in products %}
             {% include "components/products/product.html" with product=product %}
             {% endfor %}
-            
           </div>
           <div class="suxnix-shop-pagination">
             {% include "components/pagination.html" with pagination=products %}
