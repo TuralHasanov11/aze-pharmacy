@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="accordion-item">
   <h2 class="accordion-header" id="headingOne-{{doc_number}}">
     <button
@@ -18,9 +19,7 @@
     data-bs-parent="#libraryAccordion"
   >
     <div class="accordion-body">
-      There are many variations of passages of lorem ipsum that available but
-      the majority have alteration in some form by injected humour. There are
-      many variations of passages.
+      <a class="btn btn-success" target="_blank" href="{{document.file.url}}">{% translate "View Document" %}</a>
     </div>
   </div>
 </div>

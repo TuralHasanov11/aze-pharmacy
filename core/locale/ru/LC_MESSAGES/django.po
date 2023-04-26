@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-22 14:21+0200\n"
+"POT-Creation-Date: 2023-04-26 23:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgid "Dashboard"
 msgstr ""
 
 #: .\administration\context_processors.py:12 .\administration\views.py:28
-#: .\main\context_processors.py:15 .\main\context_processors.py:30
+#: .\main\context_processors.py:14 .\main\context_processors.py:29
 #: .\services\templates\services\index.html:3
 #: .\templates\components\default\footer.html:31
 msgid "Services"
@@ -37,8 +37,8 @@ msgid "Service List"
 msgstr ""
 
 #: .\administration\context_processors.py:21 .\administration\views.py:30
-#: .\library\templates\library\index.html:3 .\main\context_processors.py:13
-#: .\main\context_processors.py:36
+#: .\library\templates\library\index.html:3 .\main\context_processors.py:12
+#: .\main\context_processors.py:35
 msgid "Library"
 msgstr ""
 
@@ -47,7 +47,7 @@ msgid "Documents"
 msgstr ""
 
 #: .\administration\context_processors.py:30 .\administration\views.py:32
-#: .\main\context_processors.py:14 .\main\context_processors.py:37
+#: .\main\context_processors.py:13 .\main\context_processors.py:36
 #: .\news\templates\news\detail.html:3 .\news\templates\news\index.html:3
 #: .\news\views.py:24 .\templates\components\main\blog-area.html:9
 msgid "News"
@@ -63,7 +63,7 @@ msgid "Add Post"
 msgstr ""
 
 #: .\administration\context_processors.py:41 .\administration\views.py:34
-#: .\main\context_processors.py:20 .\main\context_processors.py:33
+#: .\main\context_processors.py:19 .\main\context_processors.py:32
 #: .\main\templates\main\career.html:3
 msgid "Career"
 msgstr ""
@@ -96,8 +96,8 @@ msgid "Categories"
 msgstr ""
 
 #: .\administration\context_processors.py:67
-#: .\store\templates\store\products\index.html:6 .\store\views.py:48
-#: .\store\views.py:68
+#: .\store\templates\store\products\index.html:6 .\store\views.py:67
+#: .\store\views.py:88
 msgid "Products"
 msgstr ""
 
@@ -150,8 +150,8 @@ msgstr ""
 #: .\administration\forms.py:75 .\administration\forms.py:179
 #: .\administration\templates\administration\services\index.html:29
 #: .\administration\templates\administration\services\index.html:37
-#: .\store\templates\store\products\detail.html:226
-#: .\store\templates\store\products\detail.html:235
+#: .\store\templates\store\products\detail.html:228
+#: .\store\templates\store\products\detail.html:237
 msgid "Description"
 msgstr ""
 
@@ -249,7 +249,7 @@ msgstr ""
 
 #: .\administration\forms.py:174 .\administration\forms.py:175
 #: .\administration\templates\administration\store\products\detail.html:68
-#: .\store\templates\store\products\detail.html:199
+#: .\store\templates\store\products\detail.html:201
 msgid "Weight"
 msgstr ""
 
@@ -659,7 +659,7 @@ msgid "User"
 msgstr ""
 
 #: .\administration\views.py:330
-#: .\store\templates\store\products\detail.html:204
+#: .\store\templates\store\products\detail.html:206
 msgid "Category"
 msgstr ""
 
@@ -699,7 +699,7 @@ msgstr ""
 #: .\cart\templates\cart\summary.html:29
 #: .\checkout\templates\checkout\index.html:165
 #: .\checkout\templates\checkout\success.html:32
-#: .\templates\components\default\header.html:89
+#: .\templates\components\default\header.html:95
 msgid "Subtotal"
 msgstr ""
 
@@ -721,8 +721,20 @@ msgstr ""
 msgid "Proceed to checkout"
 msgstr ""
 
+#: .\cart\templates\cart\wishlist.html:3
+msgid "Wishlist"
+msgstr ""
+
+#: .\cart\views.py:72
+msgid "Product was added to Wishlist"
+msgstr ""
+
+#: .\cart\views.py:82
+msgid "Product was removed from Wishlist"
+msgstr ""
+
 #: .\checkout\templates\checkout\index.html:3
-#: .\templates\components\default\header.html:92
+#: .\templates\components\default\header.html:98
 msgid "Checkout"
 msgstr ""
 
@@ -751,68 +763,35 @@ msgstr ""
 msgid "Order"
 msgstr ""
 
-#: .\core\settings.py:130
-msgid "Russian"
-msgstr ""
-
 #: .\core\settings.py:131
 msgid "Azerbaijani"
 msgstr ""
 
 #: .\core\settings.py:132
+msgid "Russian"
+msgstr ""
+
+#: .\core\settings.py:133
 msgid "English"
-msgstr ""
-
-#: .\core\urls.py:17
-msgid "news/"
-msgstr ""
-
-#: .\core\urls.py:18
-msgid "services/"
-msgstr ""
-
-#: .\core\urls.py:19
-msgid "library/"
-msgstr ""
-
-#: .\core\urls.py:20
-msgid "store/"
-msgstr ""
-
-#: .\core\urls.py:21
-msgid "cart/"
-msgstr ""
-
-#: .\core\urls.py:22
-msgid "checkout/"
-msgstr ""
-
-#: .\core\urls.py:23
-msgid "admin/"
 msgstr ""
 
 #: .\main\context_processors.py:11 .\templates\components\breadcrumb.html:18
 msgid "Home"
 msgstr ""
 
-#: .\main\context_processors.py:12 .\templates\components\admin\navbar.html:14
-#: .\templates\layouts\authentication.html:18 .\user\models.py:38
-msgid "Admin"
-msgstr ""
-
-#: .\main\context_processors.py:16 .\main\context_processors.py:31
+#: .\main\context_processors.py:15 .\main\context_processors.py:30
 #: .\store\templates\store\products\detail.html:3
 #: .\store\templates\store\products\index.html:5
 msgid "Shop"
 msgstr ""
 
-#: .\main\context_processors.py:19 .\main\context_processors.py:32
+#: .\main\context_processors.py:18 .\main\context_processors.py:31
 #: .\main\templates\main\about.html:3 .\templates\components\main\about.html:21
 msgid "About Us"
 msgstr ""
 
-#: .\main\context_processors.py:21 .\main\context_processors.py:38
-#: .\main\templates\main\contact.html:3
+#: .\main\context_processors.py:20 .\main\context_processors.py:37
+#: .\main\templates\main\contact.html:3 .\main\templates\main\contact.html:119
 #: .\templates\components\default\footer.html:68
 msgid "Contact Us"
 msgstr ""
@@ -854,6 +833,22 @@ msgstr ""
 msgid "Companies"
 msgstr ""
 
+#: .\main\templates\main\contact.html:45
+msgid "Office Address"
+msgstr ""
+
+#: .\main\templates\main\contact.html:63
+msgid "Phone Number"
+msgstr ""
+
+#: .\main\templates\main\contact.html:81
+msgid "Web Connect"
+msgstr ""
+
+#: .\main\templates\main\contact.html:100
+msgid "Social Media"
+msgstr ""
+
 #: .\news\models.py:12 .\store\models.py:43
 msgid "Rich text editor field"
 msgstr ""
@@ -871,22 +866,26 @@ msgid "categories"
 msgstr ""
 
 #: .\store\templates\store\products\detail.html:6
-#: .\templates\components\products\product.html:88
-#: .\templates\components\products\product.html:97
-#: .\templates\components\products\product.html:101
+#: .\templates\components\products\product.html:85
+#: .\templates\components\products\product.html:90
 msgid "Add to Wishlist"
 msgstr ""
 
-#: .\store\templates\store\products\detail.html:145
+#: .\store\templates\store\products\detail.html:147
 msgid "Add to cart"
 msgstr ""
 
-#: .\store\templates\store\products\index.html:48
+#: .\store\templates\store\products\index.html:47
 msgid "Filter by Price"
 msgstr ""
 
-#: .\store\templates\store\products\index.html:55
+#: .\store\templates\store\products\index.html:54
 msgid "Product Categories"
+msgstr ""
+
+#: .\templates\components\admin\navbar.html:14
+#: .\templates\layouts\authentication.html:18 .\user\models.py:38
+msgid "Admin"
 msgstr ""
 
 #: .\templates\components\admin\navbar.html:231
@@ -902,6 +901,10 @@ msgstr ""
 msgid "Logged in as"
 msgstr ""
 
+#: .\templates\components\contact-form.html:51
+msgid "Send"
+msgstr ""
+
 #: .\templates\components\default\footer.html:48
 msgid "Support"
 msgstr ""
@@ -914,12 +917,16 @@ msgstr ""
 msgid "All Rights Reserved"
 msgstr ""
 
-#: .\templates\components\default\header.html:85
+#: .\templates\components\default\header.html:91
 msgid "No products in the cart"
 msgstr ""
 
-#: .\templates\components\default\header.html:91
+#: .\templates\components\default\header.html:97
 msgid "View cart"
+msgstr ""
+
+#: .\templates\components\library\document.html:22
+msgid "View Document"
 msgstr ""
 
 #: .\templates\components\main\about.html:32
@@ -935,11 +942,11 @@ msgid "Latest"
 msgstr ""
 
 #: .\templates\components\products\product-home.html:29
-#: .\templates\components\products\product.html:75
+#: .\templates\components\products\product.html:74
 msgid "Buy Now"
 msgstr ""
 
-#: .\templates\components\products\product.html:22
+#: .\templates\components\products\product.html:21
 msgid "Sale"
 msgstr ""
 

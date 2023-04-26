@@ -14,13 +14,13 @@ urlpatterns += i18n_patterns(
     path('ckeditor/', include('ckeditor_uploader.urls')),
 
     path('', include('main.urls')),
-    path(_('news/'), include('news.urls', namespace="news")),
-    path(_('services/'), include('services.urls', namespace="services")),
-    path(_('library/'), include('library.urls', namespace="library")),
-    path(_('store/'), include('store.urls', namespace="store")),
-    path(_('cart/'), include('cart.urls', namespace="cart")),
-    path(_('checkout/'), include('checkout.urls', namespace="checkout")),
-    path(_('admin/'), include('administration.urls', namespace="administration")),
+    path('news/', include('news.urls', namespace="news")),
+    path('services/', include('services.urls', namespace="services")),
+    path('library/', include('library.urls', namespace="library")),
+    path('store/', include('store.urls', namespace="store")),
+    path('cart/', include('cart.urls', namespace="cart")),
+    path('checkout/', include('checkout.urls', namespace="checkout")),
+    path('admin/', include('administration.urls', namespace="administration")),
 
     path('api/', include('api.urls', 'api')),
 )

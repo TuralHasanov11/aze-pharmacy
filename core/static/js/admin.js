@@ -73,4 +73,25 @@
         }
         targetAnchor.classList.add('active');
     });
+
+    const selectRowInputs = document.querySelectorAll('input.select-all')
+
+    function selectRows(source) {
+        const checkboxes = document.getElementsByName('selectedRows');
+        for (const row of checkboxes) {
+            row.checked = source.checked
+        }
+    }
+
+    selectRowInputs.forEach(element => {
+        element.addEventListener('change', (e)=>{
+            selectRows(e.currentTarget)
+        })
+    });
+
+    document.querySelector('.delete-selected-rows-btn').addEventListener('click', (e) => {
+        document.querySelectorAll('input[name=selectedRows]:checked').for
+    })
+
+    
 });

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-22 14:21+0200\n"
-"PO-Revision-Date: 2023-04-22 14:22+0400\n"
+"POT-Creation-Date: 2023-04-26 23:14+0200\n"
+"PO-Revision-Date: 2023-04-26 22:32+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -24,7 +24,7 @@ msgid "Dashboard"
 msgstr "İş Sahəsi"
 
 #: .\administration\context_processors.py:12 .\administration\views.py:28
-#: .\main\context_processors.py:15 .\main\context_processors.py:30
+#: .\main\context_processors.py:14 .\main\context_processors.py:29
 #: .\services\templates\services\index.html:3
 #: .\templates\components\default\footer.html:31
 msgid "Services"
@@ -36,8 +36,8 @@ msgid "Service List"
 msgstr "Xidmət Siyahısı"
 
 #: .\administration\context_processors.py:21 .\administration\views.py:30
-#: .\library\templates\library\index.html:3 .\main\context_processors.py:13
-#: .\main\context_processors.py:36
+#: .\library\templates\library\index.html:3 .\main\context_processors.py:12
+#: .\main\context_processors.py:35
 msgid "Library"
 msgstr "Kitabxana"
 
@@ -46,7 +46,7 @@ msgid "Documents"
 msgstr "Sənədlər"
 
 #: .\administration\context_processors.py:30 .\administration\views.py:32
-#: .\main\context_processors.py:14 .\main\context_processors.py:37
+#: .\main\context_processors.py:13 .\main\context_processors.py:36
 #: .\news\templates\news\detail.html:3 .\news\templates\news\index.html:3
 #: .\news\views.py:24 .\templates\components\main\blog-area.html:9
 msgid "News"
@@ -62,7 +62,7 @@ msgid "Add Post"
 msgstr "Xəbər Əlavə et"
 
 #: .\administration\context_processors.py:41 .\administration\views.py:34
-#: .\main\context_processors.py:20 .\main\context_processors.py:33
+#: .\main\context_processors.py:19 .\main\context_processors.py:32
 #: .\main\templates\main\career.html:3
 msgid "Career"
 msgstr "Karyera"
@@ -95,8 +95,8 @@ msgid "Categories"
 msgstr "Kateqoriyalar"
 
 #: .\administration\context_processors.py:67
-#: .\store\templates\store\products\index.html:6 .\store\views.py:48
-#: .\store\views.py:68
+#: .\store\templates\store\products\index.html:6 .\store\views.py:67
+#: .\store\views.py:88
 msgid "Products"
 msgstr "Məhsullar"
 
@@ -149,8 +149,8 @@ msgstr "Başlıq Şəkli"
 #: .\administration\forms.py:75 .\administration\forms.py:179
 #: .\administration\templates\administration\services\index.html:29
 #: .\administration\templates\administration\services\index.html:37
-#: .\store\templates\store\products\detail.html:226
-#: .\store\templates\store\products\detail.html:235
+#: .\store\templates\store\products\detail.html:228
+#: .\store\templates\store\products\detail.html:237
 msgid "Description"
 msgstr "Məzmun"
 
@@ -248,7 +248,7 @@ msgstr "Endirim"
 
 #: .\administration\forms.py:174 .\administration\forms.py:175
 #: .\administration\templates\administration\store\products\detail.html:68
-#: .\store\templates\store\products\detail.html:199
+#: .\store\templates\store\products\detail.html:201
 msgid "Weight"
 msgstr "Çəki"
 
@@ -423,7 +423,6 @@ msgid "Welcome to %(config.app.name)s Admin"
 msgstr "%(config.app.name)s Admin panelinə xoş gəlmişsiniz"
 
 #: .\administration\templates\administration\index.html:11
-#| msgid "Dashboard"
 msgid "Dashboards"
 msgstr "İdarə Panelləri"
 
@@ -666,7 +665,7 @@ msgid "User"
 msgstr "İstifadəçi"
 
 #: .\administration\views.py:330
-#: .\store\templates\store\products\detail.html:204
+#: .\store\templates\store\products\detail.html:206
 msgid "Category"
 msgstr "Kateqoriya"
 
@@ -708,7 +707,7 @@ msgstr "Say"
 #: .\cart\templates\cart\summary.html:29
 #: .\checkout\templates\checkout\index.html:165
 #: .\checkout\templates\checkout\success.html:32
-#: .\templates\components\default\header.html:89
+#: .\templates\components\default\header.html:95
 msgid "Subtotal"
 msgstr ""
 
@@ -730,8 +729,24 @@ msgstr "Yekun"
 msgid "Proceed to checkout"
 msgstr "Ödənişə keç"
 
+#: .\cart\templates\cart\wishlist.html:3
+#, fuzzy
+#| msgid "Add to Wishlist"
+msgid "Wishlist"
+msgstr "Seçilmişlərə əlavə et"
+
+#: .\cart\views.py:72
+#, fuzzy
+#| msgid "Add to Wishlist"
+msgid "Product was added to Wishlist"
+msgstr "Seçilmişlərə əlavə et"
+
+#: .\cart\views.py:82
+msgid "Product was removed from Wishlist"
+msgstr ""
+
 #: .\checkout\templates\checkout\index.html:3
-#: .\templates\components\default\header.html:92
+#: .\templates\components\default\header.html:98
 msgid "Checkout"
 msgstr "Ödəniş"
 
@@ -760,69 +775,35 @@ msgstr "Sifariş et"
 msgid "Order"
 msgstr "Sifariş"
 
-#: .\core\settings.py:130
-msgid "Russian"
-msgstr "Rusca"
-
 #: .\core\settings.py:131
 msgid "Azerbaijani"
 msgstr "Azərbaycanca"
 
 #: .\core\settings.py:132
+msgid "Russian"
+msgstr "Rusca"
+
+#: .\core\settings.py:133
 msgid "English"
 msgstr "İngiliscə"
-
-#: .\core\urls.py:17
-msgid "news/"
-msgstr "xeberler/"
-
-#: .\core\urls.py:18
-msgid "services/"
-msgstr "xidmetler/"
-
-#: .\core\urls.py:19
-msgid "library/"
-msgstr "kitabxana/"
-
-#: .\core\urls.py:20
-msgid "store/"
-msgstr "magaza/"
-
-#: .\core\urls.py:21
-msgid "cart/"
-msgstr "sebet/"
-
-#: .\core\urls.py:22
-msgid "checkout/"
-msgstr "odenis/"
-
-#: .\core\urls.py:23
-msgid "admin/"
-msgstr "admin/"
 
 #: .\main\context_processors.py:11 .\templates\components\breadcrumb.html:18
 msgid "Home"
 msgstr "Ana Səhifə"
 
-#: .\main\context_processors.py:12 .\templates\components\admin\navbar.html:14
-#: .\templates\layouts\authentication.html:18 .\user\models.py:38
-msgid "Admin"
-msgstr "Admin"
-
-#: .\main\context_processors.py:16 .\main\context_processors.py:31
+#: .\main\context_processors.py:15 .\main\context_processors.py:30
 #: .\store\templates\store\products\detail.html:3
 #: .\store\templates\store\products\index.html:5
 msgid "Shop"
 msgstr "Mağaza"
 
-#: .\main\context_processors.py:19 .\main\context_processors.py:32
-#: .\main\templates\main\about.html:3
-#: .\templates\components\main\about.html:21
+#: .\main\context_processors.py:18 .\main\context_processors.py:31
+#: .\main\templates\main\about.html:3 .\templates\components\main\about.html:21
 msgid "About Us"
 msgstr "Haqqımızda"
 
-#: .\main\context_processors.py:21 .\main\context_processors.py:38
-#: .\main\templates\main\contact.html:3
+#: .\main\context_processors.py:20 .\main\context_processors.py:37
+#: .\main\templates\main\contact.html:3 .\main\templates\main\contact.html:119
 #: .\templates\components\default\footer.html:68
 msgid "Contact Us"
 msgstr "Bizimlə Əlaqə"
@@ -864,6 +845,26 @@ msgstr "Dil xanası"
 msgid "Companies"
 msgstr "Şirkətlər"
 
+#: .\main\templates\main\contact.html:45
+#, fuzzy
+#| msgid "Email Address"
+msgid "Office Address"
+msgstr "Email Adresi"
+
+#: .\main\templates\main\contact.html:63
+msgid "Phone Number"
+msgstr "Əlaqə Nömrəsi"
+
+#: .\main\templates\main\contact.html:81
+msgid "Web Connect"
+msgstr ""
+
+#: .\main\templates\main\contact.html:100
+#, fuzzy
+#| msgid "Social media links"
+msgid "Social Media"
+msgstr "Sosyal Medya hesabları"
+
 #: .\news\models.py:12 .\store\models.py:43
 msgid "Rich text editor field"
 msgstr ""
@@ -881,23 +882,27 @@ msgid "categories"
 msgstr "kateqoriyalar"
 
 #: .\store\templates\store\products\detail.html:6
-#: .\templates\components\products\product.html:88
-#: .\templates\components\products\product.html:97
-#: .\templates\components\products\product.html:101
+#: .\templates\components\products\product.html:85
+#: .\templates\components\products\product.html:90
 msgid "Add to Wishlist"
 msgstr "Seçilmişlərə əlavə et"
 
-#: .\store\templates\store\products\detail.html:145
+#: .\store\templates\store\products\detail.html:147
 msgid "Add to cart"
 msgstr "Səbətə at"
 
-#: .\store\templates\store\products\index.html:48
+#: .\store\templates\store\products\index.html:47
 msgid "Filter by Price"
 msgstr ""
 
-#: .\store\templates\store\products\index.html:55
+#: .\store\templates\store\products\index.html:54
 msgid "Product Categories"
 msgstr "Məhsul Kateqoriyaları"
+
+#: .\templates\components\admin\navbar.html:14
+#: .\templates\layouts\authentication.html:18 .\user\models.py:38
+msgid "Admin"
+msgstr "Admin"
 
 #: .\templates\components\admin\navbar.html:231
 #: .\templates\components\admin\sidenav.html:5
@@ -912,6 +917,10 @@ msgstr "Çıxış"
 msgid "Logged in as"
 msgstr "Daxil olmuş şəxs"
 
+#: .\templates\components\contact-form.html:51
+msgid "Send"
+msgstr "Göndər"
+
 #: .\templates\components\default\footer.html:48
 msgid "Support"
 msgstr "Dəstək"
@@ -924,13 +933,19 @@ msgstr "Müəllif hüquqları"
 msgid "All Rights Reserved"
 msgstr "Bütün haqqlar qorunur"
 
-#: .\templates\components\default\header.html:85
+#: .\templates\components\default\header.html:91
 msgid "No products in the cart"
 msgstr "Səbətdə məhsul yoxdur"
 
-#: .\templates\components\default\header.html:91
+#: .\templates\components\default\header.html:97
 msgid "View cart"
 msgstr "Səbəti görüntülə"
+
+#: .\templates\components\library\document.html:22
+#, fuzzy
+#| msgid "Edit Document"
+msgid "View Document"
+msgstr "Dokumenti Yenilə"
 
 #: .\templates\components\main\about.html:32
 msgid "More"
@@ -945,11 +960,11 @@ msgid "Latest"
 msgstr "Ən son"
 
 #: .\templates\components\products\product-home.html:29
-#: .\templates\components\products\product.html:75
+#: .\templates\components\products\product.html:74
 msgid "Buy Now"
 msgstr "Al"
 
-#: .\templates\components\products\product.html:22
+#: .\templates\components\products\product.html:21
 msgid "Sale"
 msgstr "Endirim"
 
@@ -964,6 +979,47 @@ msgstr "Operator"
 #: .\user\models.py:41
 msgid "Staff"
 msgstr "İşçi"
+
+#~ msgid "news/"
+#~ msgstr "xeberler/"
+
+#~ msgid "services/"
+#~ msgstr "xidmetler/"
+
+#~ msgid "library/"
+#~ msgstr "kitabxana/"
+
+#~ msgid "store/"
+#~ msgstr "magaza/"
+
+#~ msgid "cart/"
+#~ msgstr "sebet/"
+
+#~ msgid "checkout/"
+#~ msgstr "odenis/"
+
+#~ msgid "admin/"
+#~ msgstr "admin/"
+
+#, fuzzy
+#~| msgid "Contact Us"
+#~ msgid "contact"
+#~ msgstr "Bizimlə Əlaqə"
+
+#, fuzzy
+#~| msgid "About"
+#~ msgid "about"
+#~ msgstr "Haqqımızda"
+
+#, fuzzy
+#~| msgid "Career"
+#~ msgid "career"
+#~ msgstr "Karyera"
+
+#, fuzzy
+#~| msgid "Products"
+#~ msgid "products"
+#~ msgstr "Məhsullar"
 
 #~ msgid "Core"
 #~ msgstr "Əsas"

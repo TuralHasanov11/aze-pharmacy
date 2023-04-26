@@ -153,6 +153,18 @@
                   </li>
                   {% endif %}
                   {% endfor %}
+                  <li
+                  class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children has-children"
+                >
+                  <a href="/{{ CURRENT_LANGUAGE }}{{ request.get_full_path|slice:'3:' }}" aria-current="page">{{CURRENT_LANGUAGE|upper}}</a>
+                  <ul class="sub-menu">
+                    {% for lang in languages %}
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page">
+                      <a href="/{{ lang.code }}{{ request.get_full_path|slice:'3:' }}">{{lang.code|upper}}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </li>
                 </ul>
               </div>
 
