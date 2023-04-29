@@ -14,6 +14,10 @@
                         </h1>
                     </div>
                     <div class="col-12 col-xl-auto mb-3">
+                        <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:user-list' %}">
+                            <i class="me-1" data-feather="arrow-left"></i>
+                            {% translate "Back to User List" %}
+                        </a>
                         <form class="delete-form" action="{% url 'administration:user-delete' pk=user.pk %}" method="POST">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-sm btn-danger text-light">
@@ -21,10 +25,7 @@
                                 {% translate "Delete User" %}
                             </button>
                         </form>
-                        <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:user-list' %}">
-                            <i class="me-1" data-feather="arrow-left"></i>
-                            {% translate "Back to User List" %}
-                        </a>
+                        
                     </div>
                 </div>
             </div>

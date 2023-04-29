@@ -37,8 +37,8 @@
           data-bs-parent="#accordionSidenav"
         >
           <nav class="sidenav-menu-nested nav">
-            {% for route in item.children %}
-            <a class="nav-link" href="{% url route.route %}">{{route.title}}</a>
+            {% for routeItem in item.children %}
+            <a class="nav-link {% if request.resolver_match.url_name in routeItem.route %}active{% endif %}" href="{% url routeItem.route %}">{{routeItem.title}}</a>
             {% endfor %}
           </nav>
         </div>

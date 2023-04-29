@@ -20,7 +20,7 @@ orderingContainer = [
 @require_GET
 def products(request: HttpRequest):
     categories = Category.objects.annotate(
-        products_count=Count("product_category")).all()
+        products_count=Count("product_category")).all().order_by("name")
     selectedOrderByValue = request.GET.get('order_by', 'name')
     search = request.GET.get('search', None)
     
@@ -54,7 +54,7 @@ def products(request: HttpRequest):
 def categoryProducts(request: HttpRequest, category_slug: str):
     selectedOrderByValue = request.GET.get('order_by', 'name')
     categories = Category.objects.annotate(
-        products_count=Count("product_category")).all()
+        products_count=Count("product_category")).all().order_by("name")
     category = Category.objects.get(slug=category_slug)
     productsQueryset = Product.products.filter(category__slug=category_slug).select_related('category').prefetch_related(
         Prefetch('product_image', queryset=ProductImage.objects.filter(

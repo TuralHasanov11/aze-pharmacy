@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-26 23:14+0200\n"
+"POT-Creation-Date: 2023-04-29 11:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -323,12 +323,12 @@ msgstr ""
 msgid "Security"
 msgstr ""
 
-#: .\administration\templates\administration\auth\password-change.html:24
-#: .\templates\components\admin\profile-nav.html:3
+#: .\administration\templates\administration\auth\password-change.html:25
+#: .\templates\components\admin\profile-nav.html:4
 msgid "Change Password"
 msgstr ""
 
-#: .\administration\templates\administration\auth\password-change.html:51
+#: .\administration\templates\administration\auth\password-change.html:52
 #: .\administration\templates\administration\auth\profile.html:60
 #: .\administration\templates\administration\companies\edit.html:56
 #: .\administration\templates\administration\companies\index.html:81
@@ -345,18 +345,18 @@ msgstr ""
 #: .\administration\templates\administration\store\products\create.html:113
 #: .\administration\templates\administration\store\products\edit.html:138
 #: .\administration\templates\administration\users\create.html:74
-#: .\administration\templates\administration\users\edit.html:71
+#: .\administration\templates\administration\users\edit.html:72
 msgid "Save"
 msgstr ""
 
 #: .\administration\templates\administration\auth\profile.html:12
-#: .\templates\components\admin\profile-nav.html:2
+#: .\templates\components\admin\profile-nav.html:3
 msgid "Profile"
 msgstr ""
 
 #: .\administration\templates\administration\auth\profile.html:25
 #: .\administration\templates\administration\users\create.html:27
-#: .\administration\templates\administration\users\edit.html:36
+#: .\administration\templates\administration\users\edit.html:37
 msgid "Account Details"
 msgstr ""
 
@@ -600,7 +600,7 @@ msgid "Product List"
 msgstr ""
 
 #: .\administration\templates\administration\users\create.html:18
-#: .\administration\templates\administration\users\edit.html:26
+#: .\administration\templates\administration\users\edit.html:19
 msgid "Back to User List"
 msgstr ""
 
@@ -608,7 +608,7 @@ msgstr ""
 msgid "Edit User"
 msgstr ""
 
-#: .\administration\templates\administration\users\edit.html:21
+#: .\administration\templates\administration\users\edit.html:25
 msgid "Delete User"
 msgstr ""
 
@@ -886,12 +886,12 @@ msgstr ""
 msgid "Admin"
 msgstr ""
 
-#: .\templates\components\admin\navbar.html:231
+#: .\templates\components\admin\navbar.html:244
 #: .\templates\components\admin\sidenav.html:5
 msgid "Account"
 msgstr ""
 
-#: .\templates\components\admin\navbar.html:237
+#: .\templates\components\admin\navbar.html:250
 msgid "Logout"
 msgstr ""
 

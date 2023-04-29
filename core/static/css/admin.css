@@ -19642,3 +19642,8 @@ pre[class*=language-] {
 .django-ckeditor-widget{
   display: block !important;
 }
+
+.creator-dashboard-image{
+  height: 180px !important;
+  width: 100% !important;
+}

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-26 23:14+0200\n"
-"PO-Revision-Date: 2023-04-26 22:32+0400\n"
+"POT-Creation-Date: 2023-04-29 11:26+0200\n"
+"PO-Revision-Date: 2023-04-29 11:27+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -324,12 +324,12 @@ msgstr "Hesab Ayarları"
 msgid "Security"
 msgstr "Təhlükəsizlik"
 
-#: .\administration\templates\administration\auth\password-change.html:24
-#: .\templates\components\admin\profile-nav.html:3
+#: .\administration\templates\administration\auth\password-change.html:25
+#: .\templates\components\admin\profile-nav.html:4
 msgid "Change Password"
 msgstr "Şifrəni Dəyiş"
 
-#: .\administration\templates\administration\auth\password-change.html:51
+#: .\administration\templates\administration\auth\password-change.html:52
 #: .\administration\templates\administration\auth\profile.html:60
 #: .\administration\templates\administration\companies\edit.html:56
 #: .\administration\templates\administration\companies\index.html:81
@@ -346,18 +346,18 @@ msgstr "Şifrəni Dəyiş"
 #: .\administration\templates\administration\store\products\create.html:113
 #: .\administration\templates\administration\store\products\edit.html:138
 #: .\administration\templates\administration\users\create.html:74
-#: .\administration\templates\administration\users\edit.html:71
+#: .\administration\templates\administration\users\edit.html:72
 msgid "Save"
 msgstr "Yadda Saxla"
 
 #: .\administration\templates\administration\auth\profile.html:12
-#: .\templates\components\admin\profile-nav.html:2
+#: .\templates\components\admin\profile-nav.html:3
 msgid "Profile"
 msgstr "Profil"
 
 #: .\administration\templates\administration\auth\profile.html:25
 #: .\administration\templates\administration\users\create.html:27
-#: .\administration\templates\administration\users\edit.html:36
+#: .\administration\templates\administration\users\edit.html:37
 msgid "Account Details"
 msgstr "Hesab Məlumatları"
 
@@ -455,10 +455,9 @@ msgstr "Xəbəri Yenilə"
 
 #: .\administration\templates\administration\posts\detail.html:30
 #: .\administration\templates\administration\posts\edit.html:27
-#, fuzzy
 #| msgid "Delete Product"
 msgid "Delete Post"
-msgstr "Məhsulu Sil"
+msgstr "Xəbəri Sil"
 
 #: .\administration\templates\administration\posts\edit.html:34
 msgid "View Post"
@@ -538,10 +537,9 @@ msgid "Delete Product"
 msgstr "Məhsulu Sil"
 
 #: .\administration\templates\administration\store\categories\index.html:10
-#, fuzzy
 #| msgid "Categories"
 msgid "Category List"
-msgstr "Kateqoriyalar"
+msgstr "Kateqoriya Siyahısı"
 
 #: .\administration\templates\administration\store\categories\index.html:28
 #: .\administration\templates\administration\store\categories\index.html:35
@@ -550,10 +548,9 @@ msgid "Parent"
 msgstr "Valideyn"
 
 #: .\administration\templates\administration\store\categories\index.html:60
-#, fuzzy
 #| msgid "Category"
 msgid "Add Category"
-msgstr "Kateqoriya"
+msgstr "Kateqoriya Əlavə et"
 
 #: .\administration\templates\administration\store\categories\index.html:83
 msgid "Category Structure"
@@ -608,7 +605,7 @@ msgid "Product List"
 msgstr "Məhsul Siyahısı"
 
 #: .\administration\templates\administration\users\create.html:18
-#: .\administration\templates\administration\users\edit.html:26
+#: .\administration\templates\administration\users\edit.html:19
 msgid "Back to User List"
 msgstr "İstifadəçi siyahısına get"
 
@@ -616,7 +613,7 @@ msgstr "İstifadəçi siyahısına get"
 msgid "Edit User"
 msgstr "İstifadəçini Yenilə"
 
-#: .\administration\templates\administration\users\edit.html:21
+#: .\administration\templates\administration\users\edit.html:25
 msgid "Delete User"
 msgstr "İstifadəçini sil"
 
@@ -687,7 +684,6 @@ msgid "cannot be saved"
 msgstr "saxlanmadı"
 
 #: .\administration\views.py:462
-#, fuzzy
 #| msgid "was saved successfully"
 msgid "were saved successfully"
 msgstr "uğurla saxlandı"
@@ -730,16 +726,14 @@ msgid "Proceed to checkout"
 msgstr "Ödənişə keç"
 
 #: .\cart\templates\cart\wishlist.html:3
-#, fuzzy
 #| msgid "Add to Wishlist"
 msgid "Wishlist"
 msgstr "Seçilmişlərə əlavə et"
 
 #: .\cart\views.py:72
-#, fuzzy
 #| msgid "Add to Wishlist"
 msgid "Product was added to Wishlist"
-msgstr "Seçilmişlərə əlavə et"
+msgstr "Məhsul Seçilmişlərə əlavə edildi"
 
 #: .\cart\views.py:82
 msgid "Product was removed from Wishlist"
@@ -798,7 +792,8 @@ msgid "Shop"
 msgstr "Mağaza"
 
 #: .\main\context_processors.py:18 .\main\context_processors.py:31
-#: .\main\templates\main\about.html:3 .\templates\components\main\about.html:21
+#: .\main\templates\main\about.html:3
+#: .\templates\components\main\about.html:21
 msgid "About Us"
 msgstr "Haqqımızda"
 
@@ -846,7 +841,6 @@ msgid "Companies"
 msgstr "Şirkətlər"
 
 #: .\main\templates\main\contact.html:45
-#, fuzzy
 #| msgid "Email Address"
 msgid "Office Address"
 msgstr "Email Adresi"
@@ -860,7 +854,6 @@ msgid "Web Connect"
 msgstr ""
 
 #: .\main\templates\main\contact.html:100
-#, fuzzy
 #| msgid "Social media links"
 msgid "Social Media"
 msgstr "Sosyal Medya hesabları"
@@ -904,12 +897,12 @@ msgstr "Məhsul Kateqoriyaları"
 msgid "Admin"
 msgstr "Admin"
 
-#: .\templates\components\admin\navbar.html:231
+#: .\templates\components\admin\navbar.html:244
 #: .\templates\components\admin\sidenav.html:5
 msgid "Account"
 msgstr "Hesab"
 
-#: .\templates\components\admin\navbar.html:237
+#: .\templates\components\admin\navbar.html:250
 msgid "Logout"
 msgstr "Çıxış"
 
@@ -942,7 +935,6 @@ msgid "View cart"
 msgstr "Səbəti görüntülə"
 
 #: .\templates\components\library\document.html:22
-#, fuzzy
 #| msgid "Edit Document"
 msgid "View Document"
 msgstr "Dokumenti Yenilə"
@@ -1002,22 +994,18 @@ msgstr "İşçi"
 #~ msgstr "admin/"
 
 #, fuzzy
-#~| msgid "Contact Us"
 #~ msgid "contact"
 #~ msgstr "Bizimlə Əlaqə"
 
 #, fuzzy
-#~| msgid "About"
 #~ msgid "about"
 #~ msgstr "Haqqımızda"
 
 #, fuzzy
-#~| msgid "Career"
 #~ msgid "career"
 #~ msgstr "Karyera"
 
 #, fuzzy
-#~| msgid "Products"
 #~ msgid "products"
 #~ msgstr "Məhsullar"
 

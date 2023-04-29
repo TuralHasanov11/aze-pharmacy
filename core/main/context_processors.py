@@ -4,7 +4,7 @@ from store.models import Category
 
 
 def default_menu(request):
-    categories = Category.objects.all()
+    categories = Category.objects.all().order_by("name")
 
     return {
         "default_menu": [

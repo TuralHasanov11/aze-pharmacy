@@ -17,8 +17,8 @@
         class="d-block lift rounded overflow-hidden mb-2"
         href="{% url dashboard.route %}"
         ><img
-          class="img-fluid"
-          src="{% static 'images/admin/dashboards/default.png' %}"
+          class="img-fluid creator-dashboard-image"
+          src="{% static dashboard.image %}"
       /></a>
       <div class="text-center small">{{dashboard.name}}</div>
     </div>

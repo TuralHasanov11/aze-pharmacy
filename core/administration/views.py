@@ -26,19 +26,19 @@ from store.models import Category, Product, ProductImage, Stock
 
 creator_dashboard_list = [
     {"name": _("Services"), "route": "administration:service-list",
-        "permission": "services.view_service"},
+        "permission": "services.view_service", "image": "images/admin/dashboards/services.png"},
     {"name": _("Library"), "route": "administration:document-list",
-        "permission": "library.view_document"},
+        "permission": "library.view_document", "image": "images/admin/dashboards/library.png"},
     {"name": _("News"), "route": "administration:post-list",
-        "permission": "news.view_post"},
+        "permission": "news.view_post", "image": "images/admin/dashboards/news.png"},
     {"name": _("Career"), "route": "administration:company-list",
-        "permission": "main.view_company"},
+        "permission": "main.view_company", "image": "images/admin/dashboards/career.png"},
     {"name": _("Authentication"), "route": "administration:user-list",
-        "permission": "user.view_user"},
+        "permission": "user.view_user", "image": "images/admin/dashboards/authentication.png"},
     {"name": _("Store"), "route": "administration:store-product-list",
-        "permission": "store.view_product"},
+        "permission": "store.view_product", "image": "images/admin/dashboards/store.png"},
     {"name": _("Orders"), "route": "administration:orders",
-        "permission": "orders.view_order"},
+        "permission": "orders.view_order", "image": "images/admin/dashboards/orders.png"},
 ]
 
 
@@ -247,7 +247,7 @@ class LogoutView(LoginRequiredMixin, PermissionRequiredMixin, auth_views.LogoutV
     next_page = reverse_lazy('main:index')
 
 
-class PasswordChangeView(LoginRequiredMixin, PermissionRequiredMixin, auth_views.PasswordChangeView):
+class PasswordChangeView(LoginRequiredMixin, auth_views.PasswordChangeView):
     template_name = 'administration/auth/password-change.html'
     success_url = reverse_lazy("administration:auth-profile")
     form_class = forms.PasswordChangeForm
