@@ -642,6 +642,7 @@ strong.woocommerce-review__author {
     position: relative;
 }
 
+
 @media (max-width: 767px) {
     .woocommerce-product-gallery.woocommerce-product-gallery--with-images {
         padding-right: 0;
@@ -662,7 +663,7 @@ strong.woocommerce-review__author {
     .woocommerce-cart-form table th.product-price, .woocommerce-cart-form table th.product-subtotal, .woocommerce-cart-form table th.product-remove {
         display: none !important;
     }
-    .woocommerce-cart-form table td.product-remove a {
+    .woocommerce-cart-form table td.product-remove button {
         position: absolute;
         display: -webkit-inline-box;
         display: -ms-inline-flexbox;

@@ -1,5 +1,5 @@
 {% load static %}
-
+<script src="{% static 'js/vue.global.min.js' %}"></script>
 <script
   type="text/javascript"
   src="{% static 'wp-includes/js/jquery/jquery.mina767.js' %}"
@@ -149,5 +149,8 @@
   const cartAddURL = '{% url "cart:add" %}'
   const cartUpdateURL = '{% url "cart:update" %}'
   const cartRemoveURL = '{% url "cart:remove" %}'
+  const cartURL = "{% url 'cart:cart' %}"
+  const productUrl = "{% url 'store:product-detail' category_slug='category_slug_value' product_slug='product_slug_value' %}"
+
 </script>
 <script src="{% static 'js/store.js' %}"></script>

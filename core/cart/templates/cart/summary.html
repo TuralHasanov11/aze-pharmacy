@@ -12,9 +12,8 @@
               <div class="woocommerce">
                 <div class="row shoppong-car-wrap">
                   <div class="col-lg-8">
-                    <form
+                    <div
                       class="woocommerce-cart-form"
-                      method="POST"
                     >
                       <table
                         class="shop_table shop_table_responsive cart woocommerce-cart-form__contents"
@@ -75,11 +74,11 @@
                                     for="quantity_{{cartProduct.id}}"
                                     >{{cartProduct.name}}</label
                                     >
-                                    <div class="qty_button minus">-</div>
+                                    <span class="update_qty qty_button minus">-</span>
                                     <input
                                       type="text"
                                       id="quantity_{{cartProduct.id}}"
-                                      class="input-text qty text product-quantity"
+                                      class="input-text qty text"
                                       step="1"
                                       min="0"
                                       max=""
@@ -89,8 +88,9 @@
                                       size="4"
                                       inputmode="numeric"
                                       autocomplete="off"
+                                      disabled
                                     />
-                                    <div class="qty_button plus">+</div>
+                                    <span class="update_qty qty_button plus">+</span>
                                 </div>
                                 </td>
                                 <td class="product-subtotal" data-title="Subtotal">
@@ -104,27 +104,15 @@
                                 >
                                 </td>
                                 <td class="product-remove">
-                                <button
-                                    class="remove remove_from_cart_button"
-                                    aria-label="Remove this item"
-                                    data-product_id="{{cartProduct.id}}"
-                                    data-product_sku="QZX8VG-T"
-                                    >&times;</button>
+                                  <button class="remove remove_from_cart_button" data-product_id="{{cartProduct.id}}">&times;</button>
                                 </td>
                             </tr>
                             {% endwith %}
                             {% endfor %}
                             {% endif %}
-                            <tr>
-                              <td colspan="6" class="actions">   
-                                <div class="text-end f-right">
-                                  <button type="submit" class="update-cart btn" name="update_cart">{% translate "Update cart" %}</button>
-                                </div>					
-                              </td>
-                            </tr>
                         </tbody>
                       </table>
-                    </form>
+                    </div>
                   </div>
 
                   <div class="col-lg-4">
@@ -172,4 +160,51 @@
   </div>
 </main>
 {% endblock content %}
+
+
+{% block scripts %}
+<script type="text/javascript">
+  window.addEventListener("load", function() {
+    (function($) {
+      jQuery(document).ready(function ($) {
+        $('.add_to_cart_button').on('click', async (e) => {
+          e.preventDefault();
+          const productId = $(e.currentTarget).data('product_id');
+          const productQuantity = $(e.currentTarget).data('quantity');
+
+          try {
+            const response = await fetch(cartAddURL, {
+                method: 'POST',
+                body: JSON.stringify({
+                  product_id: productId,
+                  product_quantity: productQuantity
+                }),
+                headers: { "X-CSRFToken": csrftoken },
+            });
+    
+            const data = await response.json();
+
+            const product = productComponent(data)
+
+            if($(`.mini_cart_item[data-product_id='${productId}']`).length === 0){
+              $(".cart_list" ).append(product);
+            }else{
+              $(`.mini_cart_item[data-product_id='${productId}']`).html(product)
+            }
+
+            $("#cart-total-price").html(data.total_price);
+            $("#cart-quantity").html(data.quantity)
+          }catch(e){
+            console.log(e)
+          }
+        })
+      })
+
+      
+      
+    })(jQuery);
+  });
+</script>
+{% endblock scripts %}
+
 

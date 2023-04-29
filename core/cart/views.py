@@ -1,11 +1,14 @@
 import json
 
+from api import pagination, serializers
 from cart.processor import CartProcessor, WishlistProcessor
 from django.db.models import Prefetch
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_GET, require_POST
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from store.models import Product, ProductImage
 
 
@@ -15,17 +18,22 @@ def summary(request):
     return render(request, 'cart/summary.html', {'cart': cart}) 
 
 
+@require_GET
+def cart(request):
+    cart = CartProcessor(request) 
+    return JsonResponse({"cart": cart.cart, "total_price": cart.get_total_price, "total_quantity": len(cart)})
+
+
 @require_POST
 def cartAdd(request):    
     try:
         cart = CartProcessor(request) 
-        productId = int(request.POST.get('product_id'))
-        productQuantity = int(request.POST.get('product_quantity'))
+        data = json.load(request)
 
         product = Product.objects.select_related('category').prefetch_related(
                     Prefetch('product_image', queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature'),
-                ).get(id=productId)
-        item = cart.create(product=product, quantity=productQuantity)
+                ).get(id=data['product_id'])
+        item = cart.create(product=product, quantity=int(data['product_quantity']))
         
         return JsonResponse({'quantity': cart.__len__(), 'total_price': cart.get_total_price, "item": item})
     except Exception as err:
@@ -49,9 +57,7 @@ def cartUpdate(request):
     try:
         cart = CartProcessor(request)
         data = json.load(request)
-
-        for productId in data.keys():
-            cart.update(productId=productId, quantity=int(data[productId]))
+        cart.update(productId=int(data['product_id']), quantity=int(data['product_quantity']))
             
         return JsonResponse({'quantity': cart.__len__(), 'total_price': cart.get_total_price}) 
     except Exception as err:
@@ -82,3 +88,5 @@ def wishlistRemove(request):
         return HttpResponse({"message": _("Product was removed from Wishlist")})
     except Exception as err:
         return HttpResponseBadRequest(str(err))
+    
+
