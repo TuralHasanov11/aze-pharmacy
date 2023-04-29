@@ -1,0 +1,6 @@
+{% load i18n %}
+{% if is_active %}
+<span class="badge bg-success rounded-pill">{% translate "Active" %}</span>
+{% else %}
+<span class="badge bg-danger rounded-pill">{% translate "Not Active" %}</span>
+{% endif %}

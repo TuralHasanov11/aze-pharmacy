@@ -1,4 +1,4 @@
-{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% load mptt_tags %} {% block content %}
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
 <main>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
         <div class="container-fluid px-4">
@@ -82,16 +82,7 @@
                 <div class="card">
                     <div class="card-header">{% translate "Category Structure" %}</div>
                     <div class="card-body">
-                        {% recursetree categories %}
-                            <li>
-                                {{ node.name }}
-                                {% if not node.is_leaf_node %}
-                                    <ul class="children">
-                                        {{ children }}
-                                    </ul>
-                                {% endif %}
-                            </li>
-                        {% endrecursetree %}
+                        {% include "components/admin/category-structure.html" with categories=categories %}
                     </div>
                 </div>
             </div>

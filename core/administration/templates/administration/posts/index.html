@@ -27,44 +27,71 @@
         {% include 'components/messages.html' with messages=messages %}
         <div class="card">
             <div class="card-body">
-                <table id="datatablesSimple">
-                    <thead>
-                        <tr>
-                            <th>{% translate "Title" %}</th>
-                            <th>{% translate "Cover Image" %}</th>
-                            <th>{% translate "Creation Date" %}</th>
-                            <th>{% translate "Update Date" %}</th>
-                            <th>{% translate "Actions" %}</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>{% translate "Title" %}</th>
-                            <th>{% translate "Cover Image" %}</th>
-                            <th>{% translate "Creation Date" %}</th>
-                            <th>{% translate "Update Date" %}</th>
-                            <th>{% translate "Actions" %}</th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        {% for post in posts %}
-                        <tr>
-                            <td>{{post.title|truncatechars:50}}</td>
-                            <td>{% if post.cover_image %}<img width="30" height="30" src="{{post.cover_image.url}}" alt="{{post.title}}">{% endif %}</td>
-                            <td>{{post.created_at|date:"d.m.Y"}}</td>
-                            <td>{{post.updated_at|date:"d.m.Y"}}</td>
-                            <td>
-                                <a href="{% url 'administration:post-detail' pk=post.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="file"></i></a>
-                                <a href="{% url 'administration:post-update' pk=post.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
-                                <form class="delete-form" action="{% url 'administration:post-delete' pk=post.pk %}" method="POST">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark"><i data-feather="trash-2"></i></button>
-                                </form>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <form method="GET"> 
+                            <div class="mb-3">
+                                <input type="search" name="search" value="{{request.GET.search}}" class="form-control" placeholder="{% translate 'Search' %}">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover entry-table ">
+                                <thead>
+                                    <tr>
+                                        <th>{% translate "Title" %}
+                                            {% include "components/tables/order-button.html" with orderBy='title' route='administration:post-list' %}
+                                        </th>
+                                        <th>{% translate "Cover Image" %}</th>
+                                        <th>{% translate "Creation Date" %}
+                                            {% include "components/tables/order-button.html" with orderBy='created_at' route='administration:post-list' %}
+                                        </th>
+                                        <th>{% translate "Update Date" %}
+                                            {% include "components/tables/order-button.html" with orderBy='updated_at' route='administration:post-list' %}
+                                        </th>
+                                        <th>{% translate "Actions" %}</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>{% translate "Title" %}
+                                            {% include "components/tables/order-button.html" with orderBy='title' route='administration:post-list' %}
+                                        </th>
+                                        <th>{% translate "Cover Image" %}</th>
+                                        <th>{% translate "Creation Date" %}
+                                            {% include "components/tables/order-button.html" with orderBy='created_at' route='administration:post-list' %}
+                                        </th>
+                                        <th>{% translate "Update Date" %}
+                                            {% include "components/tables/order-button.html" with orderBy='updated_at' route='administration:post-list' %}
+                                        </th>
+                                        <th>{% translate "Actions" %}</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    {% for post in posts %}
+                                    <tr>
+                                        <td>{{post.title|truncatechars:40}}</td>
+                                        <td>{% if post.cover_image %}<img width="30" height="30" src="{{post.cover_image.url}}" alt="{{post.title}}">{% endif %}</td>
+                                        <td>{{post.created_at|date:"d.m.Y"}}</td>
+                                        <td>{{post.updated_at|date:"d.m.Y"}}</td>
+                                        <td>
+                                            <a href="{% url 'administration:post-detail' pk=post.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="file"></i></a>
+                                            <a href="{% url 'administration:post-update' pk=post.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
+                                            <form class="delete-form" action="{% url 'administration:post-delete' pk=post.pk %}" method="POST">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark"><i data-feather="trash-2"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% include "components/admin/pagination.html" with pagination=posts %}
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>

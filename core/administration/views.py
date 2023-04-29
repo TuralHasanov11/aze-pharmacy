@@ -1,4 +1,6 @@
 
+from typing import Any
+
 from administration import forms
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -8,6 +10,7 @@ from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core import paginator
+from django.db import models
 from django.db.models import Prefetch
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
@@ -94,12 +97,20 @@ class DocumentListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
     permission_required = ["library.view_document", "library.add_document"]
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/documents/index.html'
+    paginate_py = 1
     success_message = "%(name)s " + _("was created successfully")
+
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by(self.request.GET.get(
+            'order_by', '-created_at')).only('pk', 'name', 'updated_at')
+        if self.request.GET.get('search'):
+            queryset = queryset.filter(
+                name__icontains=self.request.GET.get('search'))
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        pagination = paginator.Paginator(
-            self.model.objects.all().values('pk', 'name', 'updated_at'), 2)
+        pagination = paginator.Paginator(self.get_queryset(), self.paginate_py)
         pageNumber = self.request.GET.get('page')
         documents = pagination.get_page(pageNumber)
         context['documents'] = documents
@@ -173,11 +184,24 @@ class PostListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = ["news.view_post"]
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/posts/index.html'
-    paginate_by = 20
+    paginate_by = 2
     context_object_name = "posts"
 
     def get_queryset(self):
-        return super().get_queryset()
+        queryset = super().get_queryset().order_by(self.request.GET.get('order_by',
+                                                                        '-created_at')).only('title', 'cover_image', 'created_at', 'updated_at')
+        if self.request.GET.get('search'):
+            queryset = queryset.filter(
+                title__icontains=self.request.GET.get('search'))
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pagination = paginator.Paginator(self.get_queryset(), self.paginate_by)
+        pageNumber = self.request.GET.get('page')
+        posts = pagination.get_page(pageNumber)
+        context['posts'] = posts
+        return context
 
 
 class PostDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
@@ -261,6 +285,10 @@ class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     paginate_by = 20
     context_object_name = "users"
 
+    def get_queryset(self):
+        return super().get_queryset().only('username', 'email', 'last_login_at')
+    
+
 
 class UserCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = get_user_model()
@@ -336,12 +364,25 @@ class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = ["store.view_product"]
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/store/products/index.html'
-    paginate_by = 20
+    paginate_by = 1
     context_object_name = "products"
 
     def get_queryset(self):
-        return super().get_queryset().select_related('category').prefetch_related(
-            Prefetch('product_image', queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature'))
+        queryset = super().get_queryset().select_related('category').prefetch_related(
+            Prefetch('product_image', queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature')).only(
+                'name', 'sku', 'regular_price', 'discount', 'discount_price', 'category', 'is_active', 'updated_at')
+        if self.request.GET.get('search'):
+            queryset = queryset.filter(
+                name__icontains=self.request.GET.get('search'))
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pagination = paginator.Paginator(self.get_queryset(), self.paginate_by)
+        pageNumber = self.request.GET.get('page')
+        products = pagination.get_page(pageNumber)
+        context['products'] = products
+        return context
 
 
 class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
@@ -456,10 +497,12 @@ class OrdersView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
 @permission_required(['main.change_site_text', 'main.view_site_text',], login_url=reverse_lazy('administration:index'))
 def siteTexts(request):
     if request.method == 'POST':
-        formset = forms.SiteTextFormSet(initial=SiteText.objects.all(), data=request.POST)
+        formset = forms.SiteTextFormSet(
+            initial=SiteText.objects.all(), data=request.POST)
         if formset.is_valid():
             formset.save()
-            messages.success(request, _('Texts') + " " + _("were saved successfully"))
+            messages.success(request, _('Texts') + " " +
+                             _("were saved successfully"))
             return redirect("administration:site-texts")
         messages.error(request, _('Texts') + " " + _("cannot be saved"))
         return render('administration/site-texts.html', {"formset": formset})
@@ -472,10 +515,12 @@ def siteTexts(request):
 @permission_required(['main.change_site_info', 'main.view_site_info',], login_url=reverse_lazy('administration:index'))
 def siteInfo(request):
     if request.method == 'POST':
-        form = forms.SiteInfoForm(instance=SiteInfo.objects.first(), data=request.POST)
+        form = forms.SiteInfoForm(
+            instance=SiteInfo.objects.first(), data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, _('Info') + " " + _("was saved successfully"))
+            messages.success(request, _('Info') + " " +
+                             _("was saved successfully"))
             return redirect("administration:site-info")
         messages.error(request, _('Info') + " " + _("cannot be saved"))
         return render('administration/site-info.html', {"form": form})

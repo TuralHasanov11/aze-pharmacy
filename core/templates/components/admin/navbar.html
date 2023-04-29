@@ -222,7 +222,7 @@
         aria-expanded="false"
         ><img
           class="img-fluid"
-          src="{% static 'images/admin/illustrations/profiles/profile-1.png' %}"
+          src="https://ui-avatars.com/api/?name={{request.user.first_name}}+{{request.user.last_name}}&background=00ac69&color=fff&size=80"
       /></a>
       <div
         class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up"
@@ -231,7 +231,7 @@
         <h6 class="dropdown-header d-flex align-items-center">
           <img
             class="dropdown-user-img"
-            src="{% static 'images/admin/illustrations/profiles/profile-1.png' %}"
+            src="https://ui-avatars.com/api/?name={{request.user.first_name}}+{{request.user.last_name}}&background=00ac69&color=fff&size=80"
           />
           <div class="dropdown-user-details">
             <div class="dropdown-user-details-name">{{request.user.username}}</div>

@@ -21,37 +21,59 @@
             <div class="col-xl-8 col-12 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <table id="datatablesSimple">
-                            <thead>
-                                <tr>
-                                    <th>{% translate "Name" %}</th>
-                                    <th>{% translate "Updated At" %}</th>
-                                    <th>{% translate "Actions" %}</th>
-                                </tr>
-                            </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>{% translate "Name" %}</th>
-                                    <th>{% translate "Updated At" %}</th>
-                                    <th>{% translate "Actions" %}</th>
-                                </tr>
-                            </tfoot>
-                            <tbody>
-                                {% for document in documents %}
-                                <tr>
-                                    <td>{{document.name}}</td>
-                                    <td>{{document.updated_at|date:"d.m.Y"}}</td>
-                                    <td>
-                                        <a href="{% url 'administration:document-update' pk=document.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
-                                        <form class="delete-form" action="{% url 'administration:document-delete' pk=document.pk %}" method="POST">
-                                            {% csrf_token %}
-                                            <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark"><i data-feather="trash-2"></i></button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                        <div class="row justify-content-end">
+                            <div class="col-12 col-md-6">
+                                <form method="GET"> 
+                                    <div class="mb-3">
+                                        <input type="search" name="search" value="{{request.GET.search}}" class="form-control" placeholder="{% translate 'Search' %}">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover entry-table ">
+                                        <thead>
+                                            <tr>
+                                                <th>{% translate "Name" %} 
+                                                    {% include "components/tables/order-button.html" with orderBy='name' route='administration:document-list' %}
+                                                </th>
+                                                <th>{% translate "Updated At" %} 
+                                                    {% include "components/tables/order-button.html" with orderBy='updated_at' route='administration:document-list' %} 
+                                                </th>
+                                                <th>{% translate "Actions" %} </th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>{% translate "Name" %} 
+                                                    {% include "components/tables/order-button.html" with orderBy='name' route='administration:document-list' %}
+                                                </th>
+                                                <th>{% translate "Updated At" %} 
+                                                    {% include "components/tables/order-button.html" with orderBy='updated_at' route='administration:document-list' %} 
+                                                </th>
+                                                <th>{% translate "Actions" %}</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            {% for document in documents %}
+                                            <tr>
+                                                <td>{{document.name}}</td>
+                                                <td>{{document.updated_at|date:"d.m.Y"}}</td>
+                                                <td>
+                                                    <a href="{% url 'administration:document-update' pk=document.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
+                                                    <form class="delete-form" action="{% url 'administration:document-delete' pk=document.pk %}" method="POST">
+                                                        {% csrf_token %}
+                                                        <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark"><i data-feather="trash-2"></i></button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {% include "components/admin/pagination.html" with pagination=documents %}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
