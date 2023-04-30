@@ -1,7 +1,7 @@
 {% extends 'layouts/default.html' %} {% load static %} {% load i18n %} {% block content %}
 <main class="main-area fix">
   {% translate "Library" as pageTitle %}
-  {%include "components/breadcrumb.html" with pageTitle=pageTitle endTitle=pageTitle%}
+  {%include "components/breadcrumb.html" with breadcrumb=breadcrumb%}
 
   <div
     data-elementor-type="wp-page"

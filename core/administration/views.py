@@ -1,6 +1,3 @@
-
-from typing import Any
-
 from administration import forms
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -10,7 +7,6 @@ from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core import paginator
-from django.db import models
 from django.db.models import Prefetch
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
@@ -287,7 +283,6 @@ class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
     def get_queryset(self):
         return super().get_queryset().only('username', 'email', 'last_login_at')
-    
 
 
 class UserCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):

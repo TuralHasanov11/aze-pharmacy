@@ -1,7 +1,6 @@
 {% extends 'layouts/default.html' %} {% load static %} {% load i18n %} {% block content %}
 <main class="main-area fix">
-  {% translate "Wishlist" as pageTitle %}
-  {%include "components/breadcrumb.html" with pageTitle=pageTitle endTitle=pageTitle%}
+  {%include "components/breadcrumb.html" with breadcrumb=breadcrumb%}
 
   <div class="inner-shop-area">
     <div class="container">

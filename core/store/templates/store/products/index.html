@@ -2,9 +2,7 @@
 {% load i18n %}
 {% block content %}
 <main class="main-area fix">
-  {% translate "Shop" as pageTitle %}
-  {% translate "Products" as endTitle %}
-  {%include "components/breadcrumb.html" with pageTitle=pageTitle endTitle=endTitle breadcrumb=breadcrumb%}
+  {%include "components/breadcrumb.html" with breadcrumb=breadcrumb%}
 
   <div class="inner-shop-area">
     <div class="container">

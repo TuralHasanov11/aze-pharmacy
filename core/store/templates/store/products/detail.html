@@ -1,7 +1,6 @@
 {% extends 'layouts/default.html' %} {% load static %} {% load i18n %} {% block content %}
 <main class="main-area fix">
-  {% translate "Shop" as pageTitle %}
-  {%include "components/breadcrumb.html" with pageTitle=pageTitle breadcrumb=breadcrumb endTitle=product.name%}
+  {%include "components/breadcrumb.html" with breadcrumb=breadcrumb %}
 
   {% translate "Add to Wishlist" as addToWishListText%}
   {% translate "Remove from Wishlist" as removeFromWishListText%}

@@ -8,33 +8,27 @@
     <div class="row justify-content-center">
       <div class="col-xl-10">
         <div class="breadcrumb-content text-center">
-          <h2 class="title">{{pageTitle}}</h2>
+          <h2 class="title">
+            {% with breadcrumb|first as firstItem %}
+              {{firstItem.title}}
+            {% endwith %}
+          </h2>
           <nav aria-label="breadcrumb" class="breadcrumb">
-            <span property="itemListElement" typeof="ListItem"><a
-                property="item"
-                typeof="WebPage"
-                href="{% url 'main:index' %}"
-                class="home"
-                ><span property="name">{% translate "Home" %}</span></a
-              ></span
-            ><span class="breadcrumb-separator"
-              ><i class="fas fa-angle-right"></i></span
-            >
-            {% for item in breadcrumb %}
-            <span property="itemListElement" typeof="ListItem"><a
-              property="item"
-              typeof="WebPage"
+            {% for item in breadcrumb|slice:"1:-1" %}
+            <span><a
               href="{{item.route}}"
               class="home"
-              ><span property="name">{{item.title}}</span></a
+              ><span>{{item.title}}</span></a
               ></span
             ><span class="breadcrumb-separator"
               ><i class="fas fa-angle-right"></i></span
             >
             {% endfor %}
-            <span property="itemListElement" typeof="ListItem">
-              <span property="name" class="post post-page current-item">
-                {{endTitle}}
+            <span>
+              <span class="post post-page current-item">
+                {% with breadcrumb|last as lastItem %}
+                {{lastItem.title}}
+                {% endwith %}
               </span>
             </span>
           </nav>

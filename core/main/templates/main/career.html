@@ -1,7 +1,6 @@
 {% extends 'layouts/default.html' %} {% load static %} {% load i18n %} {% block content %}
 <main class="main-area fix">
-  {% translate "Career" as pageTitle %}
-  {%include "components/breadcrumb.html" with pageTitle=pageTitle %}
+  {%include "components/breadcrumb.html" with breadcrumb=breadcrumb %}
 
   <div
     data-elementor-type="wp-page"

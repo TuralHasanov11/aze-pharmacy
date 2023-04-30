@@ -42,11 +42,18 @@ def products(request: HttpRequest):
     pagination = paginator.Paginator(productsQueryset, 1)
     pageNumber = request.GET.get('page')
     products = pagination.get_page(pageNumber)
+    breadcrumb = [
+        {"title": _("Shop")},
+        {"title": _("Home"), "route": reverse("main:index")},
+        {"title": _("Products")},
+    ]
+
     return render(request, 'store/products/index.html', context={
         "products": products,
         "categories": categories,
         "orderingContainer": orderingContainer,
-        "selectedOrderByValue": selectedOrderByValue
+        "selectedOrderByValue": selectedOrderByValue,
+        'breadcrumb': breadcrumb
     })
 
 
@@ -64,7 +71,10 @@ def categoryProducts(request: HttpRequest, category_slug: str):
     pageNumber = request.GET.get('page')
     products = pagination.get_page(pageNumber)
     breadcrumb = [
+        {"title": _("Shop")},
+        {"title": _("Home"), "route": reverse("main:index")},
         {"route": reverse("store:products"), "title": _("Products")},
+        {"title": _("Products")},
     ]
     return render(request, 'store/products/index.html', context={
         "products": products,
@@ -85,9 +95,12 @@ def productDetail(request: HttpRequest, category_slug: str, product_slug: str):
             Prefetch('product_image', to_attr='images')
         ).get(slug=product_slug, category__slug=category_slug)
         breadcrumb = [
+            {"title": _("Shop")},
+            {"title": _("Home"), "route": reverse("main:index")},
             {"route": reverse("store:products"), "title": _("Products")},
             {"route": reverse("store:category-products", kwargs={
-                              "category_slug": product.category.slug}), "title": product.category.name}
+                              "category_slug": product.category.slug}), "title": product.category.name},
+            {"title": product.name},
         ]
     except Product.DoesNotExist:
         return redirect('store:products')
