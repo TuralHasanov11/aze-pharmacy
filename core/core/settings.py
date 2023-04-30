@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'orders',
     'wishlist',
     'administration',
-    'api'
+    'api',
+    'chat'
 ]
 
 MIDDLEWARE = [
@@ -194,3 +195,8 @@ CKEDITOR_CONFIGS = {
         'height': 1000,
     },
 }
+
+TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID', None)
+TWILIO_API_KEY = os.environ.get('TWILIO_API_KEY', None)
+TWILIO_API_SECRET = os.environ.get('TWILIO_API_SECRET', None)
+TWILIO_CHAT_SERVICE_SID = os.environ.get('TWILIO_CHAT_SERVICE_SID', None)
