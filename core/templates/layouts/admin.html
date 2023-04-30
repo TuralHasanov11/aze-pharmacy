@@ -13,11 +13,10 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <meta name="description" content="" />
 
     {% include "components/admin/imports/links.html" %}
 
-    <title>Dashboard - SB Admin Pro</title>
+    <title>{% block title %}{% endblock title %} | {% translate "Admin" %}</title>
   </head>
   <body class="nav-fixed">
     {% include "components/admin/navbar.html" %}

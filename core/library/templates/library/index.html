@@ -1,6 +1,9 @@
-{% extends 'layouts/default.html' %} {% load static %} {% load i18n %} {% block content %}
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %}
+{% block title %}{% translate "Library" %}{% endblock title %}
+{% block description %}{% translate "Library Description" %}{% endblock description %}
+
+{% block content %}
 <main class="main-area fix">
-  {% translate "Library" as pageTitle %}
   {%include "components/breadcrumb.html" with breadcrumb=breadcrumb%}
 
   <div

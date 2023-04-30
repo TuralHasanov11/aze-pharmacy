@@ -1,4 +1,8 @@
-{% extends 'layouts/default.html' %} {% load static %} {% block content %}
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Home" %}{% endblock title %}
+{% block description %}{% translate "Home Description" %}{% endblock description %}
+
+{% block content %}
 <main class="main-area fix">
   <div
     data-elementor-type="wp-page"

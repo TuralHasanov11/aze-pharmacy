@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-30 12:26+0200\n"
+"POT-Creation-Date: 2023-04-30 20:14+0200\n"
 "PO-Revision-Date: 2023-04-30 12:27+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,23 +20,26 @@ msgstr ""
 "X-Translated-Using: django-rosetta 0.9.9\n"
 
 #: .\administration\context_processors.py:7
+#: .\administration\templates\administration\index.html:2
 msgid "Dashboard"
 msgstr "İş Sahəsi"
 
-#: .\administration\context_processors.py:12 .\administration\views.py:31
+#: .\administration\context_processors.py:12 .\administration\views.py:27
 #: .\main\context_processors.py:14 .\main\context_processors.py:29
-#: .\services\templates\services\index.html:3
-#: .\templates\components\default\footer.html:31
+#: .\services\templates\services\index.html:2 .\services\views.py:17
+#: .\services\views.py:19 .\templates\components\default\footer.html:31
 msgid "Services"
 msgstr "Xidmətlər"
 
 #: .\administration\context_processors.py:16
-#: .\administration\templates\administration\services\index.html:10
+#: .\administration\templates\administration\services\index.html:2
+#: .\administration\templates\administration\services\index.html:12
 msgid "Service List"
 msgstr "Xidmət Siyahısı"
 
-#: .\administration\context_processors.py:21 .\administration\views.py:33
-#: .\library\templates\library\index.html:3 .\main\context_processors.py:12
+#: .\administration\context_processors.py:21 .\administration\views.py:29
+#: .\library\templates\library\index.html:2 .\library\views.py:17
+#: .\library\views.py:19 .\main\context_processors.py:12
 #: .\main\context_processors.py:35
 msgid "Library"
 msgstr "Kitabxana"
@@ -45,15 +48,17 @@ msgstr "Kitabxana"
 msgid "Documents"
 msgstr "Sənədlər"
 
-#: .\administration\context_processors.py:30 .\administration\views.py:35
+#: .\administration\context_processors.py:30 .\administration\views.py:31
 #: .\main\context_processors.py:13 .\main\context_processors.py:36
-#: .\news\templates\news\detail.html:3 .\news\templates\news\index.html:3
-#: .\news\views.py:24 .\templates\components\main\blog-area.html:9
+#: .\news\templates\news\index.html:2 .\news\templates\news\index.html:14
+#: .\news\views.py:17 .\news\views.py:19 .\news\views.py:31 .\news\views.py:33
+#: .\templates\components\main\blog-area.html:9
 msgid "News"
 msgstr "Xəbərlər"
 
 #: .\administration\context_processors.py:34
-#: .\administration\templates\administration\posts\index.html:12
+#: .\administration\templates\administration\posts\index.html:4
+#: .\administration\templates\administration\posts\index.html:14
 msgid "Post List"
 msgstr "Xəbər Siyahısı"
 
@@ -61,32 +66,35 @@ msgstr "Xəbər Siyahısı"
 msgid "Add Post"
 msgstr "Xəbər Əlavə et"
 
-#: .\administration\context_processors.py:41 .\administration\views.py:37
+#: .\administration\context_processors.py:41 .\administration\views.py:33
 #: .\main\context_processors.py:19 .\main\context_processors.py:32
-#: .\main\templates\main\career.html:3
+#: .\main\templates\main\career.html:2 .\main\views.py:76 .\main\views.py:78
 msgid "Career"
 msgstr "Karyera"
 
 #: .\administration\context_processors.py:45
-#: .\administration\templates\administration\companies\index.html:10
+#: .\administration\templates\administration\companies\index.html:2
+#: .\administration\templates\administration\companies\index.html:12
 msgid "Company List"
 msgstr "Şirkət Siyahısı"
 
-#: .\administration\context_processors.py:50 .\administration\views.py:39
+#: .\administration\context_processors.py:50 .\administration\views.py:35
 msgid "Authentication"
 msgstr "Qeydiyyat"
 
 #: .\administration\context_processors.py:54
-#: .\administration\templates\administration\users\index.html:12
+#: .\administration\templates\administration\users\index.html:4
+#: .\administration\templates\administration\users\index.html:14
 msgid "User List"
 msgstr "İstifadəçi Siyahısı"
 
 #: .\administration\context_processors.py:56
-#: .\administration\templates\administration\users\create.html:12
+#: .\administration\templates\administration\users\create.html:4
+#: .\administration\templates\administration\users\create.html:14
 msgid "Add User"
 msgstr "İstifadəçi Əlavə et"
 
-#: .\administration\context_processors.py:61 .\administration\views.py:41
+#: .\administration\context_processors.py:61 .\administration\views.py:37
 msgid "Store"
 msgstr "Mağaza"
 
@@ -94,14 +102,14 @@ msgstr "Mağaza"
 msgid "Categories"
 msgstr "Kateqoriyalar"
 
-#: .\administration\context_processors.py:67
-#: .\store\templates\store\products\index.html:6 .\store\views.py:67
-#: .\store\views.py:88
+#: .\administration\context_processors.py:67 .\store\views.py:48
+#: .\store\views.py:76 .\store\views.py:77 .\store\views.py:100
 msgid "Products"
 msgstr "Məhsullar"
 
 #: .\administration\context_processors.py:72
-#: .\administration\context_processors.py:76 .\administration\views.py:43
+#: .\administration\context_processors.py:76 .\administration\views.py:39
+#: .\checkout\templates\checkout\success.html:2
 msgid "Orders"
 msgstr "Sifarişlər"
 
@@ -109,14 +117,14 @@ msgstr "Sifarişlər"
 msgid "Site Data Management"
 msgstr "Sayt Məlumatları"
 
-#: .\administration\context_processors.py:84 .\administration\views.py:522
-#: .\administration\views.py:525
+#: .\administration\context_processors.py:84 .\administration\views.py:517
+#: .\administration\views.py:520
 msgid "Info"
 msgstr "İnformasiya"
 
 #: .\administration\context_processors.py:85
-#: .\administration\templates\administration\site-texts.html:24
-#: .\administration\views.py:504 .\administration\views.py:507
+#: .\administration\templates\administration\site-texts.html:26
+#: .\administration\views.py:499 .\administration\views.py:502
 msgid "Texts"
 msgstr "Mətnlər"
 
@@ -125,36 +133,35 @@ msgstr "Mətnlər"
 #: .\administration\forms.py:46 .\administration\forms.py:47
 #: .\administration\forms.py:57 .\administration\forms.py:58
 #: .\administration\forms.py:164 .\administration\forms.py:165
-#: .\administration\templates\administration\companies\index.html:27
-#: .\administration\templates\administration\companies\index.html:34
-#: .\administration\templates\administration\documents\index.html:37
-#: .\administration\templates\administration\documents\index.html:48
-#: .\administration\templates\administration\store\categories\index.html:27
-#: .\administration\templates\administration\store\categories\index.html:34
-#: .\administration\templates\administration\store\products\index.html:44
-#: .\administration\templates\administration\store\products\index.html:82
+#: .\administration\templates\administration\companies\index.html:29
+#: .\administration\templates\administration\companies\index.html:36
+#: .\administration\templates\administration\documents\index.html:39
+#: .\administration\templates\administration\documents\index.html:50
+#: .\administration\templates\administration\store\categories\index.html:29
+#: .\administration\templates\administration\store\categories\index.html:36
+#: .\administration\templates\administration\store\products\index.html:46
+#: .\administration\templates\administration\store\products\index.html:84
 msgid "Name"
 msgstr "Ad"
 
 #: .\administration\forms.py:20 .\administration\forms.py:61
 #: .\administration\forms.py:72
-#: .\administration\templates\administration\companies\index.html:28
-#: .\administration\templates\administration\companies\index.html:35
-#: .\administration\templates\administration\posts\index.html:46
-#: .\administration\templates\administration\posts\index.html:61
-#: .\administration\templates\administration\services\index.html:28
-#: .\administration\templates\administration\services\index.html:36
-#: .\administration\templates\administration\store\products\index.html:51
-#: .\administration\templates\administration\store\products\index.html:89
+#: .\administration\templates\administration\companies\index.html:30
+#: .\administration\templates\administration\companies\index.html:37
+#: .\administration\templates\administration\posts\index.html:48
+#: .\administration\templates\administration\posts\index.html:63
+#: .\administration\templates\administration\services\index.html:30
+#: .\administration\templates\administration\services\index.html:38
+#: .\administration\templates\administration\store\products\index.html:53
+#: .\administration\templates\administration\store\products\index.html:91
 msgid "Cover Image"
 msgstr "Başlıq Şəkli"
 
 #: .\administration\forms.py:22 .\administration\forms.py:23
 #: .\administration\forms.py:75 .\administration\forms.py:179
-#: .\administration\templates\administration\services\index.html:29
-#: .\administration\templates\administration\services\index.html:37
-#: .\store\templates\store\products\detail.html:202
-#: .\store\templates\store\products\detail.html:211
+#: .\administration\templates\administration\services\index.html:31
+#: .\administration\templates\administration\services\index.html:39
+#: .\store\templates\store\products\detail.html:194
 msgid "Description"
 msgstr "Məzmun"
 
@@ -167,8 +174,8 @@ msgid "Link"
 msgstr "Link"
 
 #: .\administration\forms.py:70 .\administration\forms.py:71
-#: .\administration\templates\administration\posts\index.html:43
-#: .\administration\templates\administration\posts\index.html:58
+#: .\administration\templates\administration\posts\index.html:45
+#: .\administration\templates\administration\posts\index.html:60
 msgid "Title"
 msgstr "Başlıq"
 
@@ -176,8 +183,8 @@ msgstr "Başlıq"
 #: .\administration\forms.py:100 .\administration\forms.py:134
 #: .\administration\forms.py:135 .\administration\forms.py:224
 #: .\administration\forms.py:225
-#: .\administration\templates\administration\users\index.html:34
-#: .\administration\templates\administration\users\index.html:43
+#: .\administration\templates\administration\users\index.html:36
+#: .\administration\templates\administration\users\index.html:45
 #: .\orders\forms.py:25
 msgid "Email"
 msgstr "Email"
@@ -189,8 +196,8 @@ msgstr "Şifrə"
 
 #: .\administration\forms.py:93 .\administration\forms.py:94
 #: .\administration\forms.py:128 .\administration\forms.py:129
-#: .\administration\templates\administration\users\index.html:33
-#: .\administration\templates\administration\users\index.html:42
+#: .\administration\templates\administration\users\index.html:35
+#: .\administration\templates\administration\users\index.html:44
 msgid "Username"
 msgstr "İstifadəçi Adı"
 
@@ -207,8 +214,8 @@ msgid "Last Name"
 msgstr "Soyad"
 
 #: .\administration\forms.py:101 .\administration\forms.py:136
-#: .\administration\templates\administration\users\index.html:35
-#: .\administration\templates\administration\users\index.html:44
+#: .\administration\templates\administration\users\index.html:37
+#: .\administration\templates\administration\users\index.html:46
 msgid "Role"
 msgstr "Rol"
 
@@ -233,8 +240,8 @@ msgid "Confirm Password"
 msgstr "Şifrə Təkrarı"
 
 #: .\administration\forms.py:166 .\administration\forms.py:167
-#: .\administration\templates\administration\store\products\index.html:48
-#: .\administration\templates\administration\store\products\index.html:86
+#: .\administration\templates\administration\store\products\index.html:50
+#: .\administration\templates\administration\store\products\index.html:88
 msgid "SKU"
 msgstr "SKU"
 
@@ -243,20 +250,20 @@ msgid "category"
 msgstr "Kateqoriya"
 
 #: .\administration\forms.py:170 .\administration\forms.py:171
-#: .\administration\templates\administration\store\products\detail.html:62
+#: .\administration\templates\administration\store\products\detail.html:64
 msgid "Regular Price"
 msgstr "Qiymət"
 
 #: .\administration\forms.py:172 .\administration\forms.py:173
-#: .\administration\templates\administration\store\products\detail.html:64
-#: .\administration\templates\administration\store\products\index.html:57
-#: .\administration\templates\administration\store\products\index.html:95
+#: .\administration\templates\administration\store\products\detail.html:66
+#: .\administration\templates\administration\store\products\index.html:59
+#: .\administration\templates\administration\store\products\index.html:97
 msgid "Discount"
 msgstr "Endirim"
 
 #: .\administration\forms.py:174 .\administration\forms.py:175
-#: .\administration\templates\administration\store\products\detail.html:68
-#: .\store\templates\store\products\detail.html:176
+#: .\administration\templates\administration\store\products\detail.html:70
+#: .\store\templates\store\products\detail.html:178
 msgid "Weight"
 msgstr "Çəki"
 
@@ -317,463 +324,523 @@ msgstr "Dil"
 msgid "About"
 msgstr "Haqqımızda"
 
-#: .\administration\templates\administration\auth\login.html:8
-#: .\administration\templates\administration\auth\login.html:25
-#: .\templates\layouts\authentication.html:18
+#: .\administration\templates\administration\auth\login.html:2
+#: .\administration\templates\administration\auth\login.html:9
+#: .\administration\templates\administration\auth\login.html:26
 msgid "Login"
 msgstr "Qeydiyyat"
 
-#: .\administration\templates\administration\auth\password-change.html:12
-#: .\administration\templates\administration\auth\profile.html:12
+#: .\administration\templates\administration\auth\password-change.html:4
+#: .\administration\templates\administration\auth\password-change.html:14
+#: .\administration\templates\administration\auth\profile.html:4
+#: .\administration\templates\administration\auth\profile.html:14
 msgid "Account Settings"
 msgstr "Hesab Ayarları"
 
-#: .\administration\templates\administration\auth\password-change.html:12
+#: .\administration\templates\administration\auth\password-change.html:4
+#: .\administration\templates\administration\auth\password-change.html:14
 msgid "Security"
 msgstr "Təhlükəsizlik"
 
-#: .\administration\templates\administration\auth\password-change.html:25
+#: .\administration\templates\administration\auth\password-change.html:27
 #: .\templates\components\admin\profile-nav.html:4
 msgid "Change Password"
 msgstr "Şifrəni Dəyiş"
 
-#: .\administration\templates\administration\auth\password-change.html:52
-#: .\administration\templates\administration\auth\profile.html:60
-#: .\administration\templates\administration\companies\edit.html:56
-#: .\administration\templates\administration\companies\index.html:81
-#: .\administration\templates\administration\documents\edit.html:51
-#: .\administration\templates\administration\documents\index.html:98
-#: .\administration\templates\administration\posts\create.html:73
-#: .\administration\templates\administration\posts\edit.html:84
-#: .\administration\templates\administration\services\edit.html:56
-#: .\administration\templates\administration\services\index.html:84
-#: .\administration\templates\administration\site-info.html:58
-#: .\administration\templates\administration\site-texts.html:37
-#: .\administration\templates\administration\store\categories\edit.html:57
-#: .\administration\templates\administration\store\categories\index.html:76
-#: .\administration\templates\administration\store\products\create.html:113
-#: .\administration\templates\administration\store\products\edit.html:138
-#: .\administration\templates\administration\users\create.html:74
-#: .\administration\templates\administration\users\edit.html:72
+#: .\administration\templates\administration\auth\password-change.html:54
+#: .\administration\templates\administration\auth\profile.html:62
+#: .\administration\templates\administration\companies\edit.html:58
+#: .\administration\templates\administration\companies\index.html:83
+#: .\administration\templates\administration\documents\edit.html:53
+#: .\administration\templates\administration\documents\index.html:100
+#: .\administration\templates\administration\posts\create.html:75
+#: .\administration\templates\administration\posts\edit.html:86
+#: .\administration\templates\administration\services\edit.html:58
+#: .\administration\templates\administration\services\index.html:86
+#: .\administration\templates\administration\site-info.html:60
+#: .\administration\templates\administration\site-texts.html:39
+#: .\administration\templates\administration\store\categories\edit.html:59
+#: .\administration\templates\administration\store\categories\index.html:78
+#: .\administration\templates\administration\store\products\create.html:115
+#: .\administration\templates\administration\store\products\edit.html:140
+#: .\administration\templates\administration\users\create.html:76
+#: .\administration\templates\administration\users\edit.html:74
 msgid "Save"
 msgstr "Yadda Saxla"
 
-#: .\administration\templates\administration\auth\profile.html:12
+#: .\administration\templates\administration\auth\profile.html:4
+#: .\administration\templates\administration\auth\profile.html:14
 #: .\templates\components\admin\profile-nav.html:3
 msgid "Profile"
 msgstr "Profil"
 
-#: .\administration\templates\administration\auth\profile.html:25
-#: .\administration\templates\administration\users\create.html:27
-#: .\administration\templates\administration\users\edit.html:37
+#: .\administration\templates\administration\auth\profile.html:27
+#: .\administration\templates\administration\users\create.html:29
+#: .\administration\templates\administration\users\edit.html:39
 msgid "Account Details"
 msgstr "Hesab Məlumatları"
 
-#: .\administration\templates\administration\companies\edit.html:16
+#: .\administration\templates\administration\companies\edit.html:18
 msgid "Back to Company List"
 msgstr "Şirkət Siyahısına get"
 
-#: .\administration\templates\administration\companies\edit.html:22
+#: .\administration\templates\administration\companies\edit.html:24
 msgid "Delete Company"
 msgstr "Şirkəti Sil"
 
-#: .\administration\templates\administration\companies\edit.html:34
+#: .\administration\templates\administration\companies\edit.html:36
 msgid "Edit Company"
 msgstr "Şirkəti Yenilə"
 
-#: .\administration\templates\administration\companies\index.html:29
-#: .\administration\templates\administration\companies\index.html:36
-#: .\administration\templates\administration\documents\index.html:43
-#: .\administration\templates\administration\documents\index.html:54
-#: .\administration\templates\administration\posts\index.html:53
-#: .\administration\templates\administration\posts\index.html:68
-#: .\administration\templates\administration\services\index.html:30
-#: .\administration\templates\administration\services\index.html:38
-#: .\administration\templates\administration\store\categories\index.html:29
-#: .\administration\templates\administration\store\categories\index.html:36
-#: .\administration\templates\administration\store\products\index.html:76
-#: .\administration\templates\administration\store\products\index.html:114
-#: .\administration\templates\administration\users\index.html:37
-#: .\administration\templates\administration\users\index.html:46
+#: .\administration\templates\administration\companies\index.html:31
+#: .\administration\templates\administration\companies\index.html:38
+#: .\administration\templates\administration\documents\index.html:45
+#: .\administration\templates\administration\documents\index.html:56
+#: .\administration\templates\administration\posts\index.html:55
+#: .\administration\templates\administration\posts\index.html:70
+#: .\administration\templates\administration\services\index.html:32
+#: .\administration\templates\administration\services\index.html:40
+#: .\administration\templates\administration\store\categories\index.html:31
+#: .\administration\templates\administration\store\categories\index.html:38
+#: .\administration\templates\administration\store\products\index.html:78
+#: .\administration\templates\administration\store\products\index.html:116
+#: .\administration\templates\administration\users\index.html:39
+#: .\administration\templates\administration\users\index.html:48
 msgid "Actions"
 msgstr "Əməliyyatlar"
 
-#: .\administration\templates\administration\companies\index.html:60
+#: .\administration\templates\administration\companies\index.html:62
 msgid "Add Company"
 msgstr "Şirkət Əlavə et"
 
-#: .\administration\templates\administration\documents\edit.html:16
+#: .\administration\templates\administration\documents\edit.html:18
 msgid "Back to Document List"
 msgstr "Dokument siyahısı get"
 
-#: .\administration\templates\administration\documents\edit.html:22
+#: .\administration\templates\administration\documents\edit.html:24
 msgid "Delete Document"
 msgstr "Dokumenti Sil"
 
-#: .\administration\templates\administration\documents\edit.html:34
+#: .\administration\templates\administration\documents\edit.html:36
 msgid "Edit Document"
 msgstr "Dokumenti Yenilə"
 
-#: .\administration\templates\administration\documents\index.html:10
+#: .\administration\templates\administration\documents\index.html:2
+#: .\administration\templates\administration\documents\index.html:12
 msgid "Document List"
 msgstr "Dokument Siyahısı"
 
-#: .\administration\templates\administration\documents\index.html:28
-#: .\administration\templates\administration\posts\index.html:34
-#: .\administration\templates\administration\store\products\index.html:34
+#: .\administration\templates\administration\documents\index.html:30
+#: .\administration\templates\administration\posts\index.html:36
+#: .\administration\templates\administration\store\products\index.html:36
 msgid "Search"
 msgstr "Axtar"
 
-#: .\administration\templates\administration\documents\index.html:40
-#: .\administration\templates\administration\documents\index.html:51
-#: .\administration\templates\administration\store\products\index.html:73
-#: .\administration\templates\administration\store\products\index.html:111
+#: .\administration\templates\administration\documents\index.html:42
+#: .\administration\templates\administration\documents\index.html:53
+#: .\administration\templates\administration\store\products\index.html:75
+#: .\administration\templates\administration\store\products\index.html:113
 msgid "Updated At"
 msgstr "Yeniləmə Tarixi"
 
-#: .\administration\templates\administration\documents\index.html:82
+#: .\administration\templates\administration\documents\index.html:84
 msgid "Add Document"
 msgstr "Dokument Əlavə et"
 
-#: .\administration\templates\administration\index.html:5
+#: .\administration\templates\administration\index.html:7
 #, python-format
 msgid "Welcome to %(config.app.name)s Admin"
 msgstr "%(config.app.name)s Admin panelinə xoş gəlmişsiniz"
 
-#: .\administration\templates\administration\index.html:11
+#: .\administration\templates\administration\index.html:13
 msgid "Dashboards"
 msgstr "İdarə Panelləri"
 
-#: .\administration\templates\administration\posts\create.html:14
-#: .\administration\templates\administration\posts\index.html:18
+#: .\administration\templates\administration\orders\index.html:6
+#, fuzzy
+#| msgid "Orders"
+msgid "Order List"
+msgstr "Sifarişlər"
+
+#: .\administration\templates\administration\posts\create.html:2
+#: .\administration\templates\administration\posts\create.html:16
+#: .\administration\templates\administration\posts\index.html:20
 msgid "Create Post"
 msgstr "Xəbər Əlavə et"
 
-#: .\administration\templates\administration\posts\create.html:23
-#: .\administration\templates\administration\posts\detail.html:35
-#: .\administration\templates\administration\posts\edit.html:41
+#: .\administration\templates\administration\posts\create.html:25
+#: .\administration\templates\administration\posts\detail.html:37
+#: .\administration\templates\administration\posts\edit.html:43
 msgid "Back to Post List"
 msgstr "Xəbər Siyahısına get"
 
-#: .\administration\templates\administration\posts\create.html:61
-#: .\administration\templates\administration\posts\edit.html:79
+#: .\administration\templates\administration\posts\create.html:63
+#: .\administration\templates\administration\posts\edit.html:81
 msgid "Publish"
 msgstr "Dərc et"
 
-#: .\administration\templates\administration\posts\detail.html:20
-#: .\administration\templates\administration\posts\edit.html:23
-#: .\administration\templates\administration\store\products\detail.html:19
+#: .\administration\templates\administration\posts\detail.html:22
+#: .\administration\templates\administration\posts\edit.html:25
+#: .\administration\templates\administration\store\products\detail.html:21
 msgid "View on website"
 msgstr "Saytda görüntülə"
 
-#: .\administration\templates\administration\posts\detail.html:24
-#: .\administration\templates\administration\posts\edit.html:14
+#: .\administration\templates\administration\posts\detail.html:26
+#: .\administration\templates\administration\posts\edit.html:2
+#: .\administration\templates\administration\posts\edit.html:16
 msgid "Edit Post"
 msgstr "Xəbəri Yenilə"
 
-#: .\administration\templates\administration\posts\detail.html:30
-#: .\administration\templates\administration\posts\edit.html:27
+#: .\administration\templates\administration\posts\detail.html:32
+#: .\administration\templates\administration\posts\edit.html:29
 msgid "Delete Post"
 msgstr "Xəbəri Sil"
 
-#: .\administration\templates\administration\posts\edit.html:34
+#: .\administration\templates\administration\posts\edit.html:36
 msgid "View Post"
 msgstr "Xəbəri Gör"
 
-#: .\administration\templates\administration\posts\index.html:47
-#: .\administration\templates\administration\posts\index.html:62
+#: .\administration\templates\administration\posts\index.html:49
+#: .\administration\templates\administration\posts\index.html:64
 msgid "Creation Date"
 msgstr "Yaradılış Tarixi"
 
-#: .\administration\templates\administration\posts\index.html:50
-#: .\administration\templates\administration\posts\index.html:65
+#: .\administration\templates\administration\posts\index.html:52
+#: .\administration\templates\administration\posts\index.html:67
 msgid "Update Date"
 msgstr "Yeniləmə Tarixi"
 
-#: .\administration\templates\administration\services\edit.html:16
+#: .\administration\templates\administration\services\edit.html:18
 msgid "Back to Service List"
 msgstr "Xidmət Siyahısına get"
 
-#: .\administration\templates\administration\services\edit.html:22
+#: .\administration\templates\administration\services\edit.html:24
 msgid "Delete Service"
 msgstr "Xidməti Sil"
 
-#: .\administration\templates\administration\services\edit.html:34
+#: .\administration\templates\administration\services\edit.html:36
 msgid "Edit Service"
 msgstr "Xidməti Yenilə"
 
-#: .\administration\templates\administration\services\index.html:27
-#: .\administration\templates\administration\services\index.html:35
-#: .\administration\views.py:90
+#: .\administration\templates\administration\services\index.html:29
+#: .\administration\templates\administration\services\index.html:37
+#: .\administration\views.py:86
 msgid "Service"
 msgstr "Xidmət"
 
-#: .\administration\templates\administration\services\index.html:63
+#: .\administration\templates\administration\services\index.html:65
 msgid "Add Service"
 msgstr "Xidmət Əlavə et"
 
-#: .\administration\templates\administration\site-info.html:10
-#: .\administration\templates\administration\site-texts.html:10
-msgid "Site Data"
-msgstr "Sayt Məlumatları"
+#: .\administration\templates\administration\site-info.html:3
+#: .\administration\templates\administration\site-info.html:12
+#, fuzzy
+#| msgid "Info"
+msgid "Site Info"
+msgstr "İnformasiya"
 
-#: .\administration\templates\administration\site-info.html:23
+#: .\administration\templates\administration\site-info.html:25
 msgid "Contact details"
 msgstr "Əlaqə məlumatlar"
 
-#: .\administration\templates\administration\site-info.html:23
+#: .\administration\templates\administration\site-info.html:25
 msgid "Social media links"
 msgstr "Sosyal Medya hesabları"
 
-#: .\administration\templates\administration\site-texts.html:25
+#: .\administration\templates\administration\site-texts.html:3
+#: .\administration\templates\administration\site-texts.html:12
+#, fuzzy
+#| msgid "Texts"
+msgid "Site Texts"
+msgstr "Mətnlər"
+
+#: .\administration\templates\administration\site-texts.html:27
 msgid "About text"
 msgstr "Haqqımızda mətni"
 
-#: .\administration\templates\administration\site-texts.html:25
+#: .\administration\templates\administration\site-texts.html:27
 msgid "Terms and Privacy text"
 msgstr "Şərtlər və Məxfilik mətni"
 
-#: .\administration\templates\administration\store\categories\edit.html:14
-#: .\administration\templates\administration\store\categories\edit.html:41
-#: .\administration\templates\administration\store\products\detail.html:23
-#: .\administration\templates\administration\store\products\edit.html:14
+#: .\administration\templates\administration\store\categories\edit.html:2
+#: .\administration\templates\administration\store\categories\edit.html:16
+#: .\administration\templates\administration\store\categories\edit.html:43
+#: .\administration\templates\administration\store\products\detail.html:25
+#: .\administration\templates\administration\store\products\edit.html:2
+#: .\administration\templates\administration\store\products\edit.html:16
 msgid "Edit Product"
 msgstr "Məhsulu Yenilə"
 
-#: .\administration\templates\administration\store\categories\edit.html:23
-#: .\administration\templates\administration\store\products\create.html:23
-#: .\administration\templates\administration\store\products\detail.html:30
-#: .\administration\templates\administration\store\products\edit.html:27
+#: .\administration\templates\administration\store\categories\edit.html:25
+#: .\administration\templates\administration\store\products\create.html:25
+#: .\administration\templates\administration\store\products\detail.html:32
+#: .\administration\templates\administration\store\products\edit.html:29
 msgid "Back to Product List"
 msgstr "Məhsul Siyahısına get"
 
-#: .\administration\templates\administration\store\categories\edit.html:29
-#: .\administration\templates\administration\store\products\detail.html:34
-#: .\administration\templates\administration\store\products\edit.html:31
+#: .\administration\templates\administration\store\categories\edit.html:31
+#: .\administration\templates\administration\store\products\detail.html:36
+#: .\administration\templates\administration\store\products\edit.html:33
 msgid "Delete Product"
 msgstr "Məhsulu Sil"
 
-#: .\administration\templates\administration\store\categories\index.html:10
+#: .\administration\templates\administration\store\categories\index.html:2
+#: .\administration\templates\administration\store\categories\index.html:12
 msgid "Category List"
 msgstr "Kateqoriya Siyahısı"
 
-#: .\administration\templates\administration\store\categories\index.html:28
-#: .\administration\templates\administration\store\categories\index.html:35
+#: .\administration\templates\administration\store\categories\index.html:30
+#: .\administration\templates\administration\store\categories\index.html:37
 #, fuzzy
 msgid "Parent"
 msgstr "Valideyn"
 
-#: .\administration\templates\administration\store\categories\index.html:60
+#: .\administration\templates\administration\store\categories\index.html:62
 msgid "Add Category"
 msgstr "Kateqoriya Əlavə et"
 
-#: .\administration\templates\administration\store\categories\index.html:83
+#: .\administration\templates\administration\store\categories\index.html:85
 msgid "Category Structure"
 msgstr "Kateqoriya Strukturu"
 
-#: .\administration\templates\administration\store\products\create.html:14
-#: .\administration\templates\administration\store\products\index.html:18
+#: .\administration\templates\administration\store\products\create.html:2
+#: .\administration\templates\administration\store\products\create.html:16
+#: .\administration\templates\administration\store\products\index.html:20
 msgid "Add Product"
 msgstr "Məhsul Əlavə et"
 
-#: .\administration\templates\administration\store\products\create.html:35
-#: .\administration\templates\administration\store\products\edit.html:43
+#: .\administration\templates\administration\store\products\create.html:37
+#: .\administration\templates\administration\store\products\edit.html:45
 msgid "Product details"
 msgstr "Məhsul məlumatları"
 
-#: .\administration\templates\administration\store\products\create.html:82
-#: .\administration\templates\administration\store\products\create.html:95
-#: .\administration\templates\administration\store\products\edit.html:90
+#: .\administration\templates\administration\store\products\create.html:84
+#: .\administration\templates\administration\store\products\create.html:97
+#: .\administration\templates\administration\store\products\edit.html:92
 msgid "Stock"
 msgstr "Stok"
 
-#: .\administration\templates\administration\store\products\detail.html:60
+#: .\administration\templates\administration\store\products\detail.html:62
 msgid "Pricing"
 msgstr "Qiymətlər"
 
-#: .\administration\templates\administration\store\products\detail.html:66
-#: .\administration\templates\administration\store\products\index.html:61
-#: .\administration\templates\administration\store\products\index.html:99
+#: .\administration\templates\administration\store\products\detail.html:68
+#: .\administration\templates\administration\store\products\index.html:63
+#: .\administration\templates\administration\store\products\index.html:101
 msgid "Discount Price"
 msgstr "Endirimli Qiymət"
 
-#: .\administration\templates\administration\store\products\detail.html:71
+#: .\administration\templates\administration\store\products\detail.html:73
 msgid "Stock Data"
 msgstr "Sayt Məlumatları"
 
-#: .\administration\templates\administration\store\products\detail.html:73
+#: .\administration\templates\administration\store\products\detail.html:75
 msgid "Available units"
 msgstr ""
 
-#: .\administration\templates\administration\store\products\detail.html:75
+#: .\administration\templates\administration\store\products\detail.html:77
 msgid "Sold units"
 msgstr ""
 
-#: .\administration\templates\administration\store\products\edit.html:20
+#: .\administration\templates\administration\store\products\edit.html:22
 msgid "View Product"
 msgstr "Məhsulu Gör"
 
-#: .\administration\templates\administration\store\products\edit.html:103
+#: .\administration\templates\administration\store\products\edit.html:105
 msgid "Images"
 msgstr "Şəkillər"
 
-#: .\administration\templates\administration\store\products\index.html:12
+#: .\administration\templates\administration\store\products\index.html:4
+#: .\administration\templates\administration\store\products\index.html:14
 msgid "Product List"
 msgstr "Məhsul Siyahısı"
 
-#: .\administration\templates\administration\store\products\index.html:53
-#: .\administration\templates\administration\store\products\index.html:91
-#: .\cart\templates\cart\summary.html:26
+#: .\administration\templates\administration\store\products\index.html:55
+#: .\administration\templates\administration\store\products\index.html:93
+#: .\cart\templates\cart\summary.html:29
 msgid "Price"
 msgstr "Qiymət"
 
-#: .\administration\templates\administration\store\products\index.html:65
-#: .\administration\templates\administration\store\products\index.html:103
-#: .\administration\views.py:358
-#: .\store\templates\store\products\detail.html:180
+#: .\administration\templates\administration\store\products\index.html:67
+#: .\administration\templates\administration\store\products\index.html:105
+#: .\administration\views.py:353
+#: .\store\templates\store\products\detail.html:182
 msgid "Category"
 msgstr "Kateqoriya"
 
-#: .\administration\templates\administration\store\products\index.html:69
-#: .\administration\templates\administration\store\products\index.html:107
+#: .\administration\templates\administration\store\products\index.html:71
+#: .\administration\templates\administration\store\products\index.html:109
 msgid "Status"
 msgstr ""
 
-#: .\administration\templates\administration\users\create.html:18
-#: .\administration\templates\administration\users\edit.html:19
+#: .\administration\templates\administration\users\create.html:20
+#: .\administration\templates\administration\users\edit.html:21
 msgid "Back to User List"
 msgstr "İstifadəçi siyahısına get"
 
-#: .\administration\templates\administration\users\edit.html:13
+#: .\administration\templates\administration\users\edit.html:4
+#, fuzzy
+#| msgid "Edit Post"
+msgid "Edit List"
+msgstr "Xəbəri Yenilə"
+
+#: .\administration\templates\administration\users\edit.html:15
 msgid "Edit User"
 msgstr "İstifadəçini Yenilə"
 
-#: .\administration\templates\administration\users\edit.html:25
+#: .\administration\templates\administration\users\edit.html:27
 msgid "Delete User"
 msgstr "İstifadəçini sil"
 
-#: .\administration\templates\administration\users\index.html:18
+#: .\administration\templates\administration\users\index.html:20
 msgid "Add New User"
 msgstr "İstifadəçi Əlavə et"
 
-#: .\administration\templates\administration\users\index.html:36
-#: .\administration\templates\administration\users\index.html:45
+#: .\administration\templates\administration\users\index.html:38
+#: .\administration\templates\administration\users\index.html:47
 msgid "Last login"
 msgstr "Son qeydiyyat tarixi"
 
-#: .\administration\views.py:62 .\administration\views.py:101
-#: .\administration\views.py:150 .\administration\views.py:221
-#: .\administration\views.py:299 .\administration\views.py:330
+#: .\administration\views.py:58 .\administration\views.py:97
+#: .\administration\views.py:146 .\administration\views.py:217
+#: .\administration\views.py:294 .\administration\views.py:325
 msgid "was created successfully"
 msgstr "uğurla yaradıldı"
 
-#: .\administration\views.py:80 .\administration\views.py:130
-#: .\administration\views.py:168 .\administration\views.py:232
-#: .\administration\views.py:310 .\administration\views.py:348
+#: .\administration\views.py:76 .\administration\views.py:126
+#: .\administration\views.py:164 .\administration\views.py:228
+#: .\administration\views.py:305 .\administration\views.py:343
 msgid "was updated successfully"
 msgstr "uğurla yeniləndi"
 
-#: .\administration\views.py:90 .\administration\views.py:140
-#: .\administration\views.py:178 .\administration\views.py:242
-#: .\administration\views.py:320 .\administration\views.py:358
-#: .\administration\views.py:485
+#: .\administration\views.py:86 .\administration\views.py:136
+#: .\administration\views.py:174 .\administration\views.py:238
+#: .\administration\views.py:315 .\administration\views.py:353
+#: .\administration\views.py:480
 msgid "was deleted successfully"
 msgstr "uğurla silindi"
 
-#: .\administration\views.py:140
+#: .\administration\views.py:136
 msgid "Document"
 msgstr "Sənəd"
 
-#: .\administration\views.py:178
+#: .\administration\views.py:174
 msgid "Company"
 msgstr "Şirkət"
 
-#: .\administration\views.py:242
+#: .\administration\views.py:238
 msgid "Post"
 msgstr "Xəbər"
 
-#: .\administration\views.py:320
+#: .\administration\views.py:315
 msgid "User"
 msgstr "İstifadəçi"
 
-#: .\administration\views.py:424 .\administration\views.py:461
-#: .\administration\views.py:523
+#: .\administration\views.py:419 .\administration\views.py:456
+#: .\administration\views.py:518
 msgid "was saved successfully"
 msgstr "uğurla saxlandı"
 
-#: .\administration\views.py:426 .\administration\views.py:463
-#: .\administration\views.py:485 .\cart\templates\cart\summary.html:25
-#: .\checkout\templates\checkout\index.html:164
-#: .\checkout\templates\checkout\success.html:31
+#: .\administration\views.py:421 .\administration\views.py:458
+#: .\administration\views.py:480 .\cart\templates\cart\summary.html:28
+#: .\checkout\templates\checkout\index.html:167
+#: .\checkout\templates\checkout\success.html:34
 msgid "Product"
 msgstr "Məhsul"
 
-#: .\administration\views.py:426 .\administration\views.py:463
-#: .\administration\views.py:507 .\administration\views.py:525
+#: .\administration\views.py:421 .\administration\views.py:458
+#: .\administration\views.py:502 .\administration\views.py:520
 msgid "cannot be saved"
 msgstr "saxlanmadı"
 
-#: .\administration\views.py:505
+#: .\administration\views.py:500
 msgid "were saved successfully"
 msgstr "uğurla saxlandı"
 
-#: .\cart\templates\cart\summary.html:3
-msgid "Cart"
-msgstr "Səbət"
+#: .\cart\templates\cart\summary.html:2 .\cart\views.py:17 .\cart\views.py:19
+msgid "Shopping Cart"
+msgstr ""
 
-#: .\cart\templates\cart\summary.html:27
-#: .\store\templates\store\products\detail.html:132
+#: .\cart\templates\cart\summary.html:3
+#, fuzzy
+#| msgid "Description"
+msgid "Shopping Cart Description"
+msgstr "Məzmun"
+
+#: .\cart\templates\cart\summary.html:30
+#: .\store\templates\store\products\detail.html:134
 msgid "Quantity"
 msgstr "Say"
 
-#: .\cart\templates\cart\summary.html:28
-#: .\checkout\templates\checkout\index.html:165
-#: .\checkout\templates\checkout\success.html:32
+#: .\cart\templates\cart\summary.html:31
+#: .\checkout\templates\checkout\index.html:168
+#: .\checkout\templates\checkout\success.html:35
 #: .\templates\components\default\header.html:91
 msgid "Subtotal"
 msgstr ""
 
-#: .\cart\templates\cart\summary.html:121
+#: .\cart\templates\cart\summary.html:124
 msgid "Cart totals"
 msgstr ""
 
-#: .\cart\templates\cart\summary.html:128
-#: .\checkout\templates\checkout\index.html:197
-#: .\checkout\templates\checkout\success.html:62
+#: .\cart\templates\cart\summary.html:131
+#: .\checkout\templates\checkout\index.html:200
+#: .\checkout\templates\checkout\success.html:65
 msgid "Total"
 msgstr "Yekun"
 
-#: .\cart\templates\cart\summary.html:147
+#: .\cart\templates\cart\summary.html:150
 msgid "Proceed to checkout"
 msgstr "Ödənişə keç"
 
-#: .\checkout\templates\checkout\index.html:3
-#: .\templates\components\default\header.html:94
+#: .\cart\views.py:18 .\checkout\views.py:25 .\checkout\views.py:78
+#: .\library\views.py:18 .\main\context_processors.py:11
+#: .\main\templates\main\index.html:2 .\main\views.py:35 .\main\views.py:62
+#: .\main\views.py:77 .\news\views.py:18 .\news\views.py:32
+#: .\services\views.py:18 .\store\views.py:47 .\store\views.py:75
+#: .\store\views.py:99 .\wishlist\views.py:16
+msgid "Home"
+msgstr "Ana Səhifə"
+
+#: .\checkout\templates\checkout\index.html:2 .\checkout\views.py:24
+#: .\checkout\views.py:26 .\templates\components\default\header.html:94
 msgid "Checkout"
 msgstr "Ödəniş"
 
-#: .\checkout\templates\checkout\index.html:24
+#: .\checkout\templates\checkout\index.html:3
+#, fuzzy
+#| msgid "Description"
+msgid "Checkout Description"
+msgstr "Məzmun"
+
+#: .\checkout\templates\checkout\index.html:27
 msgid "Billing details"
 msgstr "Ödəniş məlumatları"
 
-#: .\checkout\templates\checkout\index.html:127
+#: .\checkout\templates\checkout\index.html:130
 msgid "Additional information"
 msgstr "Əlavə informasiya"
 
-#: .\checkout\templates\checkout\index.html:138
+#: .\checkout\templates\checkout\index.html:141
 msgid "optional"
 msgstr ""
 
-#: .\checkout\templates\checkout\index.html:153
-#: .\checkout\templates\checkout\success.html:21
+#: .\checkout\templates\checkout\index.html:156
+#: .\checkout\templates\checkout\success.html:24
 msgid "Your order"
 msgstr "Sizin sifarişirniz"
 
-#: .\checkout\templates\checkout\index.html:246
+#: .\checkout\templates\checkout\index.html:249
 msgid "Place order"
 msgstr "Sifariş et"
 
 #: .\checkout\templates\checkout\success.html:3
+#, fuzzy
+#| msgid "Description"
+msgid "Orders Description"
+msgstr "Məzmun"
+
+#: .\checkout\views.py:77 .\checkout\views.py:79
 msgid "Order"
 msgstr "Sifariş"
 
@@ -789,24 +856,27 @@ msgstr "Rusca"
 msgid "English"
 msgstr "İngiliscə"
 
-#: .\main\context_processors.py:11 .\templates\components\breadcrumb.html:18
-msgid "Home"
-msgstr "Ana Səhifə"
+#: .\library\templates\library\index.html:3
+#, fuzzy
+#| msgid "Description"
+msgid "Library Description"
+msgstr "Məzmun"
 
 #: .\main\context_processors.py:15 .\main\context_processors.py:30
-#: .\store\templates\store\products\detail.html:3
-#: .\store\templates\store\products\index.html:5
+#: .\store\templates\store\products\index.html:3 .\store\views.py:46
+#: .\store\views.py:74 .\store\views.py:98
 msgid "Shop"
 msgstr "Mağaza"
 
 #: .\main\context_processors.py:18 .\main\context_processors.py:31
-#: .\main\templates\main\about.html:3
+#: .\main\templates\main\about.html:2 .\main\views.py:61 .\main\views.py:63
 #: .\templates\components\main\about.html:21
 msgid "About Us"
 msgstr "Haqqımızda"
 
 #: .\main\context_processors.py:20 .\main\context_processors.py:37
-#: .\main\templates\main\contact.html:3 .\main\templates\main\contact.html:119
+#: .\main\templates\main\contact.html:2 .\main\templates\main\contact.html:121
+#: .\main\views.py:34 .\main\views.py:36
 #: .\templates\components\default\footer.html:68
 msgid "Contact Us"
 msgstr "Bizimlə Əlaqə"
@@ -843,34 +913,70 @@ msgstr "Mesaj"
 msgid "Language field"
 msgstr "Dil xanası"
 
-#: .\main\templates\main\career.html:33
+#: .\main\templates\main\about.html:3
+#, fuzzy
+#| msgid "Description"
+msgid "About Description"
+msgstr "Məzmun"
+
+#: .\main\templates\main\career.html:3
+#, fuzzy
+#| msgid "Description"
+msgid "Career Description"
+msgstr "Məzmun"
+
+#: .\main\templates\main\career.html:36
 #: .\templates\components\main\companies-area.html:10
 msgid "Companies"
 msgstr "Şirkətlər"
 
-#: .\main\templates\main\contact.html:45
+#: .\main\templates\main\contact.html:3
+#, fuzzy
+#| msgid "Description"
+msgid "Contact Description"
+msgstr "Məzmun"
+
+#: .\main\templates\main\contact.html:47
 msgid "Office Address"
 msgstr "Email Adresi"
 
-#: .\main\templates\main\contact.html:63
+#: .\main\templates\main\contact.html:65
 msgid "Phone Number"
 msgstr "Əlaqə Nömrəsi"
 
-#: .\main\templates\main\contact.html:81
+#: .\main\templates\main\contact.html:83
 msgid "Web Connect"
 msgstr ""
 
-#: .\main\templates\main\contact.html:100
+#: .\main\templates\main\contact.html:102
 msgid "Social Media"
 msgstr "Sosyal Medya hesabları"
+
+#: .\main\templates\main\index.html:3
+#, fuzzy
+#| msgid "Description"
+msgid "Home Description"
+msgstr "Məzmun"
 
 #: .\news\models.py:12 .\store\models.py:43
 msgid "Rich text editor field"
 msgstr ""
 
-#: .\news\templates\news\detail.html:54
+#: .\news\templates\news\detail.html:57 .\news\templates\news\index.html:51
 msgid "Recent News"
 msgstr ""
+
+#: .\news\templates\news\index.html:3
+#, fuzzy
+#| msgid "Description"
+msgid "News Description"
+msgstr "Məzmun"
+
+#: .\news\templates\news\index.html:31
+#, fuzzy
+#| msgid "Search"
+msgid "Search News"
+msgstr "Axtar"
 
 #: .\orders\forms.py:19
 msgid "House number and street name"
@@ -880,22 +986,33 @@ msgstr ""
 msgid "Notes about your order, e.g. special notes for delivery."
 msgstr ""
 
+#: .\services\templates\services\index.html:3
+#, fuzzy
+#| msgid "Description"
+msgid "Services Description"
+msgstr "Məzmun"
+
 #: .\store\models.py:23
 msgid "categories"
 msgstr "kateqoriyalar"
 
-#: .\store\templates\store\products\detail.html:6
+#: .\store\templates\store\products\detail.html:8
 msgid "Add to Wishlist"
 msgstr "Seçilmişlərə əlavə et"
 
-#: .\store\templates\store\products\detail.html:7
-#| msgid "Add to Wishlist"
+#: .\store\templates\store\products\detail.html:9
 msgid "Remove from Wishlist"
 msgstr "Seçilmişlərdən Sil"
 
-#: .\store\templates\store\products\detail.html:148
+#: .\store\templates\store\products\detail.html:150
 msgid "Add to cart"
 msgstr "Səbətə at"
+
+#: .\store\templates\store\products\index.html:4
+#, fuzzy
+#| msgid "Description"
+msgid "Shop Description"
+msgstr "Məzmun"
 
 #: .\store\templates\store\products\index.html:47
 msgid "Filter by Price"
@@ -906,7 +1023,8 @@ msgid "Product Categories"
 msgstr "Məhsul Kateqoriyaları"
 
 #: .\templates\components\admin\navbar.html:14
-#: .\templates\layouts\authentication.html:18 .\user\models.py:38
+#: .\templates\layouts\admin.html:20 .\templates\layouts\authentication.html:25
+#: .\user\models.py:38
 msgid "Admin"
 msgstr "Admin"
 
@@ -924,16 +1042,14 @@ msgid "Logged in as"
 msgstr "Daxil olmuş şəxs"
 
 #: .\templates\components\admin\status-button.html:3
-#| msgid "Is Active"
 msgid "Active"
 msgstr "Aktiv"
 
 #: .\templates\components\admin\status-button.html:5
-#| msgid "Is Active"
 msgid "Not Active"
 msgstr "Aktiv deyil"
 
-#: .\templates\components\contact-form.html:51
+#: .\templates\components\contact-form.html:47
 msgid "Send"
 msgstr "Göndər"
 
@@ -994,9 +1110,22 @@ msgstr "Operator"
 msgid "Staff"
 msgstr "İşçi"
 
-#: .\wishlist\templates\wishlist\wishlist.html:5
+#: .\wishlist\templates\wishlist\wishlist.html:3 .\wishlist\views.py:15
+#: .\wishlist\views.py:17
 msgid "Wishlist"
 msgstr "Seçilmişlərə əlavə et"
+
+#: .\wishlist\templates\wishlist\wishlist.html:4
+#, fuzzy
+#| msgid "Description"
+msgid "Wishlist Description"
+msgstr "Məzmun"
+
+#~ msgid "Site Data"
+#~ msgstr "Sayt Məlumatları"
+
+#~ msgid "Cart"
+#~ msgstr "Səbət"
 
 #~ msgid "Update cart"
 #~ msgstr "Səbəti yenilə"

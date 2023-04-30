@@ -1,4 +1,7 @@
-{% extends 'layouts/default.html' %} {% load static %} {% load i18n %} {% block content %}
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %}
+{% block title %}{% translate "Contact Us" %}{% endblock title %}
+{% block description %}{% translate "Contact Description" %}{% endblock description %}
+{% block content %}
 <main class="main-area fix">
   {%include "components/breadcrumb.html" with breadcrumb=breadcrumb %}
 

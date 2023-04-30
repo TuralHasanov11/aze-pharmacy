@@ -1,4 +1,6 @@
-{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Edit Product" %}{% endblock title %}
+{% block content %}
 <main>
   <header
     class="page-header page-header-compact page-header-light border-bottom bg-white mb-4"

@@ -1,4 +1,6 @@
-{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} {% block content %}
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Dashboard" %}{% endblock title %}
+{% block content %}
 <header class="py-10 mb-4 bg-gradient-success-to-secondary">
   <div class="container-xl px-4">
     <div class="text-center">

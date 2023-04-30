@@ -1,6 +1,9 @@
-{% extends 'layouts/default.html' %} {% load static %} {% block content %}
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %}
+{% block title %}{% translate "Orders" %}{% endblock title %}
+{% block description %}{% translate "Orders Description" %}{% endblock description %}
+
+{% block content %}
 <main class="main-area fix">
-  {% translate "Order" as pageTitle %}
   {%include "components/breadcrumb.html" with breadcrumb=breadcrumb%}
 
   <div class="tg-page-area">
