@@ -3,11 +3,10 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path, re_path
-from django.utils.translation import gettext_lazy as _
 
 urlpatterns = [
     path('django-admin/', admin.site.urls),
-    
+
 ]
 
 urlpatterns += i18n_patterns(
@@ -19,6 +18,7 @@ urlpatterns += i18n_patterns(
     path('library/', include('library.urls', namespace="library")),
     path('store/', include('store.urls', namespace="store")),
     path('cart/', include('cart.urls', namespace="cart")),
+    path('wishlist/', include('wishlist.urls', namespace="wishlist")),
     path('checkout/', include('checkout.urls', namespace="checkout")),
     path('admin/', include('administration.urls', namespace="administration")),
 

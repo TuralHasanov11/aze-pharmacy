@@ -1,11 +1,10 @@
-from cart import views
 from django.urls import path
+from wishlist import views
 
-app_name = 'cart'
+app_name = 'wishlist'
 
 urlpatterns = [
-    path('', views.summary, name='index'),
+    path('', views.wishlist, name='wishlist'),
     path('add', views.add, name='add'),
-    path('update', views.update, name='update'),
     path('remove', views.remove, name='remove'),
 ]

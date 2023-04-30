@@ -4,6 +4,7 @@
   {%include "components/breadcrumb.html" with pageTitle=pageTitle breadcrumb=breadcrumb endTitle=product.name%}
 
   {% translate "Add to Wishlist" as addToWishListText%}
+  {% translate "Remove from Wishlist" as removeFromWishListText%}
 
   <div class="inner-shop-area">
     <div class="container">
@@ -128,50 +129,46 @@
                     max="{{product.product_stock.units}}"
                     name="quantity"
                     value="1"
-                    title="Qty"
+                    title="{% translate "Quantity" %}"
                     size="4"
-                    placeholder=""
                     inputmode="numeric"
                     autocomplete="off"
                   />
                   <div class="add_qty qty_button plus">+</div>
                 </div>
-
                 <button
                   id="addToCartButton"
                   class="add_to_cart_button btn btn-primary"
                   type="submit"
                   name="add-to-cart"
                   data-product_id="{{product.id}}"
-                  data-quantity="0"
+                  data-quantity="1"
                   class="cart-btn product-quantity-button"
                 >
                   {% translate "Add to cart" %}
                 </button>
               </div>
             </div>
-
             <div
               class="tinv-wraper woocommerce tinv-wishlist tinvwl-shortcode-add-to-cart"
-              data-tinvwl_product_id="80"
             >
-              <div class="tinv-wishlist-clear"></div>
               <a
                 role="button"
                 tabindex="0"
-                aria-label="Add to Wishlist"
-                class="tinvwl_add_to_wishlist_button tinvwl-icon-heart tinvwl-position-after"
-                data-tinv-wl-list="[]"
-                data-tinv-wl-product="80"
-                data-tinv-wl-productvariation="0"
-                data-tinv-wl-productvariations="[0]"
-                data-tinv-wl-producttype="simple"
-                data-tinv-wl-action="add"
-                ><span class="tinvwl_add_to_wishlist-text"
-                  >{{addToWishListText}}</span
-                ></a>
-              <div class="tinv-wishlist-clear"></div>
-              <div class="tinvwl-tooltip">{{addToWishListText}}</div>
+                {% if product.id in wishlist.wishlist %}style="display: none;"{% endif %}
+                class="tinvwl_add_to_wishlist_button add_to_wishlist_button tinvwl-position-after"
+                data-product_id="{{product.id}}"
+                ><i class="far fa-heart me-2"></i><span class="tinvwl_add_to_wishlist-text">{{addToWishListText}}</span>
+              </a>
+              
+              <a
+                role="button"
+                tabindex="0"
+                {% if product.id not in wishlist.wishlist %}style="display: none;"{% endif %}
+                class="tinvwl_add_to_wishlist_button remove_from_wishlist_button tinvwl-position-after"
+                data-product_id="{{product.id}}"
+                ><i class="fa fa-heart me-2"></i><span class="tinvwl_add_to_wishlist-text">{{removeFromWishListText}}</span>
+              </a>
             </div>
             <div class="inner-shop-details-bottom">
               {% if product.weight %}
@@ -179,7 +176,6 @@
                 <b>{% translate "Weight" %} :</b> {{product.weight}}
               </div>
               {% endif %}
-
               <div class="posted_in">
                 <b>{% translate "Category" %} :</b>
                 <a
@@ -193,42 +189,17 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-12">
-          <div class="woocommerce-tabs wc-tabs-wrapper product-desc-wrap">
-            <ul class="tabs wc-tabs nav list-wrap nav-tabs" role="tablist">
-              <li
-                class="description_tab nav-item"
-                id="tab-title-description"
-                role="tab"
-                aria-controls="tab-description"
-              >
-                <a href="#tab-description" class="nav-link"> {% translate "Description" %} </a>
-              </li>
-            </ul>
-            <div
-              class="tp-content-tab woocommerce-Tabs-panel woocommerce-Tabs-panel--description panel entry-content wc-tab"
-              id="tab-description"
-              role="tabpanel"
-              aria-labelledby="tab-title-description"
-            >
-              <h2>{% translate "Description" %}</h2>
-
-              <div class="product-desc-content">
-                <p>{{product.description|safe}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <h4>{% translate "Description" %}</h4>
+      <div class="product-desc-content">
+        <p>{{product.description|safe}}</p>
       </div>
 
-      {% comment %}
       <div class="related-products-area">
         <div class="related-products-wrap">
           <h2 class="title">Related products</h2>
 
           <div class="row">
-            <div class="col-xl-3 col-lg-4 col-sm-6">
+            {% comment %} <div class="col-xl-3 col-lg-4 col-sm-6">
               <div class="suxnix-product-main">
                 <div class="home-shop-item inner-shop-item">
                   <div class="home-shop-thumb">
@@ -311,7 +282,7 @@
                     role="button"
                     tabindex="0"
                     aria-label="Add to Wishlist"
-                    class="tinvwl_add_to_wishlist_button tinvwl-icon-heart tinvwl-position-after tinvwl-loop"
+                    class="tinvwl_add_to_wishlist_button tinvwl-position-after tinvwl-loop"
                     data-tinv-wl-list="[]"
                     data-tinv-wl-product="77"
                     data-tinv-wl-productvariation="0"
@@ -326,11 +297,10 @@
                   <div class="tinvwl-tooltip">Add to Wishlist</div>
                 </div>
               </div>
-            </div>
+            </div> {% endcomment %}
           </div>
         </div>
       </div>
-      {% endcomment %}
     </div>
   </div>
 </main>

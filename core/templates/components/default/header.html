@@ -58,11 +58,7 @@
                     <a href="{% url 'cart:index' %}" class="cart-count">
                       <i class="flaticon-shopping-cart"></i>
                       <span id="cart-quantity"  class="mini-cart-count">
-                        {% if total_quantity > 0 %}
-                        {{ total_quantity }}
-                        {% else %}
-                        0
-                        {% endif %}
+                        {{total_quantity}}
                       </span>
                     </a>
                     <div class="header-mini-cart">
@@ -101,6 +97,15 @@
                     {% endwith %}
                   </li>
 
+                  <li class="header-shop-cart">
+                    <a href="{% url 'wishlist:wishlist' %}" class="cart-count text-success">
+                      <i class="fas fa-heart"></i>
+                      <span id="wishlist-quantity" class="mini-cart-count">
+                        {{wishlist|length}}
+                      </span>
+                    </a>
+                  </li>
+
                   <li class="header-search">
                     <a href="#"><i class="flaticon-search"></i></a>
                   </li>
@@ -121,7 +126,7 @@
               <div class="nav-logo">
                 <a href="{% url 'main:index' %}">
                   <img
-                    src="{% static 'wp-content/uploads/2022/09/logo.png' %}"
+                    src="{% static 'images/logo.png' %}"
                     alt="Logo"
                   />
                 </a>

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'cart',
     'checkout',
     'orders',
+    'wishlist',
     'administration',
     'api'
 ]
@@ -77,6 +78,7 @@ TEMPLATES = [
                 'administration.context_processors.admin_menu',
                 'store.context_processors.category_list',
                 'cart.context_processors.cart',
+                'wishlist.context_processors.wishlist',
             ],
         },
     },

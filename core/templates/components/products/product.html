@@ -1,5 +1,5 @@
 {% load i18n %}
-<div class="col">
+<div class="col {% if wishlist_product %}wishlist_product{% endif %}">
     <div class="suxnix-product-main">
       <div class="home-shop-item inner-shop-item">
         <div class="home-shop-thumb">
@@ -79,15 +79,22 @@
       <div
         class="tinv-wraper woocommerce tinv-wishlist tinvwl-after-add-to-cart"
       >
-        <div class="tinv-wishlist-clear"></div>
         <a
           role="button"
-          aria-label="{% translate "Add to Wishlist" %}"
-          class="tinvwl_add_to_wishlist_button"
-          ><i data-feather="heart"></i></a
-        >
-        <div class="tinv-wishlist-clear"></div>
-        <div class="tinvwl-tooltip">{% translate "Add to Wishlist" %}</div>
+          tabindex="0"
+          {% if product.id in wishlist.wishlist %}style="display: none;"{% endif %}
+          class="tinvwl_add_to_wishlist_button add_to_wishlist_button"
+          data-product_id="{{product.id}}"
+          ><i class="far fa-heart"></i>
+        </a>
+        <a
+          role="button"
+          tabindex="0"
+          {% if product.id not in wishlist.wishlist %}style="display: none;"{% endif %}
+          class="tinvwl_add_to_wishlist_button remove_from_wishlist_button"
+          data-product_id="{{product.id}}"
+          ><i class="fa fa-heart"></i>
+        </a>
       </div>
     </div>
   </div>

@@ -1,0 +1,23 @@
+{% extends 'layouts/default.html' %} {% load static %} 
+{% load i18n %}
+{% block content %}
+<main class="main-area fix">
+  {% translate "Wishlist" as pageTitle %}
+  {%include "components/breadcrumb.html" with pageTitle=pageTitle endTitle=pageTitle%}
+
+  <div class="inner-shop-area">
+    <div class="container">
+        {% if wishlist|length %}
+        <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-1">
+            {% for product in wishlist %}
+            {% include "components/products/product.html" with product=product wishlist_product=1 %}
+            {% endfor %}
+        </div>
+        {% else %}
+        {% endif %}
+    </div>
+  </div>
+</main>
+{% endblock content %}
+
+
