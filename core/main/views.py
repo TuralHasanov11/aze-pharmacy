@@ -12,7 +12,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_GET, require_http_methods
 from django.views.generic.list import ListView
 from main.forms import ContactForm
-from main.models import Company, SiteInfo, SiteText
+from main.models import Company, Question, SiteInfo, SiteText
 from news.models import Post
 from store.models import Category, Product, ProductImage
 
@@ -87,5 +87,56 @@ class CareerListView(ListView):
             {"title": _("Career")},
             {"title": _("Home"), "route": reverse("main:index")},
             {"title": _("Career")},
+        ]
+        return context
+
+
+@require_GET
+def termsAndConditions(request: HttpRequest):
+    siteText = SiteText.objects.only('terms_and_conditions').filter(
+        language=get_language()).first()
+    breadcrumb = [
+        {"title": _("About Us")},
+        {"title": _("Home"), "route": reverse("main:index")},
+        {"title": _("About Us")},
+    ]
+    return render(request, 'main/terms-and-conditions.html', context={"terms_and_conditions": siteText.terms_and_conditions, "breadcrumb": breadcrumb})
+
+
+@require_GET
+def privacyPolicy(request: HttpRequest):
+    siteText = SiteText.objects.only('privacy_policy').filter(
+        language=get_language()).first()
+    breadcrumb = [
+        {"title": _("Privacy Policy")},
+        {"title": _("Home"), "route": reverse("main:index")},
+        {"title": _("Privacy Policy")},
+    ]
+    return render(request, 'main/privacy-policy.html', context={"privacy_policy": siteText.privacy_policy, "breadcrumb": breadcrumb})
+
+
+@require_GET
+def returnPolicy(request: HttpRequest):
+    siteText = SiteText.objects.only('return_policy').filter(
+        language=get_language()).first()
+    breadcrumb = [
+        {"title": _("Return Policy")},
+        {"title": _("Home"), "route": reverse("main:index")},
+        {"title": _("Return Policy")},
+    ]
+    return render(request, 'main/return-policy.html', context={"return_policy": siteText.return_policy, "breadcrumb": breadcrumb})
+
+
+class FAQListView(ListView):
+    model = Question
+    template_name = "main/faq.html"
+    context_object_name = "questions"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["breadcrumb"] = [
+            {"title": _("FAQ")},
+            {"title": _("Home"), "route": reverse("main:index")},
+            {"title": _("FAQ")},
         ]
         return context

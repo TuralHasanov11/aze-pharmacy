@@ -26,12 +26,29 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-3 col-md-5 col-sm-6">
+          <div class="col-lg-2 col-md-5 col-sm-6">
             <div id="nav_menu-2" class="footer-widget column-2 widget_nav_menu">
               <h4 class="fw-title">{% translate "Services" %}</h4>
               <div class="menu-services-container">
                 <ul id="menu-services" class="menu">
                   {% for item in default_footer_menu.services %}
+                  <li
+                    id="menu-item-{{forloop.counter}}"
+                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-{{forloop.counter}}"
+                  >
+                    <a href="{% url item.route %}">{{item.title}}</a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-5 col-sm-6">
+            <div id="nav_menu-2" class="footer-widget column-2 widget_nav_menu">
+              <h4 class="fw-title">{% translate "Company Information" %}</h4>
+              <div class="menu-company-information-container">
+                <ul id="menu-company-information" class="menu">
+                  {% for item in default_footer_menu.company_information %}
                   <li
                     id="menu-item-{{forloop.counter}}"
                     class="menu-item menu-item-type-custom menu-item-object-custom menu-item-{{forloop.counter}}"
@@ -60,7 +77,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-3 col-md-5">
+          <div class="col-lg-2 col-md-5">
             <div
               id="custom_html-2"
               class="widget_text footer-widget column-4 widget_custom_html"

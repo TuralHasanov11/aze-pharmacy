@@ -28,13 +28,19 @@ def default_footer_menu(request):
             "services": [
                 {"title": _("Services"), "route": "services:index"},
                 {"title": _("Shop"), "route": "store:products"},
-                {"title": _("About Us"), "route": "main:about"},
                 {"title": _("Career"), "route": "main:career"},
             ],
             "support": [
                 {"title": _("Library"), "route": "library:index"},
                 {"title": _("News"), "route": "news:index"},
                 {"title": _("Contact Us"), "route": "main:contact"},
+                {"title": _("FAQ"), "route": "main:faq"},
+            ],
+            "company_information": [
+                {"title": _("About Us"), "route": "main:about"},
+                {"title": _("Terms and Conditions"), "route": "main:terms-and-conditions"},
+                {"title": _("Privacy Policy"), "route": "main:privacy-policy"},
+                {"title": _("Return Policy"), "route": "main:return-policy"},
             ]
         }
     }
