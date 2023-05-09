@@ -225,4 +225,8 @@ jQuery(document).ready(function ($) {
   $('.gallery-demo').on('click', e => {
     currentSlide($(e.currentTarget).data('number'))
   })
+
+  $('.order_by').on('change', (e)=>{
+    $(e.currentTarget).closest('form').submit()
+  })
 });

@@ -2,7 +2,7 @@
 import os
 
 from django.contrib import messages
-from django.core.mail import BadHeaderError, send_mail
+from django.core.mail import BadHeaderError, EmailMessage, send_mail
 from django.db.models import Count, Prefetch
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
@@ -22,11 +22,13 @@ def index(request: HttpRequest):
     posts = Post.objects.all()[:5]
     companies = Company.objects.all()
     discountedProducts = Product.products.filter(discount__gt=0).select_related('category').prefetch_related(
-                Prefetch('product_image', queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature'),
-            )
+        Prefetch('product_image', queryset=ProductImage.objects.filter(
+            is_feature=True), to_attr='image_feature'),
+    )
     categories = Category.objects.annotate(
         products_count=Count("product_category")).all().order_by("name")
-    siteText = SiteText.objects.values('about').filter(language=get_language()).first()
+    siteText = SiteText.objects.values('about').filter(
+        language=get_language()).first()
     return render(request, 'main/index.html', context={"posts": posts, "companies": companies, "discounted_products": discountedProducts, "categories": categories, "about": siteText["about"]})
 
 
@@ -37,28 +39,35 @@ def contact(request: HttpRequest):
         {"title": _("Home"), "route": reverse("main:index")},
         {"title": _("Contact Us")},
     ]
+    siteInfo = SiteInfo.objects.first()
+    faq = ""
     if request.method == 'POST':
         form = ContactForm(request.POST)
-        siteInfo = SiteInfo.objects.first()
         if form.is_valid():
             data = form.cleaned_data
             try:
-                send_mail(data["subject"], data["message"], data["email"], [os.environ.get("COMPANY_EMAIL", "")])
+                email = EmailMessage(
+                    subject=data["subject"],
+                    body=data["message"],
+                    from_email=data["email"],
+                    to=[os.environ.get("COMPANY_EMAIL", "")],
+                )
+                email.send()
             except BadHeaderError:
                 messages.error(request, "Email cannot be sent")
-                return render(request, "main/contact.html", {"form": form, 'siteInfo': siteInfo, "breadcrumb": breadcrumb})
+                return render(request, "main/contact.html", {"form": form, 'siteInfo': siteInfo, "breadcrumb": breadcrumb, "faq": faq})
             messages.success(request, 'Email was sent successfully!')
             return redirect(reverse("main:contact")+"#contact-form")
         messages.error(request, "Email cannot be sent")
-        return render(request, "main/contact.html", {"form": form, 'siteInfo': siteInfo, "breadcrumb": breadcrumb})
-    siteInfo = SiteInfo.objects.first()
+        return render(request, "main/contact.html", {"form": form, 'siteInfo': siteInfo, "breadcrumb": breadcrumb, "faq": faq})
     form = ContactForm()
-    return render(request, 'main/contact.html', {'siteInfo': siteInfo, "form": form, "breadcrumb": breadcrumb})
+    return render(request, 'main/contact.html', {'siteInfo': siteInfo, "form": form, "breadcrumb": breadcrumb, "faq": faq})
 
 
 @require_GET
 def about(request: HttpRequest):
-    siteText = SiteText.objects.values('about').filter(language=get_language()).first()
+    siteText = SiteText.objects.values('about').filter(
+        language=get_language()).first()
     breadcrumb = [
         {"title": _("About Us")},
         {"title": _("Home"), "route": reverse("main:index")},
@@ -80,4 +89,3 @@ class CareerListView(ListView):
             {"title": _("Career")},
         ]
         return context
-    

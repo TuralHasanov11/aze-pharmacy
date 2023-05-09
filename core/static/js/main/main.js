@@ -123,4 +123,16 @@ jQuery(document).ready(function ($) {
         });
       }
       easyPieChart();
+
+      $(function () {
+        $(".accordion-collapse").on("show.bs.collapse", function () {
+          $(this).parent().addClass("active-item");
+          $(this).parent().prev().addClass("prev-item");
+        });
+  
+        $(".accordion-collapse").on("hide.bs.collapse", function () {
+          $(this).parent().removeClass("active-item");
+          $(this).parent().prev().removeClass("prev-item");
+        });
+      });
 });

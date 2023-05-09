@@ -99,7 +99,7 @@
 	font-size: 18px;
 	margin: 0 0 15px;
 }
-.pricing__box {
+.company__box {
 	padding: 35px 35px 35px;
 }
 .blog-posts-wrapper {
@@ -340,7 +340,7 @@
 .formula-img {
 	margin-right: 0;
 }
-.pricing__box {
+.company__box {
 	padding: 30px 20px 25px;
 }
 .pricing-btn a > span {
@@ -588,7 +588,7 @@
 	max-width: 80%;
 	margin: 0 auto 50px;
 }
-.pricing__box .pricing-img img {
+.company__box .company-img img {
 	max-height: 150px;
 }
 .testimonial-item {
@@ -799,7 +799,7 @@
 .formula-img {
 	max-width: 100%;
 }
-.pricing__box .pricing-img img {
+.company__box .company-img img {
 	max-height: 190px;
 }
 .blog-post-item>a {

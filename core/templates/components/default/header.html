@@ -109,12 +109,6 @@
                   <li class="header-search">
                     <a href="#"><i class="flaticon-search"></i></a>
                   </li>
-
-                  <li class="offCanvas-btn d-none d-xl-block">
-                    <a href="#" class="navSidebar-button"
-                      ><i class="flaticon-layout"></i
-                    ></a>
-                  </li>
                 </ul>
               </div>
             </nav>
@@ -170,6 +164,24 @@
                     {% endfor %}
                   </ul>
                 </li>
+                <li
+                    class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home"
+                  >
+                    <a href="{% url 'cart:index' %}">
+                      <i class="flaticon-shopping-cart"></i>
+                    </a>
+                  </li>
+                  <li
+                    class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home"
+                  >
+                    <a href="{% url 'wishlist:wishlist' %}" class="cart-count text-success">
+                      <i class="fas fa-heart"></i>
+                    </a>
+                  </li>
+                  <li class="header-search">
+                    <a href="#"><i class="flaticon-search"></i></a>
+                  </li>
+                  
                 </ul>
               </div>
 
@@ -201,7 +213,7 @@
                   type="text"
                   name="search"
                   value="{{request.GET.search}}"
-                  placeholder="Enter your keyword..."
+                  placeholder="{% translate "Search in Shop" %}"
                 />
                 <button type="submit" class="search-btn">
                   <i class="flaticon-search"></i>
@@ -215,18 +227,3 @@
   </div>
   <div class="search-backdrop"></div>
 </header>
-
-{% block scripts %}
-<script type="text/javascript">
-  window.addEventListener("load", function() {
-    (function($) {
-      jQuery(document).ready(function ($) {
-        
-      })
-
-      
-      
-    })(jQuery);
-  });
-</script>
-{% endblock scripts %}

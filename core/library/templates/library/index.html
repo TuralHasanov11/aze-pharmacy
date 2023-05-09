@@ -12,25 +12,22 @@
     class="elementor elementor-65"
   >
     <section
-      class="elementor-section elementor-top-section elementor-element elementor-element-4f93b80 elementor-section-full_width elementor-section-height-default elementor-section-height-default"
-      data-id="4f93b80"
+      class="elementor-section elementor-top-section elementor-element elementor-section-full_width elementor-section-height-default elementor-section-height-default"
       data-element_type="section"
     >
       <div class="elementor-container elementor-column-gap-no">
         <div
-          class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-08d1f6e"
-          data-id="08d1f6e"
+          class="elementor-column elementor-col-100 elementor-top-column elementor-element"
           data-element_type="column"
         >
           <div class="elementor-widget-wrap elementor-element-populated">
             <div
-              class="elementor-element elementor-element-f46398b elementor-widget elementor-widget-tg-blog-faq"
-              data-id="f46398b"
+              class="elementor-element elementor-element-library-widget elementor-widget elementor-widget-tg-blog-faq"
               data-element_type="widget"
               data-widget_type="tg-blog-faq.default"
             >
               <div class="elementor-widget-container">
-                <section id="news" class="blog-post-area">
+                <section class="blog-post-area">
                   <div class="container">
                     <div class="blog-inner-wrapper">
                       <div class="row justify-content-center">
@@ -57,28 +54,3 @@
   </div>
 </main>
 {% endblock content %} 
-
-{% block scripts %}
-<script>
-  jQuery(document).ready(function ($) {
-    $("[data-background]").each(function () {
-      $(this).css(
-        "background-image",
-        "url(" + $(this).attr("data-background") + ")"
-      );
-    });
-
-    $(function () {
-      $(".accordion-collapse").on("show.bs.collapse", function () {
-        $(this).parent().addClass("active-item");
-        $(this).parent().prev().addClass("prev-item");
-      });
-
-      $(".accordion-collapse").on("hide.bs.collapse", function () {
-        $(this).parent().removeClass("active-item");
-        $(this).parent().prev().removeClass("prev-item");
-      });
-    });
-  });
-</script>
-{% endblock scripts %}

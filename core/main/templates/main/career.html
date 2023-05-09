@@ -12,37 +12,33 @@
     class="elementor elementor-65"
   >
     <section
-      class="elementor-section elementor-top-section elementor-element elementor-element-abcb398 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
-      data-id="abcb398"
+      class="elementor-section elementor-top-section elementor-element elementor-element-career-section elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+      data-id="career-section"
       data-element_type="section"
-      id="pricing"
       data-settings='{"background_background":"classic"}'
     >
       <div class="elementor-container elementor-column-gap-no">
         <div
-          class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-cb9037f"
-          data-id="cb9037f"
+          class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-companies-container"
           data-element_type="column"
         >
           <div class="elementor-widget-wrap elementor-element-populated">
             <div
-              class="elementor-element elementor-element-b2238a8 elementor-widget elementor-widget-tp-heading"
-              data-id="b2238a8"
+              class="elementor-element elementor-element-companies-heading elementor-widget elementor-widget-tp-heading"
               data-element_type="widget"
               data-widget_type="tp-heading.default"
             >
               <div class="elementor-widget-container">
                 <div class="section-title">
-                  <h2 class="title">{% translate "Companies" %}</h2>
+                  <h2 class="title">{% translate "Partner Companies" %}</h2>
                 </div>
               </div>
             </div>
             <section
-              class="elementor-section elementor-inner-section elementor-element elementor-element-29131c8 elementor-section-full_width elementor-section-content-bottom elementor-section-height-default elementor-section-height-default"
-              data-id="29131c8"
+              class="elementor-section elementor-inner-section elementor-element elementor-section-full_width elementor-section-content-bottom elementor-section-height-default elementor-section-height-default"
               data-element_type="section"
             >
-              <div class="elementor-container elementor-column-gap-no">
+              <div class="row">
                 {% for company in companies %}
                   {% include "components/companies/company.html" with company=company %}
                 {% endfor %}

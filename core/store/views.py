@@ -10,10 +10,10 @@ from django.views.decorators.http import require_GET
 from store.models import Category, Product, ProductImage
 
 orderingContainer = [
-    {'name': 'Name', 'value': 'name'},
-    {'name': 'Latest', 'value': '-created_at'},
-    {'name': 'Price low to high', 'value': 'regular_price'},
-    {'name': 'Price high to low', 'value': '-regular_price'},
+    {'name': _('Name'), 'value': 'name'},
+    {'name': _('Latest'), 'value': '-created_at'},
+    {'name': _('Price low to high'), 'value': 'regular_price'},
+    {'name': _('Price high to low'), 'value': '-regular_price'},
 ]
 
 
@@ -74,6 +74,8 @@ def categoryProducts(request: HttpRequest, category_slug: str):
         {"title": _("Shop")},
         {"title": _("Home"), "route": reverse("main:index")},
         {"route": reverse("store:products"), "title": _("Products")},
+        {"route": reverse("store:category-products", kwargs={
+                              "category_slug": category.slug}), "title": category.name},
         {"title": _("Products")},
     ]
     return render(request, 'store/products/index.html', context={

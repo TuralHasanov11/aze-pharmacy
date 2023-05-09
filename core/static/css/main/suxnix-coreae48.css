@@ -550,13 +550,13 @@ label {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 60px;
-	height: 60px;
+	width: 40px;
+	height: 40px;
 	text-align: center;
 	background: #0D9B4D;
 	color: #fff !important;
 	border-radius: 50%;
-	font-size: 25px;
+	font-size: 20px;
 }
 
 .transparent-header .navbar-wrap ul li a {
@@ -619,7 +619,7 @@ label {
 
 
 /* 3. Mobile-menu */
-.nav-outer .mobile-nav-toggler {
+/* .nav-outer .mobile-nav-toggler {
 	position: relative;
 	float: right;
 	font-size: 40px;
@@ -629,7 +629,7 @@ label {
 	color: #fff;
 	margin-right: 30px;
 	top: 15px;
-}
+} */
 
 .nav-logo img {
 	width: 128px;
@@ -895,8 +895,8 @@ label {
 	display: none;
 	align-items: center;
 	justify-content: center;
-	width: 60px;
-	height: 60px;
+	width: 40px;
+	height: 40px;
 	text-align: center;
 	background: #0D9B4D;
 	color: #fff;
@@ -1784,7 +1784,6 @@ body.search-visible {
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
-	max-width: 185px;
 }
 
 .inner-shop-area .shop-top-left form select {
@@ -3139,7 +3138,7 @@ body.search-visible {
 	padding: 0 50px;
 }
 
-.pricing__box {
+.company__box {
 	background: #fff;
 	border: 3px solid #ffffff;
 	border-radius: 10px;
@@ -3147,7 +3146,7 @@ body.search-visible {
 	transition: .3s linear;
 }
 
-.pricing__box .pricing-hade>span {
+.company__box .pricing-hade>span {
 	color: #222;
 	font-size: 20px;
 	font-weight: 700;
@@ -3156,13 +3155,13 @@ body.search-visible {
 	margin-bottom: 0;
 }
 
-.pricing__box .pricing-hade .title {
+.company__box .pricing-hade .title {
 	font-size: 36px;
 	margin-bottom: 5px;
 	font-weight: 700;
 }
 
-.pricing__box .pricing-hade>p {
+.company__box .pricing-hade>p {
 	margin-bottom: 0;
 	font-size: 18px;
 	font-weight: 700;
@@ -3170,20 +3169,20 @@ body.search-visible {
 	text-transform: capitalize;
 }
 
-.pricing__box .pricing-price {
+.company__box .pricing-price {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	margin-bottom: 5px;
 }
 
-.pricing__box .pricing-price .price {
+.company__box .pricing-price .price {
 	font-size: 24px !important;
 	margin-bottom: 0;
 	transition: .3s linear;
 }
 
-.pricing__box .pricing-price span {
+.company__box .pricing-price span {
 	font-size: 17px;
 	display: block;
 	margin-left: 8px;
@@ -3194,19 +3193,19 @@ body.search-visible {
 	font-weight: 500;
 }
 
-.pricing__box .total {
+.company__box .total {
 	margin-bottom: 10px;
 	color: #818181;
 	font-size: 20px;
 }
 
-.pricing__box .price-savings .save {
+.company__box .price-savings .save {
 	font-size: 32px;
 	margin-bottom: 10px;
 	color: #FAA432;
 }
 
-.pricing__box .price-savings>span {
+.company__box .price-savings>span {
 	font-size: 20px;
 	display: block;
 	line-height: 1;
@@ -3215,7 +3214,7 @@ body.search-visible {
 	margin: 0 0 20px;
 }
 
-.pricing__box .pricing-btn a {
+.company__box .pricing-btn a {
 	display: block;
 	background: #FAA432;
 	color: #fff;
@@ -3236,12 +3235,12 @@ body.search-visible {
 	margin-top: 5px;
 }
 
-.pricing__box .pricing-btn a:hover {
+.company__box .pricing-btn a:hover {
 	background: transparent;
 	color: #FAA432;
 }
 
-.pricing__box .bottom-img img {
+.company__box .bottom-img img {
 	max-width: 100%;
 }
 
@@ -3264,8 +3263,8 @@ body.search-visible {
 	color: #FAA432;
 }
 
-.pricing-item.best-value-plan .pricing__box,
-.pricing-item:hover .pricing__box {
+.pricing-item.best-value-plan .company__box,
+.pricing-item:hover .company__box {
 	border-color: #FAA432;
 }
 
@@ -3274,23 +3273,23 @@ body.search-visible {
 	color: #fff;
 }
 
-.pricing__box .pricing-img {
+.company__box .company-img {
 	padding: 35px 0 20px;
 	margin: 0 0 15px;
 }
 
-.pricing__box .pricing-img img {
-	max-height: 180px;
+.company__box .company-img img {
+	max-height: 120px;
 	min-height: 120px;
 	max-width: 100%;
 }
 
-.pricing__box .pricing-btn.mb-15 {
+.company__box .pricing-btn.mb-15 {
 	margin-bottom: 0;
 	margin-top: 35px;
 }
 
-.pricing__box .bottom-img {
+.company__box .bottom-img {
 	margin-top: 20px;
 }
 
@@ -4680,6 +4679,10 @@ blockquote::before,
 
 .faq-wrapper .accordion-body {
 	padding: 20px 0 0;
+}
+
+.faq-wrapper .accordion-body .document-btn {
+	padding: 0.5em 1em !important;
 }
 
 .faq-wrapper .accordion-button:not(.collapsed)::after {

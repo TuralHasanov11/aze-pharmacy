@@ -12,11 +12,12 @@
         <div class="col-xl-9 col-lg-8 col-md-12 col-sm-8">
           <div class="shop-top-wrap">
             <div class="shop-top-left">
-              <form class="woocommerce-ordering" method="get">
+              <label for="order_by">{% translate "Order by" %}</label>
+              <form method="get" id="orderingForm">
                 <select
+                  id="order_by"
                   name="order_by"
-                  class="form-select orderby"
-                  aria-label="Shop order"
+                  class="form-select order_by"
                 >
                   {% for sortItem in orderingContainer %}
                   <option value="{{sortItem.value}}" 
@@ -42,16 +43,7 @@
 
         <div class="col-xl-3 col-lg-4 col-md-8 col-sm-8">
           <aside class="shop-sidebar">
-            <div
-              id="woocommerce_price_filter-2"
-              class="product-widgets side-cat woocommerce widget_price_filter"
-            >
-              <h4 class="sidebar-title">{% translate "Filter by Price" %}</h4>
-              
-            </div>
-            <div
-              id="woocommerce_product_categories-2"
-              class="product-widgets side-cat woocommerce widget_product_categories"
+            <div class="product-widgets side-cat woocommerce widget_product_categories"
             >
               <h4 class="sidebar-title">{% translate "Product Categories" %}</h4>
               <ul class="product-categories">
@@ -73,5 +65,3 @@
   </div>
 </main>
 {% endblock content %}
-
-

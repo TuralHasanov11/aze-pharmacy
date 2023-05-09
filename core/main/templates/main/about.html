@@ -1,7 +1,6 @@
-{% extends 'layouts/default.html' %} {% load static %} {% load i18n %}
-{% block title %}{% translate "About Us" %}{% endblock title %}
-{% block description %}{% translate "About Description" %}{% endblock description %}
-
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "About Us" %}{% endblock title %} {% block description %}
+{% translate "About Description" %}{% endblock description %} 
 {% block content %}
 <main class="main-area fix">
   {%include "components/breadcrumb.html" with breadcrumb=breadcrumb %}
@@ -12,13 +11,12 @@
     class="elementor elementor-65"
   >
     <section
-      class="elementor-section elementor-top-section elementor-element elementor-element-be24124 elementor-section-full_width elementor-section-height-default elementor-section-height-default"
+      class="elementor-section elementor-top-section elementor-element elementor-section-full_width elementor-section-height-default elementor-section-height-default"
       data-element_type="section"
     >
       <div class="elementor-container elementor-column-gap-no">
         <div
-          class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-faa853f"
-          data-id="faa853f"
+          class="elementor-column elementor-col-100 elementor-top-column elementor-element"
           data-element_type="column"
         >
           <div class="elementor-widget-wrap elementor-element-populated">
@@ -28,7 +26,39 @@
               data-widget_type="formula.default"
             >
               <div class="elementor-widget-container">
-                {% include "components/main/about.html" with about=siteText.about %}
+                <section
+                  class="formula-area formula-bg"
+                  data-background="{% static 'images/main/about_bg.jpg' %}"
+                >
+                  <div class="container">
+                    <div class="row align-items-center">
+                      <div class="col-lg-6 order-0 order-lg-2">
+                        <div class="formula-img">
+                          <img
+                            decoding="async"
+                            src="{% static 'images/main/about.png' %}"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="formula-content">
+                          <div class="section-title white-title mb-50">
+                            <h2 class="title">{% translate "About Us" %}</h2>
+                          </div>
+                          <p>{{siteText.about}}</p>
+                          <a
+                            href="{% url 'main:about' %}"
+                            target="_self"
+                            rel="nofollow"
+                            class="btn btn-two"
+                          >
+                            {% translate "More" %}
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
               </div>
             </div>
           </div>

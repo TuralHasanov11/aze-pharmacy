@@ -59,3 +59,15 @@ class SiteText(models.Model):
 
     def __str__(self):
         return f'Site Info - {self.language}'
+    
+
+class Question(models.Model):
+    language = LanguageField()
+    question = models.TextField()
+    answer = models.TextField()
+
+    class Meta:
+        verbose_name_plural = "Questions"
+
+    def __str__(self):
+        return self.question

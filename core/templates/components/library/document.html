@@ -1,25 +1,25 @@
 {% load i18n %}
 <div class="accordion-item">
-  <h2 class="accordion-header" id="headingOne-{{doc_number}}">
+  <h2 class="accordion-header" id="documentHeading-{{doc_number}}">
     <button
       class="accordion-button collapsed"
       type="button"
       data-bs-toggle="collapse"
-      data-bs-target="#collapseOne-{{doc_number}}"
+      data-bs-target="#collapseDocument-{{doc_number}}"
       aria-expanded="false"
-      aria-controls="collapseOne-{{doc_number}}"
+      aria-controls="collapseDocument-{{doc_number}}"
     >
       <span class="count">{{doc_number|add:start_index}}.</span> {{document.name}}
     </button>
   </h2>
   <div
-    id="collapseOne-{{doc_number}}"
+    id="collapseDocument-{{doc_number}}"
     class="accordion-collapse collapse"
-    aria-labelledby="headingOne-{{doc_number}}"
+    aria-labelledby="documentHeading-{{doc_number}}"
     data-bs-parent="#libraryAccordion"
   >
     <div class="accordion-body">
-      <a class="btn btn-success" target="_blank" href="{{document.file.url}}">{% translate "View Document" %}</a>
+      <a class="btn btn-success document-btn" target="_blank" href="{{document.file.url}}">{% translate "View Document" %}</a>
     </div>
   </div>
 </div>
