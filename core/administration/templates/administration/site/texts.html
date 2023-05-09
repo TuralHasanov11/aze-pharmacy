@@ -27,12 +27,26 @@
                 <h5 class="card-title mb-4">{% translate "About text" %}, {% translate "Terms and Privacy text" %}</h5>
                 {% for formset_item in formset %}
                 {% include "components/form/hidden-fields.html" with hidden_fields=formset_item.hidden_fields %}
+                {{formset_item.non_form_errors}}
+                {{ formset_item.media }}
                 <div class="mb-4">
                     <h5 class="text-primary mb-1">{{formset_item.language.label}} - {{formset_item.language.value|upper}}</h5>
                 </div>
                 <div class="mb-4">
                     <label class="mb-1" for="{{formset_item.about.id_for_label}}">{{formset_item.about.label}}</label>
                     {{formset_item.about}}
+                </div>
+                <div class="mb-4">
+                    <label class="mb-1" for="{{formset_item.return_policy.id_for_label}}">{{formset_item.return_policy.label}}</label>
+                    {{formset_item.return_policy}}
+                </div>
+                <div class="mb-4">
+                    <label class="mb-1" for="{{formset_item.privacy_policy.id_for_label}}">{{formset_item.privacy_policy.label}}</label>
+                    {{formset_item.privacy_policy}}
+                </div>
+                <div class="mb-4">
+                    <label class="mb-1" for="{{formset_item.terms_and_conditions.id_for_label}}">{{formset_item.terms_and_conditions.label}}</label>
+                    {{formset_item.terms_and_conditions}}
                 </div>
                 {{formset_item.language}}
                 <hr>

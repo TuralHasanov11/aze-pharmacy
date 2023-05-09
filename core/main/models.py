@@ -1,8 +1,17 @@
+from ckeditor_uploader import fields as ckeditorFields
 from django.conf import settings
 from django.db import models
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
+
+class RichTextEditorField(ckeditorFields.RichTextUploadingField):
+    description = _("Rich text editor field")
+
+    def __init__(self, *args, **kwargs):
+        kwargs['null'] = True
+        kwargs['blank'] = True
+        super().__init__(*args, **kwargs)
 
 class LanguageField(models.CharField):
     description = _("Language field")
@@ -52,22 +61,24 @@ class SiteInfo(models.Model):
 class SiteText(models.Model):
     language = LanguageField()
     about = models.TextField(null=True, blank=True)
+    return_policy = RichTextEditorField()
+    privacy_policy = RichTextEditorField()
+    terms_and_conditions = RichTextEditorField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name_plural = "Site Texts"
 
     def __str__(self):
-        return f'Site Info - {self.language}'
+        return f'Site Text - {self.language}'
     
 
 class Question(models.Model):
     language = LanguageField()
     question = models.TextField()
-    answer = models.TextField()
-
-    class Meta:
-        verbose_name_plural = "Questions"
+    answer = RichTextEditorField()
 
     def __str__(self):
         return self.question
+    
+

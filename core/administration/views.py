@@ -18,7 +18,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 from library.models import Document
-from main.models import Company, SiteInfo, SiteText
+from main.models import Company, Question, SiteInfo, SiteText
 from news.models import Post
 from services.models import Service
 from store.models import Category, Product, ProductImage, Stock
@@ -500,9 +500,9 @@ def siteTexts(request):
                              _("were saved successfully"))
             return redirect("administration:site-texts")
         messages.error(request, _('Texts') + " " + _("cannot be saved"))
-        return render(request, 'administration/site-texts.html', {"formset": formset})
+        return render(request, 'administration/site/texts.html', {"formset": formset})
     formset = forms.SiteTextFormSet(initial=SiteText.objects.all())
-    return render(request, 'administration/site-texts.html', {"formset": formset})
+    return render(request, 'administration/site/texts.html', {"formset": formset})
 
 
 @login_required
@@ -518,6 +518,49 @@ def siteInfo(request):
                              _("was saved successfully"))
             return redirect("administration:site-info")
         messages.error(request, _('Info') + " " + _("cannot be saved"))
-        return render(request, 'administration/site-info.html', {"form": form})
+        return render(request, 'administration/site/info.html', {"form": form})
     form = forms.SiteInfoForm(instance=SiteInfo.objects.first())
-    return render(request, 'administration/site-info.html', {"form": form})
+    return render(request, 'administration/site/info.html', {"form": form})
+
+
+class FAQListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    model = Question
+    permission_required = ["main.view_question"]
+    login_url = reverse_lazy('administration:index')
+    template_name = 'administration/site/faq-list.html'
+    context_object_name = "questions"
+
+    def get_queryset(self):
+        return super().get_queryset().only('pk', 'question', 'language')
+    
+
+
+class FAQCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Question
+    form_class = forms.FAQForm
+    permission_required = ["main.add_question"]
+    login_url = reverse_lazy('administration:index')
+    template_name = 'administration/site/faq-create.html'
+    success_message = "%(question)s " + _("was created successfully")
+    success_url = reverse_lazy('administration:site-faq-list')
+
+
+class FAQUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Question
+    form_class = forms.FAQForm
+    permission_required = ["main.change_question"]
+    login_url = reverse_lazy('administration:index')
+    template_name = 'administration/site/faq-edit.html'
+    context_object_name = 'question'
+    success_message = "%(question)s " + _("was updated successfully")
+
+    def get_success_url(self):
+        return reverse("administration:site-faq-update", kwargs={"pk": self.object.pk})
+
+
+class FAQDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = Question
+    permission_required = ["main.delete_question"]
+    login_url = reverse_lazy('administration:index')
+    success_message = _("Question") + " " + _("was deleted successfully")
+    success_url = reverse_lazy('administration:site-faq-list')

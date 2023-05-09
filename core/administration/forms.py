@@ -7,7 +7,7 @@ from django.contrib.auth import models as auth_models
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
 from library.models import Document
-from main.models import Company, SiteInfo, SiteText
+from main.models import Company, Question, SiteInfo, SiteText
 from mptt.forms import TreeNodeChoiceField
 from news.models import Post
 from services.models import Service
@@ -185,7 +185,8 @@ class ProductForm(forms.ModelForm):
 
     def save(self, commit=True):
         product = super().save(commit)
-        product.discount_price = product.regular_price - (product.regular_price * product.discount / 100)
+        product.discount_price = product.regular_price - \
+            (product.regular_price * product.discount / 100)
         product.save()
         return product
 
@@ -245,10 +246,31 @@ class SiteTextForm(forms.ModelForm):
         attrs={"class": "form-select", 'readonly': True}), choices=settings.LANGUAGES)
     about = forms.CharField(label=_('About'), widget=forms.Textarea(
         attrs={'class': 'form-control', 'placeholder': _('About'), 'rows': 25}))
+    return_policy = forms.CharField(
+        label=_("Return Policy"), widget=ckeditor_widgets.CKEditorUploadingWidget(), required=False)
+    privacy_policy = forms.CharField(
+        label=_("Privacy Policy"), widget=ckeditor_widgets.CKEditorUploadingWidget(), required=False)
+    terms_and_conditions = forms.CharField(
+        label=_("Terms and Conditions"), widget=ckeditor_widgets.CKEditorUploadingWidget(), required=False)
 
     class Meta:
         model = SiteText
-        fields = ['about', 'language']
+        fields = ['about', 'language', 'return_policy',
+                  'privacy_policy', 'terms_and_conditions']
 
 
-SiteTextFormSet = forms.modelformset_factory(model=SiteText, form=SiteTextForm, max_num=len(settings.LANGUAGES))
+class FAQForm(forms.ModelForm):
+    language = forms.ChoiceField(label=_("Language"), widget=forms.Select(
+        attrs={"class": "form-select", 'readonly': True}), choices=settings.LANGUAGES)
+    question = forms.CharField(label=_('Question'), widget=forms.Textarea(
+        attrs={'class': 'form-control', 'placeholder': _('Question'), 'rows': 25}))
+    answer = forms.CharField(
+        label=_("Answer"), widget=ckeditor_widgets.CKEditorUploadingWidget(), required=False)
+
+    class Meta:
+        model = Question
+        fields = ['question', 'answer', 'language']
+
+
+SiteTextFormSet = forms.modelformset_factory(
+    model=SiteText, form=SiteTextForm, max_num=len(settings.LANGUAGES))

@@ -1,0 +1,78 @@
+
+
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Edit Question" %}{% endblock title %}
+{% block content %}
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-xl px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-4">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="file-plus"></i></div>
+                            {% translate "Edit Question" %}
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-4">
+                        <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:site-faq-list' %}">
+                            <i class="me-1" data-feather="arrow-left"></i>
+                            {% translate "Back to FAQ List" %}
+                        </a>
+                        <form class="delete-form" action="{% url 'administration:site-faq-delete' pk=question.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                <i class="me-1" data-feather="trash-2"></i>
+                                {% translate "Delete Question" %}
+                            </button>
+                          </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container-xl px-4 mt-4">
+        {% include 'components/messages.html' with messages=messages %}
+        <div class="card mb-4">
+            <div class="card-header">{% translate "Edit Question" %}</div>
+            <div class="card-body">
+                <form method="POST">
+                    {{form.errors}}
+                    {% csrf_token %} {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %} 
+                    {{form.non_form_errors}} 
+                    {{form.media}}
+                    <div class="mb-4">
+                        <label class="mb-1" for="{{ form.question.id_for_label }}">{{ form.question.label }}</label>
+                        {{ form.question }} 
+                        {{ form.question.errors  }}
+                    </div>
+                    <div class="mb-4">
+                        <label class="mb-1" for="{{ form.answer.id_for_label }}">{{ form.answer.label }}</label>
+                        {{ form.answer }} 
+                        {{ form.answer.errors  }}
+                    </div>
+                    <div class="mb-4">
+                        <label class="mb-1" for="{{ form.language.id_for_label }}">{{ form.language.label }}</label>
+                        {{ form.language }} 
+                        {{ form.language.errors  }}
+                    </div>
+                    <button class="btn btn-success btn-sm" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+

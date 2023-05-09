@@ -1,5 +1,5 @@
 {% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
-{% block title %}{% translate "Edit Product" %}{% endblock title %}
+{% block title %}{% translate "Edit Category" %}{% endblock title %}
 {% block content %}
 <main>
   <header
@@ -13,7 +13,7 @@
               <div class="page-header-icon">
                 <i data-feather="file-plus"></i>
               </div>
-              {% translate "Edit Product" %}
+              {% translate "Edit Category" %}
             </h1>
           </div>
           <div class="col-12 col-xl-auto mb-3">
@@ -22,13 +22,13 @@
               href="{% url 'administration:store-category-list' %}"
             >
               <i class="me-1" data-feather="list"></i>
-              {% translate "Back to Product List" %}
+              {% translate "Back to Category List" %}
             </a>
             <form class="delete-form" action="{% url 'administration:store-category-delete' pk=category.pk %}" method="POST">
               {% csrf_token %}
               <button type="submit" class="btn btn-sm btn-danger">
                   <i class="me-1" data-feather="trash-2"></i>
-                  {% translate "Delete Product" %}
+                  {% translate "Delete Category" %}
               </button>
             </form>
           </div>
@@ -40,7 +40,7 @@
   <div class="container-fluid px-4">
     {% include 'components/messages.html' with messages=messages %}
     <div class="card mb-4">
-        <div class="card-header">{% translate "Edit Product" %}</div>
+        <div class="card-header">{% translate "Edit Category" %}</div>
         <div class="card-body">
             <form method="post" enctype="multipart/form-data"> 
                 {% csrf_token %}

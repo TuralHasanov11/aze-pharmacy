@@ -1,5 +1,5 @@
 from django.contrib import admin
-from main.models import Company, SiteInfo, SiteText
+from main.models import Company, Question, SiteInfo, SiteText
 
 
 @admin.register(Company)
@@ -17,3 +17,10 @@ class SiteInfoAdmin(admin.ModelAdmin):
 @admin.register(SiteText)
 class SiteTextAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(Question)
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = ["question"]
+    search_fields = ["question", "answer"]
+    ordering = ["question"]

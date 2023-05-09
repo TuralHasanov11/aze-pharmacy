@@ -83,6 +83,8 @@ def admin_menu(request):
             "children": [
                 {"title": _("Info"), "route": "administration:site-info"},
                 {"title": _("Texts"), "route": "administration:site-texts"},
+                {"title": _("FAQ"), "route": "administration:site-faq-list"},
+                {"title": _("Add FAQ"), "route": "administration:site-faq-create"},
             ]
         },
     ]

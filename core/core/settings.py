@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'wishlist',
     'administration',
     'api',
-    'chat'
 ]
 
 MIDDLEWARE = [
