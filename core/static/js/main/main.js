@@ -106,5 +106,21 @@ jQuery(document).ready(function ($) {
         $(this).css("background-color", $(this).attr("data-bg-color"));
       });
     
-     
+      function easyPieChart() {
+        $(".category-item").on("inview", function (event, isInView) {
+          if (isInView) {
+            $(".chart").easyPieChart({
+              scaleLength: 0,
+              lineWidth: 6,
+              trackWidth: 6,
+              size: 70,
+              lineCap: "round",
+              rotate: 360,
+              trackColor: "#F4F4F4",
+              barColor: "#FAA432",
+            });
+          }
+        });
+      }
+      easyPieChart();
 });

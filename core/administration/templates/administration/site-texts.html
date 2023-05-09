@@ -26,6 +26,7 @@
                 <h3 class="text-primary">{% translate "Texts" %}</h3>
                 <h5 class="card-title mb-4">{% translate "About text" %}, {% translate "Terms and Privacy text" %}</h5>
                 {% for formset_item in formset %}
+                {% include "components/form/hidden-fields.html" with hidden_fields=formset_item.hidden_fields %}
                 <div class="mb-4">
                     <h5 class="text-primary mb-1">{{formset_item.language.label}} - {{formset_item.language.value|upper}}</h5>
                 </div>
@@ -33,6 +34,7 @@
                     <label class="mb-1" for="{{formset_item.about.id_for_label}}">{{formset_item.about.label}}</label>
                     {{formset_item.about}}
                 </div>
+                {{formset_item.language}}
                 <hr>
                 {% endfor %}
                 <div class="d-flex justify-content-between">

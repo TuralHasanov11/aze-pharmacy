@@ -12,79 +12,13 @@
     <div class="container">
       <div class="woocommerce-notices-wrapper"></div>
       <div
-        id="product-80"
+        id="product-{{product.id}}"
         class="row product type-product post-80 status-publish first instock product_cat-fat-burners product_tag-energy-support product_tag-skin-nails has-post-thumbnail shipping-taxable purchasable product-type-simple"
       >
         <div class="col-lg-6">
-          <div class="inner-shop-details-flex-wrap">
-            <div
-              id=""
-              class="woocommerce-product-gallery woocommerce-product-gallery--with-images woocommerce-product-gallery--columns-{{product.images|length}} images inner-shop-details-img-wrap"
-              data-columns="{{product.images|length}}"
-              style="opacity: 0; transition: opacity 0.25s ease-in-out"
-            >
-              <figure class="woocommerce-product-gallery__wrapper">
-                <div
-                  data-thumb="{{product.image_feature.0.image.url}}"
-                  data-thumb-alt=""
-                  class="woocommerce-product-gallery__image"
-                >
-                  <a href="{{product.image_feature.0.image.url}}"
-                    ><img
-                      width="605"
-                      height="580"
-                      src="{{product.image_feature.0.image.url}}"
-                      class="wp-post-image"
-                      alt=""
-                      decoding="async"
-                      loading="lazy"
-                      title="shop-details-thumb1"
-                      data-caption=""
-                      data-src="{{product.image_feature.0.image.url}}"
-                      data-large_image="{{product.image_feature.0.image.url}}"
-                      data-large_image_width="605"
-                      data-large_image_height="580"
-                      srcset="
-                        {{product.image_feature.0.image.url}} 605w,
-                        {{product.image_feature.0.image.url}} 300w
-                      "
-                      sizes="(max-width: 605px) 100vw, 605px"
-                  /></a>
-                </div>
-
-                {% for product_image in product.images %}
-                {% if product_image.image %}
-                <div
-                  data-thumb="{{product_image.image.url}}"
-                  data-thumb-alt=""
-                  class="woocommerce-product-gallery__image"
-                >
-                  <a href="{{product_image.image.url}}"
-                    ><img
-                      width="605"
-                      height="580"
-                      src="{{product_image.image.url}}"
-                      class=""
-                      alt=""
-                      title="shop-details-thumb{{forloop.counter}}"
-                      data-caption=""
-                      data-src="{{product_image.image.url}}"
-                      data-large_image="{{product_image.image.url}}"
-                      data-large_image_width="605"
-                      data-large_image_height="580"
-                      srcset="
-                        {{product_image.image.url}} 605w,
-                        {{product_image.image.url}} 300w
-                      "
-                      sizes="(max-width: 605px) 100vw, 605px"
-                  /></a>
-                </div>
-                {% endif %}
-                {% endfor %}
-              </figure>
-            </div>
-
-           
+          <div class="inner-shop-details-flex-wrap mb-5">
+            <img src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% endif %}" class="mb-5">
+            {% include "components/products/image-gallery.html" with images=product.images %}   
           </div>
         </div>
 
@@ -198,108 +132,14 @@
 
       <div class="related-products-area">
         <div class="related-products-wrap">
-          <h2 class="title">Related products</h2>
+          <h2 class="title">{% translate "Related Products" %}</h2>
 
           <div class="row">
-            {% comment %} <div class="col-xl-3 col-lg-4 col-sm-6">
-              <div class="suxnix-product-main">
-                <div class="home-shop-item inner-shop-item">
-                  <div class="home-shop-thumb">
-                    <a href="../seriour-mass-2kg/index.html"
-                      ><img
-                        width="605"
-                        height="580"
-                        src="../../wp-content/uploads/2022/09/shop-details-thumb09.png"
-                        class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
-                        alt=""
-                        decoding="async"
-                        srcset="
-                          https://themegenix.net/wp/suxnix/wp-content/uploads/2022/09/shop-details-thumb09.png         605w,
-                          https://themegenix.net/wp/suxnix/wp-content/uploads/2022/09/shop-details-thumb09-300x288.png 300w
-                        "
-                        sizes="(max-width: 605px) 100vw, 605px"
-                    /></a>
-
-                    <div class="on-sale-wrap"></div>
-                  </div>
-
-                  <div class="home-shop-content">
-                    <div class="shop-item-cat">
-                      <a href="../../product-category/fat-burners/index.html"
-                        >Fat Burners</a
-                      >
-                    </div>
-                    <h4 class="title">
-                      <a href="../seriour-mass-2kg/index.html"
-                        >SERIOUR MASS 2kg</a
-                      >
-                    </h4>
-                    <div class="home-shop-price">
-                      <span class="price"
-                        ><span class="woocommerce-Price-amount amount"
-                          ><bdi
-                            ><span class="woocommerce-Price-currencySymbol"
-                              >&#36;</span
-                            >24.99</bdi
-                          ></span
-                        ></span
-                      >
-                    </div>
-                    <div class="home-shop-rating">
-                      <div
-                        class="details-rating shop-single-rating"
-                        title="Rating 0 out of 5"
-                      >
-                        <i class="far fa-star"></i><i class="far fa-star"></i
-                        ><i class="far fa-star"></i><i class="far fa-star"></i
-                        ><i class="far fa-star"></i
-                        ><span class="rating-count">( 0 out of 5 )</span>
-                      </div>
-                    </div>
-                    <div class="shop-content-bottom">
-                      <a
-                        href="indexb0be.html?add-to-cart=77"
-                        data-quantity="1"
-                        class="add-cart-btn cart-button icon-btn product_type_simple add_to_cart_button ajax_add_to_cart"
-                        data-product_id="77"
-                        data-product_sku="QZX8VG9"
-                        aria-label="Add &ldquo;SERIOUR MASS 2kg&rdquo; to your cart"
-                        rel="nofollow"
-                        ><i class="flaticon-shopping-cart-1"></i
-                      ></a>
-                      <a
-                        href="../../checkout/indexb0be.html?add-to-cart=77"
-                        class="btn btn-two"
-                        >Buy Now</a
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="tinv-wraper woocommerce tinv-wishlist tinvwl-after-add-to-cart tinvwl-loop-button-wrapper"
-                  data-tinvwl_product_id="77"
-                >
-                  <div class="tinv-wishlist-clear"></div>
-                  <a
-                    role="button"
-                    tabindex="0"
-                    aria-label="Add to Wishlist"
-                    class="tinvwl_add_to_wishlist_button tinvwl-position-after tinvwl-loop"
-                    data-tinv-wl-list="[]"
-                    data-tinv-wl-product="77"
-                    data-tinv-wl-productvariation="0"
-                    data-tinv-wl-productvariations="[0]"
-                    data-tinv-wl-producttype="simple"
-                    data-tinv-wl-action="add"
-                    ><span class="tinvwl_add_to_wishlist-text"
-                      >Add to Wishlist</span
-                    ></a
-                  >
-                  <div class="tinv-wishlist-clear"></div>
-                  <div class="tinvwl-tooltip">Add to Wishlist</div>
-                </div>
-              </div>
-            </div> {% endcomment %}
+            {% for product in related_products %}
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              {% include "components/products/product.html" with product=product %}
+            </div>
+            {% endfor %}
           </div>
         </div>
       </div>

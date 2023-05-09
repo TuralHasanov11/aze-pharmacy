@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-30 20:14+0200\n"
+"POT-Creation-Date: 2023-05-09 19:01+0200\n"
 "PO-Revision-Date: 2023-04-30 20:15+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,7 +68,7 @@ msgstr ""
 
 #: .\administration\context_processors.py:41 .\administration\views.py:33
 #: .\main\context_processors.py:19 .\main\context_processors.py:32
-#: .\main\templates\main\career.html:2 .\main\views.py:76 .\main\views.py:78
+#: .\main\templates\main\career.html:2 .\main\views.py:78 .\main\views.py:80
 msgid "Career"
 msgstr ""
 
@@ -103,7 +103,7 @@ msgid "Categories"
 msgstr ""
 
 #: .\administration\context_processors.py:67 .\store\views.py:48
-#: .\store\views.py:76 .\store\views.py:77 .\store\views.py:100
+#: .\store\views.py:76 .\store\views.py:77 .\store\views.py:106
 msgid "Products"
 msgstr ""
 
@@ -161,7 +161,7 @@ msgstr ""
 #: .\administration\forms.py:75 .\administration\forms.py:179
 #: .\administration\templates\administration\services\index.html:31
 #: .\administration\templates\administration\services\index.html:39
-#: .\store\templates\store\products\detail.html:194
+#: .\store\templates\store\products\detail.html:128
 msgid "Description"
 msgstr ""
 
@@ -183,6 +183,7 @@ msgstr ""
 #: .\administration\forms.py:100 .\administration\forms.py:134
 #: .\administration\forms.py:135 .\administration\forms.py:224
 #: .\administration\forms.py:225
+#: .\administration\templates\administration\auth\profile.html:37
 #: .\administration\templates\administration\users\index.html:36
 #: .\administration\templates\administration\users\index.html:45
 #: .\orders\forms.py:25
@@ -196,6 +197,7 @@ msgstr ""
 
 #: .\administration\forms.py:93 .\administration\forms.py:94
 #: .\administration\forms.py:128 .\administration\forms.py:129
+#: .\administration\templates\administration\auth\profile.html:31
 #: .\administration\templates\administration\users\index.html:35
 #: .\administration\templates\administration\users\index.html:44
 msgid "Username"
@@ -203,12 +205,14 @@ msgstr ""
 
 #: .\administration\forms.py:95 .\administration\forms.py:96
 #: .\administration\forms.py:130 .\administration\forms.py:131
+#: .\administration\templates\administration\auth\profile.html:43
 #: .\orders\forms.py:15
 msgid "First Name"
 msgstr ""
 
 #: .\administration\forms.py:97 .\administration\forms.py:98
 #: .\administration\forms.py:132 .\administration\forms.py:133
+#: .\administration\templates\administration\auth\profile.html:49
 #: .\orders\forms.py:17
 msgid "Last Name"
 msgstr ""
@@ -263,7 +267,7 @@ msgstr ""
 
 #: .\administration\forms.py:174 .\administration\forms.py:175
 #: .\administration\templates\administration\store\products\detail.html:70
-#: .\store\templates\store\products\detail.html:178
+#: .\store\templates\store\products\detail.html:112
 msgid "Weight"
 msgstr ""
 
@@ -332,8 +336,8 @@ msgstr ""
 
 #: .\administration\templates\administration\auth\password-change.html:4
 #: .\administration\templates\administration\auth\password-change.html:14
-#: .\administration\templates\administration\auth\profile.html:4
-#: .\administration\templates\administration\auth\profile.html:14
+#: .\administration\templates\administration\auth\profile.html:2
+#: .\administration\templates\administration\auth\profile.html:13
 msgid "Account Settings"
 msgstr ""
 
@@ -348,7 +352,6 @@ msgid "Change Password"
 msgstr ""
 
 #: .\administration\templates\administration\auth\password-change.html:54
-#: .\administration\templates\administration\auth\profile.html:62
 #: .\administration\templates\administration\companies\edit.html:58
 #: .\administration\templates\administration\companies\index.html:83
 #: .\administration\templates\administration\documents\edit.html:53
@@ -358,7 +361,7 @@ msgstr ""
 #: .\administration\templates\administration\services\edit.html:58
 #: .\administration\templates\administration\services\index.html:86
 #: .\administration\templates\administration\site-info.html:60
-#: .\administration\templates\administration\site-texts.html:39
+#: .\administration\templates\administration\site-texts.html:41
 #: .\administration\templates\administration\store\categories\edit.html:59
 #: .\administration\templates\administration\store\categories\index.html:78
 #: .\administration\templates\administration\store\products\create.html:115
@@ -368,13 +371,13 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: .\administration\templates\administration\auth\profile.html:4
-#: .\administration\templates\administration\auth\profile.html:14
+#: .\administration\templates\administration\auth\profile.html:2
+#: .\administration\templates\administration\auth\profile.html:13
 #: .\templates\components\admin\profile-nav.html:3
 msgid "Profile"
 msgstr ""
 
-#: .\administration\templates\administration\auth\profile.html:27
+#: .\administration\templates\administration\auth\profile.html:26
 #: .\administration\templates\administration\users\create.html:29
 #: .\administration\templates\administration\users\edit.html:39
 msgid "Account Details"
@@ -657,7 +660,7 @@ msgstr ""
 #: .\administration\templates\administration\store\products\index.html:67
 #: .\administration\templates\administration\store\products\index.html:105
 #: .\administration\views.py:353
-#: .\store\templates\store\products\detail.html:182
+#: .\store\templates\store\products\detail.html:116
 msgid "Category"
 msgstr ""
 
@@ -757,11 +760,11 @@ msgid "Shopping Cart Description"
 msgstr ""
 "Review and edit the items in your shopping cart before completing your "
 "purchase. Our shopping cart page makes it easy to add or remove items from "
-"your cart and adjust quantities. Review your cart and complete your purchase"
-" now."
+"your cart and adjust quantities. Review your cart and complete your purchase "
+"now."
 
 #: .\cart\templates\cart\summary.html:30
-#: .\store\templates\store\products\detail.html:134
+#: .\store\templates\store\products\detail.html:68
 msgid "Quantity"
 msgstr ""
 
@@ -788,10 +791,10 @@ msgstr ""
 
 #: .\cart\views.py:18 .\checkout\views.py:25 .\checkout\views.py:78
 #: .\library\views.py:18 .\main\context_processors.py:11
-#: .\main\templates\main\index.html:2 .\main\views.py:35 .\main\views.py:62
-#: .\main\views.py:77 .\news\views.py:18 .\news\views.py:32
+#: .\main\templates\main\index.html:2 .\main\views.py:37 .\main\views.py:64
+#: .\main\views.py:79 .\news\views.py:18 .\news\views.py:32
 #: .\services\views.py:18 .\store\views.py:47 .\store\views.py:75
-#: .\store\views.py:99 .\wishlist\views.py:16
+#: .\store\views.py:105 .\wishlist\views.py:16
 msgid "Home"
 msgstr ""
 
@@ -803,9 +806,9 @@ msgstr ""
 #: .\checkout\templates\checkout\index.html:3
 msgid "Checkout Description"
 msgstr ""
-"Securely checkout and complete your purchase with ease. Our checkout process"
-" is easy to use and we offer a variety of payment options to suit your "
-"needs. Review your order and complete your purchase now."
+"Securely checkout and complete your purchase with ease. Our checkout process "
+"is easy to use and we offer a variety of payment options to suit your needs. "
+"Review your order and complete your purchase now."
 
 #: .\checkout\templates\checkout\index.html:27
 msgid "Billing details"
@@ -840,15 +843,15 @@ msgstr ""
 msgid "Order"
 msgstr ""
 
-#: .\core\settings.py:133
+#: .\core\settings.py:134
 msgid "Azerbaijani"
 msgstr ""
 
-#: .\core\settings.py:134
+#: .\core\settings.py:135
 msgid "Russian"
 msgstr ""
 
-#: .\core\settings.py:135
+#: .\core\settings.py:136
 msgid "English"
 msgstr ""
 
@@ -862,19 +865,19 @@ msgstr ""
 
 #: .\main\context_processors.py:15 .\main\context_processors.py:30
 #: .\store\templates\store\products\index.html:3 .\store\views.py:46
-#: .\store\views.py:74 .\store\views.py:98
+#: .\store\views.py:74 .\store\views.py:104
 msgid "Shop"
 msgstr ""
 
 #: .\main\context_processors.py:18 .\main\context_processors.py:31
-#: .\main\templates\main\about.html:2 .\main\views.py:61 .\main\views.py:63
+#: .\main\templates\main\about.html:2 .\main\views.py:63 .\main\views.py:65
 #: .\templates\components\main\about.html:21
 msgid "About Us"
 msgstr ""
 
 #: .\main\context_processors.py:20 .\main\context_processors.py:37
 #: .\main\templates\main\contact.html:2 .\main\templates\main\contact.html:121
-#: .\main\views.py:34 .\main\views.py:36
+#: .\main\views.py:36 .\main\views.py:38
 #: .\templates\components\default\footer.html:68
 msgid "Contact Us"
 msgstr ""
@@ -929,7 +932,6 @@ msgstr ""
 "healthcare."
 
 #: .\main\templates\main\career.html:36
-#: .\templates\components\main\companies-area.html:10
 msgid "Companies"
 msgstr ""
 
@@ -938,8 +940,8 @@ msgid "Contact Description"
 msgstr ""
 "Contact us for any questions or inquiries about our products and services. "
 "Our customer support team is available 24/7 to assist you with any queries "
-"you may have. Reach out to us today and let us help you with your healthcare"
-" needs."
+"you may have. Reach out to us today and let us help you with your healthcare "
+"needs."
 
 #: .\main\templates\main\contact.html:47
 msgid "Office Address"
@@ -962,14 +964,14 @@ msgid "Home Description"
 msgstr ""
 "Welcome to our online pharmacy where you can find a wide range of medicines "
 "and healthcare products. We provide high-quality medicines that are "
-"reliable, affordable, and delivered to your doorstep. Shop now and enjoy our"
-" exclusive discounts!"
+"reliable, affordable, and delivered to your doorstep. Shop now and enjoy our "
+"exclusive discounts!"
 
 #: .\news\models.py:12 .\store\models.py:43
 msgid "Rich text editor field"
 msgstr ""
 
-#: .\news\templates\news\detail.html:57 .\news\templates\news\index.html:51
+#: .\news\templates\news\detail.html:57 .\news\templates\news\index.html:31
 msgid "Recent News"
 msgstr ""
 
@@ -980,10 +982,6 @@ msgstr ""
 "news page provides you with informative and educational content about new "
 "discoveries, medical breakthroughs, and health-related news. Read more and "
 "be informed!"
-
-#: .\news\templates\news\index.html:31
-msgid "Search News"
-msgstr ""
 
 #: .\orders\forms.py:19
 msgid "House number and street name"
@@ -999,8 +997,7 @@ msgstr ""
 "Our company offers a wide range of services to meet all your healthcare "
 "needs. From prescription refills to online consultations, we have got you "
 "covered. Our team of professionals is dedicated to providing you with the "
-"best healthcare services. Explore our services and book an appointment "
-"today!"
+"best healthcare services. Explore our services and book an appointment today!"
 
 #: .\store\models.py:23
 msgid "categories"
@@ -1014,8 +1011,12 @@ msgstr ""
 msgid "Remove from Wishlist"
 msgstr ""
 
-#: .\store\templates\store\products\detail.html:150
+#: .\store\templates\store\products\detail.html:84
 msgid "Add to cart"
+msgstr ""
+
+#: .\store\templates\store\products\detail.html:135
+msgid "Related Products"
 msgstr ""
 
 #: .\store\templates\store\products\index.html:4
@@ -1023,20 +1024,20 @@ msgid "Shop Description"
 msgstr ""
 "Shop our wide selection of medicines and healthcare products at competitive "
 "prices. We offer a user-friendly interface, secure payment options, and "
-"reliable delivery services. Browse our product categories and find the right"
-" products for your healthcare needs."
+"reliable delivery services. Browse our product categories and find the right "
+"products for your healthcare needs."
 
-#: .\store\templates\store\products\index.html:47
+#: .\store\templates\store\products\index.html:49
 msgid "Filter by Price"
 msgstr ""
 
-#: .\store\templates\store\products\index.html:54
+#: .\store\templates\store\products\index.html:56
 msgid "Product Categories"
 msgstr ""
 
 #: .\templates\components\admin\navbar.html:14
-#: .\templates\layouts\admin.html:20
-#: .\templates\layouts\authentication.html:25 .\user\models.py:38
+#: .\templates\layouts\admin.html:19 .\templates\layouts\authentication.html:24
+#: .\user\models.py:38
 msgid "Admin"
 msgstr ""
 
@@ -1101,12 +1102,24 @@ msgstr ""
 msgid "Latest"
 msgstr ""
 
+#: .\templates\components\main\categories-area.html:10
+msgid "Explore Categories"
+msgstr ""
+
+#: .\templates\components\main\companies-area.html:10
+msgid "Partner Companies"
+msgstr ""
+
+#: .\templates\components\main\discounted-products-area.html:9
+msgid "Discounted Products"
+msgstr ""
+
 #: .\templates\components\products\product-home.html:29
-#: .\templates\components\products\product.html:74
+#: .\templates\components\products\product.html:73
 msgid "Buy Now"
 msgstr ""
 
-#: .\templates\components\products\product.html:21
+#: .\templates\components\products\product.html:20
 msgid "Sale"
 msgstr ""
 
@@ -1128,10 +1141,9 @@ msgid "Wishlist"
 msgstr ""
 
 #: .\wishlist\templates\wishlist\wishlist.html:4
-#| msgid "News Description"
 msgid "Wishlist Description"
 msgstr ""
-"Keep track of your favorite healthcare products and medicines by adding them"
-" to your wishlist. Our wishlist feature makes it easy to keep track of "
+"Keep track of your favorite healthcare products and medicines by adding them "
+"to your wishlist. Our wishlist feature makes it easy to keep track of "
 "products you want to purchase in the future. Browse our products and add "
 "them to your wishlist today!"

@@ -30,7 +30,9 @@
           </div>
           <div class="row row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-1">
             {% for product in products %}
-            {% include "components/products/product.html" with product=product %}
+            <div class="col">
+              {% include "components/products/product.html" with product=product %}
+            </div>
             {% endfor %}
           </div>
           <div class="suxnix-shop-pagination">

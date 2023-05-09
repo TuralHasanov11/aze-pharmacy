@@ -1,7 +1,6 @@
 {% extends 'layouts/default.html' %} {% load static %} {% load i18n %} 
-{% block title %}{% translate "Home" %}{% endblock title %}
-{% block description %}{% translate "Home Description" %}{% endblock description %}
-
+{% block title %}{% translate "Home" %}{% endblock title %} {% block description %}
+{% translate "Home Description" %}{% endblock description %} 
 {% block content %}
 <main class="main-area fix">
   <div
@@ -10,20 +9,17 @@
     class="elementor elementor-65"
   >
     <section
-      class="elementor-section elementor-top-section elementor-element elementor-element-c80e885 elementor-section-full_width elementor-section-height-default elementor-section-height-default"
-      data-id="c80e885"
+      class="elementor-section elementor-top-section elementor-element elementor-section-full_width elementor-section-height-default elementor-section-height-default"
       data-element_type="section"
     >
       <div class="elementor-container elementor-column-gap-no">
         <div
-          class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-e6bd24c"
-          data-id="e6bd24c"
+          class="elementor-column elementor-col-100 elementor-top-column elementor-element"
           data-element_type="column"
         >
           <div class="elementor-widget-wrap elementor-element-populated">
             <div
-              class="elementor-element elementor-element-9f87d03 elementor-widget elementor-widget-hero-banner"
-              data-id="9f87d03"
+              class="elementor-element elementor-widget"
               data-element_type="widget"
               data-widget_type="hero-banner.default"
             >
@@ -37,20 +33,17 @@
     </section>
 
     <section
-      class="elementor-section elementor-top-section elementor-element elementor-element-c3ee463 elementor-section-full_width elementor-section-height-default elementor-section-height-default"
-      data-id="c3ee463"
+      class="elementor-section elementor-top-section elementor-element elementor-element-companies-section elementor-section-full_width elementor-section-height-default elementor-section-height-default"
       data-element_type="section"
     >
       <div class="elementor-container elementor-column-gap-no">
         <div
-          class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-fc5ad54"
-          data-id="fc5ad54"
+          class="elementor-column elementor-col-100 elementor-top-column elementor-element"
           data-element_type="column"
         >
           <div class="elementor-widget-wrap elementor-element-populated">
             <div
-              class="elementor-element elementor-element-fef10f2 elementor-widget elementor-widget-brand"
-              data-id="fef10f2"
+              class="elementor-element elementor-widget elementor-widget-brand"
               data-element_type="widget"
               data-widget_type="brand.default"
             >
@@ -64,34 +57,22 @@
     </section>
 
     <section
-      class="elementor-section elementor-top-section elementor-element elementor-element-105b343 elementor-section-full_width elementor-section-height-default elementor-section-height-default"
-      data-id="105b343"
+      class="elementor-section elementor-top-section elementor-element elementor-section-full_width elementor-section-height-default elementor-section-height-default"
       data-element_type="section"
     >
       <div class="elementor-container elementor-column-gap-no">
         <div
-          class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-c61b202"
-          data-id="c61b202"
+          class="elementor-column elementor-col-100 elementor-top-column elementor-element"
           data-element_type="column"
         >
           <div class="elementor-widget-wrap elementor-element-populated">
             <div
-              class="elementor-element elementor-element-976fda6 elementor-widget elementor-widget-products"
-              data-id="976fda6"
+              class="elementor-element elementor-widget elementor-widget-products"
               data-element_type="widget"
               data-widget_type="products.default"
             >
               <div class="elementor-widget-container">
-                <section class="home-shop-area">
-                  <div class="container">
-                    <div class="row home-shop-active">
-
-                      {% for product in products %}
-                      {% include "components/products/product-home.html" with product=product %}
-                      {% endfor %}
-                    </div>
-                  </div>
-                </section>
+                {% include "components/main/discounted-products-area.html" with discounted_products=discounted_products %}
               </div>
             </div>
           </div>
@@ -100,25 +81,22 @@
     </section>
 
     <section
-      class="elementor-section elementor-top-section elementor-element elementor-element-be24124 elementor-section-full_width elementor-section-height-default elementor-section-height-default"
-      data-id="be24124"
+      class="mb-5 elementor-section elementor-top-section elementor-element elementor-element-c58b431 elementor-section-full_width elementor-section-height-default elementor-section-height-default"
       data-element_type="section"
     >
       <div class="elementor-container elementor-column-gap-no">
         <div
-          class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-faa853f"
-          data-id="faa853f"
+          class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-categories-container"
           data-element_type="column"
         >
           <div class="elementor-widget-wrap elementor-element-populated">
             <div
-              class="elementor-element elementor-element-9690b0f elementor-widget elementor-widget-formula"
-              data-id="9690b0f"
+              class="elementor-element elementor-element-categories-area elementor-widget elementor-widget-tp-fact"
               data-element_type="widget"
-              data-widget_type="formula.default"
+              data-widget_type="tp-fact.default"
             >
               <div class="elementor-widget-container">
-                {% include "components/main/about.html" with about=about %}
+                {% include "components/main/categories-area.html" with categories=categories %}
               </div>
             </div>
           </div>
@@ -129,4 +107,4 @@
     {% include "components/main/blog-area.html" with posts=posts %}
   </div>
 </main>
-{% endblock content %} 
+{% endblock content %}

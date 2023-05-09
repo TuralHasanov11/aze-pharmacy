@@ -3,7 +3,7 @@ import os
 
 from django.contrib import messages
 from django.core.mail import BadHeaderError, send_mail
-from django.db.models import Prefetch
+from django.db.models import Count, Prefetch
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -14,18 +14,20 @@ from django.views.generic.list import ListView
 from main.forms import ContactForm
 from main.models import Company, SiteInfo, SiteText
 from news.models import Post
-from store.models import Product, ProductImage
+from store.models import Category, Product, ProductImage
 
 
 @require_GET
 def index(request: HttpRequest):
     posts = Post.objects.all()[:5]
     companies = Company.objects.all()
-    products = Product.products.all().select_related('category').prefetch_related(
+    discountedProducts = Product.products.filter(discount__gt=0).select_related('category').prefetch_related(
                 Prefetch('product_image', queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature'),
             )
+    categories = Category.objects.annotate(
+        products_count=Count("product_category")).all().order_by("name")
     siteText = SiteText.objects.values('about').filter(language=get_language()).first()
-    return render(request, 'main/index.html', context={"posts": posts, "companies": companies, "products": products, "about": siteText["about"]})
+    return render(request, 'main/index.html', context={"posts": posts, "companies": companies, "discounted_products": discountedProducts, "categories": categories, "about": siteText["about"]})
 
 
 @require_http_methods(['GET', 'POST'])

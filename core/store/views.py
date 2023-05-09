@@ -39,7 +39,7 @@ def products(request: HttpRequest):
                 is_feature=True), to_attr='image_feature'),
         ).order_by(selectedOrderByValue)
     
-    pagination = paginator.Paginator(productsQueryset, 1)
+    pagination = paginator.Paginator(productsQueryset, 20)
     pageNumber = request.GET.get('page')
     products = pagination.get_page(pageNumber)
     breadcrumb = [
@@ -67,7 +67,7 @@ def categoryProducts(request: HttpRequest, category_slug: str):
         Prefetch('product_image', queryset=ProductImage.objects.filter(
             is_feature=True), to_attr='image_feature'),
     ).order_by(request.GET.get('sort_by', 'name'))
-    pagination = paginator.Paginator(productsQueryset, 1)
+    pagination = paginator.Paginator(productsQueryset, 20)
     pageNumber = request.GET.get('page')
     products = pagination.get_page(pageNumber)
     breadcrumb = [
@@ -94,6 +94,12 @@ def productDetail(request: HttpRequest, category_slug: str, product_slug: str):
                 is_feature=True), to_attr='image_feature'),
             Prefetch('product_image', to_attr='images')
         ).get(slug=product_slug, category__slug=category_slug)
+
+        relatedProducts = Product.products.filter(category__slug=product.category.slug).select_related('category').prefetch_related(
+            Prefetch('product_image', queryset=ProductImage.objects.filter(
+                is_feature=True), to_attr='image_feature'),
+        ).order_by(request.GET.get('sort_by', 'name'))[:4]
+
         breadcrumb = [
             {"title": _("Shop")},
             {"title": _("Home"), "route": reverse("main:index")},
@@ -104,4 +110,4 @@ def productDetail(request: HttpRequest, category_slug: str, product_slug: str):
         ]
     except Product.DoesNotExist:
         return redirect('store:products')
-    return render(request, 'store/products/detail.html', context={"product": product, "breadcrumb": breadcrumb})
+    return render(request, 'store/products/detail.html', context={"product": product, "breadcrumb": breadcrumb, "related_products": relatedProducts})

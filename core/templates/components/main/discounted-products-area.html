@@ -1,22 +1,21 @@
 {% load i18n %}
-
-<div class="brand-area">
+<section class="home-shop-area">
   <div class="container">
     <div class="row">
       <div class="col-12">
         <div class="brand-title text-center mb-50">
           <div class="row">
             <div class="col-12">
-              <h2 class="title">{% translate "Partner Companies" %}</h2>
+              <h2 class="title">{% translate "Discounted Products" %}</h2>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="row brand-active">
-      {% for company in companies %} 
-      {% include "components/companies/company_mini.html" with company=company %} 
+    <div class="row home-shop-active">
+      {% for product in discounted_products %} 
+      {% include "components/products/product-home.html" with product=product %} 
       {% endfor %}
     </div>
   </div>
-</div>
+</section>

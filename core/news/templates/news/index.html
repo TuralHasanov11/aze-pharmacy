@@ -24,26 +24,6 @@
         <div class="col-lg-4 col-md-7">
           <aside class="blog-sidebar pl-20">
             <div
-              id="search-2"
-              class="sidebar-widget widget mb-40 widget_search"
-            >
-              <div class="sidebar-title mb-25">
-                <h3 class="title">{% translate "Search News" %}</h3>
-              </div>
-              <div class="sidebar-search-form position-relative">
-                <form action="{% url 'news:index' %}" method="get">
-                  <input
-                    type="search"
-                    value=""
-                    required
-                    name="search"
-                    placeholder="Search"
-                  />
-                  <button type="submit"><i class="fas fa-search"></i></button>
-                </form>
-              </div>
-            </div>
-            <div
               id="tp-latest-posts-2"
               class="sidebar-widget widget mb-40 widget_tp-latest-posts"
             >
@@ -51,7 +31,7 @@
                 <h3 class="title">{% translate "Recent News" %}</h3>
               </div>
               <div class="rc__post-wrapper">
-                {% for post in popular_posts %}
+                {% for post in recent_news %}
                     {% include "components/posts/feed.html" with post=post %}
                 {% endfor %}
               </div>

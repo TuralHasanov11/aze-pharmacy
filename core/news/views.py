@@ -8,11 +8,11 @@ from news.models import Post
 class PostListView(ListView):
     model = Post
     template_name = "news/index.html"
-    paginate_by = 2
+    paginate_by = 10
     context_object_name = "posts"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["popular_posts"] = Post.objects.all()[:4]
+        context["recent_news"] = Post.objects.all()[:4]
         context["breadcrumb"] = [
             {"title": _("News")},
             {"title": _("Home"), "route": reverse("main:index")},
@@ -26,7 +26,7 @@ class PostDetailView(DetailView):
     context_object_name = "post"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["popular_posts"] = Post.objects.all()[:4]
+        context["recent_news"] = Post.objects.all()[:4]
         context["breadcrumb"] = [
             {"title": _("News")},
             {"title": _("Home"), "route": reverse("main:index")},

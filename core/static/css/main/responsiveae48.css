@@ -137,30 +137,6 @@
 .footer-widget .footer-text {
 	width: 87%;
 }
-.offCanvas-wrap {
-	width: 390px;
-	padding: 15px 40px 35px;
-}
-.offCanvas-toggle {
-	width: 45px;
-	height: 45px;
-	flex: 0 0 45px;
-	margin: 0 -10px 0 auto;
-}
-.offCanvas-content .title {
-	font-size: 36px;
-	margin-bottom: 20px;
-}
-.offCanvas-content {
-	margin-bottom: 50px;
-	margin-top: 20px;
-}
-.offcanvas-contact .number {
-	font-size: 28px;
-}
-.offcanvas-contact .email {
-	font-size: 28px;
-}
 
 .features-products {
 	padding: 120px 0 120px;
@@ -189,7 +165,7 @@
 	font-size: 17px;
 }
 .blog--post--content .blog--post--title {
-	font-size: 32px;
+	font-size: 28px;
 }
 .suxnix-page-content blockquote,
 .format-quote blockquote,
@@ -874,7 +850,7 @@
 	padding: 30px 25px;
 }
 .blog--post--content .blog--post--title {
-	font-size: 28px;
+	font-size: 24px;
 }
 .blog-thumb-active .slick-arrow {
 	left: 25px;

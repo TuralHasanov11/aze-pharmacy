@@ -92,6 +92,9 @@ class ProductImage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ('-is_feature', )
+
 
 class Stock(models.Model):
     product = models.OneToOneField(

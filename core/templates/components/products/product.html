@@ -1,103 +1,99 @@
 {% load i18n %}
-<div class="col {% if wishlist_product %}wishlist_product{% endif %}">
-    <div class="suxnix-product-main">
-      <div class="home-shop-item inner-shop-item">
-        <div class="home-shop-thumb">
-          <a href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}"
-            >
-            <img
-              width="605"
-              height="580"
-              src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% endif %}"
-              class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
-              decoding="async"
-              loading="lazy"
-              srcset="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% endif %} 605w,
-                      {% if product.image_feature %}{{product.image_feature.0.image.url}}{% endif %} 300w"
-              sizes="(max-width: 605px) 100vw, 605px"
-          /></a>
+  <div class="suxnix-product-main">
+    <div class="home-shop-item inner-shop-item">
+      <div class="home-shop-thumb">
+        <a href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}"
+          >
+          <img
+            width="605"
+            height="580"
+            src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% endif %}"
+            class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
+            decoding="async"
+            loading="lazy"
+            srcset="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% endif %} 605w,
+                    {% if product.image_feature %}{{product.image_feature.0.image.url}}{% endif %} 300w"
+            sizes="(max-width: 605px) 100vw, 605px"
+        /></a>
 
-          <div class="on-sale-wrap">
-            {% if product.discount %}<span class="onsale">{% translate "Sale" %}!</span>{% endif %}
-          </div>
-        </div>
-
-        <div class="home-shop-content">
-          <div class="shop-item-cat">
-            <a href="{% url 'store:category-products' category_slug=product.category.slug %}"
-              >{{product.category.name}}</a
-            >
-          </div>
-          <h4 class="title">
-            <a href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}"
-              >{{product.name}}</a
-            >
-          </h4>
-          <div class="home-shop-price">
-            <span class="price">
-                {% if product.discount %}
-                <del aria-hidden="true">
-                    <span class="woocommerce-Price-amount amount">
-                        <bdi>
-                            <span class="woocommerce-Price-currencySymbol">&#36;</span>{{product.regular_price}}
-                        </bdi>
-                    </span>
-                </del>
-                <ins>
-                    <span class="woocommerce-Price-amount amount">
-                        <bdi>
-                            <span class="woocommerce-Price-currencySymbol">&#36;</span>{{product.discount_price}}
-                        </bdi>
-                    </span>
-                </ins>
-                {% else %}
-                <span class="woocommerce-Price-amount amount">
-                    <bdi>
-                        <span class="woocommerce-Price-currencySymbol">&#36;</span>{{product.regular_price}}
-                    </bdi>
-                </span>
-                {% endif %}
-            </span>
-          </div>
-          <div class="shop-content-bottom">
-            <button
-              data-quantity="1"
-              class="add-cart-btn cart-button icon-btn product_type_simple add_to_cart_button ajax_add_to_cart"
-              data-product_id="{{product.id}}"
-              aria-label="Add &ldquo;Antiaging and Longevity&rdquo; to your cart"
-              rel="nofollow"
-              ><i class="flaticon-shopping-cart-1"></i
-            ></button>
-            <a
-              href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}"
-              class="btn btn-two"
-              >{% translate "Buy Now" %}</a
-            >
-          </div>
+        <div class="on-sale-wrap">
+          {% if product.discount %}<span class="onsale">{% translate "Sale" %}!</span>{% endif %}
         </div>
       </div>
-      <div
-        class="tinv-wraper woocommerce tinv-wishlist tinvwl-after-add-to-cart"
-      >
-        <a
-          role="button"
-          tabindex="0"
-          {% if product.id in wishlist.wishlist %}style="display: none;"{% endif %}
-          class="tinvwl_add_to_wishlist_button add_to_wishlist_button"
-          data-product_id="{{product.id}}"
-          ><i class="far fa-heart"></i>
-        </a>
-        <a
-          role="button"
-          tabindex="0"
-          {% if product.id not in wishlist.wishlist %}style="display: none;"{% endif %}
-          class="tinvwl_add_to_wishlist_button remove_from_wishlist_button"
-          data-product_id="{{product.id}}"
-          ><i class="fa fa-heart"></i>
-        </a>
+
+      <div class="home-shop-content">
+        <div class="shop-item-cat">
+          <a href="{% url 'store:category-products' category_slug=product.category.slug %}"
+            >{{product.category.name}}</a
+          >
+        </div>
+        <h4 class="title">
+          <a href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}"
+            >{{product.name}}</a
+          >
+        </h4>
+        <div class="home-shop-price">
+          <span class="price">
+              {% if product.discount %}
+              <del aria-hidden="true">
+                  <span class="woocommerce-Price-amount amount">
+                      <bdi>
+                          <span class="woocommerce-Price-currencySymbol">&#36;</span>{{product.regular_price}}
+                      </bdi>
+                  </span>
+              </del>
+              <ins>
+                  <span class="woocommerce-Price-amount amount">
+                      <bdi>
+                          <span class="woocommerce-Price-currencySymbol">&#36;</span>{{product.discount_price}}
+                      </bdi>
+                  </span>
+              </ins>
+              {% else %}
+              <span class="woocommerce-Price-amount amount">
+                  <bdi>
+                      <span class="woocommerce-Price-currencySymbol">&#36;</span>{{product.regular_price}}
+                  </bdi>
+              </span>
+              {% endif %}
+          </span>
+        </div>
+        <div class="shop-content-bottom">
+          <button
+            data-quantity="1"
+            class="add-cart-btn cart-button icon-btn product_type_simple add_to_cart_button ajax_add_to_cart"
+            data-product_id="{{product.id}}"
+            aria-label="Add &ldquo;Antiaging and Longevity&rdquo; to your cart"
+            rel="nofollow"
+            ><i class="flaticon-shopping-cart-1"></i
+          ></button>
+          <a
+            href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}"
+            class="btn btn-two"
+            >{% translate "Buy Now" %}</a
+          >
+        </div>
       </div>
     </div>
+    <div
+      class="tinv-wraper woocommerce tinv-wishlist tinvwl-after-add-to-cart"
+    >
+      <a
+        role="button"
+        tabindex="0"
+        {% if product.id in wishlist.wishlist %}style="display: none;"{% endif %}
+        class="tinvwl_add_to_wishlist_button add_to_wishlist_button"
+        data-product_id="{{product.id}}"
+        ><i class="far fa-heart"></i>
+      </a>
+      <a
+        role="button"
+        tabindex="0"
+        {% if product.id not in wishlist.wishlist %}style="display: none;"{% endif %}
+        class="tinvwl_add_to_wishlist_button remove_from_wishlist_button"
+        data-product_id="{{product.id}}"
+        ><i class="fa fa-heart"></i>
+      </a>
+    </div>
   </div>
-
-
 

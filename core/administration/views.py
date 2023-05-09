@@ -93,7 +93,7 @@ class DocumentListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
     permission_required = ["library.view_document", "library.add_document"]
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/documents/index.html'
-    paginate_py = 1
+    paginate_py = 20
     success_message = "%(name)s " + _("was created successfully")
 
     def get_queryset(self):
@@ -180,7 +180,7 @@ class PostListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = ["news.view_post"]
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/posts/index.html'
-    paginate_by = 2
+    paginate_by = 20
     context_object_name = "posts"
 
     def get_queryset(self):
@@ -359,7 +359,7 @@ class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = ["store.view_product"]
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/store/products/index.html'
-    paginate_by = 1
+    paginate_by = 20
     context_object_name = "products"
 
     def get_queryset(self):
@@ -500,7 +500,7 @@ def siteTexts(request):
                              _("were saved successfully"))
             return redirect("administration:site-texts")
         messages.error(request, _('Texts') + " " + _("cannot be saved"))
-        return render('administration/site-texts.html', {"formset": formset})
+        return render(request, 'administration/site-texts.html', {"formset": formset})
     formset = forms.SiteTextFormSet(initial=SiteText.objects.all())
     return render(request, 'administration/site-texts.html', {"formset": formset})
 
@@ -518,6 +518,6 @@ def siteInfo(request):
                              _("was saved successfully"))
             return redirect("administration:site-info")
         messages.error(request, _('Info') + " " + _("cannot be saved"))
-        return render('administration/site-info.html', {"form": form})
+        return render(request, 'administration/site-info.html', {"form": form})
     form = forms.SiteInfoForm(instance=SiteInfo.objects.first())
     return render(request, 'administration/site-info.html', {"form": form})
