@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-10 00:15+0200\n"
-"PO-Revision-Date: 2023-04-30 20:15+0400\n"
+"PO-Revision-Date: 2023-05-10 10:55+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -604,14 +604,9 @@ msgid "FAQ List"
 msgstr ""
 
 #: .\administration\templates\administration\site\faq-list.html:20
-#, fuzzy
 #| msgid "News Description"
 msgid "Add New Question"
 msgstr ""
-"Stay updated with the latest news and trends in the medicine sector. Our "
-"news page provides you with informative and educational content about new "
-"discoveries, medical breakthroughs, and health-related news. Read more and "
-"be informed!"
 
 #: .\administration\templates\administration\site\info.html:3
 #: .\administration\templates\administration\site\info.html:12
@@ -851,8 +846,8 @@ msgid "Shopping Cart Description"
 msgstr ""
 "Review and edit the items in your shopping cart before completing your "
 "purchase. Our shopping cart page makes it easy to add or remove items from "
-"your cart and adjust quantities. Review your cart and complete your purchase "
-"now."
+"your cart and adjust quantities. Review your cart and complete your purchase"
+" now."
 
 #: .\cart\templates\cart\summary.html:30
 #: .\store\templates\store\products\detail.html:66
@@ -898,9 +893,9 @@ msgstr ""
 #: .\checkout\templates\checkout\index.html:3
 msgid "Checkout Description"
 msgstr ""
-"Securely checkout and complete your purchase with ease. Our checkout process "
-"is easy to use and we offer a variety of payment options to suit your needs. "
-"Review your order and complete your purchase now."
+"Securely checkout and complete your purchase with ease. Our checkout process"
+" is easy to use and we offer a variety of payment options to suit your "
+"needs. Review your order and complete your purchase now."
 
 #: .\checkout\templates\checkout\index.html:27
 msgid "Billing details"
@@ -963,7 +958,8 @@ msgstr ""
 
 #: .\main\context_processors.py:18 .\main\context_processors.py:40
 #: .\main\templates\main\about.html:2 .\main\templates\main\about.html:46
-#: .\main\views.py:72 .\main\views.py:74 .\main\views.py:99 .\main\views.py:101
+#: .\main\views.py:72 .\main\views.py:74 .\main\views.py:99
+#: .\main\views.py:101
 msgid "About Us"
 msgstr ""
 
@@ -1041,8 +1037,8 @@ msgid "Contact Description"
 msgstr ""
 "Contact us for any questions or inquiries about our products and services. "
 "Our customer support team is available 24/7 to assist you with any queries "
-"you may have. Reach out to us today and let us help you with your healthcare "
-"needs."
+"you may have. Reach out to us today and let us help you with your healthcare"
+" needs."
 
 #: .\main\templates\main\contact.html:41
 msgid "Office Address"
@@ -1061,52 +1057,46 @@ msgid "Social Media"
 msgstr ""
 
 #: .\main\templates\main\faq.html:3
-#, fuzzy
 #| msgid "About Description"
 msgid "FAQ Description"
 msgstr ""
-"Learn more about our company and our commitment to providing high-quality "
-"healthcare products and services. Our team of professionals is dedicated to "
-"ensuring that you receive the best care possible. Read more about our "
-"mission, values, and history."
+"Our FAQ page provides answers to frequently asked questions about our "
+"products, services, and policies. Learn about our shipping options, payment "
+"methods, and more. Find answers to your questions and shop with confidence."
 
 #: .\main\templates\main\index.html:3
 msgid "Home Description"
 msgstr ""
 "Welcome to our online pharmacy where you can find a wide range of medicines "
 "and healthcare products. We provide high-quality medicines that are "
-"reliable, affordable, and delivered to your doorstep. Shop now and enjoy our "
-"exclusive discounts!"
+"reliable, affordable, and delivered to your doorstep. Shop now and enjoy our"
+" exclusive discounts!"
 
 #: .\main\templates\main\privacy-policy.html:3
-#, fuzzy
 #| msgid "Services Description"
 msgid "Privacy Policy Description"
 msgstr ""
-"Our company offers a wide range of services to meet all your healthcare "
-"needs. From prescription refills to online consultations, we have got you "
-"covered. Our team of professionals is dedicated to providing you with the "
-"best healthcare services. Explore our services and book an appointment today!"
+"Our privacy policy outlines our commitment to protecting your personal "
+"information and data. Learn about our data collection and storage practices,"
+" and how we use your information to provide you with a better shopping "
+"experience. Read our privacy policy now and shop with confidence."
 
 #: .\main\templates\main\return-policy.html:3
-#, fuzzy
 #| msgid "Services Description"
 msgid "Return Policy Description"
 msgstr ""
-"Our company offers a wide range of services to meet all your healthcare "
-"needs. From prescription refills to online consultations, we have got you "
-"covered. Our team of professionals is dedicated to providing you with the "
-"best healthcare services. Explore our services and book an appointment today!"
+"Our return policy outlines the steps you need to take if you are unsatisfied"
+" with your purchase. Learn about our return process, eligibility criteria, "
+"and exceptions. Read our return policy now and shop with confidence."
 
 #: .\main\templates\main\terms-and-conditions.html:3
-#, fuzzy
 #| msgid "Contact Description"
 msgid "Terms and Conditions Description"
 msgstr ""
-"Contact us for any questions or inquiries about our products and services. "
-"Our customer support team is available 24/7 to assist you with any queries "
-"you may have. Reach out to us today and let us help you with your healthcare "
-"needs."
+"Our terms & conditions outline the rules and regulations for using our "
+"online pharmacy. Learn about our shipping and return policies, payment "
+"methods, and more. Read our terms & conditions now to ensure a smooth "
+"shopping experience."
 
 #: .\news\templates\news\detail.html:55 .\news\templates\news\index.html:30
 msgid "Recent News"
@@ -1134,7 +1124,8 @@ msgstr ""
 "Our company offers a wide range of services to meet all your healthcare "
 "needs. From prescription refills to online consultations, we have got you "
 "covered. Our team of professionals is dedicated to providing you with the "
-"best healthcare services. Explore our services and book an appointment today!"
+"best healthcare services. Explore our services and book an appointment "
+"today!"
 
 #: .\store\models.py:23
 msgid "categories"
@@ -1161,8 +1152,8 @@ msgid "Shop Description"
 msgstr ""
 "Shop our wide selection of medicines and healthcare products at competitive "
 "prices. We offer a user-friendly interface, secure payment options, and "
-"reliable delivery services. Browse our product categories and find the right "
-"products for your healthcare needs."
+"reliable delivery services. Browse our product categories and find the right"
+" products for your healthcare needs."
 
 #: .\store\templates\store\products\index.html:15
 msgid "Order by"
@@ -1185,8 +1176,8 @@ msgid "Price high to low"
 msgstr ""
 
 #: .\templates\components\admin\navbar.html:14
-#: .\templates\layouts\admin.html:19 .\templates\layouts\authentication.html:24
-#: .\user\models.py:38
+#: .\templates\layouts\admin.html:19
+#: .\templates\layouts\authentication.html:24 .\user\models.py:38
 msgid "Admin"
 msgstr ""
 
@@ -1288,7 +1279,7 @@ msgstr ""
 #: .\wishlist\templates\wishlist\wishlist.html:4
 msgid "Wishlist Description"
 msgstr ""
-"Keep track of your favorite healthcare products and medicines by adding them "
-"to your wishlist. Our wishlist feature makes it easy to keep track of "
+"Keep track of your favorite healthcare products and medicines by adding them"
+" to your wishlist. Our wishlist feature makes it easy to keep track of "
 "products you want to purchase in the future. Browse our products and add "
 "them to your wishlist today!"

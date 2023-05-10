@@ -5352,6 +5352,11 @@ blockquote::before,
 	.gallery-slides img{
 		height: 360px;
 	}
+
+	.gallery-column img{
+		width: 100%;
+		height: 120px;
+	  }
 }
 
 
@@ -5359,4 +5364,14 @@ blockquote::before,
 	.gallery-slides img{
 		height: 300px;
 	}
+
+	.gallery-column img{
+		width: 100%;
+		height: 100px;
+	  }
 }  
+
+
+.contact-form-control-wrap {
+	position: relative;
+}

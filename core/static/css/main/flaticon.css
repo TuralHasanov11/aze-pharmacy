@@ -18,35 +18,25 @@ i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
     -moz-osx-font-smoothing: grayscale;
 }
 
-i[class*="flaticon-"] {
-    display: block;
-    line-height: 0;
-}
-
-.flaticon-tape-measure:before {
-    content: "\f101";
-}
-.flaticon-abs:before {
-    content: "\f102";
-}
-.flaticon-weight:before {
-    content: "\f103";
-}
-.flaticon-test:before {
-    content: "\f104";
-}
-.flaticon-layout:before {
-    content: "\f105";
-}
-.flaticon-search:before {
-    content: "\f106";
-}
 .flaticon-shopping-cart:before {
     content: "\f107";
 }
 .flaticon-shopping-cart-1:before {
     content: "\f108";
 }
+
+i[class*="flaticon-"] {
+    display: block;
+    line-height: 0;
+}
+
+.flaticon-layout:before {
+    content: "\f105";
+}
+.flaticon-search:before {
+    content: "\f106";
+}
+
 .flaticon-left-arrow:before {
     content: "\f109";
 }

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-10 00:15+0200\n"
-"PO-Revision-Date: 2023-05-10 00:24+0400\n"
+"PO-Revision-Date: 2023-05-10 11:00+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -344,7 +344,7 @@ msgstr "Haqqımızda"
 #: .\main\templates\main\return-policy.html:2 .\main\views.py:123
 #: .\main\views.py:125
 msgid "Return Policy"
-msgstr ""
+msgstr "Qaytarılma"
 
 #: .\administration\forms.py:252 .\main\context_processors.py:42
 #: .\main\templates\main\privacy-policy.html:2 .\main\views.py:111
@@ -608,7 +608,7 @@ msgstr "Sualı Sil"
 #: .\administration\templates\administration\site\faq-list.html:4
 #: .\administration\templates\administration\site\faq-list.html:14
 msgid "FAQ List"
-msgstr ""
+msgstr "Sual Siyahısı"
 
 #: .\administration\templates\administration\site\faq-list.html:20
 #| msgid "Add New User"

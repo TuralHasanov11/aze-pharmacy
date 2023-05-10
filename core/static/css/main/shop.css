@@ -1108,40 +1108,11 @@ strong.woocommerce-review__author {
     font-weight: 500;
     text-decoration: underline;
 }
-.woocommerce-form-coupon-toggle {
-    padding: 20px;
-    background-color: #f5f5f5;
-    padding-left: 45px;
-    position: relative;
-    margin-bottom: 25px;
-    border-radius: 0;
-}
+
 .woocommerce-additional-fields {
     margin: 20px 0 0;
 }
-.woocommerce-form-coupon-toggle::before {
-    position: absolute;
-    left: 24px;
-    top: 24px;
-    text-rendering: auto;
-    font-family: "Font Awesome 5 Free";
-    font-style: normal;
-    font-weight: 500;
-    display: inline-block;
-    text-decoration: inherit;
-    width: 1em;
-    margin-right: .2em;
-    text-align: center;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1em;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    content: '\f02e';
-}
-.woocommerce-form-coupon-toggle .woocommerce-info {
-    line-height: 1.4;
-}
+
 .checkout_coupon #coupon_code {
     width: 100%;
     height: 55px;
@@ -1149,12 +1120,7 @@ strong.woocommerce-review__author {
 .showcoupon:hover{
     text-decoration: underline;
 }
-.checkout_coupon.woocommerce-form-coupon {
-    margin-bottom: 20px;
-}
-.checkout_coupon.woocommerce-form-coupon [type="submit"] {
-    line-height: 1;
-}
+
 li.woocommerce-notice.woocommerce-notice--info.woocommerce-info {
     line-height: 1.6;
     margin-bottom: 10px;
@@ -1551,4 +1517,38 @@ ul.woocommerce-error strong {
     margin-right: 0 !important;
 }
 
+}
+
+img.product-feature-image{
+    width: 100%;
+    height: 27.5em;
+}
+
+@media only screen and (max-width: 575px){
+	img.product-feature-image{
+        width: 100%;
+        height: 17.5em;
+    }
+}
+
+
+@media only screen and (min-width: 576px) and (max-width: 767px){
+	img.product-feature-image{
+        width: 100%;
+        height: 20em;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px){
+	img.product-feature-image{
+        width: 100%;
+        height: 22.5em;
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px){
+	img.product-feature-image{
+        width: 100%;
+        height: 25em;
+    }
 }

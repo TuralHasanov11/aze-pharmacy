@@ -532,7 +532,6 @@ class FAQListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
     def get_queryset(self):
         return super().get_queryset().only('pk', 'question', 'language')
-    
 
 
 class FAQCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
