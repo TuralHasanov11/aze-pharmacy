@@ -20,7 +20,7 @@
     <div class="card">
         <div class="card-body">
             {% include 'components/messages.html' with messages=messages %}
-            <form method="POST" action="{% url 'administration:site-texts' %}" >
+            <form method="POST" action="{% url 'administration:site-texts' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ formset.management_form }}
                 <h3 class="text-primary">{% translate "Texts" %}</h3>

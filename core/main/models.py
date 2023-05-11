@@ -13,6 +13,7 @@ class RichTextEditorField(ckeditorFields.RichTextUploadingField):
         kwargs['blank'] = True
         super().__init__(*args, **kwargs)
 
+
 class LanguageField(models.CharField):
     description = _("Language field")
     
@@ -50,6 +51,9 @@ class SiteInfo(models.Model):
     youtube_link = models.URLField(null=True, blank=True)
     tiktok_link = models.URLField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    banner_image = models.ImageField(upload_to="site/", null=True, blank=True)
+    breadcrumb_image = models.ImageField(upload_to="site/", null=True, blank=True)
+    about_image = models.ImageField(upload_to="site/", null=True, blank=True)
 
     class Meta:
         verbose_name_plural = "Site Infos"

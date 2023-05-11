@@ -10,6 +10,7 @@ from library.models import Document
 from main.models import Company, Question, SiteInfo, SiteText
 from mptt.forms import TreeNodeChoiceField
 from news.models import Post
+from orders.models import Order, OrderDelivery
 from services.models import Service
 from store.models import Category, Product, ProductImage, Stock
 
@@ -234,11 +235,18 @@ class SiteInfoForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': _('TikTok link')}))
     twitter_link = forms.URLField(label=_('Twitter link'), widget=forms.URLInput(
         attrs={'class': 'form-control', 'placeholder': _('Twitter link')}))
+    banner_image = forms.ImageField(label=_('Banner Image'), widget=forms.ClearableFileInput(
+        attrs={'class': 'form-control', 'placeholder': _('Banner Image'), 'multiple': False}), required=False)
+    breadcrumb_image = forms.ImageField(label=_('Breadcrumb Image'), widget=forms.ClearableFileInput(
+        attrs={'class': 'form-control', 'placeholder': _('Breadcrumb Image'), 'multiple': False}), required=False)
+    about_image = forms.ImageField(label=_('About Image'), widget=forms.ClearableFileInput(
+        attrs={'class': 'form-control', 'placeholder': _('About Image'), 'multiple': False}), required=False)
 
     class Meta:
         model = SiteInfo
-        fields = ['phone', 'address', 'email', 'facebook_link',
-                  'instagram_link', 'youtube_link', 'tiktok_link', 'twitter_link']
+        fields = ['phone', 'address', 'email', 'facebook_link', 'instagram_link', 'youtube_link', 'tiktok_link',
+                  'twitter_link', 'banner_image', 'breadcrumb_image', 'about_image'
+                  ]
 
 
 class SiteTextForm(forms.ModelForm):
@@ -274,3 +282,30 @@ class FAQForm(forms.ModelForm):
 
 SiteTextFormSet = forms.modelformset_factory(
     model=SiteText, form=SiteTextForm, max_num=len(settings.LANGUAGES))
+
+
+class OrderForm(forms.ModelForm):
+    notes = forms.CharField(label=_('Notes'), widget=forms.Textarea(
+        attrs={'class': 'form-control', 'placeholder': _('Notes')}))
+
+    class Meta:
+        model = Order
+        fields = ('notes',)
+
+
+class OrderDeliveryForm(forms.ModelForm):
+    courier_name = forms.CharField(label=_('Courier Name'), widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': _('Courier Name')}))
+    tracking_number = forms.CharField(label=_('Tracking Number'), widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': _('Tracking Number')}))
+    delivery_status = forms.ChoiceField(label=_('Delivery Status'), choices=OrderDelivery.DeliveryStatus.choices, widget=forms.Select(
+        attrs={'class': 'form-control', 'placeholder': _('Delivery Status')}))
+    delivery_date = forms.DateField(label=_('Delivery Date'), widget=forms.DateInput(
+        attrs={'class': 'form-control', 'placeholder': _('Delivery Date')}))
+    class Meta:
+        model = OrderDelivery
+        fields = ('courier_name', 'tracking_number', 'delivery_status', 'delivery_date')
+
+
+OrderDeliveryFormSet = forms.inlineformset_factory(
+    parent_model=Order, model=OrderDelivery, max_num=1, form=OrderDeliveryForm)

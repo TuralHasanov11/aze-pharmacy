@@ -55,11 +55,11 @@ def contact(request: HttpRequest):
                 )
                 email.send()
             except BadHeaderError:
-                messages.error(request, "Email cannot be sent")
+                messages.error(request, _("Email cannot be sent"))
                 return render(request, "main/contact.html", {"form": form, 'siteInfo': siteInfo, "breadcrumb": breadcrumb, "faq": faq})
             messages.success(request, 'Email was sent successfully!')
             return redirect(reverse("main:contact")+"#contact-form")
-        messages.error(request, "Email cannot be sent")
+        messages.error(request, _("Email cannot be sent"))
         return render(request, "main/contact.html", {"form": form, 'siteInfo': siteInfo, "breadcrumb": breadcrumb, "faq": faq})
     form = ContactForm()
     return render(request, 'main/contact.html', {'siteInfo': siteInfo, "form": form, "breadcrumb": breadcrumb, "faq": faq})
@@ -67,14 +67,15 @@ def contact(request: HttpRequest):
 
 @require_GET
 def about(request: HttpRequest):
-    siteText = SiteText.objects.values('about').filter(
+    siteText = SiteText.objects.only('about').filter(
         language=get_language()).first()
+    aboutImage = SiteInfo.objects.only('about_image').first().about_image
     breadcrumb = [
         {"title": _("About Us")},
         {"title": _("Home"), "route": reverse("main:index")},
         {"title": _("About Us")},
     ]
-    return render(request, 'main/about.html', {'siteText': siteText, "breadcrumb": breadcrumb})
+    return render(request, 'main/about.html', {'siteText': siteText, "breadcrumb": breadcrumb, "aboutImage": aboutImage})
 
 
 class CareerListView(ListView):

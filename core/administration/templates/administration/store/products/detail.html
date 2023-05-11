@@ -46,7 +46,7 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-header">{{product.name}}</div>
-                    <img class="card-img-top" src="{{product.image_feature.0.image.url}}" alt="{{product.name}}">
+                    {% if product.image_feature %}<img class="card-img-top" src="{{product.image_feature.0.image.url}}" alt="{{product.name}}">{% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{product.name}}</h5>
                         <p class="card-text">{{product.description|safe}}</p>

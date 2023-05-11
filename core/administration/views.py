@@ -1,4 +1,8 @@
+
+
 from administration import forms
+from administration.notifications import (DeliveryEmailNotification,
+                                          DeliveryMessageNotification)
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
@@ -20,6 +24,7 @@ from django.views.generic.list import ListView
 from library.models import Document
 from main.models import Company, Question, SiteInfo, SiteText
 from news.models import Post
+from orders.models import Order, OrderItem
 from services.models import Service
 from store.models import Category, Product, ProductImage, Stock
 
@@ -38,6 +43,8 @@ creator_dashboard_list = [
         "permission": "store.view_product", "image": "images/admin/dashboards/store.png"},
     {"name": _("Orders"), "route": "administration:orders",
         "permission": "orders.view_order", "image": "images/admin/dashboards/orders.png"},
+    {"name": _("Site Data Management"), "route": "administration:site-info",
+        "permission": "main.view_site_info", "image": "images/admin/dashboards/site.png"},
 ]
 
 
@@ -511,7 +518,7 @@ def siteTexts(request):
 def siteInfo(request):
     if request.method == 'POST':
         form = forms.SiteInfoForm(
-            instance=SiteInfo.objects.first(), data=request.POST)
+            instance=SiteInfo.objects.first(), data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, _('Info') + " " +
@@ -563,3 +570,51 @@ class FAQDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageM
     login_url = reverse_lazy('administration:index')
     success_message = _("Question") + " " + _("was deleted successfully")
     success_url = reverse_lazy('administration:site-faq-list')
+
+
+class OrderDetailView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    form_class = forms.OrderForm
+    model = Order
+    permission_required = ["orders.change_order"]
+    login_url = reverse_lazy('administration:index')
+    template_name = 'administration/orders/detail.html'
+    context_object_name = 'order'
+    success_message = _("Order was updated successfully")
+
+    def get_queryset(self):
+        return super().get_queryset().select_related('order_delivery').prefetch_related(
+            Prefetch('items', queryset=OrderItem.objects.select_related('product__category').all()),
+        )
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['order_delivery_formset'] = forms.OrderDeliveryFormSet(self.request.POST, instance=self.object)
+        else:
+            context['order_delivery_formset'] = forms.OrderDeliveryFormSet(instance=self.object)
+        return context
+    
+    def form_valid(self, form):
+        context = self.get_context_data()
+        order_delivery_formset = context['order_delivery_formset']
+        if order_delivery_formset.has_changed() and order_delivery_formset.is_valid():
+            deliveryForm = order_delivery_formset[0]
+            changedData = deliveryForm.changed_data
+            delivery = deliveryForm.save()
+            if "delivery_status" in changedData:
+                sendDeliveryStatusNotification(self.request, order=context["order"], delivery=delivery)
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def get_success_url(self):
+        return reverse("administration:order-detail", kwargs={"pk": self.object.pk})+"#order-form"
+
+
+def sendDeliveryStatusNotification(request, order, delivery):
+    try:
+        emailNotification = DeliveryEmailNotification(request, order, delivery)
+        messageNotification = DeliveryMessageNotification(request, order, delivery)
+        emailNotification.send()
+        messageNotification.send()
+    except Exception as e:
+        return str(e)
+

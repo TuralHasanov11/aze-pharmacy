@@ -20,6 +20,7 @@ urlpatterns += i18n_patterns(
     path('cart/', include('cart.urls', namespace="cart")),
     path('wishlist/', include('wishlist.urls', namespace="wishlist")),
     path('checkout/', include('checkout.urls', namespace="checkout")),
+    path('orders/', include('orders.urls', namespace="orders")),
     path('admin/', include('administration.urls', namespace="administration")),
 
     path('api/', include('api.urls', 'api')),

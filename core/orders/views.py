@@ -2,10 +2,15 @@ import json
 
 from cart.processor import CartProcessor
 from django.contrib.auth.decorators import login_required
+from django.db.models import Prefetch
 from django.http.response import HttpResponseBadRequest, JsonResponse
-from django.views.decorators.http import require_POST
+from django.shortcuts import redirect, render
+from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
+from django.views.decorators.http import require_GET, require_POST
 from orders.forms import OrderForm
 from orders.models import Order, OrderItem
+from store.models import ProductImage
 
 
 @login_required
@@ -45,3 +50,22 @@ def add(request):
         return JsonResponse({'success': 'Order has been set'})
     else:
         return JsonResponse(form.errors, status=400)
+
+
+@require_GET
+def detail(request, id: int):
+    order = Order.objects.select_related('order_delivery').prefetch_related(
+            Prefetch('items', queryset=OrderItem.objects.select_related('product__category').prefetch_related(
+                Prefetch("product__product_image", queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature') 
+            ).all()),
+        ).get(id=id, order_key=request.GET.get('order_key'))
+    
+    order_quantity = sum([item.quantity for item in order.items.all()])
+    
+    breadcrumb = [
+        {"title": _("Order Details")},
+        {"title": _("Home"), "route": reverse("main:index")},
+        {"title": _("Order Details")},
+    ]
+    
+    return render(request, 'orders/detail.html', context={'order': order, "breadcrumb": breadcrumb, "order_quantity": order_quantity})

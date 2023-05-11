@@ -23,7 +23,6 @@ def orders(request):
 @permission_required(['orders.change_order'], raise_exception=True)
 def verifyOrder(request, orderId: int):
     order = get_object_or_404(Order.objects.filter(billing_status=False), id=orderId)
-    order.billing_status = True
     order.save()
     return Response(data={'message': 'Verified order'})
 

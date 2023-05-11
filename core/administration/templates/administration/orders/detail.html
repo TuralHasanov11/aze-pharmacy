@@ -1,0 +1,177 @@
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Order Details" %}{% endblock title %}
+{% block content %}
+<main>
+  <header
+    class="page-header page-header-compact page-header-light border-bottom bg-white mb-4"
+  >
+    <div class="container-fluid px-4">
+      <div class="page-header-content">
+        <div class="row align-items-center justify-content-between pt-3">
+          <div class="col-auto mb-3">
+            <h1 class="page-header-title">
+              <div class="page-header-icon">
+                <i data-feather="file-plus"></i>
+              </div>
+              {% translate "Order Details" %}
+            </h1>
+          </div>
+          <div class="col-12 col-xl-auto mb-3">
+            <a
+              class="btn btn-sm btn-light text-primary"
+              href="{% url 'administration:orders' %}"
+            >
+              <i class="me-1" data-feather="list"></i>
+              {% translate "Back to Order List" %}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container-fluid px-4">
+        <div class="card mb-4">
+            <div class="card-header">{% translate "Order Details" %}</div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12 col-lg-5">
+                  <ul class="list-group mb-4">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <span class="fw-bold">{% translate "First Name" %}</span>
+                      <span>{{order.first_name}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <span class="fw-bold">{% translate "Last Name" %}</span>
+                      <span>{{order.last_name}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <span class="fw-bold">{% translate "Email" %}</span>
+                      <span>{{order.email|default:''}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <span class="fw-bold">{% translate "Address" %}</span>
+                      <span>{{order.address}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <span class="fw-bold">{% translate "City" %}</span>
+                      <span>{{order.city}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <span class="fw-bold">{% translate "Phone" %}</span>
+                      <span>{{order.phone}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <span class="fw-bold">{% translate "Total Paid" %}</span>
+                      <span>{{order.total_paid}} &#8380;</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <span class="fw-bold">{% translate "Order Key" %}</span>
+                      <span>{{order.order_key}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <span class="fw-bold">{% translate "Payment Status" %}</span>
+                      <span class="badge bg-{{order.payment_status_color}} rounded-pill">{{order.payment_status_value}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <span class="fw-bold">{% translate "Created Date" %}</span>
+                      <span>{{order.created_at|date:"d.m.Y H:i"}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <span class="fw-bold">{% translate "Updated Date" %}</span>
+                      <span>{{order.updated_at|date:"d.m.Y H:i"}}</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-12 col-lg-7">
+                  <div class="table-responsive mb-4">
+                    <table class="table table-striped table-bordered">
+                      <thead class="table-primary">
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">{% translate "Product" %}</th>
+                          <th scope="col">{% translate "Price" %} &#8380;</th>
+                          <th scope="col">{% translate "Quantity" %}</th>
+                          <th scope="col">{% translate "Subtotal" %} &#8380;</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for item in order.items.all %}
+                        <tr>
+                          <th scope="row">{{forloop.counter}}</th>
+                          <td><a href="{% url 'administration:store-product-update' pk=item.product.id %}">{{item.product.name}}</a></td>
+                          <td>{{item.price}}</td>
+                          <td>{{item.quantity}}</td>
+                          <td>{{item.sub_total}}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr class="table-primary">
+                          <th scope="row">#</th>
+                          <th colspan="3">{% translate "Total" %}</th>
+                          <th>{{order.total_paid}}</th>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              {% include 'components/messages.html' with messages=messages %}
+              <form method="post" id="order-form">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <div class=" card mb-4">
+                      <div class="card-header">{% translate "Edit Order Details" %}</div>
+                      <div class="card-body">
+                        {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
+                        {{form.non_form_errors}}
+                        <div class="mb-4">
+                            <label class="mb-1" for="{{ form.notes.id_for_label }}">{{ form.notes.label }}</label>
+                            {{ form.notes }} 
+                            {{ form.notes.errors }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="col-12 col-md-6">
+                    <div class="card mb-4">
+                      <div class="card-header">{% translate "Edit Order Delivery Information" %}</div>
+                      <div class="card-body">
+                        {{ order_delivery_formset.management_form }} 
+                        {% for formset_item in order_delivery_formset %}
+                        {% include "components/form/hidden-fields.html" with hidden_fields=formset_item.hidden_fields %}
+                        {{formset_item.non_form_errors}}
+                        <div class="mb-4">
+                            <label class="mb-1" for="{{ formset_item.courier_name.id_for_label }}">{{ formset_item.courier_name.label }}</label>
+                            {{ formset_item.courier_name }} 
+                            {{ formset_item.courier_name.errors }}
+                        </div>
+                        <div class="mb-4">
+                          <label class="mb-1" for="{{ formset_item.tracking_number.id_for_label }}">{{ formset_item.tracking_number.label }}</label>
+                          {{ formset_item.tracking_number }} 
+                          {{ formset_item.tracking_number.errors }}
+                        </div>
+                        <div class="mb-4">
+                          <label class="mb-1" for="{{ formset_item.delivery_status.id_for_label }}">{{ formset_item.delivery_status.label }}</label>
+                          {{ formset_item.delivery_status }} 
+                          {{ formset_item.delivery_status.errors }}
+                        </div>
+                        <div class="mb-4">
+                          <label class="mb-1" for="{{ formset_item.delivery_date.id_for_label }}">{{ formset_item.delivery_date.label }}</label>
+                          {{ formset_item.delivery_date }} 
+                          {{ formset_item.delivery_date.errors }}
+                        </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="btn btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
+              </form>
+            </div>
+        </div>
+  </div>
+</main>
+{% endblock content %}

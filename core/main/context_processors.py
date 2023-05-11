@@ -47,19 +47,21 @@ def default_footer_menu(request):
 
 
 def site_info(request):
-    siteInfo = SiteInfo.objects.values(
+    siteInfo = SiteInfo.objects.only(
         "phone", "address", "email", "facebook_link", "twitter_link", "instagram_link", "youtube_link", "tiktok_link").first()
     return {
         "site_info": {
-            "phone": siteInfo["phone"],
-            "address": siteInfo["address"],
-            "email": siteInfo["email"],
+            "phone": siteInfo.phone,
+            "address": siteInfo.address,
+            "email": siteInfo.email,
+            "breadcrumb_image": siteInfo.breadcrumb_image.url,
+            "banner_image": siteInfo.banner_image.url,
             "social_links": [
-                {"link": siteInfo["facebook_link"], "icon": "fab fa-facebook"},
-                {"link": siteInfo["twitter_link"], "icon": "fab fa-twitter"},
-                {"link": siteInfo["instagram_link"], "icon": "fab fa-instagram"},
-                {"link": siteInfo["youtube_link"], "icon": "fab fa-youtube"},
-                {"link": siteInfo["tiktok_link"], "icon": "fab fa-tiktok"},
+                {"link": siteInfo.facebook_link, "icon": "fab fa-facebook"},
+                {"link": siteInfo.twitter_link, "icon": "fab fa-twitter"},
+                {"link": siteInfo.instagram_link, "icon": "fab fa-instagram"},
+                {"link": siteInfo.youtube_link, "icon": "fab fa-youtube"},
+                {"link": siteInfo.tiktok_link, "icon": "fab fa-tiktok"},
             ]
         }
     }

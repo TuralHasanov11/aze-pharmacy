@@ -20,8 +20,11 @@
     <div class="card">
         <div class="card-body">
             {% include 'components/messages.html' with messages=messages %}
-            <form method="POST" action="{% url 'administration:site-info' %}">
+            <form method="POST" action="{% url 'administration:site-info' %}" enctype="multipart/form-data">
                 {% csrf_token %}
+                {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %} 
+                {{form.non_form_errors}} 
+                {{ form.media }}
                 <h5 class="card-title mb-4">{% translate "Contact details" %}, {% translate "Social media links" %}</h5>
                 <div class="mb-3">
                     <label class="small mb-1" for="{{form.phone.id_for_label}}">{{form.phone.label}}</label>
@@ -54,6 +57,18 @@
                 <div class="mb-3">
                     <label class="small mb-1" for="{{form.tiktok_link.id_for_label}}">{{form.tiktok_link.label}}</label>
                     {{form.tiktok_link}}
+                </div>
+                <div class="mb-3">
+                    <label class="small mb-1" for="{{form.banner_image.id_for_label}}">{{form.banner_image.label}}</label>
+                    {{form.banner_image}}
+                </div>
+                <div class="mb-3">
+                    <label class="small mb-1" for="{{form.breadcrumb_image.id_for_label}}">{{form.breadcrumb_image.label}}</label>
+                    {{form.breadcrumb_image}}
+                </div>
+                <div class="mb-3">
+                    <label class="small mb-1" for="{{form.about_image.id_for_label}}">{{form.about_image.label}}</label>
+                    {{form.about_image}}
                 </div>
                 <hr class="my-4" />
                 <div class="d-flex justify-content-between">
