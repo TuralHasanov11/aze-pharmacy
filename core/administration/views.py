@@ -41,7 +41,7 @@ creator_dashboard_list = [
         "permission": "user.view_user", "image": "images/admin/dashboards/authentication.png"},
     {"name": _("Store"), "route": "administration:store-product-list",
         "permission": "store.view_product", "image": "images/admin/dashboards/store.png"},
-    {"name": _("Orders"), "route": "administration:orders",
+    {"name": _("Orders"), "route": "administration:order-list",
         "permission": "orders.view_order", "image": "images/admin/dashboards/orders.png"},
     {"name": _("Site Data Management"), "route": "administration:site-info",
         "permission": "main.view_site_info", "image": "images/admin/dashboards/site.png"},
@@ -62,15 +62,13 @@ class ServiceListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Success
     permission_required = ["services.view_service", "services.add_service"]
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/services/index.html'
+    success_url = reverse_lazy("administration:service-list")
     success_message = "%(name)s " + _("was created successfully")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['services'] = self.model.objects.all()
         return context
-
-    def get_success_url(self):
-        return reverse("administration:service-list")
 
 
 class ServiceUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -99,6 +97,7 @@ class DocumentListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
     form_class = forms.DocumentForm
     permission_required = ["library.view_document", "library.add_document"]
     login_url = reverse_lazy('administration:index')
+    success_url = reverse_lazy("administration:document-list")
     template_name = 'administration/documents/index.html'
     paginate_py = 20
     success_message = "%(name)s " + _("was created successfully")
@@ -118,9 +117,6 @@ class DocumentListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
         documents = pagination.get_page(pageNumber)
         context['documents'] = documents
         return context
-
-    def get_success_url(self):
-        return reverse("administration:document-list")
 
 
 class DocumentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -150,15 +146,13 @@ class CompanyListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Success
     login_url = reverse_lazy('administration:index')
     permission_required = ["main.view_company", "main.add_company"]
     template_name = 'administration/companies/index.html'
+    success_url = reverse_lazy("administration:company-list")
     success_message = "%(name)s " + _("was created successfully")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['companies'] = self.model.objects.all()
         return context
-
-    def get_success_url(self):
-        return reverse("administration:company-list")
 
 
 class CompanyUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -191,8 +185,8 @@ class PostListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     context_object_name = "posts"
 
     def get_queryset(self):
-        queryset = super().get_queryset().order_by(self.request.GET.get('order_by',
-                                                                        '-created_at')).only('title', 'cover_image', 'created_at', 'updated_at')
+        queryset = super().get_queryset().order_by(
+            self.request.GET.get('order_by', '-created_at')).only('title', 'cover_image', 'created_at', 'updated_at')
         if self.request.GET.get('search'):
             queryset = queryset.filter(
                 title__icontains=self.request.GET.get('search'))
@@ -249,20 +243,17 @@ class PostDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
 @require_http_methods(['GET', 'POST'])
 @login_required
 def profile(request):
+    template_name = 'administration/auth/profile.html'
     if request.method == 'POST':
         form = forms.UserUpdateForm(instance=request.user, data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Account updated successfully")
+            messages.success(request, _("Account updated successfully"))
             return redirect('administration:auth-profile')
-        messages.error(request, "Account could not be updated")
-        return render(request, 'administration/auth/profile.html', context={
-            "form": form,
-        })
+        messages.error(request, _("Account could not be updated"))
+        return render(request, template_name, context={"form": form})
     form = forms.UserUpdateForm(instance=request.user)
-    return render(request, 'administration/auth/profile.html', context={
-        "form": form,
-    })
+    return render(request, template_name, context={"form": form})
 
 
 class LoginView(auth_views.LoginView):
@@ -330,14 +321,12 @@ class CategoryListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/store/categories/index.html'
     success_message = "%(name)s " + _("was created successfully")
+    success_url = reverse_lazy("administration:store-category-list")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = self.model.objects.all()
         return context
-
-    def get_success_url(self):
-        return reverse("administration:store-category-list")
 
 
 class CategoryUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -406,6 +395,7 @@ class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
 @login_required
 @permission_required('store.add_product', login_url=reverse_lazy('administration:index'))
 def productCreate(request):
+    template_name = "administration/store/products/create.html"
     if request.method == 'POST':
         form = forms.ProductForm(request.POST, request.FILES)
         stock_formset = forms.StockFormSet(
@@ -426,7 +416,7 @@ def productCreate(request):
                 request, f'{product} ' + _("was saved successfully"))
             return redirect("administration:store-product-list")
         messages.error(request, _("Product") + " " + _("cannot be saved"))
-        return render(request, "administration/store/products/create.html", {
+        return render(request, template_name, {
             "form": form,
             "stock_formset": stock_formset,
             "product_image_formset": product_image_formset
@@ -435,7 +425,7 @@ def productCreate(request):
     stock_formset = forms.StockFormSet(queryset=Stock.objects.none())
     product_image_formset = forms.ProductImageFormSet(
         queryset=ProductImage.objects.none())
-    return render(request, 'administration/store/products/create.html', context={
+    return render(request, template_name, context={
         'form': form,
         'stock_formset': stock_formset,
         'product_image_formset': product_image_formset,
@@ -446,6 +436,7 @@ def productCreate(request):
 @login_required
 @permission_required('store.change_product', login_url=reverse_lazy('administration:index'))
 def productUpdate(request, pk: int):
+    template_name = "administration/store/products/edit.html"
     product = Product.objects.prefetch_related('product_image').get(id=pk)
 
     if request.method == 'POST':
@@ -463,7 +454,7 @@ def productUpdate(request, pk: int):
                 request, f'{product} ' + _("was saved successfully"))
             return redirect("administration:store-product-list")
         messages.error(request, _("Product") + " " + _("cannot be saved"))
-        return render(request, "administration/store/products/edit.html", {
+        return render(request, template_name, {
             "form": form,
             "stock_formset": stock_formset,
             "product_image_formset": product_image_formset,
@@ -472,7 +463,7 @@ def productUpdate(request, pk: int):
     form = forms.ProductForm(instance=product)
     stock_formset = forms.StockFormSet(instance=product)
     product_image_formset = forms.ProductImageFormSet(instance=product)
-    return render(request, 'administration/store/products/edit.html', context={
+    return render(request, template_name, context={
         "product": product,
         'form': form,
         'stock_formset': stock_formset,
@@ -498,6 +489,7 @@ class OrdersView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
 @require_http_methods(['GET', 'POST'])
 @permission_required(['main.change_site_text', 'main.view_site_text',], login_url=reverse_lazy('administration:index'))
 def siteTexts(request):
+    template_name = 'administration/site/texts.html'    
     if request.method == 'POST':
         formset = forms.SiteTextFormSet(
             initial=SiteText.objects.all(), data=request.POST)
@@ -507,15 +499,16 @@ def siteTexts(request):
                              _("were saved successfully"))
             return redirect("administration:site-texts")
         messages.error(request, _('Texts') + " " + _("cannot be saved"))
-        return render(request, 'administration/site/texts.html', {"formset": formset})
+        return render(request, template_name, {"formset": formset})
     formset = forms.SiteTextFormSet(initial=SiteText.objects.all())
-    return render(request, 'administration/site/texts.html', {"formset": formset})
+    return render(request, template_name, {"formset": formset})
 
 
 @login_required
 @require_http_methods(['GET', 'POST'])
 @permission_required(['main.change_site_info', 'main.view_site_info',], login_url=reverse_lazy('administration:index'))
 def siteInfo(request):
+    template_name = 'administration/site/info.html'
     if request.method == 'POST':
         form = forms.SiteInfoForm(
             instance=SiteInfo.objects.first(), data=request.POST, files=request.FILES)
@@ -525,9 +518,9 @@ def siteInfo(request):
                              _("was saved successfully"))
             return redirect("administration:site-info")
         messages.error(request, _('Info') + " " + _("cannot be saved"))
-        return render(request, 'administration/site/info.html', {"form": form})
+        return render(request, template_name, {"form": form})
     form = forms.SiteInfoForm(instance=SiteInfo.objects.first())
-    return render(request, 'administration/site/info.html', {"form": form})
+    return render(request, template_name, {"form": form})
 
 
 class FAQListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -572,49 +565,56 @@ class FAQDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageM
     success_url = reverse_lazy('administration:site-faq-list')
 
 
-class OrderDetailView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+@login_required
+@require_http_methods(['GET', 'POST'])
+@permission_required(["orders.change_order", "orders.view_order"], login_url=reverse_lazy('administration:index'))
+def orderDetail(request, id: int):
     form_class = forms.OrderForm
-    model = Order
-    permission_required = ["orders.change_order"]
-    login_url = reverse_lazy('administration:index')
     template_name = 'administration/orders/detail.html'
-    context_object_name = 'order'
-    success_message = _("Order was updated successfully")
+    success_message = _("Order was updated successfully!")
+    order = Order.objects.select_related('order_delivery').prefetch_related(
+        Prefetch('items', queryset=OrderItem.objects.select_related(
+            'product__category').all()),
+    ).get(id=id)
 
-    def get_queryset(self):
-        return super().get_queryset().select_related('order_delivery').prefetch_related(
-            Prefetch('items', queryset=OrderItem.objects.select_related('product__category').all()),
-        )
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        if self.request.POST:
-            context['order_delivery_formset'] = forms.OrderDeliveryFormSet(self.request.POST, instance=self.object)
-        else:
-            context['order_delivery_formset'] = forms.OrderDeliveryFormSet(instance=self.object)
-        return context
-    
-    def form_valid(self, form):
-        context = self.get_context_data()
-        order_delivery_formset = context['order_delivery_formset']
-        if order_delivery_formset.has_changed() and order_delivery_formset.is_valid():
-            deliveryForm = order_delivery_formset[0]
-            changedData = deliveryForm.changed_data
-            delivery = deliveryForm.save()
-            if "delivery_status" in changedData:
-                sendDeliveryStatusNotification(self.request, order=context["order"], delivery=delivery)
-        return self.render_to_response(self.get_context_data(form=form))
+    if request.POST:
+        form = form_class(data=request.POST, instance=order)
+        order_delivery_formset = forms.OrderDeliveryFormSet(
+            data=request.POST, instance=order)
+        if form.is_valid() and order_delivery_formset.is_valid():
+            order = form.save()
+            if order_delivery_formset.has_changed():
+                deliveryForm = order_delivery_formset[0]
+                changedData = deliveryForm.changed_data
+                delivery = deliveryForm.save()
+                if "delivery_status" in changedData:
+                    try:
+                        sendDeliveryStatusNotification(
+                            request=request, order=order, delivery=delivery)
+                    except Exception as e:
+                        messages.error(request, _(
+                            "Notifications are not sent!"))
+                        return redirect(reverse("administration:order-detail", kwargs={"id": order.id})+"#order-form")
+            messages.success(request, success_message)
+            return redirect(reverse("administration:order-detail", kwargs={"id": order.id})+"#order-form")
+        messages.error(request, _("Order was not saved!"))
+        return render(request, template_name, {"order": order, "form": form, "order_delivery_formset": order_delivery_formset})
+    else:
+        if order.seen is False:
+            order.seen = True
+            order.save()
+        form = form_class(instance=order)
+        order_delivery_formset = forms.OrderDeliveryFormSet(instance=order)
 
-    def get_success_url(self):
-        return reverse("administration:order-detail", kwargs={"pk": self.object.pk})+"#order-form"
+    return render(request, template_name, {"order": order, "form": form, "order_delivery_formset": order_delivery_formset})
 
 
 def sendDeliveryStatusNotification(request, order, delivery):
     try:
         emailNotification = DeliveryEmailNotification(request, order, delivery)
-        messageNotification = DeliveryMessageNotification(request, order, delivery)
+        messageNotification = DeliveryMessageNotification(
+            request, order, delivery)
         emailNotification.send()
-        messageNotification.send()
+        # messageNotification.send()
     except Exception as e:
         return str(e)
-

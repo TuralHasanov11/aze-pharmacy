@@ -19,6 +19,8 @@ class Order(models.Model):
     order_key = models.CharField(max_length=200, unique=True)
     payment_status = models.CharField(max_length=20, choices=PaymentStatus.choices, default=PaymentStatus.PENDING)
     notes = models.TextField(blank=True, null=True)
+    is_flagged = models.BooleanField(default=False)
+    seen = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -26,7 +28,7 @@ class Order(models.Model):
         ordering = ('-created_at',)
     
     def __str__(self):
-        return str(self.created_at)
+        return str(self.full_name)
 
     @property
     def full_name(self):

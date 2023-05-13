@@ -19,7 +19,7 @@
           <div class="col-12 col-xl-auto mb-3">
             <a
               class="btn btn-sm btn-light text-primary"
-              href="{% url 'administration:orders' %}"
+              href="{% url 'administration:order-list' %}{{request.GET.prev|default:''}}"
             >
               <i class="me-1" data-feather="list"></i>
               {% translate "Back to Order List" %}

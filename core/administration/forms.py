@@ -1,3 +1,5 @@
+from enum import Enum
+
 from ckeditor_uploader import widgets as ckeditor_widgets
 from django import forms
 from django.conf import settings
@@ -286,7 +288,7 @@ SiteTextFormSet = forms.modelformset_factory(
 
 class OrderForm(forms.ModelForm):
     notes = forms.CharField(label=_('Notes'), widget=forms.Textarea(
-        attrs={'class': 'form-control', 'placeholder': _('Notes')}))
+        attrs={'class': 'form-control', 'placeholder': _('Notes')}), required=False)
 
     class Meta:
         model = Order
@@ -306,6 +308,20 @@ class OrderDeliveryForm(forms.ModelForm):
         model = OrderDelivery
         fields = ('courier_name', 'tracking_number', 'delivery_status', 'delivery_date')
 
+    STAGES = {
+        "PROCESSING": [OrderDelivery.DeliveryStatus.SHIPPED.name, OrderDelivery.DeliveryStatus.CANCELLED.name],
+        "SHIPPED": [OrderDelivery.DeliveryStatus.DELIVERED.name, OrderDelivery.DeliveryStatus.FAILED_DELIVERY.name],
+        "DELIVERED": [],
+        "FAILED_DELIVERY": [OrderDelivery.DeliveryStatus.PROCESSING.name],
+        "RETURNED": [OrderDelivery.DeliveryStatus.PROCESSING.name],
+        "CANCELLED": [],
+    }
+    
+    def clean_delivery_status(self):
+        delivery_status = self.cleaned_data['delivery_status']
+        if self.cleaned_data['delivery_status'] != self.instance.delivery_status and str(self.cleaned_data['delivery_status']) not in self.STAGES[self.instance.delivery_status]:
+            raise forms.ValidationError(_(f"Delivery Status cannot be changed!"))
+        return delivery_status
 
 OrderDeliveryFormSet = forms.inlineformset_factory(
     parent_model=Order, model=OrderDelivery, max_num=1, form=OrderDeliveryForm)

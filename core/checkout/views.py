@@ -25,6 +25,7 @@ def index(request):
         {"title": _("Home"), "route": reverse("main:index")},
         {"title": _("Checkout")},
     ]
+    template_name = "checkout/index.html"
     if request.method == 'POST':
         try:
             form = OrderForm(request.POST)
@@ -44,20 +45,20 @@ def index(request):
                     messages.success(request, f'Order was placed successfully')
                     return redirect(successUrl)
             messages.error(request, "Product cannot be saved")
-            return render(request, "checkout/index.html", {
+            return render(request, template_name, {
                     'cart': cart,
                     'form': form,
                     "breadcrumb": breadcrumb
                 })
         except DatabaseError:
             messages.error(request, "Product cannot be saved")
-            return render(request, "checkout/index.html", {
+            return render(request, template_name, {
                     'cart': cart,
                     'form': form,
                     "breadcrumb": breadcrumb
                 })
     form = OrderForm()
-    return render(request, 'checkout/index.html', context={
+    return render(request, template_name, context={
         'cart': cart,
         'form': form,
         "breadcrumb": breadcrumb

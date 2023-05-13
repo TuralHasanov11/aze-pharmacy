@@ -73,7 +73,7 @@ def admin_menu(request):
             "module_permission": "orders",
             "icon": "list",
             "children": [
-                {"title": _("Orders"), "route": "administration:orders"},
+                {"title": _("Orders"), "route": "administration:order-list"},
             ]
         },
         {

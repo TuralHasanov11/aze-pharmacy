@@ -1,29 +1,46 @@
 from api import pagination, serializers
 from django.contrib.auth.decorators import login_required, permission_required
-from django.shortcuts import get_object_or_404
+from django.contrib.postgres.search import (SearchQuery, SearchRank,
+                                            SearchVector)
 from orders.models import Order
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
-# TODO: permissions
 
 
 @login_required
 @api_view(['GET'])
 @permission_required(['orders.view_order', 'orders.change_order'], raise_exception=True)
 def orders(request):
+    search = request.GET.get('search', None)
+    isFlagged = bool(request.GET.get('is_flagged', False))
+    selectedOrderByValue = request.GET.get('order_by', '-created_at')
+
+    if search:
+        searchQuery = SearchQuery(search)
+        searchVector = SearchVector("first_name", "last_name", "email", "address", "city", "phone",
+                                    "total_paid", "order_key", "payment_status", "notes",)
+        ordersQueryset = Order.objects.annotate(
+            search=searchVector, rank=SearchRank(searchVector, searchQuery)
+        ).filter(search=searchQuery).order_by("rank", selectedOrderByValue)
+    else:
+        ordersQueryset = Order.objects.order_by(selectedOrderByValue)
+
+    if isFlagged:
+        ordersQueryset = ordersQueryset.filter(is_flagged=isFlagged)
+
     paginator = pagination.OrderPagination()
-    orders = paginator.paginate_queryset(Order.objects.all(), request)
+    orders = paginator.paginate_queryset(ordersQueryset, request)
     serializer = serializers.OrderSerializer(orders, many=True)
-    return paginator.get_paginated_response(serializer.data) 
+    return paginator.get_paginated_response(serializer.data)
 
 
 @login_required
 @api_view(['POST'])
-@permission_required(['orders.change_order'], raise_exception=True)
-def verifyOrder(request, orderId: int):
-    order = get_object_or_404(Order.objects.filter(billing_status=False), id=orderId)
+@permission_required(['orders.view_order', 'orders.change_order'], raise_exception=True)
+def orderFlag(request, id: int):
+    order = Order.objects.get(id=id)
+    order.is_flagged = not order.is_flagged
     order.save()
-    return Response(data={'message': 'Verified order'})
-
-
+    serializer = serializers.OrderSerializer(order)
+    return Response(data=serializer.data)
+    

@@ -3,6 +3,7 @@
 {% extends 'layouts/admin.html' %} 
 {% load static %} 
 {% load i18n %}
+{% load query_transform %} 
 {% block title %}{% translate "Order List" %}{% endblock title %}
 {% block content %}
 <main>
@@ -13,7 +14,7 @@
                     <div class="col-auto mb-3">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><i data-feather="list"></i></div>
-                            Order List
+                            {% translate "Order List" %}
                         </h1>
                     </div>
                 </div>
@@ -25,98 +26,178 @@
         <div id="orders-app">
             <div class="card">
                 <div class="card-body">
-                    <template v-if="orders">
-                        <div class="table-responsive">
-                            <table class="table table-light table-striped table-hover table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Total Paid</th>
-                                        <th>Created at</th>
-                                        <th>Billing Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Total Paid</th>
-                                        <th>Created at</th>
-                                        <th>Billing Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                    <tr v-for="order in orders" :key="order.id">
-                                        <td>[[order.first_name]]</td>
-                                        <td>[[order.last_name]]</td>
-                                        <td>[[order.total_paid]]</td>
-                                        <td>[[order.created_at|date]]</td>
-                                        <td><div class="badge rounded-pill" :class="[order.billing_status ? 'bg-success' : 'bg-warning']">[[order.billing_status?'Paid':'Not Paid']]</div></td>
-                                        <td>
-                                            <button @click="getOrderDetails(order.id)" data-bs-toggle="modal" data-bs-target="#orderDetailsModal" class="btn btn-primary btn-sm me-2"><i class="fa-solid fa-file"></i></button>
-                                            <button v-if="!order.billing_status" @click="verifyOrder(order.id)" type="button" class="btn btn-success btn-sm"><i class="fa-solid fa-check"></i></button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table> 
+                    <div class="col-12 mb-4">
+                        <div class="d-flex justify-content-between">
+                            <form method="GET"> 
+                                <div class="mb-3 d-flex">
+                                    <input type="search" name="search" value="{{request.GET.search}}" class="form-control mx-2 form-control-sm" placeholder="{% translate 'Search' %}">
+                                    <button class="btn btn-success btn-sm" type="submit">{% translate "Search" %}</button>
+                                </div>
+                            </form>
+                            {% if not request.GET.is_flagged %}
+                            <a href="?is_flagged=1" class="btn btn-sm btn-warning">
+                                {% translate "Flagged Orders Only" %}
+                            </a>
+                            {% else %}
+                            <a href="{% url 'administration:order-list' %}" class="btn btn-sm btn-primary">
+                                {% translate "All Orders" %}
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div id="orders-container" class="list-group mb-4">
+                            
                         </div>
                         
-                    </template>
-                    
+                        <div id="pagination-container">
+
+                        </div>
+                    </div>  
                 </div>
             </div>
         </div>
     </div>
 </main>
 
-<div class="modal fade" id="orderDetailsModal" tabindex="-1" role="dialog" aria-labelledby="orderDetailsModalTitle" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="orderDetailsModalTitle">Modal title</h5>
-                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div v-if="orderLoading">
-                    
-                </div>
-                <ol v-else class="list-group list-group-numbered">
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                      <div class="ms-2 me-auto">
-                        <div class="fw-bold">Subheading</div>
-                        Content for list item
-                      </div>
-                      <span class="badge bg-primary rounded-pill">14</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                      <div class="ms-2 me-auto">
-                        <div class="fw-bold">Subheading</div>
-                        Content for list item
-                      </div>
-                      <span class="badge bg-primary rounded-pill">14</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                      <div class="ms-2 me-auto">
-                        <div class="fw-bold">Subheading</div>
-                        Content for list item
-                      </div>
-                      <span class="badge bg-primary rounded-pill">14</span>
-                    </li>
-                </ol>
-            </div>
-            <div class="modal-footer"><button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save changes</button></div>
-        </div>
-    </div>
-</div>
-
 {% endblock content %}
 
 
 {% block scripts %}
-<script src="{% static 'js/orders.vue.js' %}"></script>
+{% comment %} <script type='text/javascript'>
+    let url = `ws://${window.location.host}/ws/socket-server`
+
+    const orderSocket = new WebSocket(url)
+
+    orderSocket.onmessage = function(e){
+        const data = JSON.parse(e.data)
+        console.log(data)
+
+        if(data.type === 'order'){
+            // insert new order
+        }
+    }
+</script> {% endcomment %}
+
+<script>
+    const ordersAPIURL = "{% url 'api:orders' %}"
+    const ordersURL = "{% url 'administration:order-list' %}/" 
+    const newWord = "{% translate 'New' %}"
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentPage = urlParams.get('page') || 1;
+    const search = urlParams.get('search') || '';
+    const isFlagged = urlParams.get('is_flagged') || '';
+</script>
+
+<script>
+    const ordersContainer = document.getElementById('orders-container')
+    const paginationContainer = document.getElementById('pagination-container')
+    getOrders()
+
+    var orders = {}
+
+    async function getOrders(){
+        const response = await fetch(`${ordersAPIURL}?` + new URLSearchParams({
+            page: currentPage,
+            search: search,
+            is_flagged: isFlagged
+        }), {
+            method: 'GET',
+            headers: { "X-CSRFToken": csrftoken },
+        });
+
+        const data = await response.json()
+        orders = data
+        console.log(orders);
+        orders?.results?.forEach((order)=>{
+            ordersContainer.innerHTML += orderComponent(order)
+        })
+
+        paginationContainer.innerHTML = paginationComponent(orders)
+    }
+
+    async function flagOrder(element, orderId){
+        const response = await fetch(`${ordersAPIURL}/${orderId}/flag`, {
+            method: 'POST',
+            headers: { "X-CSRFToken": csrftoken },
+        });
+        const order = await response.json()
+        element.innerHTML = `<i class="${order.is_flagged ? "fas fa-flag text-danger" : "fa-regular fa-flag"}"></i>`
+    }
+
+    function orderComponent(order){
+        const orderDate = new Date(Date.parse(order.created_at)).toLocaleString('az', {hour: '2-digit', hour12: false, minute:'2-digit', year: 'numeric', month: '2-digit', day: '2-digit'})
+        const flag = order.is_flagged ? "fas fa-flag text-danger" : "fa-regular fa-flag"
+        return `<div class="list-group-item border mb-1 ${order.seen?'bg-light':''}">
+            <div class="d-flex w-100 justify-content-between align-items-center p-1 text-decoration-none">
+                <span class="flag-btn"onclick="flagOrder(this, ${order.id})"><i class="${flag}"></i></span>
+                <a href="${ordersURL + order.id}" class="d-flex w-100 justify-content-between p-1 text-decoration-none">
+                    <h6 class="m-0">
+                        <span>${order.full_name}</span> ${!order.seen?`<span class="badge badge-sm text-bg-success">${newWord}`:''}</span>
+                    </h6>
+                  <small class="text-dark">${orderDate}</small>
+                </a>
+            </div>
+          </div>`
+    }
+
+
+    function paginationComponent(pagination){
+        let result = ""
+        if(pagination.links.previous){
+            let previousPage = "{% query_transform page='page_number' %}"
+            let firstPage = "{% query_transform page='page_number' %}"
+
+            result += `<li class="page-item">
+                <a class="prev page-link pagination-btn" href="?${firstPage.replace('page_number', 1)}">
+                  <i style="font-size: 0.8em;" class="fas fa-angle-double-left"></i>
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="prev page-link pagination-btn" href="?${previousPage.replace('page_number', pagination.current_page - 1)}">
+                  <i style="font-size: 0.8em;" class="fa fa-angle-left" aria-hidden="true"></i>
+                </a>
+              </li>`
+        }
+
+        let commonPage = "{% query_transform page='page_number' %}"
+        for (let number = 1; number <= pagination.total_pages; number++) {
+            if(number > pagination.current_page - 3 && number < pagination.current_page + 3  || number === pagination.total_pages || number === 1){
+                result += `<li class="page-item">
+                  <a class="page-link pagination-btn ${number === pagination.current_page && 'active'}" href="?${commonPage.replace('page_number', number)}">${number}</a>
+                </li>`
+            }else if(number > pagination.current_page - 4 && number < pagination.current_page + 4){
+                result += `<li class="page-item">
+                    <div class="page-link pagination-btn">...</div>
+                  </li>`
+            }
+        }
+
+        if(pagination.links.next){
+            let nextPage = "{% query_transform page='page_number' %}"
+            let lastPage = "{% query_transform page='page_number' %}"
+
+            result += `<li class="page-item">
+                <a class="next page-link pagination-btn" href="?${nextPage.replace('page_number', pagination.current_page + 1)}">
+                  <i style="font-size: 0.8em;" class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="next page-link pagination-btn" href="?${lastPage.replace('page_number', pagination.total_pages)}">
+                  <i style="font-size: 0.8em;" class="fas fa-angle-double-right"></i>
+                </a>
+              </li>`
+        }
+
+        return `<nav>
+            <ul class="pagination pagination-sm">
+                ${result}
+            </ul>							
+          </nav>`
+    }
+
+</script>
+
 {% endblock scripts %}
 
 

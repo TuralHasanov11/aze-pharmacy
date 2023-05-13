@@ -1,9 +1,4 @@
-/*!
-    * Start Bootstrap - SB Admin Pro v2.0.5 (https://shop.startbootstrap.com/product/sb-admin-pro)
-    * Copyright 2013-2023 Start Bootstrap
-    * Licensed under SEE_LICENSE (https://github.com/StartBootstrap/sb-admin-pro/blob/master/LICENSE)
-    */
-    window.addEventListener('DOMContentLoaded', event => {
+window.addEventListener('DOMContentLoaded', event => {
     // Activate feather
     feather.replace();
 
@@ -22,10 +17,6 @@
     // Toggle the side navigation
     const sidebarToggle = document.body.querySelector('#sidebarToggle');
     if (sidebarToggle) {
-        // Uncomment Below to persist sidebar toggle between refreshes
-        // if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
-        //     document.body.classList.toggle('sidenav-toggled');
-        // }
         sidebarToggle.addEventListener('click', event => {
             event.preventDefault();
             document.body.classList.toggle('sidenav-toggled');
@@ -46,52 +37,4 @@
             }
         });
     }
-
-    // Add active state to sidbar nav links
-    let activatedPath = window.location.pathname.match(/([\w-]+\.html)/, '$1');
-
-    if (activatedPath) {
-        activatedPath = activatedPath[0];
-    } else {
-        activatedPath = 'index.html';
-    }
-
-    const targetAnchors = document.body.querySelectorAll('[href="' + activatedPath + '"].nav-link');
-
-    targetAnchors.forEach(targetAnchor => {
-        let parentNode = targetAnchor.parentNode;
-        while (parentNode !== null && parentNode !== document.documentElement) {
-            if (parentNode.classList.contains('collapse')) {
-                parentNode.classList.add('show');
-                const parentNavLink = document.body.querySelector(
-                    '[data-bs-target="#' + parentNode.id + '"]'
-                );
-                parentNavLink.classList.remove('collapsed');
-                parentNavLink.classList.add('active');
-            }
-            parentNode = parentNode.parentNode;
-        }
-        targetAnchor.classList.add('active');
-    });
-
-    const selectRowInputs = document.querySelectorAll('input.select-all')
-
-    function selectRows(source) {
-        const checkboxes = document.getElementsByName('selectedRows');
-        for (const row of checkboxes) {
-            row.checked = source.checked
-        }
-    }
-
-    selectRowInputs.forEach(element => {
-        element.addEventListener('change', (e)=>{
-            selectRows(e.currentTarget)
-        })
-    });
-
-    document.querySelector('.delete-selected-rows-btn').addEventListener('click', (e) => {
-        document.querySelectorAll('input[name=selectedRows]:checked').for
-    })
-
-    
 });
