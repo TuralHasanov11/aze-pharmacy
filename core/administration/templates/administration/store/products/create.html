@@ -34,52 +34,55 @@
     {% include 'components/messages.html' with messages=messages %}
     <form method="post" enctype="multipart/form-data">
         <div class="card mb-4">
-            <div class="card-header">{% translate "Product details" %}</div>
+            <div class="card-header">{% translate "Product Details" %}</div>
             <div class="card-body">
                 {% csrf_token %}
                 {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
                 {{form.non_form_errors}}
                 {{ form.media }}
-                <div class="mb-4">
+              <div class="row g-3 align-items-center">
+                <div class="col-12 col-md-6 col-xl-4 mb-4">
                     <label class="mb-1" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
                     {{ form.name }} 
                     {{ form.name.errors }}
                 </div>
-                <div class="mb-4">
+                <div class="col-12 col-md-6 col-xl-4 mb-4">
                   <label class="mb-1" for="{{ form.sku.id_for_label }}">{{ form.sku.label }}</label>
                   {{ form.sku }} 
                   {{ form.sku.errors }}
                 </div>
-                <div class="mb-4">
+                <div class="col-12 col-md-6 col-xl-4 mb-4">
                     <label class="mb-1" for="{{ form.category.id_for_label }}">{{ form.category.label }}</label>
                     {{ form.category }} 
                     {{ form.category.errors }}
                 </div>
-                <div class="mb-4">
+                <div class="col-12 col-md-6 col-xl-4 mb-4">
                     <label class="mb-1" for="{{ form.regular_price.id_for_label }}">{{ form.regular_price.label }}</label>
                     {{ form.regular_price }} 
                     {{ form.regular_price.errors }}
                 </div>
-                <div class="mb-4">
+                <div class="col-12  col-md-6 col-xl-4 mb-4">
                     <label class="mb-1" for="{{ form.discount.id_for_label }}">{{ form.discount.label }}</label>
                     {{ form.discount }} 
                     {{ form.discount.errors }}
                 </div>
-                <div class="mb-4">
+                <div class="col-12 col-md-6 col-xl-4 mb-4">
                     <label class="mb-1" for="{{ form.weight.id_for_label }}">{{ form.weight.label }}</label>
                     {{ form.weight }} 
                     {{ form.weight.errors }}
                 </div>
-                <div class="mb-4">
+                <div class="col-12 mb-4">
                   <label class="mb-1" for="{{ form.is_active.id_for_label }}">{{ form.is_active.label }}</label>
                   {{ form.is_active }} 
                   {{ form.is_active.errors }}
                 </div>
-                <div class="mb-4">
+                <div class="col-12 mb-4">
                     <label class="form-label mb-1" for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
                     {{ form.description }} 
                     {{ form.description.errors }}
                 </div>
+              </div>
+                
             </div>
             <div class="card-header">{% translate "Stock" %}</div>
             <div class="card-body">
@@ -94,7 +97,7 @@
                 </div>
                 {% endfor %}
             </div>
-            <div class="card-header">{% translate "Stock" %}</div>
+            <div class="card-header">{% translate "Images" %}</div>
             <div class="card-body">
                 {{ product_image_formset.management_form }} 
                 {% for formset_item in product_image_formset %}
@@ -106,7 +109,7 @@
                     {{ formset_item.image.errors }}
                 </div>
                 <div class="mb-4">
-                    <label class="mb-1" for="{{ formset_item.is_feature.id_for_label }}">{{ formset_item.is_feature.label }}</label>
+                    <label class="mb-1" for="{{ formset_item.is_feature.id_for_label }}">{{ formset_item.is_feature.label }}?</label>
                     {{ formset_item.is_feature }} 
                     {{ formset_item.is_feature.errors }}
                 </div>

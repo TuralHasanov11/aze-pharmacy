@@ -1,3 +1,4 @@
+{% load static %}
 {% load i18n %}
   <div class="suxnix-product-main">
     <div class="home-shop-item inner-shop-item">
@@ -7,12 +8,12 @@
           <img
             width="605"
             height="580"
-            src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% endif %}"
+            src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% else %}{% static 'images/main/products/default.png' %}{% endif %}"
             class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
             decoding="async"
             loading="lazy"
-            srcset="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% endif %} 605w,
-                    {% if product.image_feature %}{{product.image_feature.0.image.url}}{% endif %} 300w"
+            srcset="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% else %}{% static 'images/main/products/default.png' %}{% endif %} 605w,
+                    {% if product.image_feature %}{{product.image_feature.0.image.url}}{% else %}{% static 'images/main/products/default.png' %}{% endif %} 300w"
             sizes="(max-width: 605px) 100vw, 605px"
         /></a>
 

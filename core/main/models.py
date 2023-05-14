@@ -6,8 +6,6 @@ from django.utils.translation import gettext_lazy as _
 
 
 class RichTextEditorField(ckeditorFields.RichTextUploadingField):
-    description = _("Rich text editor field")
-
     def __init__(self, *args, **kwargs):
         kwargs['null'] = True
         kwargs['blank'] = True
@@ -51,9 +49,9 @@ class SiteInfo(models.Model):
     youtube_link = models.URLField(null=True, blank=True)
     tiktok_link = models.URLField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    banner_image = models.ImageField(upload_to="site/", null=True, blank=True)
-    breadcrumb_image = models.ImageField(upload_to="site/", null=True, blank=True)
-    about_image = models.ImageField(upload_to="site/", null=True, blank=True)
+    banner_image = models.ImageField(upload_to="site/", null=True, blank=True, default="site/banner_default.jpg")
+    breadcrumb_image = models.ImageField(upload_to="site/", null=True, blank=True, default="site/breadcrumb_default.jpg")
+    about_image = models.ImageField(upload_to="site/", null=True, blank=True, default="site/about_image_default.jpg")
 
     class Meta:
         verbose_name_plural = "Site Infos"

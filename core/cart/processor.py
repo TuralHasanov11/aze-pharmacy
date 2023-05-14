@@ -44,7 +44,6 @@ class CartProcessor:
         cart = self.cart.copy()
 
         for item in cart.values():
-            item['price'] = item['price']
             item['total_price'] = str(
                 Decimal(item['price']) * item['quantity'])
             yield item
@@ -79,7 +78,12 @@ class CartProcessor:
         productId = str(productId)
         try:
             if productId in self.cart:
-                self.cart[productId]['quantity'] = quantity
+                if quantity > 0:    
+                    self.cart[productId]['quantity'] = quantity
+                    self.cart[productId]['total_price'] = str(Decimal(self.cart[productId]['price']) * quantity)
+                else:
+                    self.cart.pop(productId)
+                    return None
 
             self.session["cart"] = self.cart
             self.save()

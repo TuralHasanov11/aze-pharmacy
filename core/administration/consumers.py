@@ -1,11 +1,6 @@
-# import asyncio
 import json
 
-# from channels.consumer import AsyncConsumer
 from channels.generic.websocket import WebsocketConsumer
-
-# from random import randint
-# from time import sleep
 
 
 class OrderConsumer(WebsocketConsumer):

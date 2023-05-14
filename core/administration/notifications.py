@@ -4,12 +4,12 @@ from dataclasses import dataclass
 from enum import Enum
 
 from django.conf import settings
-from django.contrib import messages
 from django.core.mail import BadHeaderError, EmailMessage
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 from orders.models import Order, OrderDelivery
+from twilio.base.exceptions import TwilioRestException
 from twilio.rest import Client
 
 
@@ -38,11 +38,12 @@ class DeliveryNotification(ABC):
 
 SMSClient = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
 
+
 class DeliveryMessageNotification(DeliveryNotification):
     @property
     def message(self):
         content = render_to_string("administration/notifications/sms/" + self.Template[self.delivery.delivery_status].value, {
-                                   'customer_name': self.order.full_name, 'delivery_date': self.delivery.delivery_date.strftime('%d.%m.%y'),}, 
+                                   'customer_name': self.order.full_name, 'delivery_date': self.delivery.delivery_date.strftime('%d.%m.%y')}, 
                                    request=self.request)
         return content
 
@@ -54,8 +55,7 @@ class DeliveryMessageNotification(DeliveryNotification):
                     from_=settings.TWILIO_PHONE,
                     to=self.order.phone
                 )
-            except Exception:
-                messages.error(self.request, _("SMS cannot be sent"))
+            except TwilioRestException:
                 raise Exception(_("SMS cannot be sent"))
 
 
@@ -87,7 +87,6 @@ class DeliveryEmailNotification(DeliveryNotification):
                 to=[self.order.email],
             )
             msg.content_subtype = "html"
-            msg.send()
+            msg.send(fail_silently=True)
         except BadHeaderError:
-            messages.error(self.request, _("Email cannot be sent"))
             raise Exception(_("Email cannot be sent"))

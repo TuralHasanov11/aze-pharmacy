@@ -1073,6 +1073,9 @@ strong.woocommerce-review__author {
     max-width: 50%;
     width: 50%;
 }
+.woocommerce-checkout-review-order-table th, .woocommerce-checkout-review-order-table img {
+    margin-right: 0.5em !important;
+}
 .order-review-wrapper .shop_table tbody td:last-child {
     text-align: right;
 }

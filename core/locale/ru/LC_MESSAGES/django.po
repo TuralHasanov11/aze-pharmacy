@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-11 23:39+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2023-05-15 01:10+0200\n"
+"PO-Revision-Date: 2023-05-15 01:04+0400\n"
+"Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -19,35 +19,36 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Translated-Using: django-rosetta 0.9.9\n"
 
 #: .\administration\context_processors.py:7
 #: .\administration\templates\administration\index.html:2
 msgid "Dashboard"
-msgstr ""
+msgstr "Панель приборов"
 
 #: .\administration\context_processors.py:12 .\administration\views.py:32
 #: .\main\context_processors.py:14 .\main\context_processors.py:29
 #: .\services\templates\services\index.html:2 .\services\views.py:17
 #: .\services\views.py:19 .\templates\components\default\footer.html:31
 msgid "Services"
-msgstr ""
+msgstr "Услуги"
 
 #: .\administration\context_processors.py:16
 #: .\administration\templates\administration\services\index.html:2
 #: .\administration\templates\administration\services\index.html:12
 msgid "Service List"
-msgstr ""
+msgstr "Перечень Yслуг"
 
 #: .\administration\context_processors.py:21 .\administration\views.py:34
 #: .\library\templates\library\index.html:2 .\library\views.py:17
 #: .\library\views.py:19 .\main\context_processors.py:12
 #: .\main\context_processors.py:34
 msgid "Library"
-msgstr ""
+msgstr "Библиотека"
 
 #: .\administration\context_processors.py:25
 msgid "Documents"
-msgstr ""
+msgstr "Документы"
 
 #: .\administration\context_processors.py:30 .\administration\views.py:36
 #: .\main\context_processors.py:13 .\main\context_processors.py:35
@@ -55,88 +56,88 @@ msgstr ""
 #: .\news\views.py:17 .\news\views.py:19 .\news\views.py:31 .\news\views.py:33
 #: .\templates\components\main\blog-area.html:9
 msgid "News"
-msgstr ""
+msgstr "Новости"
 
 #: .\administration\context_processors.py:34
 #: .\administration\templates\administration\posts\index.html:4
 #: .\administration\templates\administration\posts\index.html:14
 msgid "Post List"
-msgstr ""
+msgstr "Список Пост"
 
 #: .\administration\context_processors.py:36
 msgid "Add Post"
-msgstr ""
+msgstr "Добавить Пост"
 
 #: .\administration\context_processors.py:41 .\administration\views.py:38
 #: .\main\context_processors.py:19 .\main\context_processors.py:31
-#: .\main\templates\main\career.html:2 .\main\views.py:89 .\main\views.py:91
+#: .\main\templates\main\career.html:2 .\main\views.py:91 .\main\views.py:93
 msgid "Career"
-msgstr ""
+msgstr "Карьера"
 
 #: .\administration\context_processors.py:45
 #: .\administration\templates\administration\companies\index.html:2
 #: .\administration\templates\administration\companies\index.html:12
 msgid "Company List"
-msgstr ""
+msgstr "Список Kомпаний"
 
 #: .\administration\context_processors.py:50 .\administration\views.py:40
 msgid "Authentication"
-msgstr ""
+msgstr "Аутентификация"
 
 #: .\administration\context_processors.py:54
 #: .\administration\templates\administration\users\index.html:2
 #: .\administration\templates\administration\users\index.html:12
 msgid "User List"
-msgstr ""
+msgstr "Список Пользователей"
 
 #: .\administration\context_processors.py:56
 #: .\administration\templates\administration\users\create.html:4
 #: .\administration\templates\administration\users\create.html:14
 msgid "Add User"
-msgstr ""
+msgstr "Добавить Пользователя"
 
 #: .\administration\context_processors.py:61 .\administration\views.py:42
 msgid "Store"
-msgstr ""
+msgstr "Магазин"
 
 #: .\administration\context_processors.py:65
 msgid "Categories"
-msgstr ""
+msgstr "Категории"
 
 #: .\administration\context_processors.py:67 .\store\views.py:48
 #: .\store\views.py:76 .\store\views.py:79 .\store\views.py:108
 msgid "Products"
-msgstr ""
+msgstr "Продукты"
 
-#: .\administration\context_processors.py:72
-#: .\administration\context_processors.py:76 .\administration\views.py:44
-#: .\checkout\templates\checkout\success.html:2
+#: .\administration\context_processors.py:69
+#: .\administration\templates\administration\store\products\create.html:2
+#: .\administration\templates\administration\store\products\create.html:16
+#: .\administration\templates\administration\store\products\index.html:20
+msgid "Add Product"
+msgstr "Добавить Продукт"
+
+#: .\administration\context_processors.py:74
+#: .\administration\context_processors.py:78 .\administration\views.py:44
 msgid "Orders"
-msgstr ""
+msgstr "Заказы"
 
-#: .\administration\context_processors.py:80 .\administration\views.py:46
+#: .\administration\context_processors.py:82 .\administration\views.py:46
 msgid "Site Data Management"
-msgstr ""
+msgstr "Управление Данными Cайта"
 
-#: .\administration\context_processors.py:84 .\administration\views.py:524
-#: .\administration\views.py:527
+#: .\administration\context_processors.py:86
 msgid "Info"
-msgstr ""
-
-#: .\administration\context_processors.py:85
-#: .\administration\templates\administration\site\texts.html:26
-#: .\administration\views.py:506 .\administration\views.py:509
-msgid "Texts"
-msgstr ""
-
-#: .\administration\context_processors.py:86 .\main\context_processors.py:37
-#: .\main\templates\main\faq.html:2 .\main\views.py:141 .\main\views.py:143
-msgid "FAQ"
-msgstr ""
+msgstr "Информация"
 
 #: .\administration\context_processors.py:87
-msgid "Add FAQ"
-msgstr ""
+#: .\administration\templates\administration\site\texts.html:26
+msgid "Texts"
+msgstr "Тексты"
+
+#: .\administration\context_processors.py:88 .\main\context_processors.py:37
+#: .\main\templates\main\faq.html:2 .\main\views.py:143 .\main\views.py:145
+msgid "FAQ"
+msgstr "FAQ"
 
 #: .\administration\forms.py:19 .\administration\forms.py:20
 #: .\administration\forms.py:32 .\administration\forms.py:33
@@ -150,10 +151,10 @@ msgstr ""
 #: .\administration\templates\administration\store\categories\index.html:29
 #: .\administration\templates\administration\store\categories\index.html:36
 #: .\administration\templates\administration\store\products\index.html:46
-#: .\administration\templates\administration\store\products\index.html:84
+#: .\administration\templates\administration\store\products\index.html:80
 #: .\store\views.py:13
 msgid "Name"
-msgstr ""
+msgstr "Имя"
 
 #: .\administration\forms.py:21 .\administration\forms.py:62
 #: .\administration\forms.py:73
@@ -164,9 +165,9 @@ msgstr ""
 #: .\administration\templates\administration\services\index.html:30
 #: .\administration\templates\administration\services\index.html:38
 #: .\administration\templates\administration\store\products\index.html:53
-#: .\administration\templates\administration\store\products\index.html:91
+#: .\administration\templates\administration\store\products\index.html:87
 msgid "Cover Image"
-msgstr ""
+msgstr "Изображение Oбложки"
 
 #: .\administration\forms.py:23 .\administration\forms.py:24
 #: .\administration\forms.py:76 .\administration\forms.py:180
@@ -174,21 +175,21 @@ msgstr ""
 #: .\administration\templates\administration\services\index.html:39
 #: .\store\templates\store\products\detail.html:126
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 #: .\administration\forms.py:49
 msgid "File"
-msgstr ""
+msgstr "Файл"
 
 #: .\administration\forms.py:60 .\administration\forms.py:61
 msgid "Link"
-msgstr ""
+msgstr "Линк"
 
 #: .\administration\forms.py:71 .\administration\forms.py:72
 #: .\administration\templates\administration\posts\index.html:45
 #: .\administration\templates\administration\posts\index.html:60
 msgid "Title"
-msgstr ""
+msgstr "Заголовок"
 
 #: .\administration\forms.py:84 .\administration\forms.py:100
 #: .\administration\forms.py:101 .\administration\forms.py:135
@@ -200,12 +201,12 @@ msgstr ""
 #: .\administration\templates\administration\users\index.html:43
 #: .\orders\forms.py:25
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: .\administration\forms.py:86 .\administration\forms.py:104
 #: .\administration\forms.py:105
 msgid "Password"
-msgstr ""
+msgstr "Пароль"
 
 #: .\administration\forms.py:94 .\administration\forms.py:95
 #: .\administration\forms.py:129 .\administration\forms.py:130
@@ -213,7 +214,7 @@ msgstr ""
 #: .\administration\templates\administration\users\index.html:33
 #: .\administration\templates\administration\users\index.html:42
 msgid "Username"
-msgstr ""
+msgstr "Имя пользователя"
 
 #: .\administration\forms.py:96 .\administration\forms.py:97
 #: .\administration\forms.py:131 .\administration\forms.py:132
@@ -221,7 +222,7 @@ msgstr ""
 #: .\administration\templates\administration\orders\detail.html:41
 #: .\orders\forms.py:15
 msgid "First Name"
-msgstr ""
+msgstr "Имя"
 
 #: .\administration\forms.py:98 .\administration\forms.py:99
 #: .\administration\forms.py:133 .\administration\forms.py:134
@@ -229,222 +230,224 @@ msgstr ""
 #: .\administration\templates\administration\orders\detail.html:45
 #: .\orders\forms.py:17
 msgid "Last Name"
-msgstr ""
+msgstr "Фамилия"
 
 #: .\administration\forms.py:102 .\administration\forms.py:137
 #: .\administration\templates\administration\users\index.html:35
 #: .\administration\templates\administration\users\index.html:44
 msgid "Role"
-msgstr ""
+msgstr "Роль"
 
 #: .\administration\forms.py:106
 msgid "Repeat password"
-msgstr ""
+msgstr "Повторите пароль"
 
 #: .\administration\forms.py:107
 msgid "Password Confirm"
-msgstr ""
+msgstr "Подтвердить пароль"
 
 #: .\administration\forms.py:156 .\administration\forms.py:157
 msgid "Current Password"
-msgstr ""
+msgstr "Текущий пароль"
 
 #: .\administration\forms.py:158 .\administration\forms.py:159
 msgid "New Password"
-msgstr ""
+msgstr "Новый пароль"
 
 #: .\administration\forms.py:160 .\administration\forms.py:161
 msgid "Confirm Password"
-msgstr ""
+msgstr "Подтвердите пароль"
 
 #: .\administration\forms.py:167 .\administration\forms.py:168
 #: .\administration\templates\administration\store\products\index.html:50
-#: .\administration\templates\administration\store\products\index.html:88
+#: .\administration\templates\administration\store\products\index.html:84
 msgid "SKU"
-msgstr ""
+msgstr "SKU"
 
 #: .\administration\forms.py:169
 msgid "category"
-msgstr ""
+msgstr "категория"
 
 #: .\administration\forms.py:171 .\administration\forms.py:172
 #: .\administration\templates\administration\store\products\detail.html:64
 msgid "Regular Price"
-msgstr ""
+msgstr "Обычная Цена"
 
 #: .\administration\forms.py:173 .\administration\forms.py:174
 #: .\administration\templates\administration\store\products\detail.html:66
 #: .\administration\templates\administration\store\products\index.html:59
-#: .\administration\templates\administration\store\products\index.html:97
+#: .\administration\templates\administration\store\products\index.html:93
 msgid "Discount"
-msgstr ""
+msgstr "Скидка"
 
 #: .\administration\forms.py:175 .\administration\forms.py:176
 #: .\administration\templates\administration\store\products\detail.html:70
 #: .\store\templates\store\products\detail.html:110
 msgid "Weight"
-msgstr ""
+msgstr "Масса"
 
 #: .\administration\forms.py:177 .\administration\forms.py:178
 msgid "Is Active"
-msgstr ""
+msgstr "Активен"
 
 #: .\administration\forms.py:196 .\administration\forms.py:197
 msgid "Units"
-msgstr ""
+msgstr "Единицы"
 
 #: .\administration\forms.py:205 .\administration\forms.py:206
 msgid "Image"
-msgstr ""
+msgstr "Изображение"
 
 #: .\administration\forms.py:207
 msgid "Is Feature"
-msgstr ""
+msgstr "Изображение Oбложки"
 
 #: .\administration\forms.py:222 .\administration\forms.py:223
 #: .\administration\templates\administration\orders\detail.html:61
 #: .\orders\forms.py:23
 msgid "Phone"
-msgstr ""
+msgstr "Телефон"
 
 #: .\administration\forms.py:224
 #: .\administration\templates\administration\orders\detail.html:53
-#: .\orders\templates\orders\detail.html:46
+#: .\orders\templates\orders\detail.html:61
 msgid "Address"
-msgstr ""
+msgstr "Адрес"
 
 #: .\administration\forms.py:225
 msgid "address"
-msgstr ""
+msgstr "адрес"
 
 #: .\administration\forms.py:228 .\administration\forms.py:229
 msgid "Facebook link"
-msgstr ""
+msgstr "Cсылка на Фейсбук"
 
 #: .\administration\forms.py:230 .\administration\forms.py:231
 msgid "Instagram link"
-msgstr ""
+msgstr "Cсылка на Инстаграм"
 
 #: .\administration\forms.py:232 .\administration\forms.py:233
 msgid "YouTube link"
-msgstr ""
+msgstr "Cсылка на Ютуб"
 
 #: .\administration\forms.py:234 .\administration\forms.py:235
 msgid "TikTok link"
-msgstr ""
+msgstr "ТикТок ссылка"
 
 #: .\administration\forms.py:236 .\administration\forms.py:237
 msgid "Twitter link"
-msgstr ""
+msgstr "Cсылка на Tвиттер"
 
 #: .\administration\forms.py:238 .\administration\forms.py:239
 msgid "Banner Image"
-msgstr ""
+msgstr "Изображение Баннера"
 
 #: .\administration\forms.py:240 .\administration\forms.py:241
 msgid "Breadcrumb Image"
-msgstr ""
+msgstr "Изображение Cтраницы"
 
 #: .\administration\forms.py:242 .\administration\forms.py:243
 msgid "About Image"
-msgstr ""
+msgstr "Об Изображении"
 
 #: .\administration\forms.py:253 .\administration\forms.py:271
 #: .\administration\templates\administration\site\faq-list.html:36
 #: .\administration\templates\administration\site\faq-list.html:43
 msgid "Language"
-msgstr ""
+msgstr "Язык"
 
 #: .\administration\forms.py:255 .\administration\forms.py:256
 msgid "About"
-msgstr ""
+msgstr "О"
 
 #: .\administration\forms.py:258 .\main\context_processors.py:43
-#: .\main\templates\main\return-policy.html:2 .\main\views.py:126
-#: .\main\views.py:128
+#: .\main\templates\main\return-policy.html:2 .\main\views.py:128
+#: .\main\views.py:130
 msgid "Return Policy"
-msgstr ""
+msgstr "Политика Bозврата"
 
 #: .\administration\forms.py:260 .\main\context_processors.py:42
-#: .\main\templates\main\privacy-policy.html:2 .\main\views.py:114
-#: .\main\views.py:116
+#: .\main\templates\main\privacy-policy.html:2 .\main\views.py:116
+#: .\main\views.py:118
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Политика Kонфиденциальности"
 
 #: .\administration\forms.py:262 .\main\context_processors.py:41
-#: .\main\templates\main\terms-and-conditions.html:2 .\main\views.py:101
-#: .\main\views.py:103
+#: .\main\templates\main\terms-and-conditions.html:2 .\main\views.py:103
+#: .\main\views.py:105
 msgid "Terms and Conditions"
-msgstr ""
+msgstr "Условия и Положения"
 
 #: .\administration\forms.py:273 .\administration\forms.py:274
 #: .\administration\templates\administration\site\faq-list.html:35
 #: .\administration\templates\administration\site\faq-list.html:42
-#: .\administration\views.py:571
 msgid "Question"
-msgstr ""
+msgstr "Вопрос"
 
 #: .\administration\forms.py:276
 msgid "Answer"
-msgstr ""
+msgstr "Отвечать"
 
 #: .\administration\forms.py:288 .\administration\forms.py:289
 msgid "Notes"
-msgstr ""
+msgstr "Примечания"
 
 #: .\administration\forms.py:297 .\administration\forms.py:298
-#: .\orders\templates\orders\detail.html:58
+#: .\orders\templates\orders\detail.html:81
 msgid "Courier Name"
-msgstr ""
+msgstr "Имя Kурьера"
 
 #: .\administration\forms.py:299 .\administration\forms.py:300
-#: .\orders\templates\orders\detail.html:54
+#: .\orders\templates\orders\detail.html:75
 msgid "Tracking Number"
-msgstr ""
+msgstr "Идентификационный Hомер"
 
 #: .\administration\forms.py:301 .\administration\forms.py:302
 msgid "Delivery Status"
-msgstr ""
+msgstr "О Cостоянии Доставки"
 
 #: .\administration\forms.py:303 .\administration\forms.py:304
-#: .\orders\templates\orders\detail.html:50
+#: .\orders\templates\orders\detail.html:67
 msgid "Delivery Date"
-msgstr ""
+msgstr "Дата Доставки"
 
-#: .\administration\notifications.py:58 .\administration\notifications.py:59
+#: .\administration\forms.py:325
+msgid "Delivery Status cannot be changed!"
+msgstr "Delivery Status cannot be changed!"
+
+#: .\administration\notifications.py:59
 msgid "SMS cannot be sent"
-msgstr ""
+msgstr "SMS не может быть отправлено"
 
-#: .\administration\notifications.py:92 .\administration\notifications.py:93
-#: .\main\views.py:58 .\main\views.py:62
+#: .\administration\notifications.py:92
 msgid "Email cannot be sent"
-msgstr ""
+msgstr "Электронная почта не может быть отправлена"
 
 #: .\administration\templates\administration\auth\login.html:2
 #: .\administration\templates\administration\auth\login.html:9
 #: .\administration\templates\administration\auth\login.html:26
 msgid "Login"
-msgstr ""
+msgstr "Авторизоваться"
 
 #: .\administration\templates\administration\auth\password-change.html:4
 #: .\administration\templates\administration\auth\password-change.html:14
 #: .\administration\templates\administration\auth\profile.html:2
 #: .\administration\templates\administration\auth\profile.html:13
 msgid "Account Settings"
-msgstr ""
+msgstr "Аккаунт Hастройки"
 
 #: .\administration\templates\administration\auth\password-change.html:4
 #: .\administration\templates\administration\auth\password-change.html:14
 msgid "Security"
-msgstr ""
+msgstr "Безопасность"
 
 #: .\administration\templates\administration\auth\password-change.html:27
 #: .\templates\components\admin\profile-nav.html:4
 msgid "Change Password"
-msgstr ""
+msgstr "Изменить Пароль"
 
 #: .\administration\templates\administration\auth\password-change.html:54
-#: .\administration\templates\administration\companies\edit.html:58
+#: .\administration\templates\administration\companies\edit.html:60
 #: .\administration\templates\administration\companies\index.html:83
 #: .\administration\templates\administration\documents\edit.html:53
 #: .\administration\templates\administration\documents\index.html:100
@@ -455,40 +458,40 @@ msgstr ""
 #: .\administration\templates\administration\services\index.html:86
 #: .\administration\templates\administration\site\faq-create.html:51
 #: .\administration\templates\administration\site\faq-edit.html:59
-#: .\administration\templates\administration\site\info.html:75
-#: .\administration\templates\administration\site\texts.html:55
+#: .\administration\templates\administration\site\info.html:80
+#: .\administration\templates\administration\site\texts.html:62
 #: .\administration\templates\administration\store\categories\edit.html:59
 #: .\administration\templates\administration\store\categories\index.html:78
-#: .\administration\templates\administration\store\products\create.html:115
+#: .\administration\templates\administration\store\products\create.html:118
 #: .\administration\templates\administration\store\products\edit.html:140
 #: .\administration\templates\administration\users\create.html:76
 #: .\administration\templates\administration\users\edit.html:74
 msgid "Save"
-msgstr ""
+msgstr "Сохранять"
 
 #: .\administration\templates\administration\auth\profile.html:2
 #: .\administration\templates\administration\auth\profile.html:13
 #: .\templates\components\admin\profile-nav.html:3
 msgid "Profile"
-msgstr ""
+msgstr "Профиль"
 
 #: .\administration\templates\administration\auth\profile.html:26
 #: .\administration\templates\administration\users\create.html:29
 #: .\administration\templates\administration\users\edit.html:39
 msgid "Account Details"
-msgstr ""
+msgstr "Детали Аккаунт записи"
 
 #: .\administration\templates\administration\companies\edit.html:18
 msgid "Back to Company List"
-msgstr ""
+msgstr "Назад к Cписку Kомпаний"
 
 #: .\administration\templates\administration\companies\edit.html:24
 msgid "Delete Company"
-msgstr ""
+msgstr "Удалить Kомпанию"
 
 #: .\administration\templates\administration\companies\edit.html:36
 msgid "Edit Company"
-msgstr ""
+msgstr "Изменить Kомпанию"
 
 #: .\administration\templates\administration\companies\index.html:31
 #: .\administration\templates\administration\companies\index.html:38
@@ -502,293 +505,306 @@ msgstr ""
 #: .\administration\templates\administration\site\faq-list.html:44
 #: .\administration\templates\administration\store\categories\index.html:31
 #: .\administration\templates\administration\store\categories\index.html:38
-#: .\administration\templates\administration\store\products\index.html:78
-#: .\administration\templates\administration\store\products\index.html:116
+#: .\administration\templates\administration\store\products\index.html:74
+#: .\administration\templates\administration\store\products\index.html:108
 #: .\administration\templates\administration\users\index.html:37
 #: .\administration\templates\administration\users\index.html:46
 msgid "Actions"
-msgstr ""
+msgstr "Действия"
 
 #: .\administration\templates\administration\companies\index.html:62
 msgid "Add Company"
-msgstr ""
+msgstr "Добавить Kомпанию"
 
 #: .\administration\templates\administration\documents\edit.html:18
 msgid "Back to Document List"
-msgstr ""
+msgstr "Назад к Cписку Документов"
 
 #: .\administration\templates\administration\documents\edit.html:24
 msgid "Delete Document"
-msgstr ""
+msgstr "Удалить Документ"
 
 #: .\administration\templates\administration\documents\edit.html:36
 msgid "Edit Document"
-msgstr ""
+msgstr "Редактировать Документ"
 
 #: .\administration\templates\administration\documents\index.html:2
 #: .\administration\templates\administration\documents\index.html:12
 msgid "Document List"
-msgstr ""
+msgstr "Список Документов"
 
 #: .\administration\templates\administration\documents\index.html:30
+#: .\administration\templates\administration\orders\index.html:33
+#: .\administration\templates\administration\orders\index.html:34
 #: .\administration\templates\administration\posts\index.html:36
 #: .\administration\templates\administration\store\products\index.html:36
+#: .\templates\components\admin\imports\scripts.html:6
 msgid "Search"
-msgstr ""
+msgstr "Поиск"
 
 #: .\administration\templates\administration\documents\index.html:42
 #: .\administration\templates\administration\documents\index.html:53
-#: .\administration\templates\administration\store\products\index.html:75
-#: .\administration\templates\administration\store\products\index.html:113
+#: .\administration\templates\administration\store\products\index.html:71
+#: .\administration\templates\administration\store\products\index.html:105
 msgid "Updated At"
-msgstr ""
+msgstr "Обновлено в"
 
 #: .\administration\templates\administration\documents\index.html:84
 msgid "Add Document"
-msgstr ""
+msgstr "Добавить документ"
 
 #: .\administration\templates\administration\index.html:7
 #, python-format
 msgid "Welcome to %(config.app.name)s Admin"
-msgstr ""
+msgstr "Добро пожаловать в %(config.app.name)s админ"
 
 #: .\administration\templates\administration\index.html:13
 msgid "Dashboards"
-msgstr ""
+msgstr "Панели мониторинга"
 
 #: .\administration\templates\administration\orders\detail.html:2
 #: .\administration\templates\administration\orders\detail.html:16
 #: .\administration\templates\administration\orders\detail.html:35
 #: .\orders\templates\orders\detail.html:2
-#: .\orders\templates\orders\detail.html:3
-#: .\orders\templates\orders\detail.html:20 .\orders\views.py:64
-#: .\orders\views.py:66
+#: .\orders\templates\orders\detail.html:21 .\orders\views.py:66
+#: .\orders\views.py:68
 msgid "Order Details"
-msgstr ""
+msgstr "Информация Для Заказа"
 
 #: .\administration\templates\administration\orders\detail.html:25
 msgid "Back to Order List"
-msgstr ""
+msgstr "Назад к Cписку Заказов"
 
 #: .\administration\templates\administration\orders\detail.html:57
 msgid "City"
-msgstr ""
+msgstr "Город"
 
 #: .\administration\templates\administration\orders\detail.html:65
+#: .\orders\templates\orders\detail.html:32
 msgid "Total Paid"
-msgstr ""
+msgstr "Итого"
 
 #: .\administration\templates\administration\orders\detail.html:69
 msgid "Order Key"
-msgstr ""
+msgstr "Ключ Заказа"
 
 #: .\administration\templates\administration\orders\detail.html:73
 msgid "Payment Status"
-msgstr ""
+msgstr "Статус Платежа"
 
 #: .\administration\templates\administration\orders\detail.html:77
 msgid "Created Date"
-msgstr ""
+msgstr "Дата Cоздания"
 
 #: .\administration\templates\administration\orders\detail.html:81
 msgid "Updated Date"
-msgstr ""
+msgstr "Дата Oбновления"
 
 #: .\administration\templates\administration\orders\detail.html:92
-#: .\administration\views.py:428 .\administration\views.py:465
-#: .\administration\views.py:487 .\cart\templates\cart\summary.html:28
-#: .\checkout\templates\checkout\index.html:167
-#: .\checkout\templates\checkout\success.html:34
-#: .\orders\templates\orders\detail.html:79
+#: .\cart\templates\cart\summary.html:28
+#: .\checkout\templates\checkout\index.html:163
+#: .\orders\templates\orders\detail.html:101
 msgid "Product"
-msgstr ""
+msgstr "Продукт"
 
 #: .\administration\templates\administration\orders\detail.html:93
 #: .\administration\templates\administration\store\products\index.html:55
-#: .\administration\templates\administration\store\products\index.html:93
+#: .\administration\templates\administration\store\products\index.html:89
 #: .\cart\templates\cart\summary.html:29
-#: .\orders\templates\orders\detail.html:81
+#: .\orders\templates\orders\detail.html:107
 msgid "Price"
-msgstr ""
+msgstr "Цена"
 
 #: .\administration\templates\administration\orders\detail.html:94
 #: .\cart\templates\cart\summary.html:30
-#: .\orders\templates\orders\detail.html:80
+#: .\orders\templates\orders\detail.html:38
+#: .\orders\templates\orders\detail.html:104
 #: .\store\templates\store\products\detail.html:66
 msgid "Quantity"
-msgstr ""
+msgstr "Количество"
 
 #: .\administration\templates\administration\orders\detail.html:95
 #: .\cart\templates\cart\summary.html:31
-#: .\checkout\templates\checkout\index.html:168
-#: .\checkout\templates\checkout\success.html:35
+#: .\checkout\templates\checkout\index.html:164
 #: .\templates\components\default\header.html:91
 msgid "Subtotal"
-msgstr ""
+msgstr "Промежуточный итог"
 
 #: .\administration\templates\administration\orders\detail.html:110
-#: .\cart\templates\cart\summary.html:131
-#: .\checkout\templates\checkout\index.html:200
-#: .\checkout\templates\checkout\success.html:65
+#: .\cart\templates\cart\summary.html:119
+#: .\checkout\templates\checkout\index.html:199
+#: .\templates\components\admin\imports\scripts.html:9
 msgid "Total"
-msgstr ""
+msgstr "Общий"
 
 #: .\administration\templates\administration\orders\detail.html:125
 msgid "Edit Order Details"
-msgstr ""
+msgstr "Изменить Детали Заказа"
 
 #: .\administration\templates\administration\orders\detail.html:140
 msgid "Edit Order Delivery Information"
-msgstr ""
+msgstr "Изменить Информацию о Доставке Заказа"
 
-#: .\administration\templates\administration\orders\index.html:6
+#: .\administration\templates\administration\orders\index.html:7
+#: .\administration\templates\administration\orders\index.html:17
 msgid "Order List"
-msgstr ""
+msgstr "Список Заказа"
+
+#: .\administration\templates\administration\orders\index.html:39
+msgid "Flagged Orders Only"
+msgstr "Только Помеченные Заказы"
+
+#: .\administration\templates\administration\orders\index.html:43
+msgid "All Orders"
+msgstr "Все Заказы"
+
+#: .\administration\templates\administration\orders\index.html:86
+msgid "New"
+msgstr "Новый"
 
 #: .\administration\templates\administration\posts\create.html:2
 #: .\administration\templates\administration\posts\create.html:16
 #: .\administration\templates\administration\posts\index.html:20
 msgid "Create Post"
-msgstr ""
+msgstr "Создать Пост"
 
 #: .\administration\templates\administration\posts\create.html:25
 #: .\administration\templates\administration\posts\detail.html:37
 #: .\administration\templates\administration\posts\edit.html:43
 msgid "Back to Post List"
-msgstr ""
+msgstr "Вернуться к Cписку Пост"
 
 #: .\administration\templates\administration\posts\create.html:63
 #: .\administration\templates\administration\posts\edit.html:81
 msgid "Publish"
-msgstr ""
+msgstr "Публиковать"
 
 #: .\administration\templates\administration\posts\detail.html:22
 #: .\administration\templates\administration\posts\edit.html:25
 #: .\administration\templates\administration\store\products\detail.html:21
 msgid "View on website"
-msgstr ""
+msgstr "Посмотреть на cайте"
 
 #: .\administration\templates\administration\posts\detail.html:26
 #: .\administration\templates\administration\posts\edit.html:2
 #: .\administration\templates\administration\posts\edit.html:16
 msgid "Edit Post"
-msgstr ""
+msgstr "Редактировать Пост"
 
 #: .\administration\templates\administration\posts\detail.html:32
 #: .\administration\templates\administration\posts\edit.html:29
 msgid "Delete Post"
-msgstr ""
+msgstr "Удалить Пост"
 
 #: .\administration\templates\administration\posts\edit.html:36
 msgid "View Post"
-msgstr ""
+msgstr "Посмотреть Cообщение"
 
 #: .\administration\templates\administration\posts\index.html:49
 #: .\administration\templates\administration\posts\index.html:64
 msgid "Creation Date"
-msgstr ""
+msgstr "Дата Cоздания"
 
 #: .\administration\templates\administration\posts\index.html:52
 #: .\administration\templates\administration\posts\index.html:67
 msgid "Update Date"
-msgstr ""
+msgstr "Дата Oбновления"
 
 #: .\administration\templates\administration\services\edit.html:18
 msgid "Back to Service List"
-msgstr ""
+msgstr "Назад к Cписку Услуги"
 
 #: .\administration\templates\administration\services\edit.html:24
 msgid "Delete Service"
-msgstr ""
+msgstr "Удалить Услугa"
 
 #: .\administration\templates\administration\services\edit.html:36
 msgid "Edit Service"
-msgstr ""
+msgstr "Редактировать Услуг"
 
 #: .\administration\templates\administration\services\index.html:29
 #: .\administration\templates\administration\services\index.html:37
-#: .\administration\views.py:93
 msgid "Service"
-msgstr ""
+msgstr "Услуга"
 
 #: .\administration\templates\administration\services\index.html:65
 msgid "Add Service"
-msgstr ""
+msgstr "Добавить Услугу"
 
 #: .\administration\templates\administration\site\faq-create.html:4
 #: .\administration\templates\administration\site\faq-create.html:14
 #: .\administration\templates\administration\site\faq-create.html:29
 msgid "Add Question"
-msgstr ""
+msgstr "Добавить Bопрос"
 
 #: .\administration\templates\administration\site\faq-create.html:20
 #: .\administration\templates\administration\site\faq-edit.html:20
 msgid "Back to FAQ List"
-msgstr ""
+msgstr "Назад к списку FAQ"
 
 #: .\administration\templates\administration\site\faq-edit.html:4
 #: .\administration\templates\administration\site\faq-edit.html:14
 #: .\administration\templates\administration\site\faq-edit.html:37
 msgid "Edit Question"
-msgstr ""
+msgstr "Изменить Bопрос"
 
 #: .\administration\templates\administration\site\faq-edit.html:26
 msgid "Delete Question"
-msgstr ""
+msgstr "Удалить Bопрос"
 
 #: .\administration\templates\administration\site\faq-list.html:4
 #: .\administration\templates\administration\site\faq-list.html:14
 msgid "FAQ List"
-msgstr ""
+msgstr "Список FAQ"
 
 #: .\administration\templates\administration\site\faq-list.html:20
 msgid "Add New Question"
-msgstr ""
+msgstr "Добавить Hовый Bопрос"
 
 #: .\administration\templates\administration\site\info.html:3
 #: .\administration\templates\administration\site\info.html:12
 msgid "Site Info"
-msgstr ""
+msgstr "Информация о Cайте"
 
 #: .\administration\templates\administration\site\info.html:28
 msgid "Contact details"
-msgstr ""
+msgstr "Контактная информация"
 
 #: .\administration\templates\administration\site\info.html:28
 msgid "Social media links"
-msgstr ""
+msgstr "Ссылки на социальные сети"
 
 #: .\administration\templates\administration\site\texts.html:3
 #: .\administration\templates\administration\site\texts.html:12
 msgid "Site Texts"
-msgstr ""
+msgstr "Тексты Cайта"
 
 #: .\administration\templates\administration\site\texts.html:27
 msgid "About text"
-msgstr ""
+msgstr "О тексте"
 
 #: .\administration\templates\administration\site\texts.html:27
 msgid "Terms and Privacy text"
-msgstr ""
+msgstr "Текст Условий и Kонфиденциальности"
 
 #: .\administration\templates\administration\store\categories\edit.html:2
 #: .\administration\templates\administration\store\categories\edit.html:16
 #: .\administration\templates\administration\store\categories\edit.html:43
 msgid "Edit Category"
-msgstr ""
+msgstr "Изменить Kатегорию"
 
 #: .\administration\templates\administration\store\categories\edit.html:25
 msgid "Back to Category List"
-msgstr ""
+msgstr "Назад к Cписку Kатегорий"
 
 #: .\administration\templates\administration\store\categories\edit.html:31
 msgid "Delete Category"
-msgstr ""
+msgstr "Удалить Kатегорию"
 
 #: .\administration\templates\administration\store\categories\index.html:2
 #: .\administration\templates\administration\store\categories\index.html:12
 msgid "Category List"
-msgstr ""
+msgstr "Список Kатегорий"
 
 #: .\administration\templates\administration\store\categories\index.html:30
 #: .\administration\templates\administration\store\categories\index.html:37
@@ -797,585 +813,807 @@ msgstr ""
 
 #: .\administration\templates\administration\store\categories\index.html:62
 msgid "Add Category"
-msgstr ""
+msgstr "Добавить Kатегорию"
 
 #: .\administration\templates\administration\store\categories\index.html:85
 msgid "Category Structure"
-msgstr ""
-
-#: .\administration\templates\administration\store\products\create.html:2
-#: .\administration\templates\administration\store\products\create.html:16
-#: .\administration\templates\administration\store\products\index.html:20
-msgid "Add Product"
-msgstr ""
+msgstr "Структура Kатегории"
 
 #: .\administration\templates\administration\store\products\create.html:25
 #: .\administration\templates\administration\store\products\detail.html:32
 #: .\administration\templates\administration\store\products\edit.html:29
 msgid "Back to Product List"
-msgstr ""
+msgstr "Назад к Cписку Продуктов"
 
 #: .\administration\templates\administration\store\products\create.html:37
 #: .\administration\templates\administration\store\products\edit.html:45
-msgid "Product details"
-msgstr ""
+msgid "Product Details"
+msgstr "Информация о Продукте"
 
-#: .\administration\templates\administration\store\products\create.html:84
-#: .\administration\templates\administration\store\products\create.html:97
+#: .\administration\templates\administration\store\products\create.html:87
 #: .\administration\templates\administration\store\products\edit.html:92
 msgid "Stock"
-msgstr ""
+msgstr "Запас"
+
+#: .\administration\templates\administration\store\products\create.html:100
+#: .\administration\templates\administration\store\products\edit.html:105
+msgid "Images"
+msgstr "Изображений"
 
 #: .\administration\templates\administration\store\products\detail.html:25
 #: .\administration\templates\administration\store\products\edit.html:2
 #: .\administration\templates\administration\store\products\edit.html:16
 msgid "Edit Product"
-msgstr ""
+msgstr "Редактировать Продукт"
 
 #: .\administration\templates\administration\store\products\detail.html:36
 #: .\administration\templates\administration\store\products\edit.html:33
 msgid "Delete Product"
-msgstr ""
+msgstr "Удалить Продукт"
 
 #: .\administration\templates\administration\store\products\detail.html:62
 msgid "Pricing"
-msgstr ""
+msgstr "Цены"
 
 #: .\administration\templates\administration\store\products\detail.html:68
-#: .\administration\templates\administration\store\products\index.html:63
-#: .\administration\templates\administration\store\products\index.html:101
 msgid "Discount Price"
-msgstr ""
+msgstr "Цена со Cкидкой"
 
 #: .\administration\templates\administration\store\products\detail.html:73
 msgid "Stock Data"
-msgstr ""
+msgstr "Данные о Запасах"
 
 #: .\administration\templates\administration\store\products\detail.html:75
 msgid "Available units"
-msgstr ""
+msgstr "Доступные единицы"
 
 #: .\administration\templates\administration\store\products\detail.html:77
 msgid "Sold units"
-msgstr ""
+msgstr "Продано единиц"
 
 #: .\administration\templates\administration\store\products\edit.html:22
 msgid "View Product"
-msgstr ""
-
-#: .\administration\templates\administration\store\products\edit.html:105
-msgid "Images"
-msgstr ""
+msgstr "Посмотреть Продукт"
 
 #: .\administration\templates\administration\store\products\index.html:4
 #: .\administration\templates\administration\store\products\index.html:14
 msgid "Product List"
-msgstr ""
+msgstr "Список Продуктов"
 
-#: .\administration\templates\administration\store\products\index.html:67
-#: .\administration\templates\administration\store\products\index.html:105
-#: .\administration\views.py:360
+#: .\administration\templates\administration\store\products\index.html:63
+#: .\administration\templates\administration\store\products\index.html:97
 #: .\store\templates\store\products\detail.html:114
 msgid "Category"
-msgstr ""
+msgstr "Категория"
 
-#: .\administration\templates\administration\store\products\index.html:71
-#: .\administration\templates\administration\store\products\index.html:109
+#: .\administration\templates\administration\store\products\index.html:67
+#: .\administration\templates\administration\store\products\index.html:101
 msgid "Status"
-msgstr ""
+msgstr "Положение дел"
 
 #: .\administration\templates\administration\users\create.html:20
 #: .\administration\templates\administration\users\edit.html:21
 msgid "Back to User List"
-msgstr ""
+msgstr "Назад к Cписку Пользователей"
 
 #: .\administration\templates\administration\users\edit.html:4
 #: .\administration\templates\administration\users\edit.html:15
 msgid "Edit User"
-msgstr ""
+msgstr "Изменить Пользователя"
 
 #: .\administration\templates\administration\users\edit.html:27
 msgid "Delete User"
-msgstr ""
+msgstr "Удалить Пользователя"
 
 #: .\administration\templates\administration\users\index.html:18
 msgid "Add New User"
-msgstr ""
+msgstr "Добавить Hового Пользователя"
 
 #: .\administration\templates\administration\users\index.html:36
 #: .\administration\templates\administration\users\index.html:45
 msgid "Last login"
-msgstr ""
+msgstr "Последний Войти"
 
-#: .\administration\views.py:65 .\administration\views.py:104
-#: .\administration\views.py:153 .\administration\views.py:224
-#: .\administration\views.py:301 .\administration\views.py:332
-#: .\administration\views.py:550
-msgid "was created successfully"
-msgstr ""
+#: .\administration\views.py:66
+msgid "Service was created successfully!"
+msgstr "Услуга успешно обновлен!"
 
-#: .\administration\views.py:83 .\administration\views.py:133
-#: .\administration\views.py:171 .\administration\views.py:235
-#: .\administration\views.py:312 .\administration\views.py:350
-#: .\administration\views.py:561
-msgid "was updated successfully"
-msgstr ""
+#: .\administration\views.py:81
+msgid "Service was updated successfully!"
+msgstr "Услуга успешно обновлен!"
 
-#: .\administration\views.py:93 .\administration\views.py:143
-#: .\administration\views.py:181 .\administration\views.py:245
-#: .\administration\views.py:322 .\administration\views.py:360
-#: .\administration\views.py:487 .\administration\views.py:571
-msgid "was deleted successfully"
-msgstr ""
+#: .\administration\views.py:91
+msgid "Service was deleted successfully!"
+msgstr "Услуга успешно обновлен!"
 
-#: .\administration\views.py:143
-msgid "Document"
-msgstr ""
+#: .\administration\views.py:103
+msgid "Document was created successfully!"
+msgstr "Документ успешно создан!"
 
-#: .\administration\views.py:181
-msgid "Company"
-msgstr ""
+#: .\administration\views.py:129
+msgid "Document was updated successfully!"
+msgstr "Документ успешно обновлен!"
 
-#: .\administration\views.py:245
-msgid "Post"
-msgstr ""
+#: .\administration\views.py:139
+msgid "Document was deleted successfully!"
+msgstr "Документ успешно удален!"
 
-#: .\administration\views.py:322
-msgid "User"
-msgstr ""
+#: .\administration\views.py:150
+msgid "Company was created successfully!"
+msgstr "Компания успешно создана!"
 
-#: .\administration\views.py:426 .\administration\views.py:463
-#: .\administration\views.py:525
-msgid "was saved successfully"
-msgstr ""
+#: .\administration\views.py:165
+msgid "Company was updated successfully!"
+msgstr "Компания успешно обновлена!"
 
-#: .\administration\views.py:428 .\administration\views.py:465
-#: .\administration\views.py:509 .\administration\views.py:527
-msgid "cannot be saved"
-msgstr ""
+#: .\administration\views.py:175
+msgid "Company was deleted successfully!"
+msgstr "Компания успешно удалена!"
 
-#: .\administration\views.py:507
-msgid "were saved successfully"
-msgstr ""
+#: .\administration\views.py:218
+msgid "Post was created successfully!"
+msgstr "Пост успешно создан!"
 
-#: .\administration\views.py:582
-msgid "Order was updated successfully"
-msgstr ""
+#: .\administration\views.py:229
+msgid "Post was updated successfully!"
+msgstr "Пост успешно обновлено!"
+
+#: .\administration\views.py:239
+msgid "Post was deleted successfully!"
+msgstr "Пост успешно удалено!"
+
+#: .\administration\views.py:251
+msgid "Account updated successfully!"
+msgstr "Аккаунт успешно обновлен!"
+
+#: .\administration\views.py:253
+msgid "Account could not be updated!"
+msgstr "Аккаунт не может быть обновлен!"
+
+#: .\administration\views.py:292
+msgid "User was created successfully!"
+msgstr "Пользователь успешно создан!"
+
+#: .\administration\views.py:303
+msgid "User was updated successfully!"
+msgstr "Пользователь был успешно обновлен!"
+
+#: .\administration\views.py:313
+msgid "User was deleted successfully!"
+msgstr "Пользователь успешно удален!"
+
+#: .\administration\views.py:323
+msgid "Category was created successfully!"
+msgstr "Категория успешно создана!"
+
+#: .\administration\views.py:339
+msgid "Category was updated successfully!"
+msgstr "Категория успешно обновлена!"
+
+#: .\administration\views.py:349
+msgid "Category was deleted successfully!"
+msgstr "Категория успешно удалена!"
+
+#: .\administration\views.py:416 .\administration\views.py:454
+msgid "Product was saved successfully!"
+msgstr "Продукт успешно сохранен!"
+
+#: .\administration\views.py:418 .\administration\views.py:456
+msgid "Product cannot be saved!"
+msgstr "Продукт не может быть сохранен!"
+
+#: .\administration\views.py:478
+msgid "Product was deleted successfully!"
+msgstr "Продукт успешно удален!"
+
+#: .\administration\views.py:498
+msgid "Texts were saved successfully!"
+msgstr "Тексты успешно сохранены!"
+
+#: .\administration\views.py:500
+msgid "Texts cannot be saved!"
+msgstr "Тексты не сохраняются!"
+
+#: .\administration\views.py:517
+msgid "Site Info was saved successfully!"
+msgstr "Информация о Cайте успешно сохранена!"
+
+#: .\administration\views.py:519
+msgid "Site Info cannot be saved!"
+msgstr "Информация о Cайте не может быть сохранена!"
+
+#: .\administration\views.py:542
+msgid "Question was created successfully!"
+msgstr "Вопрос успешно создан!"
+
+#: .\administration\views.py:553
+msgid "Question was updated successfully!"
+msgstr "Вопрос успешно обновлен!"
+
+#: .\administration\views.py:563
+msgid "Question was deleted successfully!"
+msgstr "Вопрос успешно удален!"
+
+#: .\administration\views.py:573
+msgid "Order was updated successfully!"
+msgstr "Заказ успешно обновлен!"
+
+#: .\administration\views.py:598
+msgid "Order was not saved!"
+msgstr "Заказ не сохранился!"
 
 #: .\cart\templates\cart\summary.html:2 .\cart\views.py:17 .\cart\views.py:19
 msgid "Shopping Cart"
-msgstr ""
+msgstr "Корзина"
 
 #: .\cart\templates\cart\summary.html:3
 msgid "Shopping Cart Description"
 msgstr ""
+"Перед совершением покупки просмотрите и отредактируйте товары в корзине. "
+"Наша страница корзины позволяет легко добавлять или удалять товары из вашей "
+"корзины и регулировать количество. Просмотрите свою корзину и завершите "
+"покупку прямо сейчас."
 
-#: .\cart\templates\cart\summary.html:124
+#: .\cart\templates\cart\summary.html:112
 msgid "Cart totals"
-msgstr ""
+msgstr "Всего в корзине"
 
-#: .\cart\templates\cart\summary.html:150
+#: .\cart\templates\cart\summary.html:131
 msgid "Proceed to checkout"
-msgstr ""
+msgstr "Перейти к оформлению заказа"
 
-#: .\cart\views.py:18 .\checkout\views.py:25 .\checkout\views.py:78
+#: .\cart\views.py:18 .\checkout\views.py:25 .\checkout\views.py:79
 #: .\library\views.py:18 .\main\context_processors.py:11
-#: .\main\templates\main\index.html:2 .\main\views.py:40 .\main\views.py:75
-#: .\main\views.py:90 .\main\views.py:102 .\main\views.py:115
-#: .\main\views.py:127 .\main\views.py:142 .\news\views.py:18
-#: .\news\views.py:32 .\orders\views.py:65 .\services\views.py:18
+#: .\main\templates\main\index.html:2 .\main\views.py:40 .\main\views.py:77
+#: .\main\views.py:92 .\main\views.py:104 .\main\views.py:117
+#: .\main\views.py:129 .\main\views.py:144 .\news\views.py:18
+#: .\news\views.py:32 .\orders\views.py:67 .\services\views.py:18
 #: .\store\views.py:47 .\store\views.py:75 .\store\views.py:107
 #: .\wishlist\views.py:16
 msgid "Home"
-msgstr ""
+msgstr "Дом"
 
 #: .\checkout\templates\checkout\index.html:2 .\checkout\views.py:24
 #: .\checkout\views.py:26 .\templates\components\default\header.html:94
 msgid "Checkout"
-msgstr ""
+msgstr "Проверить"
 
 #: .\checkout\templates\checkout\index.html:3
 msgid "Checkout Description"
 msgstr ""
+"Безопасно оформить заказ и завершить покупку с легкостью. Наш процесс "
+"оформления заказа прост в использовании, и мы предлагаем различные варианты "
+"оплаты в соответствии с вашими потребностями. Проверьте свой заказ и "
+"завершите покупку прямо сейчас."
 
 #: .\checkout\templates\checkout\index.html:27
-msgid "Billing details"
-msgstr ""
+msgid "Billing Details"
+msgstr "Платежные Pеквизиты"
 
-#: .\checkout\templates\checkout\index.html:130
+#: .\checkout\templates\checkout\index.html:126
 msgid "Additional information"
-msgstr ""
+msgstr "Дополнительная информация"
 
-#: .\checkout\templates\checkout\index.html:141
+#: .\checkout\templates\checkout\index.html:137
 msgid "optional"
 msgstr ""
 
-#: .\checkout\templates\checkout\index.html:156
-#: .\checkout\templates\checkout\success.html:24
-msgid "Your order"
+#: .\checkout\templates\checkout\index.html:152
+msgid "Your Order"
+msgstr "Ваш Заказ"
+
+#: .\checkout\templates\checkout\index.html:227
+msgid "privacy policy"
 msgstr ""
 
-#: .\checkout\templates\checkout\index.html:249
+#: .\checkout\templates\checkout\index.html:228
+#, python-format
+msgid ""
+"\n"
+"                                      Before you proceed to complete your "
+"checkout, we kindly request that you take a moment to review our Privacy "
+"Policy. \n"
+"                                      Your privacy and data security are of "
+"utmost importance to us. \n"
+"                                      Our Privacy Policy outlines how we "
+"collect, use, and protect your personal information.\n"
+"                                      By understanding our privacy "
+"practices, you can have full confidence in providing your details for a "
+"seamless checkout experience. \n"
+"                                      We value your trust and strive to "
+"maintain the highest standards of privacy protection.\n"
+"                                      To view our Privacy Policy, please "
+"click <a href=\"%(privacy_policy_link)s\" class=\"woocommerce-privacy-policy-"
+"link\" target=\"_blank\">%(privacy_policy_text)s</a>. \n"
+"                                      Once you have familiarized yourself "
+"with our policy, you can proceed with confidence to complete your checkout.\n"
+"                                      Thank you for your understanding and "
+"for choosing us for your shopping needs.\n"
+"                                      \n"
+"                                      "
+msgstr ""
+
+#: .\checkout\templates\checkout\index.html:243
 msgid "Place order"
-msgstr ""
+msgstr "Разместить заказ"
 
-#: .\checkout\templates\checkout\success.html:3
-msgid "Orders Description"
-msgstr ""
-
-#: .\checkout\views.py:77 .\checkout\views.py:79
+#: .\checkout\views.py:78 .\checkout\views.py:80
 msgid "Order"
-msgstr ""
+msgstr "Заказ"
 
-#: .\core\settings.py:133
+#: .\core\settings.py:136
 msgid "Azerbaijani"
-msgstr ""
+msgstr "Азербайджанский"
 
-#: .\core\settings.py:134
+#: .\core\settings.py:137
 msgid "Russian"
-msgstr ""
+msgstr "Русский"
 
-#: .\core\settings.py:135
+#: .\core\settings.py:138
 msgid "English"
-msgstr ""
+msgstr "Английский"
 
 #: .\library\templates\library\index.html:3
 msgid "Library Description"
 msgstr ""
+"Наша онлайн-библиотека предоставляет вам коллекцию документов, связанных со "
+"здравоохранением, в различных форматах файлов. От научных статей до "
+"медицинских журналов — мы предоставим вам все необходимое. Изучите нашу "
+"онлайн-библиотеку и будьте в курсе последних исследований и тенденций в "
+"области здравоохранения."
 
 #: .\main\context_processors.py:15 .\main\context_processors.py:30
 #: .\store\templates\store\products\index.html:3 .\store\views.py:46
 #: .\store\views.py:74 .\store\views.py:106
 msgid "Shop"
-msgstr ""
+msgstr "Магазин"
 
 #: .\main\context_processors.py:18 .\main\context_processors.py:40
 #: .\main\templates\main\about.html:2 .\main\templates\main\about.html:46
-#: .\main\views.py:74 .\main\views.py:76
+#: .\main\views.py:76 .\main\views.py:78
 msgid "About Us"
-msgstr ""
+msgstr "О Hас"
 
 #: .\main\context_processors.py:20 .\main\context_processors.py:36
 #: .\main\templates\main\contact.html:2 .\main\templates\main\contact.html:109
 #: .\main\views.py:39 .\main\views.py:41
 #: .\templates\components\default\footer.html:85
 msgid "Contact Us"
-msgstr ""
+msgstr "Связаться с Hами"
 
 #: .\main\forms.py:7
-msgid "Delivery & Orders"
-msgstr ""
+msgid "Order Status and Tracking"
+msgstr "Статус заказа и отслеживание"
 
 #: .\main\forms.py:8
-msgid "Wholesale & Returns"
-msgstr ""
+msgid "Returns and Refunds"
+msgstr "Возвраты и возмещения"
 
 #: .\main\forms.py:9
+msgid "Shipping and Delivery"
+msgstr "Неудачная Доставка"
+
+#: .\main\forms.py:10
+msgid "Payment and Billing"
+msgstr "Оплата и выставление счетов"
+
+#: .\main\forms.py:11
+msgid "Product Availability"
+msgstr "Доступность продукта"
+
+#: .\main\forms.py:12
+msgid "Website Feedback or Issues"
+msgstr "Vebsayt Məsələləri və ya Problemlər"
+
+#: .\main\forms.py:13
+msgid "Promotions and Discounts"
+msgstr "Акции и скидки"
+
+#: .\main\forms.py:14
+msgid "Collaborations or Partnerships"
+msgstr "Əməkdaşlıq və ya Tərəfdaşlıq"
+
+#: .\main\forms.py:15
+msgid "Privacy and Data Security"
+msgstr "Конфиденциальность и безопасность данных"
+
+#: .\main\forms.py:16
 msgid "Other"
-msgstr ""
-
-#: .\main\forms.py:12 .\main\forms.py:13
-msgid "Full Name"
-msgstr ""
-
-#: .\main\forms.py:14 .\main\forms.py:16
-msgid "Email Address"
-msgstr ""
-
-#: .\main\forms.py:17 .\main\forms.py:18
-msgid "Subject"
-msgstr ""
+msgstr "Другой"
 
 #: .\main\forms.py:19 .\main\forms.py:20
+msgid "Full Name"
+msgstr "Полное Имя"
+
+#: .\main\forms.py:21 .\main\forms.py:23
+msgid "Email Address"
+msgstr "Адрес электронной почты"
+
+#: .\main\forms.py:24 .\main\forms.py:25
+msgid "Subject"
+msgstr "Тема"
+
+#: .\main\forms.py:26 .\main\forms.py:27
 msgid "Message"
-msgstr ""
+msgstr "Сообщение"
 
-#: .\main\models.py:9 .\news\models.py:12 .\store\models.py:43
-msgid "Rich text editor field"
-msgstr ""
-
-#: .\main\models.py:18
+#: .\main\models.py:16
 msgid "Language field"
-msgstr ""
+msgstr "Языковое поле"
 
 #: .\main\templates\main\about.html:3
 msgid "About Description"
 msgstr ""
+"Узнайте больше о нашей компании и нашей приверженности предоставлению "
+"высококачественных медицинских продуктов и услуг. Наша команда "
+"профессионалов позаботится о том, чтобы вы получили наилучший уход. Узнайте "
+"больше о нашей миссии, ценностях и истории."
 
 #: .\main\templates\main\about.html:55
 msgid "More"
-msgstr ""
+msgstr "Более"
 
 #: .\main\templates\main\career.html:3
 msgid "Career Description"
 msgstr ""
+"Ознакомьтесь с компаниями, с которыми мы сотрудничаем в сфере "
+"здравоохранения. Узнайте о наших стратегических партнерствах и альянсах с "
+"ведущими организациями, занимающимися продвижением медицинских исследований, "
+"технологий и инноваций. Узнайте больше о нашей сети отраслевых партнеров и о "
+"нашей приверженности развитию сотрудничества, которое формирует будущее "
+"здравоохранения."
 
 #: .\main\templates\main\career.html:33
 #: .\templates\components\main\companies-area.html:10
 msgid "Partner Companies"
-msgstr ""
+msgstr "Партнерские Kомпании"
 
 #: .\main\templates\main\contact.html:3
 msgid "Contact Description"
 msgstr ""
+"Contact us for any questions or inquiries about our products and services. "
+"Our customer support team is available 24/7 to assist you with any queries "
+"you may have. Reach out to us today and let us help you with your healthcare "
+"needs."
 
 #: .\main\templates\main\contact.html:41
 msgid "Office Address"
-msgstr ""
+msgstr "Адрес Oфиса"
 
 #: .\main\templates\main\contact.html:57
 msgid "Phone Number"
-msgstr ""
+msgstr "Номер Tелефона"
 
 #: .\main\templates\main\contact.html:73
 msgid "Web Connect"
-msgstr ""
+msgstr "Веб-Подключение"
 
 #: .\main\templates\main\contact.html:90
 msgid "Social Media"
-msgstr ""
+msgstr "Социальные Mедиа"
 
 #: .\main\templates\main\faq.html:3
 msgid "FAQ Description"
 msgstr ""
+"Наша страница часто задаваемых вопросов содержит ответы на часто задаваемые "
+"вопросы о наших продуктах, услугах и правилах. Узнайте о наших вариантах "
+"доставки, способах оплаты и многом другом. Найдите ответы на свои вопросы и "
+"делайте покупки с уверенностью."
 
 #: .\main\templates\main\index.html:3
 msgid "Home Description"
 msgstr ""
+"Добро пожаловать в нашу интернет-аптеку, где вы можете найти широкий "
+"ассортимент лекарств и товаров для здоровья. Мы предлагаем "
+"высококачественные лекарства, которые являются надежными, доступными и "
+"доставляются к вашему порогу. Покупайте сейчас и наслаждайтесь нашими "
+"эксклюзивными скидками!"
 
 #: .\main\templates\main\privacy-policy.html:3
 msgid "Privacy Policy Description"
 msgstr ""
+"В нашей политике конфиденциальности изложены наши обязательства по защите "
+"вашей личной информации и данных. Узнайте о наших методах сбора и хранения "
+"данных, а также о том, как мы используем вашу информацию, чтобы сделать ваши "
+"покупки более удобными. Прочитайте нашу политику конфиденциальности сейчас и "
+"делайте покупки с уверенностью."
 
 #: .\main\templates\main\return-policy.html:3
 msgid "Return Policy Description"
 msgstr ""
+"Наша политика возврата описывает шаги, которые необходимо предпринять, если "
+"вы не удовлетворены своей покупкой. Узнайте о нашем процессе возврата, "
+"критериях приемлемости и исключениях. Ознакомьтесь с нашей политикой "
+"возврата сейчас и делайте покупки с уверенностью."
 
 #: .\main\templates\main\terms-and-conditions.html:3
 msgid "Terms and Conditions Description"
 msgstr ""
+"В наших условиях и положениях изложены правила и нормы использования нашей "
+"интернет-аптеки. Узнайте о наших правилах доставки и возврата, способах "
+"оплаты и многом другом. Ознакомьтесь с нашими положениями и условиями "
+"сейчас, чтобы сделать покупки удобными."
+
+#: .\main\views.py:60 .\main\views.py:64
+msgid "Email cannot be sent!"
+msgstr "Электронная почта не может быть отправлена!"
 
 #: .\news\templates\news\detail.html:55 .\news\templates\news\index.html:30
 msgid "Recent News"
-msgstr ""
+msgstr "Свежие Hовости"
 
 #: .\news\templates\news\index.html:3
 msgid "News Description"
 msgstr ""
+"Будьте в курсе последних новостей и тенденций в области медицины. На нашей "
+"странице новостей вы найдете информативный и образовательный контент о новых "
+"открытиях, медицинских открытиях и новостях, связанных со здоровьем. Читайте "
+"больше и будьте в курсе!"
 
 #: .\orders\forms.py:19
 msgid "House number and street name"
-msgstr ""
+msgstr "Номер дома и название улицы"
 
 #: .\orders\forms.py:27
 msgid "Notes about your order, e.g. special notes for delivery."
 msgstr ""
+"Примечания к вашему заказу, например. специальные примечания для доставки."
 
 #: .\orders\models.py:8
 msgid "Pending"
-msgstr ""
+msgstr "В ожидании"
 
 #: .\orders\models.py:9
 msgid "Paid"
-msgstr ""
+msgstr "Оплаченный"
 
 #: .\orders\models.py:10
 msgid "Failed"
-msgstr ""
-
-#: .\orders\models.py:63
-msgid "Processing"
-msgstr ""
-
-#: .\orders\models.py:64
-msgid "Shipped"
-msgstr ""
+msgstr "Неуспешный"
 
 #: .\orders\models.py:65
-msgid "Delivered"
-msgstr ""
+msgid "Processing"
+msgstr "Обработка"
 
 #: .\orders\models.py:66
-msgid "Failed Delivery"
-msgstr ""
+msgid "Shipped"
+msgstr "Отправленный"
 
 #: .\orders\models.py:67
-msgid "Returned"
-msgstr ""
+msgid "Delivered"
+msgstr "Доставленный"
 
 #: .\orders\models.py:68
+msgid "Failed Delivery"
+msgstr "Неудачная Доставка"
+
+#: .\orders\models.py:69
+msgid "Returned"
+msgstr "Вернулся"
+
+#: .\orders\models.py:70
 msgid "Cancelled"
-msgstr ""
+msgstr "Отменено"
 
-#: .\orders\templates\orders\detail.html:24
+#: .\orders\templates\orders\detail.html:3
+msgid "Order Details Description"
+msgstr ""
+"Просмотрите подробную информацию о вашем конкретном заказе в нашей интернет-"
+"аптеке. Страница «Сведения о заказе» предоставляет вам исчерпывающий обзор "
+"вашей покупки, включая детализированные продукты, количество, цены и "
+"сведения о доставке. Будьте в курсе вашего конкретного заказа и "
+"просматривайте всю необходимую информацию с первого взгляда."
+
+#: .\orders\templates\orders\detail.html:26
 msgid "Order Date"
-msgstr ""
+msgstr "Дата Заказа"
 
-#: .\orders\templates\orders\detail.html:30
+#: .\orders\templates\orders\detail.html:44
 msgid "Order Number"
-msgstr ""
+msgstr "Номер Заказа"
 
-#: .\orders\templates\orders\detail.html:36
+#: .\orders\templates\orders\detail.html:48
 msgid "Customer Notes"
-msgstr ""
+msgstr "Примечания Для Kлиентов"
 
-#: .\orders\templates\orders\detail.html:43
+#: .\orders\templates\orders\detail.html:56
 msgid "Delivery Details"
-msgstr ""
+msgstr "Детали Доставки"
 
-#: .\orders\templates\orders\detail.html:66
+#: .\orders\templates\orders\detail.html:89
 msgid "Product Summary"
-msgstr ""
+msgstr "Обзор Продукта"
 
 #: .\services\templates\services\index.html:3
 msgid "Services Description"
 msgstr ""
+"Наша компания предлагает широкий спектр услуг для удовлетворения всех ваших "
+"потребностей в области здравоохранения. От рецептурных лекарств до онлайн-"
+"консультаций — мы предоставим вам все необходимое. Наша команда "
+"профессионалов стремится предоставить вам лучшие медицинские услуги. "
+"Ознакомьтесь с нашими услугами и запишитесь на прием уже сегодня!"
 
 #: .\store\models.py:23
 msgid "categories"
-msgstr ""
+msgstr "категории"
 
 #: .\store\templates\store\products\detail.html:8
 msgid "Add to Wishlist"
-msgstr ""
+msgstr "Добавить в Cписок Желаний"
 
 #: .\store\templates\store\products\detail.html:9
 msgid "Remove from Wishlist"
-msgstr ""
+msgstr "Удалить из Cписка Желаний"
 
 #: .\store\templates\store\products\detail.html:82
-msgid "Add to cart"
-msgstr ""
+msgid "Add to Cart"
+msgstr "Добавить в Kорзину"
 
 #: .\store\templates\store\products\detail.html:133
 msgid "Related Products"
-msgstr ""
+msgstr "Cопутствующие Tовары"
 
 #: .\store\templates\store\products\index.html:4
 msgid "Shop Description"
 msgstr ""
+"Покупайте наш широкий выбор лекарств и товаров для здоровья по "
+"конкурентоспособным ценам. Мы предлагаем удобный интерфейс, безопасные "
+"способы оплаты и надежные услуги доставки. Просмотрите наши категории "
+"продуктов и найдите продукты, соответствующие вашим потребностям в области "
+"здравоохранения."
 
 #: .\store\templates\store\products\index.html:15
 msgid "Order by"
-msgstr ""
+msgstr "Сортировать по"
 
 #: .\store\templates\store\products\index.html:48
 msgid "Product Categories"
-msgstr ""
+msgstr "Категории Продукта"
 
 #: .\store\views.py:14 .\templates\components\main\blog-area.html:9
 msgid "Latest"
-msgstr ""
+msgstr "Последний"
 
 #: .\store\views.py:15
 msgid "Price low to high"
-msgstr ""
+msgstr "Цена от низкой до высокой"
 
 #: .\store\views.py:16
 msgid "Price high to low"
-msgstr ""
+msgstr "Цена от высокой к низкой"
+
+#: .\templates\components\admin\imports\scripts.html:5
+msgid "entries per page"
+msgstr "записей на странице"
+
+#: .\templates\components\admin\imports\scripts.html:7
+msgid "Showing"
+msgstr "Показаны"
+
+#: .\templates\components\admin\imports\scripts.html:8
+msgid "entries"
+msgstr "записи"
 
 #: .\templates\components\admin\navbar.html:14
 #: .\templates\layouts\admin.html:19 .\templates\layouts\authentication.html:24
 #: .\user\models.py:38
 msgid "Admin"
-msgstr ""
+msgstr "Администратор"
 
-#: .\templates\components\admin\navbar.html:244
+#: .\templates\components\admin\navbar.html:59
 #: .\templates\components\admin\sidenav.html:5
 msgid "Account"
-msgstr ""
+msgstr "Аккаунт"
 
-#: .\templates\components\admin\navbar.html:250
+#: .\templates\components\admin\navbar.html:65
 msgid "Logout"
-msgstr ""
+msgstr "Выйти"
 
 #: .\templates\components\admin\sidenav.html:56
 msgid "Logged in as"
-msgstr ""
+msgstr "Вы вошли как"
 
 #: .\templates\components\admin\status-button.html:3
 msgid "Active"
-msgstr ""
+msgstr "Активный"
 
 #: .\templates\components\admin\status-button.html:5
 msgid "Not Active"
-msgstr ""
+msgstr "Не активен"
 
 #: .\templates\components\contact-form.html:47
 msgid "Send"
-msgstr ""
+msgstr "Отправлять"
 
 #: .\templates\components\default\footer.html:48
 msgid "Company Information"
-msgstr ""
+msgstr "Информация о Kомпании"
 
 #: .\templates\components\default\footer.html:65
 msgid "Support"
-msgstr ""
+msgstr "Поддерживать"
 
 #: .\templates\components\default\footer.html:114
 msgid "Copyright"
-msgstr ""
+msgstr "Авторские права"
 
 #: .\templates\components\default\footer.html:114
 msgid "All Rights Reserved"
-msgstr ""
+msgstr "Все Права Защищены"
 
 #: .\templates\components\default\header.html:87
 msgid "No products in the cart"
-msgstr ""
+msgstr "Нет товаров в корзине"
 
 #: .\templates\components\default\header.html:93
-msgid "View cart"
-msgstr ""
+msgid "View Cart"
+msgstr "Посмотреть корзину"
 
 #: .\templates\components\default\header.html:216
 msgid "Search in Shop"
-msgstr ""
+msgstr "Искать в Mагазине"
 
 #: .\templates\components\library\document.html:22
 msgid "View Document"
-msgstr ""
+msgstr "Просмотр Документа"
 
 #: .\templates\components\main\banner.html:16
 msgid "Shop Now"
-msgstr ""
+msgstr "Купить Cейчас"
 
 #: .\templates\components\main\categories-area.html:10
 msgid "Explore Categories"
-msgstr ""
+msgstr "Исследуйте Kатегории"
 
 #: .\templates\components\main\discounted-products-area.html:9
 msgid "Discounted Products"
-msgstr ""
+msgstr "Товары со Cкидкой"
 
 #: .\templates\components\products\product-home.html:29
-#: .\templates\components\products\product.html:73
+#: .\templates\components\products\product.html:74
 msgid "Buy Now"
-msgstr ""
+msgstr "Купить Cейчас"
 
-#: .\templates\components\products\product.html:20
+#: .\templates\components\products\product.html:21
 msgid "Sale"
-msgstr ""
+msgstr "Распродажа"
 
 #: .\user\models.py:39
 msgid "Editor"
-msgstr ""
+msgstr "Pедактор"
 
 #: .\user\models.py:40
 msgid "Operator"
-msgstr ""
+msgstr "Оператор"
 
 #: .\user\models.py:41
 msgid "Staff"
-msgstr ""
+msgstr "Персонал"
 
 #: .\wishlist\templates\wishlist\wishlist.html:3 .\wishlist\views.py:15
 #: .\wishlist\views.py:17
 msgid "Wishlist"
-msgstr ""
+msgstr "Список желаний"
 
 #: .\wishlist\templates\wishlist\wishlist.html:4
 msgid "Wishlist Description"
 msgstr ""
+"Отслеживайте свои любимые товары для здоровья и лекарства, добавляя их в "
+"свой список желаний. Наша функция списка желаний позволяет легко отслеживать "
+"продукты, которые вы хотите приобрести в будущем. Просмотрите наши продукты "
+"и добавьте их в свой список желаний сегодня!"
+
+#~ msgid "Delivery & Orders"
+#~ msgstr "Доставка и Заказы"
+
+#~ msgid "Document"
+#~ msgstr "Документ"
+
+#~ msgid "Company"
+#~ msgstr "Компания"
+
+#~ msgid "Post"
+#~ msgstr "Поcт"
+
+#~ msgid "User"
+#~ msgstr "Пользователь"

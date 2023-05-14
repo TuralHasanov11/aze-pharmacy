@@ -1,6 +1,6 @@
 {% extends 'layouts/default.html' %} {% load static %} {% load i18n %} 
 {% block title %}{% translate "Order Details" %}{% endblock title %} 
-{% block description %}{% translate "Order Details" %}{% endblock description %} 
+{% block description %}{% translate "Order Details Description" %}{% endblock description %} 
 {% block content %}
 <main class="main-area fix">
   {%include "components/breadcrumb.html" with breadcrumb=breadcrumb%}
@@ -114,6 +114,7 @@
                                 class="woocommerce-cart-form__cart-item cart_item"
                               >
                                 <td class="product-thumbnail">
+                                  {% if item.product.image_feature %}
                                   <a
                                     href="{% url 'store:product-detail' category_slug=item.product.category.slug product_slug=item.product.slug %}"
                                     ><img
@@ -129,6 +130,7 @@
                                       "
                                       sizes="(max-width: 350px) 100vw, 350px"
                                   /></a>
+                                  {% endif %}
                                 </td>
                                 <td class="product-name" data-title="Product">
                                   <a

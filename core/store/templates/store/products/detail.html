@@ -15,7 +15,7 @@
       >
         <div class="col-lg-6">
           <div class="inner-shop-details-flex-wrap mb-5">
-            <img src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% endif %}" class="product-feature-image mb-5">
+            <img src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% else %}{% static 'images/main/products/default.png' %}{% endif %}" class="product-feature-image mb-5">
             {% include "components/products/image-gallery.html" with images=product.images %}   
           </div>
         </div>
@@ -79,7 +79,7 @@
                   data-quantity="1"
                   class="cart-btn product-quantity-button"
                 >
-                  {% translate "Add to cart" %}
+                  {% translate "Add to Cart" %}
                 </button>
               </div>
             </div>

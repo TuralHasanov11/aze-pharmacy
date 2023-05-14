@@ -40,8 +40,6 @@ class ProductManager(models.Manager):
 
 
 class RichTextEditorField(ckeditorFields.RichTextUploadingField):
-    description = _("Rich text editor field")
-
     def __init__(self, *args, **kwargs):
         kwargs['null'] = True
         kwargs['blank'] = True

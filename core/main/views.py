@@ -48,19 +48,20 @@ def contact(request: HttpRequest):
         if form.is_valid():
             data = form.cleaned_data
             try:
-                email = EmailMessage(
+                msg = EmailMessage(
                     subject=data["subject"],
                     body=data["message"],
                     from_email=data["email"],
                     to=[os.environ.get("COMPANY_EMAIL", "")],
                 )
-                email.send()
+                msg.content_subtype = "html"
+                msg.send()
             except BadHeaderError:
-                messages.error(request, _("Email cannot be sent"))
+                messages.error(request, _("Email cannot be sent!"))
                 return render(request, template_name, {"form": form, 'siteInfo': siteInfo, "breadcrumb": breadcrumb, "faq": faq})
             messages.success(request, 'Email was sent successfully!')
             return redirect(reverse("main:contact")+"#contact-form")
-        messages.error(request, _("Email cannot be sent"))
+        messages.error(request, _("Email cannot be sent!"))
         return render(request, template_name, {"form": form, 'siteInfo': siteInfo, "breadcrumb": breadcrumb, "faq": faq})
     form = ContactForm()
     return render(request, template_name, {'siteInfo': siteInfo, "form": form, "breadcrumb": breadcrumb, "faq": faq})

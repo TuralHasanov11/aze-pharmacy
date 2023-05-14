@@ -35,20 +35,27 @@
                 <div class="mb-4">
                     <label class="mb-1" for="{{formset_item.about.id_for_label}}">{{formset_item.about.label}}</label>
                     {{formset_item.about}}
+                    {{ formset_item.about.errors  }}
                 </div>
                 <div class="mb-4">
                     <label class="mb-1" for="{{formset_item.return_policy.id_for_label}}">{{formset_item.return_policy.label}}</label>
                     {{formset_item.return_policy}}
+                    {{ formset_item.return_policy.errors  }}
                 </div>
                 <div class="mb-4">
                     <label class="mb-1" for="{{formset_item.privacy_policy.id_for_label}}">{{formset_item.privacy_policy.label}}</label>
                     {{formset_item.privacy_policy}}
+                    {{ formset_item.privacy_policy.errors  }}
                 </div>
                 <div class="mb-4">
                     <label class="mb-1" for="{{formset_item.terms_and_conditions.id_for_label}}">{{formset_item.terms_and_conditions.label}}</label>
                     {{formset_item.terms_and_conditions}}
+                    {{ formset_item.terms_and_conditions.errors  }}
                 </div>
-                {{formset_item.language}}
+                <div class="mb-4">
+                    {{formset_item.language}}
+                    {{formset_item.language.errors}}
+                </div>
                 <hr>
                 {% endfor %}
                 <div class="d-flex justify-content-between">

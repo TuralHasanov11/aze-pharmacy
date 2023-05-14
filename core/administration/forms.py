@@ -1,5 +1,3 @@
-from enum import Enum
-
 from ckeditor_uploader import widgets as ckeditor_widgets
 from django import forms
 from django.conf import settings
@@ -253,7 +251,7 @@ class SiteInfoForm(forms.ModelForm):
 
 class SiteTextForm(forms.ModelForm):
     language = forms.ChoiceField(label=_("Language"), widget=forms.Select(
-        attrs={"class": "form-select", 'readonly': True}), choices=settings.LANGUAGES)
+        attrs={"class": "form-select", 'readonly': True, 'disabled': True}), choices=settings.LANGUAGES)
     about = forms.CharField(label=_('About'), widget=forms.Textarea(
         attrs={'class': 'form-control', 'placeholder': _('About'), 'rows': 25}))
     return_policy = forms.CharField(
@@ -271,7 +269,7 @@ class SiteTextForm(forms.ModelForm):
 
 class FAQForm(forms.ModelForm):
     language = forms.ChoiceField(label=_("Language"), widget=forms.Select(
-        attrs={"class": "form-select", 'readonly': True}), choices=settings.LANGUAGES)
+        attrs={"class": "form-select"}), choices=settings.LANGUAGES)
     question = forms.CharField(label=_('Question'), widget=forms.Textarea(
         attrs={'class': 'form-control', 'placeholder': _('Question'), 'rows': 25}))
     answer = forms.CharField(
@@ -304,9 +302,11 @@ class OrderDeliveryForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': _('Delivery Status')}))
     delivery_date = forms.DateField(label=_('Delivery Date'), widget=forms.DateInput(
         attrs={'class': 'form-control', 'placeholder': _('Delivery Date')}))
+
     class Meta:
         model = OrderDelivery
-        fields = ('courier_name', 'tracking_number', 'delivery_status', 'delivery_date')
+        fields = ('courier_name', 'tracking_number',
+                  'delivery_status', 'delivery_date')
 
     STAGES = {
         "PROCESSING": [OrderDelivery.DeliveryStatus.SHIPPED.name, OrderDelivery.DeliveryStatus.CANCELLED.name],
@@ -316,12 +316,15 @@ class OrderDeliveryForm(forms.ModelForm):
         "RETURNED": [OrderDelivery.DeliveryStatus.PROCESSING.name],
         "CANCELLED": [],
     }
-    
+
     def clean_delivery_status(self):
         delivery_status = self.cleaned_data['delivery_status']
-        if self.cleaned_data['delivery_status'] != self.instance.delivery_status and str(self.cleaned_data['delivery_status']) not in self.STAGES[self.instance.delivery_status]:
-            raise forms.ValidationError(_(f"Delivery Status cannot be changed!"))
+        if (self.cleaned_data['delivery_status'] != self.instance.delivery_status
+                and str(self.cleaned_data['delivery_status']) not in self.STAGES[self.instance.delivery_status]):
+            raise forms.ValidationError(
+                _("Delivery Status cannot be changed!"))
         return delivery_status
+
 
 OrderDeliveryFormSet = forms.inlineformset_factory(
     parent_model=Order, model=OrderDelivery, max_num=1, form=OrderDeliveryForm)

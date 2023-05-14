@@ -151,8 +151,18 @@ jQuery(document).ready(function ($) {
 
       const data = await response.json()
       $("#cart-total-price").html(data.total_price);
-      $(`.mini_cart_item[data-product_id='${productId}'] .product-quantity`).html(productQuantity)
       $("#cart-quantity").html(data.quantity)
+      $("#cart-summary-total-price").html(data.total_price);
+      if(!data.item){
+        $(`.cart_item[data-product_id='${productId}']`).remove()
+        $(`.mini_cart_item[data-product_id='${productId}']`).remove()
+      } else if($(`.mini_cart_item[data-product_id='${productId}']`).length === 0){
+        $(".cart_list" ).append(productComponent(data));
+        $(`.mini_cart_item[data-product_id='${productId}']`).html(productComponent(data))
+      }else {
+        $(`.mini_cart_item[data-product_id='${productId}'] .product-quantity`).html(productQuantity)
+        $(`.cart_item[data-product_id='${productId}']`).find('.product-subtotal-price').html(data.item.total_price)
+      }
     } catch (error) {
       console.log(error)
     }

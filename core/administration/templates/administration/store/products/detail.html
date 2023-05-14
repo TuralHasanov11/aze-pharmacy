@@ -46,12 +46,12 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-header">{{product.name}}</div>
-                    {% if product.image_feature %}<img class="card-img-top" src="{{product.image_feature.0.image.url}}" alt="{{product.name}}">{% endif %}
+                    <img class="card-img-top" src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% else %}{% static 'images/main/products/default.png' %}{% endif %}" alt="{{product.name}}">
                     <div class="card-body">
                         <h5 class="card-title">{{product.name}}</h5>
                         <p class="card-text">{{product.description|safe}}</p>
                         {% for product_image in product.images %}
-                        {% if product_image.image %}<img width="256" height="256" src="{{product_image.image.url}}" />{% endif %}
+                        <img width="256" height="256" src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% else %}{% static 'images/main/products/default.png' %}{% endif %}" />
                         {% endfor %}
                     </div>
                 </div>

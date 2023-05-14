@@ -60,10 +60,6 @@
                                             {% include "components/tables/order-button.html" with orderBy='discount' route='administration:store-product-list' %}
                                         </th>
                                         <th>
-                                            {% translate "Discount Price" %}
-                                            {% include "components/tables/order-button.html" with orderBy='discount_price' route='administration:store-product-list' %}
-                                        </th>
-                                        <th>
                                             {% translate "Category" %}
                                             {% include "components/tables/order-button.html" with orderBy='category' route='administration:store-product-list' %}
                                         </th>
@@ -98,10 +94,6 @@
                                             {% include "components/tables/order-button.html" with orderBy='discount' route='administration:store-product-list' %}
                                         </th>
                                         <th>
-                                            {% translate "Discount Price" %}
-                                            {% include "components/tables/order-button.html" with orderBy='discount_price' route='administration:store-product-list' %}
-                                        </th>
-                                        <th>
                                             {% translate "Category" %}
                                             {% include "components/tables/order-button.html" with orderBy='category' route='administration:store-product-list' %}
                                         </th>
@@ -121,10 +113,9 @@
                                     <tr>
                                         <td>{{product.name}}</td>
                                         <td>{{product.sku|default:""}}</td>
-                                        <td>{% if product.image_feature %}<img width="64" height="64" src="{{product.image_feature.0.image.url}}" alt="{{product.name}}">{% endif %}</td>
+                                        <td><img width="64" height="64" src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% else %}{% static 'images/main/products/default.png' %}{% endif %}" alt="{{product.name}}"></td>
                                         <td>{{product.regular_price}}</td>
                                         <td>{{product.discount}}%</td>
-                                        <td>{{product.discount_price}}</td>
                                         <td><a href="{% url 'administration:store-category-update' pk=product.category.id %}">{{product.category}}</a></td>
                                         <td>
                                             {% include "components/admin/status-button.html" with is_active=product.is_active %}

@@ -5,12 +5,9 @@ from django import urls
 from django.conf import settings
 from django.db import models
 from django.template.defaultfilters import slugify
-from django.utils.translation import gettext_lazy as _
 
 
 class RichTextEditorField(ckeditorFields.RichTextUploadingField):
-    description = _("Rich text editor field")
-
     def __init__(self, *args, **kwargs):
         kwargs['null'] = True
         kwargs['blank'] = True

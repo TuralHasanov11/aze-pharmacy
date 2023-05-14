@@ -1,10 +1,10 @@
+{% load static %}
 {% load i18n %}
 <div class="col-xl-3">
   <div class="home-shop-item">
     <div class="home-shop-thumb">
       <a decoding="async" href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}">
-        <img src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% else %}{% endif %}" alt="img">
-
+        <img src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% else %}{% static 'images/main/products/default.png' %}{% endif %}" alt="{{product.name}}">
         {% if product.discount %}<div class="discount">-{{product.discount}}%</div>{% endif %}
       </a>
     </div>

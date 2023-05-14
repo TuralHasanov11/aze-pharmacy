@@ -42,7 +42,7 @@
     {% include 'components/messages.html' with messages=messages %}
     <form method="post" enctype="multipart/form-data">
         <div class="card mb-4">
-            <div class="card-header">{% translate "Product details" %}</div>
+            <div class="card-header">{% translate "Product Details" %}</div>
             <div class="card-body">
                 {% csrf_token %}
                 {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}

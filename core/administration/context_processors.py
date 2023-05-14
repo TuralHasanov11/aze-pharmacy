@@ -66,6 +66,8 @@ def admin_menu(request):
                  "route": "administration:store-category-list"},
                 {"title": _("Products"),
                  "route": "administration:store-product-list"},
+                {"title": _("Add Product"),
+                 "route": "administration:store-product-create"},
             ]
         },
         {
@@ -84,11 +86,10 @@ def admin_menu(request):
                 {"title": _("Info"), "route": "administration:site-info"},
                 {"title": _("Texts"), "route": "administration:site-texts"},
                 {"title": _("FAQ"), "route": "administration:site-faq-list"},
-                {"title": _("Add FAQ"), "route": "administration:site-faq-create"},
             ]
         },
     ]
     return {
-        "admin_menu": [item for item in menu if ("module_permission" not in item) or 
+        "admin_menu": [item for item in menu if ("module_permission" not in item) or
                        ("module_permission" in item and request.user.has_module_perms(item["module_permission"]))]
     }

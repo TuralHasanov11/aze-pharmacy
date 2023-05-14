@@ -1,5 +1,13 @@
 {% load static %}
-<script src="{% static 'js/vue.global.min.js' %}"></script>
+{% load i18n %}
+<script>
+  const csrftoken = "{{csrf_token}}"
+  const entriesPerPageText = "{% translate 'entries per page' %}"
+  const searchText = "{% translate 'Search' %}"
+  const showingText = "{% translate 'Showing' %}"
+  const entriesText = "{% translate 'entries' %}"
+  const totalText = "{% translate 'Total' %}"
+</script>
 <script
   data-search-pseudo-elements=""
   defer=""
@@ -30,7 +38,4 @@
 ></script>
 <script src="{% static 'js/admin/litepicker.js' %}"></script>
 
-<script>
-  const csrftoken = "{{csrf_token}}"
-</script>
 

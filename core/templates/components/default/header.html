@@ -88,9 +88,9 @@
                       </p>
                       {% endif %}
                       <p class="woocommerce-mini-cart__total total">
-                        <strong>{% translate "Subtotal" %}:</strong> <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span><span id="cart-total-price">{{cart.get_total_price}}</span></bdi></span>
+                        <strong>{% translate "Subtotal" %}:</strong> <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol"></span><span id="cart-total-price">{{cart.get_total_price}}</span></bdi> &#8380;</span>
                       </p>
-                      <p class="woocommerce-mini-cart__buttons buttons"><a href="{% url 'cart:index' %}" class="button wc-forward">{% translate "View cart" %}</a>
+                      <p class="woocommerce-mini-cart__buttons buttons"><a href="{% url 'cart:index' %}" class="button wc-forward">{% translate "View Cart" %}</a>
                         <a href="{% url 'checkout:index' %}" class="button checkout wc-forward">{% translate "Checkout" %}</a>
                       </p>
                     </div>

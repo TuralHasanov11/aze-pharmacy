@@ -37,4 +37,24 @@ window.addEventListener('DOMContentLoaded', event => {
             }
         });
     }
+
+    window.addEventListener('load', (event) => {
+        let datatableSelector = document.querySelector('.datatable-selector')
+        let datatableInput = document.querySelector('.datatable-input')
+        let datatableInfo = document.querySelector('.datatable-info')
+        if(datatableSelector){
+            datatableSelector.nextSibling.data = entriesPerPageText
+        }
+        if(datatableInput){
+            datatableInput.placeholder = `${searchText}...`
+        }
+        if(datatableInfo){
+            let datatableInfoNumbers = datatableInfo.innerText.match(/\d+/g)
+            datatableInfo.innerText = `${showingText} ${datatableInfoNumbers[0]}-${datatableInfoNumbers[1]} ${entriesText}. ${totalText} ${datatableInfoNumbers[2]}`
+        }
+        
+    });
+
+   
+
 });

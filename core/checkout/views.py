@@ -26,37 +26,37 @@ def index(request):
         {"title": _("Checkout")},
     ]
     template_name = "checkout/index.html"
-    if request.method == 'POST':
-        try:
-            form = OrderForm(request.POST)
-            if form.is_valid():
-                with transaction.atomic():
-                    order = form.save(commit=False)
-                    order.total_paid = cart.get_total_price
-                    order.order_key = order_key_generator()
-                    order.save()
+    # if request.method == 'POST':
+    #     try:
+    #         form = OrderForm(request.POST)
+    #         if form.is_valid():
+    #             with transaction.atomic():
+    #                 order = form.save(commit=False)
+    #                 order.total_paid = cart.get_total_price
+    #                 order.order_key = order_key_generator()
+    #                 order.save()
 
-                    for item in cart:
-                        OrderItem.objects.create(order_id=order.id, product_id=item['product']['id'], price=item['price'], quantity=item['quantity'])
+    #                 for item in cart:
+    #                     OrderItem.objects.create(order_id=order.id, product_id=item['product']['id'], price=item['price'], quantity=item['quantity'])
 
-                    cart.clear()
+    #                 cart.clear()
                     
-                    successUrl = f"{reverse('checkout:success')}?{urlencode({'order': order.order_key})}"
-                    messages.success(request, f'Order was placed successfully')
-                    return redirect(successUrl)
-            messages.error(request, "Product cannot be saved")
-            return render(request, template_name, {
-                    'cart': cart,
-                    'form': form,
-                    "breadcrumb": breadcrumb
-                })
-        except DatabaseError:
-            messages.error(request, "Product cannot be saved")
-            return render(request, template_name, {
-                    'cart': cart,
-                    'form': form,
-                    "breadcrumb": breadcrumb
-                })
+    #                 successUrl = f"{reverse('checkout:success')}?{urlencode({'order': order.order_key})}"
+    #                 messages.success(request, f'Order was placed successfully')
+    #                 return redirect(successUrl)
+    #         messages.error(request, "Product cannot be saved")
+    #         return render(request, template_name, {
+    #                 'cart': cart,
+    #                 'form': form,
+    #                 "breadcrumb": breadcrumb
+    #             })
+    #     except DatabaseError:
+    #         messages.error(request, "Product cannot be saved")
+    #         return render(request, template_name, {
+    #                 'cart': cart,
+    #                 'form': form,
+    #                 "breadcrumb": breadcrumb
+    #             })
     form = OrderForm()
     return render(request, template_name, context={
         'cart': cart,

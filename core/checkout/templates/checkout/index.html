@@ -21,10 +21,10 @@
                 >
                     {% csrf_token %}
                   <div class="row" id="customer_details">
-                    <div class="col-lg-7">
+                    <div class="col-12 col-lg-6">
                       <div id="customer_form_details">
                         <div class="woocommerce-billing-fields">
-                          <h3>{% translate "Billing details" %}</h3>
+                          <h3>{% translate "Billing Details" %}</h3>
                           <div
                             class="woocommerce-billing-fields__field-wrapper"
                           >
@@ -112,11 +112,7 @@
                               id="{{form.email.id_for_label}}_field"
                             >
                               <label for="{{form.email.id_for_label}}"
-                                >{{form.email.label}}&nbsp;<abbr
-                                  class="required"
-                                  title="required"
-                                  >*</abbr
-                                ></label
+                                >{{form.email.label}}</label
                               ><span class="woocommerce-input-wrapper"
                                 >
                                 {{form.email}}
@@ -150,10 +146,10 @@
                       </div>
                     </div>
 
-                    <div class="col-lg-5">
+                    <div class="col-12 col-lg-6">
                       <div class="cart-wrapper">
                         <div class="order-review-wrapper">
-                          <h3 id="order_review_heading">{% translate "Your order" %}</h3>
+                          <h3 id="order_review_heading">{% translate "Your Order" %}</h3>
 
                           <div
                             id="order_review"
@@ -174,7 +170,10 @@
                                 {% with cartProduct=item.product %}
                                 <tr class="cart_item">
                                     <td class="product-name">
-                                    {{cartProduct.name}}&nbsp;
+                                    <a href="{% url 'store:product-detail' category_slug=cartProduct.category_slug product_slug=cartProduct.slug %}">
+                                      <img width="32" height="32" src="{{cartProduct.image_feature}}" loading="lazy" />	
+                                      {{cartProduct.name}}&nbsp;						
+                                    </a>
                                     <strong class="product-quantity"
                                         >&times;&nbsp;{{item.quantity}}</strong
                                     >
@@ -224,30 +223,24 @@
                                 >
                                   <div class="woocommerce-privacy-policy-text">
                                     <p>
-                                      Your personal data will be used to process
-                                      your order, support your experience
-                                      throughout this website, and for other
-                                      purposes described in our
-                                      <a
-                                        href="../index3b72.html?page_id=3"
-                                        class="woocommerce-privacy-policy-link"
-                                        target="_blank"
-                                        >privacy policy</a
-                                      >.
+                                      {% url 'main:privacy-policy' as privacy_policy_link %}
+                                      {% translate "privacy policy" as privacy_policy_text %}
+                                      {% blocktranslate %}
+                                      Before you proceed to complete your checkout, we kindly request that you take a moment to review our Privacy Policy. 
+                                      Your privacy and data security are of utmost importance to us. 
+                                      Our Privacy Policy outlines how we collect, use, and protect your personal information.
+                                      By understanding our privacy practices, you can have full confidence in providing your details for a seamless checkout experience. 
+                                      We value your trust and strive to maintain the highest standards of privacy protection.
+                                      To view our Privacy Policy, please click <a href="{{privacy_policy_link}}" class="woocommerce-privacy-policy-link" target="_blank">{{privacy_policy_text}}</a>. 
+                                      Once you have familiarized yourself with our policy, you can proceed with confidence to complete your checkout.
+                                      Thank you for your understanding and for choosing us for your shopping needs.
+                                      
+                                      {% endblocktranslate %}
                                     </p>
                                   </div>
                                 </div>
 
-                                <button
-                                  type="submit"
-                                  class="btn w-100"
-                                  name="woocommerce_checkout_place_order"
-                                  id="place_order"
-                                  value="Place order"
-                                  data-value="Place order"
-                                >
-                                  {% translate "Place order" %}
-                                </button>
+                                <button type="submit" class="btn w-100">{% translate "Place order" %}</button>
                               </div>
                             </div>
                           </div>

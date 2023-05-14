@@ -48,7 +48,7 @@
                         {% for question in questions %}
                         <tr>
                             <td>{{question.question|truncatechars:100}}</td>
-                            <td>{{question.language}}</td>
+                            <td>{{question.language|upper}}</td>
                             <td>
                                 <a href="{% url 'administration:site-faq-update' pk=question.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
                                 <form class="delete-form" action="{% url 'administration:site-faq-delete' pk=question.pk %}" method="POST">
@@ -65,6 +65,7 @@
     </div>
 </main>
 {% endblock content %}
+
 
 
 

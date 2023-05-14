@@ -16,7 +16,7 @@
       <div class="row g-0 justify-content-center">
         {% for category in categories %}
         <div class="col-lg-4 col-md-6 col-sm-9">
-          <div class="fact-item category-item">
+          <a href="{% url 'store:category-products' category_slug=category.slug %}" class="fact-item category-item">
             <div class="chart" data-percent="100">
               <span class="percentage"
                 >{{category.products_count}}<small></small>
@@ -24,13 +24,10 @@
             </div>
             <div class="fact-content">
               <h4 class="title">
-                <a
-                  href="{% url 'store:category-products' category_slug=category.slug %}"
-                  >{{category.name}}</a
-                >
+                {{category.name}}
               </h4>
             </div>
-          </div>
+          </a>
         </div>
         {% endfor %}
       </div>

@@ -63,7 +63,7 @@ class ServiceListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Success
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/services/index.html'
     success_url = reverse_lazy("administration:service-list")
-    success_message = "%(name)s " + _("was created successfully")
+    success_message = _("Service was created successfully!")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -78,7 +78,7 @@ class ServiceUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/services/edit.html'
     context_object_name = 'service'
-    success_message = "%(name)s " + _("was updated successfully")
+    success_message = _("Service was updated successfully!")
 
     def get_success_url(self):
         return reverse("administration:service-update", kwargs={"pk": self.object.pk})
@@ -88,7 +88,7 @@ class ServiceDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
     model = Service
     permission_required = ["services.delete_service"]
     login_url = reverse_lazy('administration:index')
-    success_message = _("Service") + " " + _("was deleted successfully")
+    success_message = _("Service was deleted successfully!")
     success_url = reverse_lazy('administration:service-list')
 
 
@@ -100,7 +100,7 @@ class DocumentListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
     success_url = reverse_lazy("administration:document-list")
     template_name = 'administration/documents/index.html'
     paginate_py = 20
-    success_message = "%(name)s " + _("was created successfully")
+    success_message = _("Document was created successfully!")
 
     def get_queryset(self):
         queryset = super().get_queryset().order_by(self.request.GET.get(
@@ -126,7 +126,7 @@ class DocumentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/documents/edit.html'
     context_object_name = 'document'
-    success_message = "%(name)s " + _("was updated successfully")
+    success_message = _("Document was updated successfully!")
 
     def get_success_url(self):
         return reverse("administration:document-update", kwargs={"pk": self.object.pk})
@@ -136,7 +136,7 @@ class DocumentDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
     model = Document
     permission_required = ["library.delete_document"]
     login_url = reverse_lazy('administration:index')
-    success_message = _("Document") + " " + _("was deleted successfully")
+    success_message = _("Document was deleted successfully!")
     success_url = reverse_lazy('administration:document-list')
 
 
@@ -147,7 +147,7 @@ class CompanyListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Success
     permission_required = ["main.view_company", "main.add_company"]
     template_name = 'administration/companies/index.html'
     success_url = reverse_lazy("administration:company-list")
-    success_message = "%(name)s " + _("was created successfully")
+    success_message = _("Company was created successfully!")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -162,7 +162,7 @@ class CompanyUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/companies/edit.html'
     context_object_name = 'company'
-    success_message = "%(name)s " + _("was updated successfully")
+    success_message = _("Company was updated successfully!")
 
     def get_success_url(self):
         return reverse("administration:company-update", kwargs={"pk": self.object.pk})
@@ -172,7 +172,7 @@ class CompanyDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
     model = Company
     permission_required = ["library.delete_document"]
     login_url = reverse_lazy('administration:index')
-    success_message = _("Company") + " " + _("was deleted successfully")
+    success_message = _("Company was deleted successfully!")
     success_url = reverse_lazy('administration:company-list')
 
 
@@ -215,7 +215,7 @@ class PostCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
     permission_required = ["news.add_post"]
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/posts/create.html'
-    success_message = "%(title)s " + _("was created successfully")
+    success_message = _("Post was created successfully!")
     success_url = reverse_lazy('administration:post-list')
 
 
@@ -226,7 +226,7 @@ class PostUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/posts/edit.html'
     context_object_name = 'post'
-    success_message = "%(title)s " + _("was updated successfully")
+    success_message = _("Post was updated successfully!")
 
     def get_success_url(self):
         return reverse("administration:post-update", kwargs={"pk": self.object.pk})
@@ -236,7 +236,7 @@ class PostDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
     model = Post
     permission_required = ["news.delete_post"]
     login_url = reverse_lazy('administration:index')
-    success_message = _("Post") + " " + _("was deleted successfully")
+    success_message = _("Post was deleted successfully!")
     success_url = reverse_lazy('administration:post-list')
 
 
@@ -248,9 +248,9 @@ def profile(request):
         form = forms.UserUpdateForm(instance=request.user, data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, _("Account updated successfully"))
+            messages.success(request, _("Account updated successfully!"))
             return redirect('administration:auth-profile')
-        messages.error(request, _("Account could not be updated"))
+        messages.error(request, _("Account could not be updated!"))
         return render(request, template_name, context={"form": form})
     form = forms.UserUpdateForm(instance=request.user)
     return render(request, template_name, context={"form": form})
@@ -289,7 +289,7 @@ class UserCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
     permission_required = ["user.add_user"]
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/users/create.html'
-    success_message = "%(username)s " + _("was created successfully")
+    success_message = _("User was created successfully!")
     success_url = reverse_lazy('administration:user-list')
 
 
@@ -300,7 +300,7 @@ class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/users/edit.html'
     context_object_name = 'user'
-    success_message = "%(username)s " + _("was updated successfully")
+    success_message = _("User was updated successfully!")
 
     def get_success_url(self):
         return reverse("administration:user-update", kwargs={"pk": self.object.pk})
@@ -310,7 +310,7 @@ class UserDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
     model = get_user_model()
     permission_required = ["user.delete_user"]
     login_url = reverse_lazy('administration:index')
-    success_message = _("User") + " " + _("was deleted successfully")
+    success_message = _("User was deleted successfully!")
     success_url = reverse_lazy('administration:user-list')
 
 
@@ -320,7 +320,7 @@ class CategoryListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
     permission_required = ["store.view_category", "store.add_category"]
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/store/categories/index.html'
-    success_message = "%(name)s " + _("was created successfully")
+    success_message = _("Category was created successfully!")
     success_url = reverse_lazy("administration:store-category-list")
 
     def get_context_data(self, **kwargs):
@@ -336,7 +336,7 @@ class CategoryUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/store/categories/edit.html'
     context_object_name = 'category'
-    success_message = "%(name)s " + _("was updated successfully")
+    success_message = _("Category was updated successfully!")
 
     def get_success_url(self):
         return reverse("administration:store-category-update", kwargs={"pk": self.object.pk})
@@ -346,7 +346,7 @@ class CategoryDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
     model = Category
     permission_required = ["store.delete_category"]
     login_url = reverse_lazy('administration:index')
-    success_message = _("Category") + " " + _("was deleted successfully")
+    success_message = _("Category was deleted successfully!")
     success_url = reverse_lazy('administration:store-category-list')
 
 
@@ -413,9 +413,9 @@ def productCreate(request):
                 productImage.product = product
                 productImage.save()
             messages.success(
-                request, f'{product} ' + _("was saved successfully"))
+                request, _("Product was saved successfully!"))
             return redirect("administration:store-product-list")
-        messages.error(request, _("Product") + " " + _("cannot be saved"))
+        messages.error(request, _("Product cannot be saved!"))
         return render(request, template_name, {
             "form": form,
             "stock_formset": stock_formset,
@@ -451,9 +451,9 @@ def productUpdate(request, pk: int):
             stock_formset.save()
             product_image_formset.save()
             messages.success(
-                request, f'{product} ' + _("was saved successfully"))
+                request, _("Product was saved successfully!"))
             return redirect("administration:store-product-list")
-        messages.error(request, _("Product") + " " + _("cannot be saved"))
+        messages.error(request, _("Product cannot be saved!"))
         return render(request, template_name, {
             "form": form,
             "stock_formset": stock_formset,
@@ -475,7 +475,7 @@ class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
     model = Product
     permission_required = ["store.delete_product"]
     login_url = reverse_lazy('administration:index')
-    success_message = _("Product") + " " + _("was deleted successfully")
+    success_message = _("Product was deleted successfully!")
     success_url = reverse_lazy('administration:store-product-list')
 
 
@@ -489,16 +489,15 @@ class OrdersView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
 @require_http_methods(['GET', 'POST'])
 @permission_required(['main.change_site_text', 'main.view_site_text',], login_url=reverse_lazy('administration:index'))
 def siteTexts(request):
-    template_name = 'administration/site/texts.html'    
+    template_name = 'administration/site/texts.html'
     if request.method == 'POST':
         formset = forms.SiteTextFormSet(
             initial=SiteText.objects.all(), data=request.POST)
         if formset.is_valid():
             formset.save()
-            messages.success(request, _('Texts') + " " +
-                             _("were saved successfully"))
+            messages.success(request, _("Texts were saved successfully!"))
             return redirect("administration:site-texts")
-        messages.error(request, _('Texts') + " " + _("cannot be saved"))
+        messages.error(request, _("Texts cannot be saved!"))
         return render(request, template_name, {"formset": formset})
     formset = forms.SiteTextFormSet(initial=SiteText.objects.all())
     return render(request, template_name, {"formset": formset})
@@ -509,18 +508,18 @@ def siteTexts(request):
 @permission_required(['main.change_site_info', 'main.view_site_info',], login_url=reverse_lazy('administration:index'))
 def siteInfo(request):
     template_name = 'administration/site/info.html'
+    siteInfo = SiteInfo.objects.first()
     if request.method == 'POST':
         form = forms.SiteInfoForm(
-            instance=SiteInfo.objects.first(), data=request.POST, files=request.FILES)
+            instance=siteInfo, data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request, _('Info') + " " +
-                             _("was saved successfully"))
+            messages.success(request, _("Site Info was saved successfully!"))
             return redirect("administration:site-info")
-        messages.error(request, _('Info') + " " + _("cannot be saved"))
+        messages.error(request, _("Site Info cannot be saved!"))
         return render(request, template_name, {"form": form})
-    form = forms.SiteInfoForm(instance=SiteInfo.objects.first())
-    return render(request, template_name, {"form": form})
+    form = forms.SiteInfoForm(instance=siteInfo)
+    return render(request, template_name, {"form": form, "site_info": siteInfo})
 
 
 class FAQListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -540,7 +539,7 @@ class FAQCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageM
     permission_required = ["main.add_question"]
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/site/faq-create.html'
-    success_message = "%(question)s " + _("was created successfully")
+    success_message = _("Question was created successfully!")
     success_url = reverse_lazy('administration:site-faq-list')
 
 
@@ -551,7 +550,7 @@ class FAQUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageM
     login_url = reverse_lazy('administration:index')
     template_name = 'administration/site/faq-edit.html'
     context_object_name = 'question'
-    success_message = "%(question)s " + _("was updated successfully")
+    success_message = _("Question was updated successfully!")
 
     def get_success_url(self):
         return reverse("administration:site-faq-update", kwargs={"pk": self.object.pk})
@@ -561,7 +560,7 @@ class FAQDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageM
     model = Question
     permission_required = ["main.delete_question"]
     login_url = reverse_lazy('administration:index')
-    success_message = _("Question") + " " + _("was deleted successfully")
+    success_message = _("Question was deleted successfully!")
     success_url = reverse_lazy('administration:site-faq-list')
 
 
@@ -592,15 +591,14 @@ def orderDetail(request, id: int):
                         sendDeliveryStatusNotification(
                             request=request, order=order, delivery=delivery)
                     except Exception as e:
-                        messages.error(request, _(
-                            "Notifications are not sent!"))
+                        messages.error(request, str(e))
                         return redirect(reverse("administration:order-detail", kwargs={"id": order.id})+"#order-form")
             messages.success(request, success_message)
             return redirect(reverse("administration:order-detail", kwargs={"id": order.id})+"#order-form")
         messages.error(request, _("Order was not saved!"))
         return render(request, template_name, {"order": order, "form": form, "order_delivery_formset": order_delivery_formset})
     else:
-        if order.seen is False:
+        if not order.seen:
             order.seen = True
             order.save()
         form = form_class(instance=order)
@@ -611,10 +609,12 @@ def orderDetail(request, id: int):
 
 def sendDeliveryStatusNotification(request, order, delivery):
     try:
-        emailNotification = DeliveryEmailNotification(request, order, delivery)
+        if order.email:
+            emailNotification = DeliveryEmailNotification(
+                request, order, delivery)
+            emailNotification.send()
         messageNotification = DeliveryMessageNotification(
             request, order, delivery)
-        emailNotification.send()
         # messageNotification.send()
     except Exception as e:
-        return str(e)
+        raise e

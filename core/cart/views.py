@@ -56,9 +56,9 @@ def update(request):
     try:
         cart = CartProcessor(request)
         data = json.load(request)
-        cart.update(productId=int(data['product_id']),
-                    quantity=int(data['product_quantity']))
+        item = cart.update(productId=int(data['product_id']),
+                           quantity=int(data['product_quantity']))
 
-        return JsonResponse({'quantity': cart.__len__(), 'total_price': cart.get_total_price})
+        return JsonResponse({'quantity': cart.__len__(), 'total_price': cart.get_total_price, "item": item})
     except Exception as err:
         return HttpResponseBadRequest(str(err))

@@ -40,20 +40,22 @@
                     {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
                     {{form.non_form_errors}}
                     {{ form.media }}
-                    <div class="mb-3">
-                        <label class="mb-1" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
-                        {{ form.name }} 
-                        {{ form.name.errors }}
-                    </div>
-                    <div class="mb-3">
-                        <label class="mb-1" for="{{ form.link.id_for_label }}">{{ form.link.label }}</label>
-                        {{ form.link }} 
-                        {{ form.link.errors }}
-                    </div>
-                    <div class="mb-4">
-                        <label class="mb-1" for="{{ form.cover_image.id_for_label }}">{{ form.cover_image.label }}</label>
-                        {{form.cover_image}} 
-                        {{ form.cover_image.errors }}
+                    <div class="row g-3 align-items-center">
+                        <div class="col-12 col-md-6 mb-3">
+                            <label class="small mb-1" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                            {{ form.name }} 
+                            {{ form.name.errors }}
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <label class="small mb-1" for="{{ form.link.id_for_label }}">{{ form.link.label }}</label>
+                            {{ form.link }} 
+                            {{ form.link.errors }}
+                        </div>
+                        <div class="col-12 mb-4">
+                            <label class="small mb-1" for="{{ form.cover_image.id_for_label }}">{{ form.cover_image.label }}</label>
+                            {{form.cover_image}} 
+                            {{ form.cover_image.errors }}
+                        </div>
                     </div>
                     <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
                 </form>
