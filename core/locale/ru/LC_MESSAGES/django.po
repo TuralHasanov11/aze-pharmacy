@@ -9,16 +9,14 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-15 21:50+0200\n"
-"PO-Revision-Date: 2023-05-15 11:20+0400\n"
+"PO-Revision-Date: 2023-05-15 22:24+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Translated-Using: django-rosetta 0.9.9\n"
 
 #: .\administration\context_processors.py:7
@@ -160,7 +158,7 @@ msgstr "Имя"
 #: .\administration\forms.py:48 .\administration\forms.py:59
 #: .\administration\forms.py:166
 msgid "Please enter name"
-msgstr ""
+msgstr "Zəhmət olmasa ad daxil edin"
 
 #: .\administration\forms.py:21 .\administration\forms.py:62
 #: .\administration\forms.py:73
@@ -177,7 +175,7 @@ msgstr "Изображение Oбложки"
 
 #: .\administration\forms.py:22 .\administration\forms.py:206
 msgid "Please upload image"
-msgstr ""
+msgstr "Zəhmət olmasa şəkil yükləyin"
 
 #: .\administration\forms.py:23 .\administration\forms.py:24
 #: .\administration\forms.py:76 .\administration\forms.py:180
@@ -194,9 +192,9 @@ msgid "Please enter description"
 msgstr ""
 "Ознакомьтесь с компаниями, с которыми мы сотрудничаем в сфере "
 "здравоохранения. Узнайте о наших стратегических партнерствах и альянсах с "
-"ведущими организациями, занимающимися продвижением медицинских исследований, "
-"технологий и инноваций. Узнайте больше о нашей сети отраслевых партнеров и о "
-"нашей приверженности развитию сотрудничества, которое формирует будущее "
+"ведущими организациями, занимающимися продвижением медицинских исследований,"
+" технологий и инноваций. Узнайте больше о нашей сети отраслевых партнеров и "
+"о нашей приверженности развитию сотрудничества, которое формирует будущее "
 "здравоохранения."
 
 #: .\administration\forms.py:49
@@ -205,7 +203,7 @@ msgstr "Файл"
 
 #: .\administration\forms.py:50
 msgid "Please upload file"
-msgstr ""
+msgstr "Zəhmət olmasa faylı yükləyin"
 
 #: .\administration\forms.py:60 .\administration\forms.py:61
 msgid "Link"
@@ -1316,34 +1314,19 @@ msgstr "политика конфиденциальности"
 #, python-format
 msgid ""
 "\n"
-"                                      Before you proceed to complete your "
-"checkout, we kindly request that you take a moment to review our Privacy "
-"Policy. \n"
-"                                      Our Privacy Policy outlines how we "
-"collect, use, and protect your personal information.\n"
-"                                      By understanding our privacy "
-"practices, you can have full confidence in providing your details for a "
-"seamless checkout experience. \n"
-"                                      To view our Privacy Policy, please "
-"click <a href=\"%(privacy_policy_link)s\" class=\"woocommerce-privacy-policy-"
-"link\" target=\"_blank\">%(privacy_policy_text)s</a>. \n"
-"                                      Once you have familiarized yourself "
-"with our policy, you can proceed with confidence to complete your "
-"checkout.                                  \n"
+"                                      Before you proceed to complete your checkout, we kindly request that you take a moment to review our Privacy Policy. \n"
+"                                      Our Privacy Policy outlines how we collect, use, and protect your personal information.\n"
+"                                      By understanding our privacy practices, you can have full confidence in providing your details for a seamless checkout experience. \n"
+"                                      To view our Privacy Policy, please click <a href=\"%(privacy_policy_link)s\" class=\"woocommerce-privacy-policy-link\" target=\"_blank\">%(privacy_policy_text)s</a>. \n"
+"                                      Once you have familiarized yourself with our policy, you can proceed with confidence to complete your checkout.                                  \n"
 "                                      "
 msgstr ""
 "\n"
-"Прежде чем вы приступите к оформлению заказа, мы просим вас уделить немного "
-"времени для ознакомления с нашей Политикой конфиденциальности.\n"
-"Наша Политика конфиденциальности описывает, как мы собираем, используем и "
-"защищаем вашу личную информацию.\n"
-"Поняв наши правила конфиденциальности, вы можете быть полностью уверены в "
-"том, что предоставите свои данные для беспрепятственного оформления заказа.\n"
-"Чтобы ознакомиться с нашей Политикой конфиденциальности, нажмите <a href="
-"\"%(privacy_policy_link)s\" class=\"woocommerce-privacy-policy-link\" target="
-"\"_blank\">%(privacy_policy_text)s</a>.\n"
-"После того, как вы ознакомились с нашей политикой, вы можете с уверенностью "
-"приступить к оформлению заказа."
+"Прежде чем вы приступите к оформлению заказа, мы просим вас уделить немного времени для ознакомления с нашей Политикой конфиденциальности.\n"
+"Наша Политика конфиденциальности описывает, как мы собираем, используем и защищаем вашу личную информацию.\n"
+"Поняв наши правила конфиденциальности, вы можете быть полностью уверены в том, что предоставите свои данные для беспрепятственного оформления заказа.\n"
+"Чтобы ознакомиться с нашей Политикой конфиденциальности, нажмите <a href=\"%(privacy_policy_link)s\" class=\"woocommerce-privacy-policy-link\" target=\"_blank\">%(privacy_policy_text)s</a>.\n"
+"После того, как вы ознакомились с нашей политикой, вы можете с уверенностью приступить к оформлению заказа."
 
 #: .\checkout\templates\checkout\index.html:239
 msgid "Place order"
@@ -1486,9 +1469,9 @@ msgid "Career Description"
 msgstr ""
 "Ознакомьтесь с компаниями, с которыми мы сотрудничаем в сфере "
 "здравоохранения. Узнайте о наших стратегических партнерствах и альянсах с "
-"ведущими организациями, занимающимися продвижением медицинских исследований, "
-"технологий и инноваций. Узнайте больше о нашей сети отраслевых партнеров и о "
-"нашей приверженности развитию сотрудничества, которое формирует будущее "
+"ведущими организациями, занимающимися продвижением медицинских исследований,"
+" технологий и инноваций. Узнайте больше о нашей сети отраслевых партнеров и "
+"о нашей приверженности развитию сотрудничества, которое формирует будущее "
 "здравоохранения."
 
 #: .\main\templates\main\career.html:33
@@ -1501,8 +1484,8 @@ msgid "Contact Description"
 msgstr ""
 "Contact us for any questions or inquiries about our products and services. "
 "Our customer support team is available 24/7 to assist you with any queries "
-"you may have. Reach out to us today and let us help you with your healthcare "
-"needs."
+"you may have. Reach out to us today and let us help you with your healthcare"
+" needs."
 
 #: .\main\templates\main\contact.html:41
 msgid "Office Address"
@@ -1542,9 +1525,9 @@ msgid "Privacy Policy Description"
 msgstr ""
 "В нашей политике конфиденциальности изложены наши обязательства по защите "
 "вашей личной информации и данных. Узнайте о наших методах сбора и хранения "
-"данных, а также о том, как мы используем вашу информацию, чтобы сделать ваши "
-"покупки более удобными. Прочитайте нашу политику конфиденциальности сейчас и "
-"делайте покупки с уверенностью."
+"данных, а также о том, как мы используем вашу информацию, чтобы сделать ваши"
+" покупки более удобными. Прочитайте нашу политику конфиденциальности сейчас "
+"и делайте покупки с уверенностью."
 
 #: .\main\templates\main\return-policy.html:3
 msgid "Return Policy Description"
@@ -1580,9 +1563,9 @@ msgstr "Свежие Hовости"
 msgid "News Description"
 msgstr ""
 "Будьте в курсе последних новостей и тенденций в области медицины. На нашей "
-"странице новостей вы найдете информативный и образовательный контент о новых "
-"открытиях, медицинских открытиях и новостях, связанных со здоровьем. Читайте "
-"больше и будьте в курсе!"
+"странице новостей вы найдете информативный и образовательный контент о новых"
+" открытиях, медицинских открытиях и новостях, связанных со здоровьем. "
+"Читайте больше и будьте в курсе!"
 
 #: .\orders\forms.py:13
 msgid "Please enter your first name"
@@ -1757,8 +1740,8 @@ msgid "entries"
 msgstr "записи"
 
 #: .\templates\components\admin\navbar.html:14
-#: .\templates\layouts\admin.html:19 .\templates\layouts\authentication.html:24
-#: .\user\models.py:38
+#: .\templates\layouts\admin.html:19
+#: .\templates\layouts\authentication.html:24 .\user\models.py:38
 msgid "Admin"
 msgstr "Администратор"
 
@@ -1861,9 +1844,9 @@ msgstr "Список желаний"
 msgid "Wishlist Description"
 msgstr ""
 "Отслеживайте свои любимые товары для здоровья и лекарства, добавляя их в "
-"свой список желаний. Наша функция списка желаний позволяет легко отслеживать "
-"продукты, которые вы хотите приобрести в будущем. Просмотрите наши продукты "
-"и добавьте их в свой список желаний сегодня!"
+"свой список желаний. Наша функция списка желаний позволяет легко отслеживать"
+" продукты, которые вы хотите приобрести в будущем. Просмотрите наши продукты"
+" и добавьте их в свой список желаний сегодня!"
 
 #~ msgid "Delivery & Orders"
 #~ msgstr "Доставка и Заказы"

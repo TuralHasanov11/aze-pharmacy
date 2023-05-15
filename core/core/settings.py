@@ -17,6 +17,7 @@ else:
 
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -32,7 +33,6 @@ INSTALLED_APPS = [
     "mptt",
     'rest_framework',
     'rosetta',
-    'channels',
 
     'main',
     'news',
@@ -85,9 +85,16 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'core.wsgi.application'
 
 ASGI_APPLICATION = 'core.asgi.application'
+WSGI_APPLICATION = 'core.wsgi.application'
+
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+    }
+}
 
 
 DATABASES = {
@@ -184,10 +191,10 @@ AWS_QUERYSTRING_AUTH = False
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.environ.get("EMAIL_HOST", "")
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "") 
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "") 
-EMAIL_PORT = os.environ.get("EMAIL_PORT", "")  
-EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", True) 
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
+EMAIL_PORT = os.environ.get("EMAIL_PORT", "")
+EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", True)
 
 
 CKEDITOR_CONFIGS = {
