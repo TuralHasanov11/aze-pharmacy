@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-15 01:10+0200\n"
-"PO-Revision-Date: 2023-05-15 01:04+0400\n"
+"POT-Creation-Date: 2023-05-15 21:50+0200\n"
+"PO-Revision-Date: 2023-05-15 11:20+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -70,7 +70,7 @@ msgstr "Добавить Пост"
 
 #: .\administration\context_processors.py:41 .\administration\views.py:38
 #: .\main\context_processors.py:19 .\main\context_processors.py:31
-#: .\main\templates\main\career.html:2 .\main\views.py:91 .\main\views.py:93
+#: .\main\templates\main\career.html:2 .\main\views.py:98 .\main\views.py:100
 msgid "Career"
 msgstr "Карьера"
 
@@ -135,7 +135,7 @@ msgid "Texts"
 msgstr "Тексты"
 
 #: .\administration\context_processors.py:88 .\main\context_processors.py:37
-#: .\main\templates\main\faq.html:2 .\main\views.py:143 .\main\views.py:145
+#: .\main\templates\main\faq.html:2 .\main\views.py:150 .\main\views.py:152
 msgid "FAQ"
 msgstr "FAQ"
 
@@ -156,6 +156,12 @@ msgstr "FAQ"
 msgid "Name"
 msgstr "Имя"
 
+#: .\administration\forms.py:20 .\administration\forms.py:33
+#: .\administration\forms.py:48 .\administration\forms.py:59
+#: .\administration\forms.py:166
+msgid "Please enter name"
+msgstr ""
+
 #: .\administration\forms.py:21 .\administration\forms.py:62
 #: .\administration\forms.py:73
 #: .\administration\templates\administration\companies\index.html:30
@@ -169,6 +175,10 @@ msgstr "Имя"
 msgid "Cover Image"
 msgstr "Изображение Oбложки"
 
+#: .\administration\forms.py:22 .\administration\forms.py:206
+msgid "Please upload image"
+msgstr ""
+
 #: .\administration\forms.py:23 .\administration\forms.py:24
 #: .\administration\forms.py:76 .\administration\forms.py:180
 #: .\administration\templates\administration\services\index.html:31
@@ -177,13 +187,37 @@ msgstr "Изображение Oбложки"
 msgid "Description"
 msgstr "Описание"
 
+#: .\administration\forms.py:24
+#, fuzzy
+#| msgid "Career Description"
+msgid "Please enter description"
+msgstr ""
+"Ознакомьтесь с компаниями, с которыми мы сотрудничаем в сфере "
+"здравоохранения. Узнайте о наших стратегических партнерствах и альянсах с "
+"ведущими организациями, занимающимися продвижением медицинских исследований, "
+"технологий и инноваций. Узнайте больше о нашей сети отраслевых партнеров и о "
+"нашей приверженности развитию сотрудничества, которое формирует будущее "
+"здравоохранения."
+
 #: .\administration\forms.py:49
 msgid "File"
 msgstr "Файл"
 
+#: .\administration\forms.py:50
+msgid "Please upload file"
+msgstr ""
+
 #: .\administration\forms.py:60 .\administration\forms.py:61
 msgid "Link"
 msgstr "Линк"
+
+#: .\administration\forms.py:61
+msgid "Please enter link"
+msgstr ""
+
+#: .\administration\forms.py:63 .\administration\forms.py:74
+msgid "Please upload cover image"
+msgstr ""
 
 #: .\administration\forms.py:71 .\administration\forms.py:72
 #: .\administration\templates\administration\posts\index.html:45
@@ -191,22 +225,37 @@ msgstr "Линк"
 msgid "Title"
 msgstr "Заголовок"
 
+#: .\administration\forms.py:72
+msgid "Please enter title"
+msgstr ""
+
 #: .\administration\forms.py:84 .\administration\forms.py:100
 #: .\administration\forms.py:101 .\administration\forms.py:135
-#: .\administration\forms.py:136 .\administration\forms.py:226
-#: .\administration\forms.py:227
+#: .\administration\forms.py:136 .\administration\forms.py:227
+#: .\administration\forms.py:228
 #: .\administration\templates\administration\auth\profile.html:37
 #: .\administration\templates\administration\orders\detail.html:49
 #: .\administration\templates\administration\users\index.html:34
 #: .\administration\templates\administration\users\index.html:43
-#: .\orders\forms.py:25
+#: .\orders\forms.py:24 .\orders\forms.py:25
 msgid "Email"
 msgstr "Email"
+
+#: .\administration\forms.py:85 .\administration\forms.py:95
+#: .\administration\forms.py:130
+msgid "Please enter username"
+msgstr ""
 
 #: .\administration\forms.py:86 .\administration\forms.py:104
 #: .\administration\forms.py:105
 msgid "Password"
 msgstr "Пароль"
+
+#: .\administration\forms.py:87 .\administration\forms.py:105
+#, fuzzy
+#| msgid "Repeat password"
+msgid "Please enter password"
+msgstr "Повторите пароль"
 
 #: .\administration\forms.py:94 .\administration\forms.py:95
 #: .\administration\forms.py:129 .\administration\forms.py:130
@@ -220,23 +269,42 @@ msgstr "Имя пользователя"
 #: .\administration\forms.py:131 .\administration\forms.py:132
 #: .\administration\templates\administration\auth\profile.html:43
 #: .\administration\templates\administration\orders\detail.html:41
-#: .\orders\forms.py:15
+#: .\orders\forms.py:11 .\orders\forms.py:12
 msgid "First Name"
 msgstr "Имя"
+
+#: .\administration\forms.py:97 .\administration\forms.py:132
+msgid "Please enter first name"
+msgstr ""
 
 #: .\administration\forms.py:98 .\administration\forms.py:99
 #: .\administration\forms.py:133 .\administration\forms.py:134
 #: .\administration\templates\administration\auth\profile.html:49
 #: .\administration\templates\administration\orders\detail.html:45
-#: .\orders\forms.py:17
+#: .\orders\forms.py:14 .\orders\forms.py:15
 msgid "Last Name"
 msgstr "Фамилия"
+
+#: .\administration\forms.py:99 .\administration\forms.py:134
+#, fuzzy
+#| msgid "House number and street name"
+msgid "Please enter last name"
+msgstr "Номер дома и название улицы"
+
+#: .\administration\forms.py:101 .\administration\forms.py:136
+#: .\administration\forms.py:228
+msgid "Please enter email"
+msgstr ""
 
 #: .\administration\forms.py:102 .\administration\forms.py:137
 #: .\administration\templates\administration\users\index.html:35
 #: .\administration\templates\administration\users\index.html:44
 msgid "Role"
 msgstr "Роль"
+
+#: .\administration\forms.py:103
+msgid "Please select role"
+msgstr ""
 
 #: .\administration\forms.py:106
 msgid "Repeat password"
@@ -246,16 +314,44 @@ msgstr "Повторите пароль"
 msgid "Password Confirm"
 msgstr "Подтвердить пароль"
 
+#: .\administration\forms.py:107
+#, fuzzy
+#| msgid "Confirm Password"
+msgid "Please confirm password"
+msgstr "Подтвердите пароль"
+
+#: .\administration\forms.py:138
+msgid "Please enter role"
+msgstr ""
+
 #: .\administration\forms.py:156 .\administration\forms.py:157
 msgid "Current Password"
 msgstr "Текущий пароль"
+
+#: .\administration\forms.py:157
+#, fuzzy
+#| msgid "Repeat password"
+msgid "Please enter old password"
+msgstr "Повторите пароль"
 
 #: .\administration\forms.py:158 .\administration\forms.py:159
 msgid "New Password"
 msgstr "Новый пароль"
 
+#: .\administration\forms.py:159
+#, fuzzy
+#| msgid "Repeat password"
+msgid "Please enter new password"
+msgstr "Повторите пароль"
+
 #: .\administration\forms.py:160 .\administration\forms.py:161
 msgid "Confirm Password"
+msgstr "Подтвердите пароль"
+
+#: .\administration\forms.py:161
+#, fuzzy
+#| msgid "Confirm Password"
+msgid "Please confirm new password"
 msgstr "Подтвердите пароль"
 
 #: .\administration\forms.py:167 .\administration\forms.py:168
@@ -264,14 +360,28 @@ msgstr "Подтвердите пароль"
 msgid "SKU"
 msgstr "SKU"
 
+#: .\administration\forms.py:168
+msgid "Please enter SKU"
+msgstr ""
+
 #: .\administration\forms.py:169
 msgid "category"
 msgstr "категория"
+
+#: .\administration\forms.py:170
+#, fuzzy
+#| msgid "Delete Category"
+msgid "Please select category"
+msgstr "Удалить Kатегорию"
 
 #: .\administration\forms.py:171 .\administration\forms.py:172
 #: .\administration\templates\administration\store\products\detail.html:64
 msgid "Regular Price"
 msgstr "Обычная Цена"
+
+#: .\administration\forms.py:172
+msgid "Please enter regular price"
+msgstr ""
 
 #: .\administration\forms.py:173 .\administration\forms.py:174
 #: .\administration\templates\administration\store\products\detail.html:66
@@ -280,11 +390,19 @@ msgstr "Обычная Цена"
 msgid "Discount"
 msgstr "Скидка"
 
+#: .\administration\forms.py:174
+msgid "Please enter discount"
+msgstr ""
+
 #: .\administration\forms.py:175 .\administration\forms.py:176
 #: .\administration\templates\administration\store\products\detail.html:70
 #: .\store\templates\store\products\detail.html:110
 msgid "Weight"
 msgstr "Масса"
+
+#: .\administration\forms.py:176
+msgid "Please enter weight"
+msgstr ""
 
 #: .\administration\forms.py:177 .\administration\forms.py:178
 msgid "Is Active"
@@ -294,124 +412,211 @@ msgstr "Активен"
 msgid "Units"
 msgstr "Единицы"
 
+#: .\administration\forms.py:197
+msgid "Please enter units"
+msgstr ""
+
 #: .\administration\forms.py:205 .\administration\forms.py:206
 msgid "Image"
 msgstr "Изображение"
 
-#: .\administration\forms.py:207
+#: .\administration\forms.py:208
 msgid "Is Feature"
 msgstr "Изображение Oбложки"
 
-#: .\administration\forms.py:222 .\administration\forms.py:223
+#: .\administration\forms.py:223 .\administration\forms.py:224
 #: .\administration\templates\administration\orders\detail.html:61
-#: .\orders\forms.py:23
+#: .\orders\forms.py:22 .\orders\forms.py:23
 msgid "Phone"
 msgstr "Телефон"
 
 #: .\administration\forms.py:224
+msgid "Please enter phone"
+msgstr ""
+
+#: .\administration\forms.py:225
 #: .\administration\templates\administration\orders\detail.html:53
 #: .\orders\templates\orders\detail.html:61
 msgid "Address"
 msgstr "Адрес"
 
-#: .\administration\forms.py:225
+#: .\administration\forms.py:226
 msgid "address"
 msgstr "адрес"
 
-#: .\administration\forms.py:228 .\administration\forms.py:229
+#: .\administration\forms.py:226
+msgid "Please enter address"
+msgstr ""
+
+#: .\administration\forms.py:229 .\administration\forms.py:230
 msgid "Facebook link"
 msgstr "Cсылка на Фейсбук"
 
-#: .\administration\forms.py:230 .\administration\forms.py:231
+#: .\administration\forms.py:230
+#, fuzzy
+#| msgid "Facebook link"
+msgid "Please enter facebook link"
+msgstr "Cсылка на Фейсбук"
+
+#: .\administration\forms.py:231 .\administration\forms.py:232
 msgid "Instagram link"
 msgstr "Cсылка на Инстаграм"
 
-#: .\administration\forms.py:232 .\administration\forms.py:233
+#: .\administration\forms.py:232
+#, fuzzy
+#| msgid "Instagram link"
+msgid "Please enter instagram link"
+msgstr "Cсылка на Инстаграм"
+
+#: .\administration\forms.py:233 .\administration\forms.py:234
 msgid "YouTube link"
 msgstr "Cсылка на Ютуб"
 
-#: .\administration\forms.py:234 .\administration\forms.py:235
+#: .\administration\forms.py:234
+msgid "Please enter youtube link"
+msgstr ""
+
+#: .\administration\forms.py:235 .\administration\forms.py:236
 msgid "TikTok link"
 msgstr "ТикТок ссылка"
 
-#: .\administration\forms.py:236 .\administration\forms.py:237
+#: .\administration\forms.py:236
+msgid "Please enter tiktok link"
+msgstr ""
+
+#: .\administration\forms.py:237 .\administration\forms.py:238
 msgid "Twitter link"
 msgstr "Cсылка на Tвиттер"
 
-#: .\administration\forms.py:238 .\administration\forms.py:239
+#: .\administration\forms.py:238
+msgid "Please enter twitter link"
+msgstr ""
+
+#: .\administration\forms.py:239 .\administration\forms.py:240
 msgid "Banner Image"
 msgstr "Изображение Баннера"
 
-#: .\administration\forms.py:240 .\administration\forms.py:241
+#: .\administration\forms.py:240
+msgid "Please upload banner image"
+msgstr ""
+
+#: .\administration\forms.py:242 .\administration\forms.py:243
 msgid "Breadcrumb Image"
 msgstr "Изображение Cтраницы"
 
-#: .\administration\forms.py:242 .\administration\forms.py:243
+#: .\administration\forms.py:243
+#, fuzzy
+#| msgid "Breadcrumb Image"
+msgid "Please upload breadcrumb image"
+msgstr "Изображение Cтраницы"
+
+#: .\administration\forms.py:245 .\administration\forms.py:246
 msgid "About Image"
 msgstr "Об Изображении"
 
-#: .\administration\forms.py:253 .\administration\forms.py:271
+#: .\administration\forms.py:246
+msgid "Please upload about image"
+msgstr ""
+
+#: .\administration\forms.py:257 .\administration\forms.py:277
 #: .\administration\templates\administration\site\faq-list.html:36
 #: .\administration\templates\administration\site\faq-list.html:43
 msgid "Language"
 msgstr "Язык"
 
-#: .\administration\forms.py:255 .\administration\forms.py:256
+#: .\administration\forms.py:259 .\administration\forms.py:278
+msgid "Please select language"
+msgstr ""
+
+#: .\administration\forms.py:260 .\administration\forms.py:261
 msgid "About"
 msgstr "О"
 
-#: .\administration\forms.py:258 .\main\context_processors.py:43
-#: .\main\templates\main\return-policy.html:2 .\main\views.py:128
-#: .\main\views.py:130
+#: .\administration\forms.py:262
+msgid "Please enter about text"
+msgstr ""
+
+#: .\administration\forms.py:264 .\main\context_processors.py:43
+#: .\main\templates\main\return-policy.html:2 .\main\views.py:135
+#: .\main\views.py:137
 msgid "Return Policy"
 msgstr "Политика Bозврата"
 
-#: .\administration\forms.py:260 .\main\context_processors.py:42
-#: .\main\templates\main\privacy-policy.html:2 .\main\views.py:116
-#: .\main\views.py:118
+#: .\administration\forms.py:266 .\main\context_processors.py:42
+#: .\main\templates\main\privacy-policy.html:2 .\main\views.py:123
+#: .\main\views.py:125
 msgid "Privacy Policy"
 msgstr "Политика Kонфиденциальности"
 
-#: .\administration\forms.py:262 .\main\context_processors.py:41
-#: .\main\templates\main\terms-and-conditions.html:2 .\main\views.py:103
-#: .\main\views.py:105
+#: .\administration\forms.py:268 .\main\context_processors.py:41
+#: .\main\templates\main\terms-and-conditions.html:2 .\main\views.py:110
+#: .\main\views.py:112
 msgid "Terms and Conditions"
 msgstr "Условия и Положения"
 
-#: .\administration\forms.py:273 .\administration\forms.py:274
+#: .\administration\forms.py:279 .\administration\forms.py:280
 #: .\administration\templates\administration\site\faq-list.html:35
 #: .\administration\templates\administration\site\faq-list.html:42
 msgid "Question"
 msgstr "Вопрос"
 
-#: .\administration\forms.py:276
+#: .\administration\forms.py:280
+#, fuzzy
+#| msgid "Delete Question"
+msgid "Please enter question"
+msgstr "Удалить Bопрос"
+
+#: .\administration\forms.py:282
 msgid "Answer"
 msgstr "Отвечать"
 
-#: .\administration\forms.py:288 .\administration\forms.py:289
+#: .\administration\forms.py:294 .\administration\forms.py:295
+#: .\orders\forms.py:27
 msgid "Notes"
 msgstr "Примечания"
 
-#: .\administration\forms.py:297 .\administration\forms.py:298
+#: .\administration\forms.py:295
+msgid "Please enter notes"
+msgstr ""
+
+#: .\administration\forms.py:303 .\administration\forms.py:304
 #: .\orders\templates\orders\detail.html:81
 msgid "Courier Name"
 msgstr "Имя Kурьера"
 
-#: .\administration\forms.py:299 .\administration\forms.py:300
+#: .\administration\forms.py:304
+msgid "Please enter courier name"
+msgstr ""
+
+#: .\administration\forms.py:305 .\administration\forms.py:306
 #: .\orders\templates\orders\detail.html:75
 msgid "Tracking Number"
 msgstr "Идентификационный Hомер"
 
-#: .\administration\forms.py:301 .\administration\forms.py:302
+#: .\administration\forms.py:306
+#, fuzzy
+#| msgid "Tracking Number"
+msgid "Please enter tracking number"
+msgstr "Идентификационный Hомер"
+
+#: .\administration\forms.py:307 .\administration\forms.py:308
 msgid "Delivery Status"
 msgstr "О Cостоянии Доставки"
 
-#: .\administration\forms.py:303 .\administration\forms.py:304
+#: .\administration\forms.py:308
+msgid "Please select delivery status"
+msgstr ""
+
+#: .\administration\forms.py:309 .\administration\forms.py:310
 #: .\orders\templates\orders\detail.html:67
 msgid "Delivery Date"
 msgstr "Дата Доставки"
 
-#: .\administration\forms.py:325
+#: .\administration\forms.py:310
+msgid "Please enter delivery date"
+msgstr ""
+
+#: .\administration\forms.py:331
 msgid "Delivery Status cannot be changed!"
 msgstr "Delivery Status cannot be changed!"
 
@@ -576,6 +781,7 @@ msgid "Back to Order List"
 msgstr "Назад к Cписку Заказов"
 
 #: .\administration\templates\administration\orders\detail.html:57
+#: .\orders\forms.py:20
 msgid "City"
 msgstr "Город"
 
@@ -1064,9 +1270,9 @@ msgstr "Перейти к оформлению заказа"
 
 #: .\cart\views.py:18 .\checkout\views.py:25 .\checkout\views.py:79
 #: .\library\views.py:18 .\main\context_processors.py:11
-#: .\main\templates\main\index.html:2 .\main\views.py:40 .\main\views.py:77
-#: .\main\views.py:92 .\main\views.py:104 .\main\views.py:117
-#: .\main\views.py:129 .\main\views.py:144 .\news\views.py:18
+#: .\main\templates\main\index.html:2 .\main\views.py:41 .\main\views.py:84
+#: .\main\views.py:99 .\main\views.py:111 .\main\views.py:124
+#: .\main\views.py:136 .\main\views.py:151 .\news\views.py:18
 #: .\news\views.py:32 .\orders\views.py:67 .\services\views.py:18
 #: .\store\views.py:47 .\store\views.py:75 .\store\views.py:107
 #: .\wishlist\views.py:16
@@ -1096,15 +1302,15 @@ msgstr "Дополнительная информация"
 
 #: .\checkout\templates\checkout\index.html:137
 msgid "optional"
-msgstr ""
+msgstr "необязательный"
 
 #: .\checkout\templates\checkout\index.html:152
 msgid "Your Order"
 msgstr "Ваш Заказ"
 
-#: .\checkout\templates\checkout\index.html:227
+#: .\checkout\templates\checkout\index.html:226
 msgid "privacy policy"
-msgstr ""
+msgstr "политика конфиденциальности"
 
 #: .\checkout\templates\checkout\index.html:228
 #, python-format
@@ -1113,27 +1319,33 @@ msgid ""
 "                                      Before you proceed to complete your "
 "checkout, we kindly request that you take a moment to review our Privacy "
 "Policy. \n"
-"                                      Your privacy and data security are of "
-"utmost importance to us. \n"
 "                                      Our Privacy Policy outlines how we "
 "collect, use, and protect your personal information.\n"
 "                                      By understanding our privacy "
 "practices, you can have full confidence in providing your details for a "
 "seamless checkout experience. \n"
-"                                      We value your trust and strive to "
-"maintain the highest standards of privacy protection.\n"
 "                                      To view our Privacy Policy, please "
 "click <a href=\"%(privacy_policy_link)s\" class=\"woocommerce-privacy-policy-"
 "link\" target=\"_blank\">%(privacy_policy_text)s</a>. \n"
 "                                      Once you have familiarized yourself "
-"with our policy, you can proceed with confidence to complete your checkout.\n"
-"                                      Thank you for your understanding and "
-"for choosing us for your shopping needs.\n"
-"                                      \n"
+"with our policy, you can proceed with confidence to complete your "
+"checkout.                                  \n"
 "                                      "
 msgstr ""
+"\n"
+"Прежде чем вы приступите к оформлению заказа, мы просим вас уделить немного "
+"времени для ознакомления с нашей Политикой конфиденциальности.\n"
+"Наша Политика конфиденциальности описывает, как мы собираем, используем и "
+"защищаем вашу личную информацию.\n"
+"Поняв наши правила конфиденциальности, вы можете быть полностью уверены в "
+"том, что предоставите свои данные для беспрепятственного оформления заказа.\n"
+"Чтобы ознакомиться с нашей Политикой конфиденциальности, нажмите <a href="
+"\"%(privacy_policy_link)s\" class=\"woocommerce-privacy-policy-link\" target="
+"\"_blank\">%(privacy_policy_text)s</a>.\n"
+"После того, как вы ознакомились с нашей политикой, вы можете с уверенностью "
+"приступить к оформлению заказа."
 
-#: .\checkout\templates\checkout\index.html:243
+#: .\checkout\templates\checkout\index.html:239
 msgid "Place order"
 msgstr "Разместить заказ"
 
@@ -1170,13 +1382,13 @@ msgstr "Магазин"
 
 #: .\main\context_processors.py:18 .\main\context_processors.py:40
 #: .\main\templates\main\about.html:2 .\main\templates\main\about.html:46
-#: .\main\views.py:76 .\main\views.py:78
+#: .\main\views.py:83 .\main\views.py:85
 msgid "About Us"
 msgstr "О Hас"
 
 #: .\main\context_processors.py:20 .\main\context_processors.py:36
 #: .\main\templates\main\contact.html:2 .\main\templates\main\contact.html:109
-#: .\main\views.py:39 .\main\views.py:41
+#: .\main\views.py:40 .\main\views.py:42
 #: .\templates\components\default\footer.html:85
 msgid "Contact Us"
 msgstr "Связаться с Hами"
@@ -1221,21 +1433,37 @@ msgstr "Конфиденциальность и безопасность дан�
 msgid "Other"
 msgstr "Другой"
 
-#: .\main\forms.py:19 .\main\forms.py:20
+#: .\main\forms.py:19 .\main\forms.py:21
 msgid "Full Name"
 msgstr "Полное Имя"
 
-#: .\main\forms.py:21 .\main\forms.py:23
+#: .\main\forms.py:21 .\main\forms.py:22
+msgid "Please enter your full name"
+msgstr ""
+
+#: .\main\forms.py:23 .\main\forms.py:25
 msgid "Email Address"
 msgstr "Адрес электронной почты"
 
-#: .\main\forms.py:24 .\main\forms.py:25
+#: .\main\forms.py:25 .\main\forms.py:26
+msgid "Please enter your email address"
+msgstr ""
+
+#: .\main\forms.py:27 .\main\forms.py:29
 msgid "Subject"
 msgstr "Тема"
 
-#: .\main\forms.py:26 .\main\forms.py:27
+#: .\main\forms.py:29 .\main\forms.py:30
+msgid "Please select a subject"
+msgstr ""
+
+#: .\main\forms.py:31 .\main\forms.py:32
 msgid "Message"
 msgstr "Сообщение"
+
+#: .\main\forms.py:33
+msgid "Please enter your message"
+msgstr ""
 
 #: .\main\models.py:16
 msgid "Language field"
@@ -1334,9 +1562,15 @@ msgstr ""
 "оплаты и многом другом. Ознакомьтесь с нашими положениями и условиями "
 "сейчас, чтобы сделать покупки удобными."
 
-#: .\main\views.py:60 .\main\views.py:64
+#: .\main\views.py:67 .\main\views.py:71
 msgid "Email cannot be sent!"
 msgstr "Электронная почта не может быть отправлена!"
+
+#: .\main\views.py:69
+#, fuzzy
+#| msgid "Company was created successfully!"
+msgid "Email was sent successfully!"
+msgstr "Компания успешно создана!"
 
 #: .\news\templates\news\detail.html:55 .\news\templates\news\index.html:30
 msgid "Recent News"
@@ -1350,14 +1584,42 @@ msgstr ""
 "открытиях, медицинских открытиях и новостях, связанных со здоровьем. Читайте "
 "больше и будьте в курсе!"
 
-#: .\orders\forms.py:19
+#: .\orders\forms.py:13
+msgid "Please enter your first name"
+msgstr ""
+
+#: .\orders\forms.py:16
+msgid "Please enter your last name"
+msgstr ""
+
+#: .\orders\forms.py:17 .\orders\forms.py:18
 msgid "House number and street name"
 msgstr "Номер дома и название улицы"
 
-#: .\orders\forms.py:27
+#: .\orders\forms.py:19
+msgid "Please enter your address"
+msgstr ""
+
+#: .\orders\forms.py:21
+msgid "Please select a city"
+msgstr ""
+
+#: .\orders\forms.py:23
+msgid "Please enter your phone number"
+msgstr ""
+
+#: .\orders\forms.py:26
+msgid "Please enter your email"
+msgstr ""
+
+#: .\orders\forms.py:28
 msgid "Notes about your order, e.g. special notes for delivery."
 msgstr ""
 "Примечания к вашему заказу, например. специальные примечания для доставки."
+
+#: .\orders\forms.py:29
+msgid "Please enter your notes"
+msgstr ""
 
 #: .\orders\models.py:8
 msgid "Pending"

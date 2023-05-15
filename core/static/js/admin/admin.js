@@ -55,6 +55,32 @@ window.addEventListener('DOMContentLoaded', event => {
         
     });
 
-   
+
+    document.querySelectorAll('input').forEach(function (element){
+        element.addEventListener('input', function(event){
+            if(!event.currentTarget.checkValidity()){
+              event.currentTarget.setCustomValidity(event.currentTarget.getAttribute('title'))
+              event.currentTarget.reportValidity()
+            }
+          })
+    })
+
+    document.querySelectorAll('select').forEach(function (element){
+        element.addEventListener('change', function(event){
+            if(!event.currentTarget.checkValidity()){
+              event.currentTarget.setCustomValidity(event.currentTarget.getAttribute('title'))
+              event.currentTarget.reportValidity()
+            }
+          })   
+    })
+
+    document.querySelectorAll('textarea').forEach(function (element){
+        element.addEventListener('input', function(event){
+            if(!event.currentTarget.checkValidity()){
+              event.currentTarget.setCustomValidity(event.currentTarget.getAttribute('title'))
+              event.currentTarget.reportValidity()
+            }
+          }) 
+    })
 
 });

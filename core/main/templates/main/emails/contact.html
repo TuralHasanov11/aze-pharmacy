@@ -10,11 +10,13 @@
     <div class="container bg-light p-3">
         <main class="mb-5">
             <h2 class="text-center mb-4"><a href="{{config.app.site_url}}" target="_blank" class="text-decoration-none text-dark fw-bold">{{config.app.name}}</a></h2>
-            <p class="mb-2">Hörmətli {{order.full_name}},</p>
+            <p>Ad: {{name}}</p>
+            <p>Email: {{email}}</p>
+            <p>{{message}}</p>
         </main>
         <footer class="text-center">
             <img src="{{config.app.site_url}}{% static 'images/logo.png' %}" style="width: 30px; height:30px">
-            <p>Hörmətlə,<br>{{config.app.name}}</p>
+            <p>{{config.app.name}}</p>
         </footer>
     </div>
 </body>

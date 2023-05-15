@@ -223,19 +223,15 @@
                                 >
                                   <div class="woocommerce-privacy-policy-text">
                                     <p>
-                                      {% url 'main:privacy-policy' as privacy_policy_link %}
                                       {% translate "privacy policy" as privacy_policy_text %}
+                                      {% url 'main:privacy-policy' as privacy_policy_link %}
                                       {% blocktranslate %}
                                       Before you proceed to complete your checkout, we kindly request that you take a moment to review our Privacy Policy. 
-                                      Your privacy and data security are of utmost importance to us. 
                                       Our Privacy Policy outlines how we collect, use, and protect your personal information.
                                       By understanding our privacy practices, you can have full confidence in providing your details for a seamless checkout experience. 
-                                      We value your trust and strive to maintain the highest standards of privacy protection.
                                       To view our Privacy Policy, please click <a href="{{privacy_policy_link}}" class="woocommerce-privacy-policy-link" target="_blank">{{privacy_policy_text}}</a>. 
-                                      Once you have familiarized yourself with our policy, you can proceed with confidence to complete your checkout.
-                                      Thank you for your understanding and for choosing us for your shopping needs.
-                                      
-                                      {% endblocktranslate %}
+                                      Once you have familiarized yourself with our policy, you can proceed with confidence to complete your checkout.                                  
+                                      {% endblocktranslate %}                                      
                                     </p>
                                   </div>
                                 </div>

@@ -360,4 +360,31 @@ jQuery(document).ready(function ($) {
           $(this).parent().prev().removeClass("prev-item");
         });
       });
+
+      $('input').each(function (){
+        $(this).on('input', function(){
+          if(!this.checkValidity()){
+            this.setCustomValidity($(this).attr('title'))
+            this.reportValidity()
+          }
+        })
+      })
+
+      $('select').each(function (){
+        $(this).on('change', function(){
+          if(!this.checkValidity()){
+            this.setCustomValidity($(this).attr('title'))
+            this.reportValidity()
+          }
+        })       
+      })
+
+      $('textarea').each(function (){
+        $(this).on('input', function(){
+          if(!this.checkValidity()){
+            this.setCustomValidity($(this).attr('title'))
+            this.reportValidity()
+          }
+        }) 
+      })
 });

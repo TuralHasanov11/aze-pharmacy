@@ -6,6 +6,7 @@ from django.core.mail import BadHeaderError, EmailMessage
 from django.db.models import Count, Prefetch
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
@@ -29,7 +30,7 @@ def index(request: HttpRequest):
         products_count=Count("product_category")).all().order_by("name")
     siteText = SiteText.objects.values('about').filter(
         language=get_language()).first()
-    return render(request, 'main/index.html', context={"posts": posts, "companies": companies, "discounted_products": discountedProducts, 
+    return render(request, 'main/index.html', context={"posts": posts, "companies": companies, "discounted_products": discountedProducts,
                                                        "categories": categories, "about": siteText["about"]})
 
 
@@ -48,18 +49,24 @@ def contact(request: HttpRequest):
         if form.is_valid():
             data = form.cleaned_data
             try:
+                content = render_to_string("main/emails/contact.html", {
+                    'message': data["message"],
+                    'name': data["name"],
+                    'email': data["email"],
+                }, request=request)
+
                 msg = EmailMessage(
                     subject=data["subject"],
-                    body=data["message"],
-                    from_email=data["email"],
+                    body=content,
+                    from_email=os.environ.get("COMPANY_EMAIL_NO_REPLY", "test@test.com"),
                     to=[os.environ.get("COMPANY_EMAIL", "")],
                 )
                 msg.content_subtype = "html"
-                msg.send()
+                msg.send(fail_silently=True)
             except BadHeaderError:
                 messages.error(request, _("Email cannot be sent!"))
                 return render(request, template_name, {"form": form, 'siteInfo': siteInfo, "breadcrumb": breadcrumb, "faq": faq})
-            messages.success(request, 'Email was sent successfully!')
+            messages.success(request, _('Email was sent successfully!'))
             return redirect(reverse("main:contact")+"#contact-form")
         messages.error(request, _("Email cannot be sent!"))
         return render(request, template_name, {"form": form, 'siteInfo': siteInfo, "breadcrumb": breadcrumb, "faq": faq})
@@ -104,7 +111,7 @@ def termsAndConditions(request: HttpRequest):
         {"title": _("Home"), "route": reverse("main:index")},
         {"title": _("Terms and Conditions")},
     ]
-    return render(request, 'main/terms-and-conditions.html', context={"terms_and_conditions": siteText.terms_and_conditions, 
+    return render(request, 'main/terms-and-conditions.html', context={"terms_and_conditions": siteText.terms_and_conditions,
                                                                       "breadcrumb": breadcrumb})
 
 
