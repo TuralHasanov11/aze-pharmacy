@@ -104,6 +104,7 @@
                               ><span class="woocommerce-input-wrapper"
                                 >
                                 {{form.phone}}
+                                <small class="phone-help-text">{{form.phone.help_text}}</small>
                                 {{form.phone.errors}}
                                 </span>
                             </p>
@@ -254,3 +255,33 @@
   </div>
 </main>
 {% endblock content %}
+
+
+{% block scripts %}
+<script>
+  let url = `ws://${window.location.host}/ws/socket-server/`
+
+  const orderSocket = new WebSocket(url)
+
+  orderSocket.onmessage = function(e){
+      const data = JSON.parse(e.data)
+      console.log(data)
+
+      if(data.type === 'order'){
+          // insert new order
+      }
+  }
+
+  orderSocket.onclose = function(e){
+    console.log("Socket closed")
+  }
+
+  document.querySelector('form.checkout').addEventListener('submit', (event)=>{
+    event.preventDefault()
+    orderSocket.send(JSON.stringify({
+      "message": "Message"
+    }))
+  })
+
+</script>
+{% endblock scripts %}

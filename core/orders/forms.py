@@ -19,11 +19,11 @@ class OrderForm(forms.ModelForm):
                'title': _('Please enter your address'), }))
     city = forms.ChoiceField(label=_('City'), widget=forms.Select(
         attrs={'class': 'state_select', 'title': _('Please select a city'), }))
-    phone = forms.CharField(label=_('Phone'), widget=forms.TextInput(
-        attrs={'class': 'input-text', 'placeholder': _('Phone'), 'autocomplete': 'tel', 'title': _('Please enter your phone number'), }))
+    phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$', label=_('Phone'), widget=forms.TextInput(
+        attrs={'class': 'input-text phone-input', 'placeholder': _('+xxxxxxxxx'), 'autocomplete': 'tel', 'title': _('Please enter your phone number'), }),
+        help_text=_("Phone number must be entered in the format: '+xxxxxxxxx'. Up to 15 digits allowed"))
     email = forms.EmailField(label=_('Email'), widget=forms.EmailInput(
-        attrs={'class': 'input-text', 'placeholder': _('Email'), 'autocomplete': 'email username',
-               'title': _('Please enter your email'), }), required=False)
+        attrs={'class': 'input-text', 'placeholder': _('Email'), 'autocomplete': 'email username'}), required=False)
     notes = forms.CharField(label=_('Notes'), widget=forms.Textarea(
         attrs={'class': 'input-text', 'placeholder': _('Notes about your order, e.g. special notes for delivery.'),
                'title': _('Please enter your notes'), }), required=False)
@@ -32,6 +32,12 @@ class OrderForm(forms.ModelForm):
         model = Order
         fields = ("first_name", "last_name", "address",
                   "email", "city", "phone", "notes")
+        
+    def clean_city(self):
+        city = self.cleaned_data['city']
+        if (city, city) in self.fields['city'].choices:
+            raise forms.ValidationError(_('Invalid city'))
+        return city
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

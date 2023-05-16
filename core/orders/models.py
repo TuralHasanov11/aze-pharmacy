@@ -1,4 +1,9 @@
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+from django.core.validators import RegexValidator
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 from store.models import Product
 
@@ -14,7 +19,8 @@ class Order(models.Model):
     email = models.EmailField(max_length=254, blank=True, null=True)
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
-    phone = models.CharField(max_length=100)
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message=_("Phone number must be entered in the format: '+xxxxxxxxx'. Up to 15 digits allowed"))
+    phone = models.CharField(validators=[phone_regex], max_length=17)
     total_paid = models.DecimalField(max_digits=7, decimal_places=2)
     order_key = models.CharField(max_length=200, unique=True)
     payment_status = models.CharField(max_length=20, choices=PaymentStatus.choices, default=PaymentStatus.PENDING)
@@ -78,3 +84,14 @@ class OrderDelivery(models.Model):
     @property
     def delivery_status_value(self):
         return self.get_delivery_status_display
+    
+
+
+@receiver(post_save, sender=Order)
+def order_created(sender, instance, created=False, **kwargs):
+    if created:
+        channel_layer = get_channel_layer()
+        async_to_sync(channel_layer.send)("orders", {
+            "type": "order_created",
+            "message": "Order created successfully",
+        })

@@ -361,30 +361,47 @@ jQuery(document).ready(function ($) {
         });
       });
 
-      $('input').each(function (){
-        $(this).on('input', function(){
-          if(!this.checkValidity()){
-            this.setCustomValidity($(this).attr('title'))
-            this.reportValidity()
-          }
-        })
-      })
+      // $('input').each(function (){
+      //   $(this).on('input', function(){
+      //     if(!this.checkValidity()){
+      //       this.setCustomValidity($(this).attr('title'))
+      //       this.reportValidity()
+      //     }
+      //   })
+      // })
 
-      $('select').each(function (){
-        $(this).on('change', function(){
-          if(!this.checkValidity()){
-            this.setCustomValidity($(this).attr('title'))
-            this.reportValidity()
-          }
-        })       
-      })
+      // $('select').each(function (){
+      //   $(this).on('change', function(){
+      //     if(!this.checkValidity()){
+      //       this.setCustomValidity($(this).attr('title'))
+      //       this.reportValidity()
+      //     }
+      //   })       
+      // })
 
-      $('textarea').each(function (){
-        $(this).on('input', function(){
-          if(!this.checkValidity()){
-            this.setCustomValidity($(this).attr('title'))
-            this.reportValidity()
-          }
-        }) 
+      // $('textarea').each(function (){
+      //   $(this).on('input', function(){
+      //     if(!this.checkValidity()){
+      //       this.setCustomValidity($(this).attr('title'))
+      //       this.reportValidity()
+      //     }
+      //   }) 
+      // })
+      $('.phone-input').on('input', (e)=>{
+        if(!validatePhoneNumber($(e.currentTarget).val())){
+          $(e.currentTarget).addClass('is-invalid')
+          e.currentTarget.setCustomValidity($(e.currentTarget).attr('title'));
+          $('.phone-help-text').addClass('text-danger')
+        }else{
+          $(e.currentTarget).removeClass('is-invalid')
+          e.currentTarget.setCustomValidity("");
+          $('.phone-help-text').removeClass('text-danger')
+        }
       })
+    
+      function validatePhoneNumber(input_str) {
+        var re = /^\+?1?\d{9,15}$/;
+      
+        return re.test(input_str);
+      }
 });

@@ -2,7 +2,9 @@ import random
 import string
 from urllib.parse import urlencode
 
+from asgiref.sync import async_to_sync
 from cart.processor import CartProcessor
+from channels.layers import get_channel_layer
 from django.contrib import messages
 from django.db import DatabaseError, transaction
 from django.http import HttpResponseNotFound
@@ -17,6 +19,7 @@ from orders.models import Order, OrderItem
 def order_key_generator(size=32, chars=string.ascii_lowercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
+
 @require_http_methods(['GET', 'POST'])
 def index(request):
     cart = CartProcessor(request)
@@ -26,37 +29,43 @@ def index(request):
         {"title": _("Checkout")},
     ]
     template_name = "checkout/index.html"
-    # if request.method == 'POST':
-    #     try:
-    #         form = OrderForm(request.POST)
-    #         if form.is_valid():
-    #             with transaction.atomic():
-    #                 order = form.save(commit=False)
-    #                 order.total_paid = cart.get_total_price
-    #                 order.order_key = order_key_generator()
-    #                 order.save()
+    if request.method == 'POST':
+        try:
+            form = OrderForm(request.POST)
+            if form.is_valid():
+                with transaction.atomic():
+                    channel_layer = get_channel_layer()
+                    async_to_sync(channel_layer.send)("orders", {
+                        "type": "order_created",
+                        "message": "Order created successfully",
+                    })
+                    # order = form.save(commit=False)
+                    # order.total_paid = cart.get_total_price
+                    # order.order_key = order_key_generator()
+                    # order.save()
 
-    #                 for item in cart:
-    #                     OrderItem.objects.create(order_id=order.id, product_id=item['product']['id'], price=item['price'], quantity=item['quantity'])
+                    # for item in cart:
+                    #     OrderItem.objects.create(order_id=order.id, product_id=item['product']['id'], price=item['price'], quantity=item['quantity'])
 
-    #                 cart.clear()
+                    # cart.clear()
                     
-    #                 successUrl = f"{reverse('checkout:success')}?{urlencode({'order': order.order_key})}"
-    #                 messages.success(request, f'Order was placed successfully')
-    #                 return redirect(successUrl)
-    #         messages.error(request, "Product cannot be saved")
-    #         return render(request, template_name, {
-    #                 'cart': cart,
-    #                 'form': form,
-    #                 "breadcrumb": breadcrumb
-    #             })
-    #     except DatabaseError:
-    #         messages.error(request, "Product cannot be saved")
-    #         return render(request, template_name, {
-    #                 'cart': cart,
-    #                 'form': form,
-    #                 "breadcrumb": breadcrumb
-    #             })
+                    # successUrl = f"{reverse('checkout:success')}?{urlencode({'order': order.order_key})}"
+                    messages.success(request, _('Order was placed successfully'))
+                    return redirect('checkout:success')
+                    # return redirect(successUrl)
+            messages.error(request, "Product cannot be saved")
+            return render(request, template_name, {
+                    'cart': cart,
+                    'form': form,
+                    "breadcrumb": breadcrumb
+                })
+        except DatabaseError:
+            messages.error(request, "Product cannot be saved")
+            return render(request, template_name, {
+                    'cart': cart,
+                    'form': form,
+                    "breadcrumb": breadcrumb
+                })
     form = OrderForm()
     return render(request, template_name, context={
         'cart': cart,
