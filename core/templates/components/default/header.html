@@ -62,7 +62,6 @@
                       </span>
                     </a>
                     <div class="header-mini-cart">
-                      {% if cart %}
                       <div class="woocommerce-mini-cart cart_list product_list_widget ">
                         {% for item in cart %}
                         {% with cartProduct=item.product %}
@@ -82,7 +81,7 @@
                         {% endwith %}
                         {% endfor %}
                       </div>
-                      {% else %}
+                      {% if not cart %}
                       <p class="woocommerce-mini-cart__empty-message">
                         {% translate "No products in the cart" %}.
                       </p>

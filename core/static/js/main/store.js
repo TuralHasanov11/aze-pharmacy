@@ -69,9 +69,9 @@ jQuery(document).ready(function ($) {
       const data = await response.json();
 
       const product = productComponent(data)
-
       if ($(`.mini_cart_item[data-product_id='${productId}']`).length === 0) {
         $(".cart_list").append(product);
+        $('.woocommerce-mini-cart__empty-message').hide()
       } else {
         $(`.mini_cart_item[data-product_id='${productId}']`).html(product)
       }
@@ -212,7 +212,6 @@ jQuery(document).ready(function ($) {
     if (n < 1) { slideIndex = slides.length }
     
     slides.each(function (){
-      console.log($(this))
       $(this).hide()
     })
 

@@ -60,26 +60,16 @@
     </div>
 </main>
 
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9000">
+    
+  </div>
+
 {% endblock content %}
 
 
 {% block scripts %}
- <script type='text/javascript'>
-    let url = `ws://${window.location.host}/ws/socket-server/`
 
-    const orderSocket = new WebSocket(url)
-
-    orderSocket.onmessage = function(e){
-        const data = JSON.parse(e.data)
-        console.log(data)
-
-        if(data.type === 'order'){
-            // insert new order
-        }
-    }
-</script> 
-
-<script>
+<script type='text/javascript'>
     const ordersAPIURL = "{% url 'api:orders' %}"
     const ordersURL = "{% url 'administration:order-list' %}/" 
     const newWord = "{% translate 'New' %}"
@@ -92,9 +82,23 @@
 <script>
     const ordersContainer = document.getElementById('orders-container')
     const paginationContainer = document.getElementById('pagination-container')
+    const toastContainer = document.querySelector('.toast-container')
+    let url = `ws://${window.location.host}/ws/order-socket-server/`
+    const orderSocket = new WebSocket(url)
+
+    orderSocket.onmessage = function(e){
+        const data = JSON.parse(e.data)
+        if(data.type === 'order_created'){
+            getOrders()
+            toastContainer.innerHTML += toastComponent(data.message)
+        }
+    }
+
     getOrders()
 
-    var orders = {}
+    var orders = {
+
+    }
 
     async function getOrders(){
         const response = await fetch(`${ordersAPIURL}?` + new URLSearchParams({
@@ -108,11 +112,7 @@
 
         const data = await response.json()
         orders = data
-        orders?.results?.forEach((order)=>{
-            ordersContainer.innerHTML += orderComponent(order)
-        })
-
-        paginationContainer.innerHTML = paginationComponent(orders)
+        setOrders()
     }
 
     async function flagOrder(element, orderId){
@@ -124,10 +124,22 @@
         element.innerHTML = `<i class="${order.is_flagged ? "fas fa-flag text-danger" : "fa-regular fa-flag"}"></i>`
     }
 
+    function setOrders(){
+        content = ""
+
+        orders?.results.forEach((order)=>{
+            content += orderComponent(order)
+        })
+
+        ordersContainer.innerHTML = content
+
+        paginationContainer.innerHTML = paginationComponent(orders)
+    }
+
     function orderComponent(order){
         const orderDate = new Date(Date.parse(order.created_at)).toLocaleString('az', {hour: '2-digit', hour12: false, minute:'2-digit', year: 'numeric', month: '2-digit', day: '2-digit'})
         const flag = order.is_flagged ? "fas fa-flag text-danger" : "fa-regular fa-flag"
-        return `<div class="list-group-item border mb-1 ${order.seen?'bg-light':''}">
+        return `<div class="list-group-item order-item border mb-1 ${order.seen?'bg-light':''}" data-id="${order.id}">
             <div class="d-flex w-100 justify-content-between align-items-center p-1 text-decoration-none">
                 <span class="flag-btn"onclick="flagOrder(this, ${order.id})"><i class="${flag}"></i></span>
                 <a href="${ordersURL + order.id}" class="d-flex w-100 justify-content-between p-1 text-decoration-none">
@@ -140,6 +152,16 @@
           </div>`
     }
 
+    function toastComponent(message) {
+        return `<div class="toast align-items-center show text-bg-primary" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                  ${message}
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>`
+    }
 
     function paginationComponent(pagination){
         let result = ""

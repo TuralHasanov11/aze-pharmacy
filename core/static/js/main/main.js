@@ -23,7 +23,6 @@ function preloader() {
 	=          One page Menu               =
 =============================================*/
 $('.navigation a[href*="#"]:not([href="#"])').on("click", function() {
-	console.log("click");
 	if (location.pathname.replace(/^\//, "") == this.pathname.replace(/^\//, "") && location.hostname == this.hostname) {
 		var target = $(this.hash);
 		target = target.length ? target : $('[name=" + this.hash.slice(1) + "]');

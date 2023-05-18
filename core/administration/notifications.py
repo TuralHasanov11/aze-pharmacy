@@ -43,7 +43,7 @@ class DeliveryMessageNotification(DeliveryNotification):
     @property
     def message(self):
         content = render_to_string("administration/notifications/sms/" + self.Template[self.delivery.delivery_status].value, {
-                                   'customer_name': self.order.full_name, 'delivery_date': self.delivery.delivery_date.strftime('%d.%m.%y')}, 
+                                   'order': self.order, 'delivery': self.delivery}, 
                                    request=self.request)
         return content
 
@@ -90,3 +90,16 @@ class DeliveryEmailNotification(DeliveryNotification):
             msg.send(fail_silently=True)
         except BadHeaderError:
             raise Exception(_("Email cannot be sent"))
+
+
+def sendDeliveryStatusNotification(request, order, delivery):
+    try:
+        # if order.email:
+        #     emailNotification = DeliveryEmailNotification(
+        #         request, order, delivery)
+        #     emailNotification.send()
+        messageNotification = DeliveryMessageNotification(
+            request, order, delivery)
+        messageNotification.send()
+    except Exception as e:
+        raise e

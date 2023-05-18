@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "mptt",
     'rest_framework',
     'rosetta',
+    'bootstrap_datepicker_plus',
 
     'main',
     'news',
@@ -202,6 +203,7 @@ CKEDITOR_CONFIGS = {
         'height': 1000,
     },
 }
+
 
 TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID', None)
 TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN', None)

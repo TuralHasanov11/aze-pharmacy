@@ -1,3 +1,6 @@
+import datetime
+
+from bootstrap_datepicker_plus.widgets import DatePickerInput
 from ckeditor_uploader import widgets as ckeditor_widgets
 from django import forms
 from django.conf import settings
@@ -306,8 +309,9 @@ class OrderDeliveryForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': _('Tracking Number'), 'title': _('Please enter tracking number')}))
     delivery_status = forms.ChoiceField(label=_('Delivery Status'), choices=OrderDelivery.DeliveryStatus.choices, widget=forms.Select(
         attrs={'class': 'form-control', 'placeholder': _('Delivery Status'), 'title': _('Please select delivery status')}))
-    delivery_date = forms.DateField(label=_('Delivery Date'), widget=forms.DateInput(
-        attrs={'class': 'form-control', 'placeholder': _('Delivery Date'), 'title': _('Please enter delivery date')}))
+    delivery_date = forms.DateField(label=_('Delivery Date'), widget=DatePickerInput(
+        attrs={'class': 'form-control','min': datetime.date.today(), 'title': _('Please enter delivery date')},
+        options={"locale": 'az', "format": "MM/DD/YYYY"}))
 
     class Meta:
         model = OrderDelivery
@@ -330,6 +334,15 @@ class OrderDeliveryForm(forms.ModelForm):
             raise forms.ValidationError(
                 _("Delivery Status cannot be changed!"))
         return delivery_status
+    
+    def clean_delivery_date(self):
+        delivery_date = self.cleaned_data['delivery_date']
+        if (self.cleaned_data['delivery_date'] < datetime.date.today()):
+            raise forms.ValidationError(
+                _("Delivery Date can be minimum today!"))
+        return delivery_date
+    
+    
 
 
 OrderDeliveryFormSet = forms.inlineformset_factory(

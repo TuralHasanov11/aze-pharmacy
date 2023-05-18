@@ -42,8 +42,6 @@ def contact(request: HttpRequest):
         {"title": _("Contact Us")},
     ]
     siteInfo = SiteInfo.objects.first()
-    faq = ""
-    template_name = "main/contact.html"
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -63,15 +61,15 @@ def contact(request: HttpRequest):
                 )
                 msg.content_subtype = "html"
                 msg.send(fail_silently=True)
+
+                messages.success(request, _('Email was sent successfully!'))
+                return redirect(reverse("main:contact")+"#contact-form")
             except BadHeaderError:
                 messages.error(request, _("Email cannot be sent!"))
-                return render(request, template_name, {"form": form, 'siteInfo': siteInfo, "breadcrumb": breadcrumb, "faq": faq})
-            messages.success(request, _('Email was sent successfully!'))
-            return redirect(reverse("main:contact")+"#contact-form")
         messages.error(request, _("Email cannot be sent!"))
-        return render(request, template_name, {"form": form, 'siteInfo': siteInfo, "breadcrumb": breadcrumb, "faq": faq})
-    form = ContactForm()
-    return render(request, template_name, {'siteInfo': siteInfo, "form": form, "breadcrumb": breadcrumb, "faq": faq})
+    else:
+        form = ContactForm()
+    return render(request, "main/contact.html", {'siteInfo': siteInfo, "form": form, "breadcrumb": breadcrumb})
 
 
 @require_GET

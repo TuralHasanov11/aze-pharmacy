@@ -186,7 +186,7 @@
                                         ><span
                                             class="woocommerce-Price-currencySymbol"
                                             >&#36;</span
-                                        >{{item.price}}</bdi
+                                        >{{item.total_price}}</bdi
                                         ></span
                                     >
                                     </td>
@@ -259,29 +259,35 @@
 
 {% block scripts %}
 <script>
-  let url = `ws://${window.location.host}/ws/socket-server/`
+  let url = `ws://${window.location.host}/ws/order-socket-server/`
 
   const orderSocket = new WebSocket(url)
-
-  orderSocket.onmessage = function(e){
-      const data = JSON.parse(e.data)
-      console.log(data)
-
-      if(data.type === 'order'){
-          // insert new order
-      }
-  }
 
   orderSocket.onclose = function(e){
     console.log("Socket closed")
   }
 
-  document.querySelector('form.checkout').addEventListener('submit', (event)=>{
+  const checkoutForm = document.querySelector('form.checkout')
+
+  checkoutForm.addEventListener('submit', async (event)=>{
     event.preventDefault()
-    orderSocket.send(JSON.stringify({
-      "message": "Message"
-    }))
+    let formData = new FormData(checkoutForm);
+    await createOrder(formData)
   })
+
+  async function createOrder(formData){
+    try{
+      const response = await fetch(checkoutURL, {
+        method: 'POST',
+        body: formData,
+        headers: { "X-CSRFToken": csrftoken },
+      });
+      const data = await response.json() 
+      window.location.replace(data?.success_url);
+    }catch(e){
+      console.log(e)
+    }
+  }
 
 </script>
 {% endblock scripts %}

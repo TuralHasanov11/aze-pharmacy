@@ -21,7 +21,6 @@
     {% include "components/admin/profile-nav.html" %}
     <div class="row">
       <div class="col-12">
-        {% include 'components/messages.html' with messages=messages %}
         <div class="card mb-4">
           <div class="card-header">{% translate "Account Details" %}</div>
           <div class="card-body">
@@ -53,7 +52,7 @@
 
               <li class="list-group-item">
                 <h5>
-                  {{ form.role.label }}
+                  {% translate "Role" %}
                 </h5>
                 <h6 class="card-title">{{ request.user.role_name}}</h6>
               </li>

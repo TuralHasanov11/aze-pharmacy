@@ -118,6 +118,7 @@
               <hr>
               {% include 'components/messages.html' with messages=messages %}
               <form method="post" id="order-form">
+                {{ form.media }} 
                 {% csrf_token %}
                 <div class="row">
                   <div class="col-12 col-md-6">
@@ -141,6 +142,7 @@
                       <div class="card-body">
                         {{ order_delivery_formset.management_form }} 
                         {% for formset_item in order_delivery_formset %}
+                        {{ formset_item.media }} 
                         {% include "components/form/hidden-fields.html" with hidden_fields=formset_item.hidden_fields %}
                         {{formset_item.non_form_errors}}
                         <div class="mb-4">

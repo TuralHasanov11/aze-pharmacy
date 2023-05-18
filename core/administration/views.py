@@ -1,8 +1,7 @@
 
 
 from administration import forms
-from administration.notifications import (DeliveryEmailNotification,
-                                          DeliveryMessageNotification)
+from administration.notifications import sendDeliveryStatusNotification
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
@@ -11,6 +10,7 @@ from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core import paginator
+from django.db import transaction
 from django.db.models import Prefetch
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
@@ -243,17 +243,7 @@ class PostDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
 @require_http_methods(['GET', 'POST'])
 @login_required
 def profile(request):
-    template_name = 'administration/auth/profile.html'
-    if request.method == 'POST':
-        form = forms.UserUpdateForm(instance=request.user, data=request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, _("Account updated successfully!"))
-            return redirect('administration:auth-profile')
-        messages.error(request, _("Account could not be updated!"))
-        return render(request, template_name, context={"form": form})
-    form = forms.UserUpdateForm(instance=request.user)
-    return render(request, template_name, context={"form": form})
+    return render(request, 'administration/auth/profile.html')
 
 
 class LoginView(auth_views.LoginView):
@@ -395,7 +385,6 @@ class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
 @login_required
 @permission_required('store.add_product', login_url=reverse_lazy('administration:index'))
 def productCreate(request):
-    template_name = "administration/store/products/create.html"
     if request.method == 'POST':
         form = forms.ProductForm(request.POST, request.FILES)
         stock_formset = forms.StockFormSet(
@@ -403,29 +392,26 @@ def productCreate(request):
         product_image_formset = forms.ProductImageFormSet(
             data=request.POST, files=request.FILES)
         if form.is_valid() and stock_formset.is_valid() and product_image_formset.is_valid():
-            product = form.save()
-            for item in stock_formset:
-                stock = item.save(commit=False)
-                stock.product = product
-                stock.save()
-            for item in product_image_formset:
-                productImage = item.save(commit=False)
-                productImage.product = product
-                productImage.save()
-            messages.success(
-                request, _("Product was saved successfully!"))
-            return redirect("administration:store-product-list")
+            with transaction.atomic():
+                product = form.save()
+                for item in stock_formset:
+                    stock = item.save(commit=False)
+                    stock.product = product
+                    stock.save()
+                for item in product_image_formset:
+                    productImage = item.save(commit=False)
+                    productImage.product = product
+                    productImage.save()
+                messages.success(
+                    request, _("Product was saved successfully!"))
+                return redirect("administration:store-product-list")
         messages.error(request, _("Product cannot be saved!"))
-        return render(request, template_name, {
-            "form": form,
-            "stock_formset": stock_formset,
-            "product_image_formset": product_image_formset
-        })
-    form = forms.ProductForm()
-    stock_formset = forms.StockFormSet(queryset=Stock.objects.none())
-    product_image_formset = forms.ProductImageFormSet(
-        queryset=ProductImage.objects.none())
-    return render(request, template_name, context={
+    else:
+        form = forms.ProductForm()
+        stock_formset = forms.StockFormSet(queryset=Stock.objects.none())
+        product_image_formset = forms.ProductImageFormSet(
+            queryset=ProductImage.objects.none())
+    return render(request, "administration/store/products/create.html", context={
         'form': form,
         'stock_formset': stock_formset,
         'product_image_formset': product_image_formset,
@@ -436,7 +422,6 @@ def productCreate(request):
 @login_required
 @permission_required('store.change_product', login_url=reverse_lazy('administration:index'))
 def productUpdate(request, pk: int):
-    template_name = "administration/store/products/edit.html"
     product = Product.objects.prefetch_related('product_image').get(id=pk)
 
     if request.method == 'POST':
@@ -447,23 +432,20 @@ def productUpdate(request, pk: int):
         product_image_formset = forms.ProductImageFormSet(
             instance=product, data=request.POST, files=request.FILES)
         if form.is_valid() and stock_formset.is_valid() and product_image_formset.is_valid():
-            product = form.save()
-            stock_formset.save()
-            product_image_formset.save()
-            messages.success(
-                request, _("Product was saved successfully!"))
-            return redirect("administration:store-product-list")
+            with transaction.atomic():
+                product = form.save()
+                stock_formset.save()
+                product_image_formset.save()
+                messages.success(
+                    request, _("Product was saved successfully!"))
+                return redirect("administration:store-product-list")
         messages.error(request, _("Product cannot be saved!"))
-        return render(request, template_name, {
-            "form": form,
-            "stock_formset": stock_formset,
-            "product_image_formset": product_image_formset,
-            "product": product
-        })
-    form = forms.ProductForm(instance=product)
-    stock_formset = forms.StockFormSet(instance=product)
-    product_image_formset = forms.ProductImageFormSet(instance=product)
-    return render(request, template_name, context={
+    else:
+        form = forms.ProductForm(instance=product)
+        stock_formset = forms.StockFormSet(instance=product)
+        product_image_formset = forms.ProductImageFormSet(instance=product)
+    
+    return render(request, "administration/store/products/edit.html", context={
         "product": product,
         'form': form,
         'stock_formset': stock_formset,
@@ -489,7 +471,6 @@ class OrdersView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
 @require_http_methods(['GET', 'POST'])
 @permission_required(['main.change_site_text', 'main.view_site_text',], login_url=reverse_lazy('administration:index'))
 def siteTexts(request):
-    template_name = 'administration/site/texts.html'
     if request.method == 'POST':
         formset = forms.SiteTextFormSet(
             initial=SiteText.objects.all(), data=request.POST)
@@ -498,16 +479,15 @@ def siteTexts(request):
             messages.success(request, _("Texts were saved successfully!"))
             return redirect("administration:site-texts")
         messages.error(request, _("Texts cannot be saved!"))
-        return render(request, template_name, {"formset": formset})
-    formset = forms.SiteTextFormSet(initial=SiteText.objects.all())
-    return render(request, template_name, {"formset": formset})
+    else:
+        formset = forms.SiteTextFormSet(initial=SiteText.objects.all())
+    return render(request, 'administration/site/texts.html', {"formset": formset})
 
 
 @login_required
 @require_http_methods(['GET', 'POST'])
 @permission_required(['main.change_site_info', 'main.view_site_info',], login_url=reverse_lazy('administration:index'))
 def siteInfo(request):
-    template_name = 'administration/site/info.html'
     siteInfo = SiteInfo.objects.first()
     if request.method == 'POST':
         form = forms.SiteInfoForm(
@@ -517,9 +497,9 @@ def siteInfo(request):
             messages.success(request, _("Site Info was saved successfully!"))
             return redirect("administration:site-info")
         messages.error(request, _("Site Info cannot be saved!"))
-        return render(request, template_name, {"form": form})
-    form = forms.SiteInfoForm(instance=siteInfo)
-    return render(request, template_name, {"form": form, "site_info": siteInfo})
+    else:
+        form = forms.SiteInfoForm(instance=siteInfo)
+    return render(request, 'administration/site/info.html', {"form": form, "site_info": siteInfo})
 
 
 class FAQListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -581,22 +561,22 @@ def orderDetail(request, id: int):
         order_delivery_formset = forms.OrderDeliveryFormSet(
             data=request.POST, instance=order)
         if form.is_valid() and order_delivery_formset.is_valid():
-            order = form.save()
-            if order_delivery_formset.has_changed():
-                deliveryForm = order_delivery_formset[0]
-                changedData = deliveryForm.changed_data
-                delivery = deliveryForm.save()
-                if "delivery_status" in changedData:
-                    try:
-                        sendDeliveryStatusNotification(
-                            request=request, order=order, delivery=delivery)
-                    except Exception as e:
-                        messages.error(request, str(e))
-                        return redirect(reverse("administration:order-detail", kwargs={"id": order.id})+"#order-form")
-            messages.success(request, success_message)
-            return redirect(reverse("administration:order-detail", kwargs={"id": order.id})+"#order-form")
+            with transaction.atomic():
+                order = form.save()
+                if order_delivery_formset.has_changed():
+                    deliveryForm = order_delivery_formset[0]
+                    changedData = deliveryForm.changed_data
+                    delivery = deliveryForm.save()
+                    if "delivery_status" in changedData:
+                        try:
+                            sendDeliveryStatusNotification(
+                                request=request, order=order, delivery=delivery)
+                        except Exception as e:
+                            messages.error(request, str(e))
+                            return redirect(reverse("administration:order-detail", kwargs={"id": order.id})+"#order-form")
+                messages.success(request, success_message)
+                return redirect(reverse("administration:order-detail", kwargs={"id": order.id})+"#order-form")
         messages.error(request, _("Order was not saved!"))
-        return render(request, template_name, {"order": order, "form": form, "order_delivery_formset": order_delivery_formset})
     else:
         if not order.seen:
             order.seen = True
@@ -606,15 +586,3 @@ def orderDetail(request, id: int):
 
     return render(request, template_name, {"order": order, "form": form, "order_delivery_formset": order_delivery_formset})
 
-
-def sendDeliveryStatusNotification(request, order, delivery):
-    try:
-        if order.email:
-            emailNotification = DeliveryEmailNotification(
-                request, order, delivery)
-            emailNotification.send()
-        messageNotification = DeliveryMessageNotification(
-            request, order, delivery)
-        # messageNotification.send()
-    except Exception as e:
-        raise e

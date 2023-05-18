@@ -12,7 +12,8 @@
           <div class="tg-page-content suxnix-page-content">
             <div class="tp-page-post">
               <div class="woocommerce">
-                <div class="row shoppong-car-wrap">
+                {% include 'components/messages.html' with messages=messages %}
+                <div id="order-summary" class="row shoppong-car-wrap">
                   <div class="col-12 col-lg-6">
                     <div class="list-group mb-4">
                       <li
@@ -66,20 +67,20 @@
                       >
                         <h6 class="mb-1">{% translate "Delivery Date" %}</h6>
                         <span
-                          >{{order.order_delivery.delivery_date|date:'d.m.Y'}}</span
+                          >{% if order.order_delivery.delivery_date %}{{order.order_delivery.delivery_date|date:'d.m.Y'}}{%else%}{% translate "Will be published" %}{% endif %}</span
                         >
                       </li>
                       <li
                         class="list-group-item d-flex justify-content-between align-items-center"
                       >
                         <h6 class="mb-1">{% translate "Tracking Number" %}</h6>
-                        <span>{{order.order_delivery.tracking_number}}</span>
+                        <span>{% if order.order_delivery.tracking_number %}{{order.order_delivery.tracking_number}}{%else%}{% translate "Will be published" %}{% endif %}</span>
                       </li>
                       <li
                         class="list-group-item d-flex justify-content-between align-items-center"
                       >
                         <h6 class="mb-1">{% translate "Courier Name" %}</h6>
-                        <span>{{order.order_delivery.courier_name}}</span>
+                        <span>{% if order.order_delivery.courier_name %}{{order.order_delivery.courier_name}}{%else%}{% translate "Will be published" %}{% endif %}</span>
                       </li>
                     </div>
                   </div>
@@ -104,7 +105,7 @@
                                   {% translate "Quantity" %}
                                 </th>
                                 <th class="product-price">
-                                  {% translate "Price" %}
+                                  {% translate "Price" %} &#8380;
                                 </th>
                               </tr>
                             </thead>
@@ -147,9 +148,6 @@
                                 <td class="product-price" data-title="Price">
                                   <span class="woocommerce-Price-amount amount"
                                     ><bdi
-                                      ><span
-                                        class="woocommerce-Price-currencySymbol"
-                                        >&#36;</span
                                       >{{item.sub_total}}</bdi
                                     ></span
                                   >

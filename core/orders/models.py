@@ -1,9 +1,5 @@
-from asgiref.sync import async_to_sync
-from channels.layers import get_channel_layer
 from django.core.validators import RegexValidator
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 from store.models import Product
 
@@ -85,13 +81,3 @@ class OrderDelivery(models.Model):
     def delivery_status_value(self):
         return self.get_delivery_status_display
     
-
-
-@receiver(post_save, sender=Order)
-def order_created(sender, instance, created=False, **kwargs):
-    if created:
-        channel_layer = get_channel_layer()
-        async_to_sync(channel_layer.send)("orders", {
-            "type": "order_created",
-            "message": "Order created successfully",
-        })
