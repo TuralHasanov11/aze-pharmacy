@@ -20,9 +20,9 @@ class OrderForm(forms.ModelForm):
     city = forms.ChoiceField(label=_('City'), widget=forms.Select(
         attrs={'class': 'state_select', 'title': _('Please select a city'), }))
     phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$', label=_('Phone'), widget=forms.TextInput(
-        attrs={'class': 'input-text phone-input', 'placeholder': _('+xxxxxxxxx'), 'autocomplete': 'tel', 
+        attrs={'class': 'input-text phone-input', 'placeholder': '+994xxxxxxxxx', 'autocomplete': 'tel', 
                'title': _('Please enter your phone number'), }),
-        help_text=_("Phone number must be entered in the format: '+xxxxxxxxx'. Up to 15 digits allowed"),
+        help_text=_("Phone number must be entered in the format: '+994xxxxxxxxx'. Up to 12 digits allowed"),
         initial='+994')
     email = forms.EmailField(label=_('Email'), widget=forms.EmailInput(
         attrs={'class': 'input-text', 'placeholder': _('Email'), 'autocomplete': 'email username'}), required=False)

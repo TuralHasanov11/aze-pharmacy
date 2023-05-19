@@ -13,4 +13,5 @@ urlpatterns = [
     path('privacy-policy', views.privacyPolicy, name='privacy-policy'),
     path('return-policy', views.returnPolicy, name='return-policy'),
     path('faq', views.FAQListView.as_view(), name='faq'),
+    path('not-found', views.notFound, name='not-found'),
 ]

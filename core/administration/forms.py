@@ -138,7 +138,7 @@ class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField(label=_('Email'), max_length=255, widget=forms.EmailInput(
         attrs={'class': 'form-control', 'placeholder': _('Email'), 'title': _('Please enter email')}))
     role = forms.ChoiceField(label=_('Role'), choices=get_user_model().Role.choices, widget=forms.Select(
-        attrs={'class': 'form-select', 'title': _('Please enter role')}))
+        attrs={'class': 'form-select', 'title': _('Please select role')}))
 
     class Meta:
         model = get_user_model()
@@ -339,11 +339,9 @@ class OrderDeliveryForm(forms.ModelForm):
         delivery_date = self.cleaned_data['delivery_date']
         if (self.cleaned_data['delivery_date'] < datetime.date.today()):
             raise forms.ValidationError(
-                _("Delivery Date can be minimum today!"))
+                _("Delivery date can be minimum today"))
         return delivery_date
     
     
-
-
 OrderDeliveryFormSet = forms.inlineformset_factory(
     parent_model=Order, model=OrderDelivery, max_num=1, form=OrderDeliveryForm)

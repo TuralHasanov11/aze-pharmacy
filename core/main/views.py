@@ -12,10 +12,11 @@ from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_GET, require_http_methods
 from django.views.generic.list import ListView
-from main.forms import ContactForm
-from main.models import Company, Question, SiteInfo, SiteText
 from news.models import Post
 from store.models import Category, Product, ProductImage
+
+from main.forms import ContactForm
+from main.models import Company, Question, SiteInfo, SiteText
 
 
 @require_GET
@@ -150,3 +151,8 @@ class FAQListView(ListView):
             {"title": _("FAQ")},
         ]
         return context
+
+
+@require_GET
+def notFound(request, exception):
+    return render(request, 'main/404.html')

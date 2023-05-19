@@ -61,12 +61,12 @@ class DeliveryMessageNotification(DeliveryNotification):
 
 class DeliveryEmailNotification(DeliveryNotification):
     class Subject(Enum):
-        PROCESSING = "Processing"
-        SHIPPED = "SHIPPED"
-        DELIVERED = "DELIVERED"
-        FAILED_DELIVERY = "FAILED_DELIVERY"
-        RETURNED = "RETURNED"
-        CANCELLED = "CANCELLED"
+        PROCESSING = "Sifarişiniz hazırlanır"
+        SHIPPED = "Sifarişiniz yoldadır"
+        DELIVERED = "Sifarişiniz çatdırılıb"
+        FAILED_DELIVERY = "Uğursuz çatdırılma"
+        RETURNED = "Sifarişiniz qayıtdı"
+        CANCELLED = "Sifarişiniz ləğv edildi"
     
     @property
     def subject(self):
@@ -94,10 +94,10 @@ class DeliveryEmailNotification(DeliveryNotification):
 
 def sendDeliveryStatusNotification(request, order, delivery):
     try:
-        # if order.email:
-        #     emailNotification = DeliveryEmailNotification(
-        #         request, order, delivery)
-        #     emailNotification.send()
+        if order.email:
+            emailNotification = DeliveryEmailNotification(
+                request, order, delivery)
+            emailNotification.send()
         messageNotification = DeliveryMessageNotification(
             request, order, delivery)
         messageNotification.send()

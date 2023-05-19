@@ -1,6 +1,6 @@
 from django.db.models import Prefetch
 from django.http import HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_GET
@@ -28,4 +28,4 @@ def detail(request, id: int):
         
         return render(request, template_name=template_name, context={'order': order, "breadcrumb": breadcrumb, "order_quantity": order_quantity})
     except Order.DoesNotExist:
-        return HttpResponseNotFound(_("Order is not found"))
+        return redirect('main:not-found')

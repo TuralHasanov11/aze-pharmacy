@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-18 22:52+0200\n"
-"PO-Revision-Date: 2023-05-14 23:11+0400\n"
+"POT-Creation-Date: 2023-05-19 18:37+0200\n"
+"PO-Revision-Date: 2023-05-19 18:50+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -68,7 +68,7 @@ msgstr ""
 
 #: .\administration\context_processors.py:41 .\administration\views.py:38
 #: .\main\context_processors.py:19 .\main\context_processors.py:31
-#: .\main\templates\main\career.html:2 .\main\views.py:96 .\main\views.py:98
+#: .\main\templates\main\career.html:2 .\main\views.py:97 .\main\views.py:99
 msgid "Career"
 msgstr ""
 
@@ -133,7 +133,7 @@ msgid "Texts"
 msgstr ""
 
 #: .\administration\context_processors.py:88 .\main\context_processors.py:37
-#: .\main\templates\main\faq.html:2 .\main\views.py:148 .\main\views.py:150
+#: .\main\templates\main\faq.html:2 .\main\views.py:149 .\main\views.py:151
 msgid "FAQ"
 msgstr ""
 
@@ -186,15 +186,9 @@ msgid "Description"
 msgstr ""
 
 #: .\administration\forms.py:27
-#, fuzzy
 #| msgid "Career Description"
 msgid "Please enter description"
 msgstr ""
-"Explore the companies we collaborate with in the healthcare sector. Discover "
-"our strategic partnerships and alliances with leading organizations "
-"dedicated to advancing medical research, technology, and innovation. Learn "
-"more about our network of industry partners and our commitment to fostering "
-"collaborations that shape the future of healthcare."
 
 #: .\administration\forms.py:52
 msgid "File"
@@ -296,7 +290,7 @@ msgstr ""
 msgid "Role"
 msgstr ""
 
-#: .\administration\forms.py:106
+#: .\administration\forms.py:106 .\administration\forms.py:141
 msgid "Please select role"
 msgstr ""
 
@@ -310,10 +304,6 @@ msgstr ""
 
 #: .\administration\forms.py:110
 msgid "Please confirm password"
-msgstr ""
-
-#: .\administration\forms.py:141
-msgid "Please enter role"
 msgstr ""
 
 #: .\administration\forms.py:159 .\administration\forms.py:160
@@ -515,20 +505,20 @@ msgid "Please enter about text"
 msgstr ""
 
 #: .\administration\forms.py:267 .\main\context_processors.py:43
-#: .\main\templates\main\return-policy.html:2 .\main\views.py:133
-#: .\main\views.py:135
+#: .\main\templates\main\return-policy.html:2 .\main\views.py:134
+#: .\main\views.py:136
 msgid "Return Policy"
 msgstr ""
 
 #: .\administration\forms.py:269 .\main\context_processors.py:42
-#: .\main\templates\main\privacy-policy.html:2 .\main\views.py:121
-#: .\main\views.py:123
+#: .\main\templates\main\privacy-policy.html:2 .\main\views.py:122
+#: .\main\views.py:124
 msgid "Privacy Policy"
 msgstr ""
 
 #: .\administration\forms.py:271 .\main\context_processors.py:41
-#: .\main\templates\main\terms-and-conditions.html:2 .\main\views.py:108
-#: .\main\views.py:110
+#: .\main\templates\main\terms-and-conditions.html:2 .\main\views.py:109
+#: .\main\views.py:111
 msgid "Terms and Conditions"
 msgstr ""
 
@@ -594,7 +584,7 @@ msgid "Delivery Status cannot be changed!"
 msgstr ""
 
 #: .\administration\forms.py:342
-msgid "Delivery Date can be minimum today!"
+msgid "Delivery date can be minimum today"
 msgstr ""
 
 #: .\administration\notifications.py:59
@@ -1226,8 +1216,8 @@ msgid "Shopping Cart Description"
 msgstr ""
 "Review and edit the items in your shopping cart before completing your "
 "purchase. Our shopping cart page makes it easy to add or remove items from "
-"your cart and adjust quantities. Review your cart and complete your purchase "
-"now."
+"your cart and adjust quantities. Review your cart and complete your purchase"
+" now."
 
 #: .\cart\templates\cart\summary.html:112
 msgid "Cart totals"
@@ -1239,11 +1229,11 @@ msgstr ""
 
 #: .\cart\views.py:18 .\checkout\views.py:32 .\library\views.py:18
 #: .\main\context_processors.py:11 .\main\templates\main\index.html:2
-#: .\main\views.py:41 .\main\views.py:82 .\main\views.py:97 .\main\views.py:109
-#: .\main\views.py:122 .\main\views.py:134 .\main\views.py:149
-#: .\news\views.py:18 .\news\views.py:32 .\orders\views.py:25
-#: .\services\views.py:18 .\store\views.py:47 .\store\views.py:75
-#: .\store\views.py:107 .\wishlist\views.py:16
+#: .\main\views.py:42 .\main\views.py:83 .\main\views.py:98
+#: .\main\views.py:110 .\main\views.py:123 .\main\views.py:135
+#: .\main\views.py:150 .\news\views.py:18 .\news\views.py:32
+#: .\orders\views.py:25 .\services\views.py:18 .\store\views.py:47
+#: .\store\views.py:75 .\store\views.py:107 .\wishlist\views.py:16
 msgid "Home"
 msgstr ""
 
@@ -1255,9 +1245,9 @@ msgstr ""
 #: .\checkout\templates\checkout\index.html:3
 msgid "Checkout Description"
 msgstr ""
-"Securely checkout and complete your purchase with ease. Our checkout process "
-"is easy to use and we offer a variety of payment options to suit your needs. "
-"Review your order and complete your purchase now."
+"Securely checkout and complete your purchase with ease. Our checkout process"
+" is easy to use and we offer a variety of payment options to suit your "
+"needs. Review your order and complete your purchase now."
 
 #: .\checkout\templates\checkout\index.html:27
 msgid "Billing Details"
@@ -1276,33 +1266,19 @@ msgid "Your Order"
 msgstr ""
 
 #: .\checkout\templates\checkout\index.html:227
-#, fuzzy
 #| msgid "Privacy Policy Description"
 msgid "privacy policy"
 msgstr ""
-"Our privacy policy outlines our commitment to protecting your personal "
-"information and data. Learn about our data collection and storage practices, "
-"and how we use your information to provide you with a better shopping "
-"experience. Read our privacy policy now and shop with confidence."
 
 #: .\checkout\templates\checkout\index.html:229
 #, python-format
 msgid ""
 "\n"
-"                                      Before you proceed to complete your "
-"checkout, we kindly request that you take a moment to review our Privacy "
-"Policy. \n"
-"                                      Our Privacy Policy outlines how we "
-"collect, use, and protect your personal information.\n"
-"                                      By understanding our privacy "
-"practices, you can have full confidence in providing your details for a "
-"seamless checkout experience. \n"
-"                                      To view our Privacy Policy, please "
-"click <a href=\"%(privacy_policy_link)s\" class=\"woocommerce-privacy-policy-"
-"link\" target=\"_blank\">%(privacy_policy_text)s</a>. \n"
-"                                      Once you have familiarized yourself "
-"with our policy, you can proceed with confidence to complete your "
-"checkout.                                  \n"
+"                                      Before you proceed to complete your checkout, we kindly request that you take a moment to review our Privacy Policy. \n"
+"                                      Our Privacy Policy outlines how we collect, use, and protect your personal information.\n"
+"                                      By understanding our privacy practices, you can have full confidence in providing your details for a seamless checkout experience. \n"
+"                                      To view our Privacy Policy, please click <a href=\"%(privacy_policy_link)s\" class=\"woocommerce-privacy-policy-link\" target=\"_blank\">%(privacy_policy_text)s</a>. \n"
+"                                      Once you have familiarized yourself with our policy, you can proceed with confidence to complete your checkout.                                  \n"
 "                                      "
 msgstr ""
 
@@ -1346,13 +1322,13 @@ msgstr ""
 
 #: .\main\context_processors.py:18 .\main\context_processors.py:40
 #: .\main\templates\main\about.html:2 .\main\templates\main\about.html:46
-#: .\main\views.py:81 .\main\views.py:83
+#: .\main\views.py:82 .\main\views.py:84
 msgid "About Us"
 msgstr ""
 
 #: .\main\context_processors.py:20 .\main\context_processors.py:36
 #: .\main\templates\main\contact.html:2 .\main\templates\main\contact.html:109
-#: .\main\views.py:40 .\main\views.py:42
+#: .\main\views.py:41 .\main\views.py:43
 #: .\templates\components\default\footer.html:85
 msgid "Contact Us"
 msgstr ""
@@ -1448,8 +1424,8 @@ msgstr ""
 #: .\main\templates\main\career.html:3
 msgid "Career Description"
 msgstr ""
-"Explore the companies we collaborate with in the healthcare sector. Discover "
-"our strategic partnerships and alliances with leading organizations "
+"Explore the companies we collaborate with in the healthcare sector. Discover"
+" our strategic partnerships and alliances with leading organizations "
 "dedicated to advancing medical research, technology, and innovation. Learn "
 "more about our network of industry partners and our commitment to fostering "
 "collaborations that shape the future of healthcare."
@@ -1464,8 +1440,8 @@ msgid "Contact Description"
 msgstr ""
 "Contact us for any questions or inquiries about our products and services. "
 "Our customer support team is available 24/7 to assist you with any queries "
-"you may have. Reach out to us today and let us help you with your healthcare "
-"needs."
+"you may have. Reach out to us today and let us help you with your healthcare"
+" needs."
 
 #: .\main\templates\main\contact.html:41
 msgid "Office Address"
@@ -1495,22 +1471,31 @@ msgid "Home Description"
 msgstr ""
 "Welcome to our online pharmacy where you can find a wide range of medicines "
 "and healthcare products. We provide high-quality medicines that are "
-"reliable, affordable, and delivered to your doorstep. Shop now and enjoy our "
-"exclusive discounts!"
+"reliable, affordable, and delivered to your doorstep. Shop now and enjoy our"
+" exclusive discounts!"
+
+#: .\main\templates\main\not-found.html:2
+#: .\main\templates\main\not-found.html:3
+msgid "Not Found"
+msgstr ""
+
+#: .\main\templates\main\not-found.html:31
+msgid "This page cannot be found"
+msgstr ""
 
 #: .\main\templates\main\privacy-policy.html:3
 msgid "Privacy Policy Description"
 msgstr ""
 "Our privacy policy outlines our commitment to protecting your personal "
-"information and data. Learn about our data collection and storage practices, "
-"and how we use your information to provide you with a better shopping "
+"information and data. Learn about our data collection and storage practices,"
+" and how we use your information to provide you with a better shopping "
 "experience. Read our privacy policy now and shop with confidence."
 
 #: .\main\templates\main\return-policy.html:3
 msgid "Return Policy Description"
 msgstr ""
-"Our return policy outlines the steps you need to take if you are unsatisfied "
-"with your purchase. Learn about our return process, eligibility criteria, "
+"Our return policy outlines the steps you need to take if you are unsatisfied"
+" with your purchase. Learn about our return process, eligibility criteria, "
 "and exceptions. Read our return policy now and shop with confidence."
 
 #: .\main\templates\main\terms-and-conditions.html:3
@@ -1521,11 +1506,11 @@ msgstr ""
 "methods, and more. Read our terms & conditions now to ensure a smooth "
 "shopping experience."
 
-#: .\main\views.py:65
+#: .\main\views.py:66
 msgid "Email was sent successfully!"
 msgstr ""
 
-#: .\main\views.py:68 .\main\views.py:69
+#: .\main\views.py:69 .\main\views.py:70
 msgid "Email cannot be sent!"
 msgstr ""
 
@@ -1561,18 +1546,14 @@ msgstr ""
 msgid "Please select a city"
 msgstr ""
 
-#: .\orders\forms.py:23
-msgid "+xxxxxxxxx"
-msgstr ""
-
 #: .\orders\forms.py:24
 msgid "Please enter your phone number"
 msgstr ""
 
 #: .\orders\forms.py:25 .\orders\models.py:18
 msgid ""
-"Phone number must be entered in the format: '+xxxxxxxxx'. Up to 15 digits "
-"allowed"
+"Phone number must be entered in the format: '+994xxxxxxxxx'. Up to 12 digits"
+" allowed"
 msgstr ""
 
 #: .\orders\forms.py:30
@@ -1626,11 +1607,11 @@ msgstr ""
 #: .\orders\templates\orders\detail.html:3
 msgid "Order Details Description"
 msgstr ""
-"View the detailed information of your specific order on our online pharmacy. "
-"The Order Details page provides you with a comprehensive overview of your "
+"View the detailed information of your specific order on our online pharmacy."
+" The Order Details page provides you with a comprehensive overview of your "
 "purchase, including itemized products, quantities, prices, and shipping "
-"details. Stay informed about your specific order and review all the relevant "
-"information at a glance."
+"details. Stay informed about your specific order and review all the relevant"
+" information at a glance."
 
 #: .\orders\templates\orders\detail.html:27
 msgid "Order Date"
@@ -1658,17 +1639,14 @@ msgstr ""
 msgid "Product Summary"
 msgstr ""
 
-#: .\orders\views.py:31
-msgid "Order is not found"
-msgstr ""
-
 #: .\services\templates\services\index.html:3
 msgid "Services Description"
 msgstr ""
 "Our company offers a wide range of services to meet all your healthcare "
 "needs. From prescription refills to online consultations, we have got you "
 "covered. Our team of professionals is dedicated to providing you with the "
-"best healthcare services. Explore our services and book an appointment today!"
+"best healthcare services. Explore our services and book an appointment "
+"today!"
 
 #: .\store\models.py:23
 msgid "categories"
@@ -1695,8 +1673,8 @@ msgid "Shop Description"
 msgstr ""
 "Shop our wide selection of medicines and healthcare products at competitive "
 "prices. We offer a user-friendly interface, secure payment options, and "
-"reliable delivery services. Browse our product categories and find the right "
-"products for your healthcare needs."
+"reliable delivery services. Browse our product categories and find the right"
+" products for your healthcare needs."
 
 #: .\store\templates\store\products\index.html:15
 msgid "Order by"
@@ -1731,8 +1709,8 @@ msgid "entries"
 msgstr ""
 
 #: .\templates\components\admin\navbar.html:14
-#: .\templates\layouts\admin.html:19 .\templates\layouts\authentication.html:24
-#: .\user\models.py:38
+#: .\templates\layouts\admin.html:19
+#: .\templates\layouts\authentication.html:24 .\user\models.py:38
 msgid "Admin"
 msgstr ""
 
@@ -1834,14 +1812,14 @@ msgstr ""
 #: .\wishlist\templates\wishlist\wishlist.html:4
 msgid "Wishlist Description"
 msgstr ""
-"Keep track of your favorite healthcare products and medicines by adding them "
-"to your wishlist. Our wishlist feature makes it easy to keep track of "
+"Keep track of your favorite healthcare products and medicines by adding them"
+" to your wishlist. Our wishlist feature makes it easy to keep track of "
 "products you want to purchase in the future. Browse our products and add "
 "them to your wishlist today!"
 
 #~ msgid "Orders Description"
 #~ msgstr ""
-#~ "View your order history and track your purchases from our online "
-#~ "pharmacy. Our shopping orders page allows you to view your order status, "
-#~ "shipment details, and track your package. Stay informed about your "
-#~ "purchases and track them with ease."
+#~ "View your order history and track your purchases from our online pharmacy. "
+#~ "Our shopping orders page allows you to view your order status, shipment "
+#~ "details, and track your package. Stay informed about your purchases and "
+#~ "track them with ease."

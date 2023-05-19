@@ -26,6 +26,8 @@ urlpatterns += i18n_patterns(
     path('api/', include('api.urls', 'api')),
 )
 
+handler404 = "main.views.notFound"
+
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
                           document_root=settings.STATIC_ROOT)

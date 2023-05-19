@@ -211,3 +211,7 @@ TWILIO_PHONE = os.environ.get('TWILIO_PHONE', None)
 # TWILIO_API_KEY = os.environ.get('TWILIO_API_KEY', None)
 # TWILIO_API_SECRET = os.environ.get('TWILIO_API_SECRET', None)
 # TWILIO_CHAT_SERVICE_SID = os.environ.get('TWILIO_CHAT_SERVICE_SID', None)
+
+
+PAYRIFF_SECRET_KEY = os.environ.get('PAYRIFF_SECRET_KEY', None)
+PAYRIFF_API_ENDPOINT = os.environ.get('PAYRIFF_API_ENDPOINT', None)

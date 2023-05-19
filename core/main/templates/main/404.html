@@ -1,0 +1,41 @@
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %}
+{% block title %}{% translate "Not Found" %}{% endblock title %}
+{% block description %}{% translate "Not Found" %}{% endblock description %}
+
+{% block content %}
+<main class="main-area fix">
+  <div
+    data-elementor-type="wp-page"
+    data-elementor-id="65"
+    class="elementor elementor-container"
+  >
+    <section
+      class="elementor-section elementor-top-section elementor-element elementor-element-career-section elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+      data-id="career-section"
+      data-element_type="section"
+      data-settings='{"background_background":"classic"}'
+    >
+      <div class="elementor-container elementor-column-gap-no">
+        <div
+          class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-companies-container"
+          data-element_type="column"
+        >
+          <div class="elementor-widget-wrap elementor-element-populated">
+            <div
+              class="elementor-element elementor-element-companies-heading elementor-widget"
+              data-element_type="widget"
+              data-widget_type="tp-heading.default"
+            >
+              <div class="elementor-widget-container">
+                <div class="section-title">
+                  <h2 class="title">{% translate "This page cannot be found" %}</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+{% endblock content %}
