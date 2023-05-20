@@ -56,34 +56,34 @@ window.addEventListener('DOMContentLoaded', event => {
     });
 
 
-    document.querySelectorAll('input').forEach(function (element){
-        element.addEventListener('input', function(event){
-            if(!event.currentTarget.checkValidity()){
-                event.currentTarget.setCustomValidity(event.currentTarget.getAttribute('title'))
-            }else{
-                event.currentTarget.setCustomValidity("");
-            }
-        })
-    })
+    // document.querySelectorAll('input').forEach(function (element){
+    //     element.addEventListener('input', function(event){
+    //         if(!event.currentTarget.checkValidity()){
+    //             event.currentTarget.setCustomValidity(event.currentTarget.getAttribute('title'))
+    //         }else{
+    //             event.currentTarget.setCustomValidity("");
+    //         }
+    //     })
+    // })
 
-    document.querySelectorAll('select').forEach(function (element){
-        element.addEventListener('change', function(event){
-            if(!event.currentTarget.checkValidity()){
-                event.currentTarget.setCustomValidity(event.currentTarget.getAttribute('title'))
-            }else{
-                event.currentTarget.setCustomValidity("");
-            }
-        })   
-    })
+    // document.querySelectorAll('select').forEach(function (element){
+    //     element.addEventListener('change', function(event){
+    //         if(!event.currentTarget.checkValidity()){
+    //             event.currentTarget.setCustomValidity(event.currentTarget.getAttribute('title'))
+    //         }else{
+    //             event.currentTarget.setCustomValidity("");
+    //         }
+    //     })   
+    // })
 
-    document.querySelectorAll('textarea').forEach(function (element){
-        element.addEventListener('input', function(event){
-            if(!event.currentTarget.checkValidity()){
-                event.currentTarget.setCustomValidity(event.currentTarget.getAttribute('title'))
-            }else{
-                event.currentTarget.setCustomValidity("");
-            }
-        }) 
-    })
+    // document.querySelectorAll('textarea').forEach(function (element){
+    //     element.addEventListener('input', function(event){
+    //         if(!event.currentTarget.checkValidity()){
+    //             event.currentTarget.setCustomValidity(event.currentTarget.getAttribute('title'))
+    //         }else{
+    //             event.currentTarget.setCustomValidity("");
+    //         }
+    //     }) 
+    // })
 
 });
