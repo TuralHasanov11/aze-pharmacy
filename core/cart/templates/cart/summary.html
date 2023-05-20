@@ -12,6 +12,7 @@
         <div class="col-xl-12">
           <div class="tg-page-content suxnix-page-content">
             <div class="tp-page-post">
+              {% if cart %}
               <div class="woocommerce">
                 <div class="row shoppong-car-wrap">
                   <div class="col-lg-8">
@@ -136,6 +137,12 @@
                   </div>
                 </div>
               </div>
+              {% else %}
+              <div class="d-flex justify-content-center flex-column align-items-center">
+                <h4>{% translate "Your shopping cart is currently empty." %}</h4>
+                <a href="{% url 'store:products' %}" class="btn">{% translate "Continue Shopping" %}</a>
+              </div>
+              {% endif %}
             </div>
           </div>
         </div>

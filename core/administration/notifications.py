@@ -98,8 +98,8 @@ def sendDeliveryStatusNotification(request, order, delivery):
             emailNotification = DeliveryEmailNotification(
                 request, order, delivery)
             emailNotification.send()
-        messageNotification = DeliveryMessageNotification(
-            request, order, delivery)
-        messageNotification.send()
+        # messageNotification = DeliveryMessageNotification(
+        #     request, order, delivery)
+        # messageNotification.send()
     except Exception as e:
         raise e

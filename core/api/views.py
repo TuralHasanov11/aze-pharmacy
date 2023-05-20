@@ -1,4 +1,8 @@
+import json
+
 from api import pagination, serializers
+from checkout.serializers import OrderSerializer
+from checkout.utils import getCities
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.postgres.search import (SearchQuery, SearchRank,
                                             SearchVector)
@@ -34,6 +38,12 @@ def orders(request):
     return paginator.get_paginated_response(serializer.data)
 
 
+@api_view(['GET'])
+def cities(request):
+    cities = getCities()
+    return Response(data=cities)
+
+
 @login_required
 @api_view(['POST'])
 @permission_required(['orders.view_order', 'orders.change_order'], raise_exception=True)
@@ -44,3 +54,12 @@ def orderFlag(request, id: int):
     serializer = serializers.OrderSerializer(order)
     return Response(data=serializer.data)
     
+
+
+@api_view(['GET'])
+def orderValidationMessages(request):
+    serializer = OrderSerializer()
+    messages: dict = {}
+    for field in serializer.fields.keys():
+        messages[field] = serializer.fields[field].error_messages
+    return Response(data=messages)

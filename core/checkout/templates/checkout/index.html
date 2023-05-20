@@ -12,241 +12,258 @@
         <div class="col-xl-12">
           <div class="tg-page-content suxnix-page-content">
             <div class="tp-page-post">
-              <div class="woocommerce">
-                <div class="woocommerce-notices-wrapper"></div>
-                <form
-                  name="checkout"
-                  method="POST"
-                  class="checkout woocommerce-checkout"
-                >
-                    {% csrf_token %}
-                  <div class="row" id="customer_details">
-                    <div class="col-12 col-lg-6">
-                      <div id="customer_form_details">
-                        <div class="woocommerce-billing-fields">
-                          <h3>{% translate "Billing Details" %}</h3>
-                          <div
-                            class="woocommerce-billing-fields__field-wrapper"
+              {% if cart %}
+              <div id="checkout-app" class="woocommerce">
+                <div class="row" id="customer_details">
+                  <div class="col-12 col-lg-6">
+                    {% verbatim %}
+                    <form @submit.prevent="checkout" class="woocommerce-checkout"
+                    >
+                    <div id="customer_form_details">
+                      <div class="woocommerce-billing-fields">
+                        <h3>{% translate "Billing Details" %}</h3>
+                        <div
+                          class="woocommerce-billing-fields__field-wrapper"
+                        >
+                          <p
+                            class="form-row form-row-first validate-required"
+                            id="{{form.first_name.id_for_label}}_field"
                           >
-                            <p
-                              class="form-row form-row-first validate-required"
-                              id="{{form.first_name.id_for_label}}_field"
-                            >
-                              <label for="{{form.first_name.id_for_label}}"
-                                >{{form.first_name.label}}&nbsp;<abbr
-                                  class="required"
-                                  title="required"
-                                  >*</abbr
-                                ></label
-                              ><span class="woocommerce-input-wrapper"
-                                >
-                                {{form.first_name}}
-                                {{form.first_name.errors}}
-                                </span>
-                            </p>
-                            <p
-                              class="form-row form-row-last validate-required"
-                              id="{{form.last_name.id_for_label}}_field"
-                            >
-                              <label for="{{form.last_name.id_for_label}}"
-                                >{{form.last_name.label}}&nbsp;<abbr
-                                  class="required"
-                                  title="required"
-                                  >*</abbr
-                                ></label
-                              ><span class="woocommerce-input-wrapper"
-                                >{{form.last_name}}
-                                {{form.last_name.errors}}
-                                </span>
-                            </p>
-                            <p
-                              class="form-row form-row-wide address-field validate-required"
-                              id="{{form.address.id_for_label}}_field"
-                            >
-                              <label for="{{form.address.id_for_label}}"
-                                >{{form.address.label}}&nbsp;<abbr
-                                  class="required"
-                                  title="required"
-                                  >*</abbr
-                                ></label
-                              ><span class="woocommerce-input-wrapper"
-                                >
-                                {{form.address}}
-                                {{form.address.errors}}
-                                </span>
-                            </p>
-                            <p
-                              class="form-row form-row-wide address-field validate-required validate-state"
-                              id="{{form.city.id_for_label}}_field"
-                            >
-                              <label for="{{form.city.id_for_label}}"
-                                >{{form.city.label}}&nbsp;<abbr
-                                  class="required"
-                                  title="required"
-                                  >*</abbr
-                                ></label
-                              ><span class="woocommerce-input-wrapper"
-                                >{{form.city}}
-                                {{form.city.errors}}
-                                </span
+                            <label for="{{form.first_name.id_for_label}}"
+                              >First Name&nbsp;<abbr
+                                class="required"
+                                title="required"
+                                >*</abbr
+                              ></label
+                            ><span class="woocommerce-input-wrapper"
                               >
-                            </p>
-                            <p
-                              class="form-row form-row-wide validate-required validate-phone"
-                              id="{{form.phone.id_for_label}}_field"
-                            >
-                              <label for="{{form.phone.id_for_label}}"
-                                >{{form.phone.label}}&nbsp;<abbr
-                                  class="required"
-                                  title="required"
-                                  >*</abbr
-                                ></label
-                              ><span class="woocommerce-input-wrapper"
-                                >
-                                {{form.phone}}
-                                <small class="phone-help-text">{{form.phone.help_text}}</small>
-                                {{form.phone.errors}}
-                                </span>
-                            </p>
-                            <p
-                              class="form-row form-row-wide validate-required validate-email"
-                              id="{{form.email.id_for_label}}_field"
-                            >
-                              <label for="{{form.email.id_for_label}}"
-                                >{{form.email.label}}</label
-                              ><span class="woocommerce-input-wrapper"
-                                >
-                                {{form.email}}
-                                {{form.email.errors}}
-                                </span>
-                            </p>
-                          </div>
-                        </div>
-
-                        <div class="woocommerce-additional-fields">
-                          <h3>{% translate "Additional information" %}</h3>
-
-                          <div
-                            class="woocommerce-additional-fields__field-wrapper"
-                          >
-                            <p
-                              class="form-row notes"
-                              id="{{form.notes.id_for_label}}_field"
-                            >
-                              <label for="{{form.notes.id_for_label}}"
-                                >{{form.notes.label}}&nbsp;<span class="optional"
-                                  >({% translate "optional" %})</span
-                                ></label
-                              ><span class="woocommerce-input-wrapper">
-                                {{form.notes}}
-                                {{form.notes.errors}}
+                              <input type="text" v-model="v$.checkoutForm.firstName.$model" class="input-text" id="id_first_name" placeholder="First Name" autocomplete="given-name">
+                              <span v-if="v$.checkoutForm.firstName.$dirty && v$.checkoutForm.firstName.required.$invalid" class="text-danger">{{orderValidationMessages?.first_name?.required}}</span>
                               </span>
-                            </p>
-                          </div>
+                          </p>
+                          <p
+                            class="form-row form-row-last validate-required"
+                            id="{{form.last_name.id_for_label}}_field"
+                          >
+                            <label for="{{form.last_name.id_for_label}}"
+                              >Last Name&nbsp;<abbr
+                                class="required"
+                                title="required"
+                                >*</abbr
+                              ></label
+                            ><span class="woocommerce-input-wrapper"
+                              >                                
+                              <input type="text" v-model="v$.checkoutForm.lastName.$model" class="input-text" id="id_last_name" placeholder="Last Name" autocomplete="family-name">
+                              <span v-if="v$.checkoutForm.lastName.$dirty && v$.checkoutForm.lastName.required.$invalid" class="text-danger">{{orderValidationMessages?.last_name?.required}}</span>
+                              </span>
+                          </p>
+                          <p
+                            class="form-row form-row-wide address-field validate-required"
+                            id="{{form.address.id_for_label}}_field"
+                          >
+                            <label for="{{form.address.id_for_label}}"
+                              >Address&nbsp;<abbr
+                                class="required"
+                                title="required"
+                                >*</abbr
+                              ></label
+                            ><span class="woocommerce-input-wrapper"
+                              >
+                              <input type="text" v-model="v$.checkoutForm.address.$model" class="input-text" id="id_address" placeholder="House number and street name" autocomplete="address-line1">
+                              <span v-if="v$.checkoutForm.address.$dirty && v$.checkoutForm.address.required.$invalid" class="text-danger">{{orderValidationMessages?.address?.required}}</span>
+
+
+                              </span>
+                          </p>
+                          <p
+                            class="form-row form-row-wide address-field validate-required validate-state"
+                            id="{{form.city.id_for_label}}_field"
+                          >
+                            <label for="{{form.city.id_for_label}}"
+                              >City&nbsp;<abbr
+                                class="required"
+                                title="required"
+                                >*</abbr
+                              ></label
+                            ><span class="woocommerce-input-wrapper"
+                              >
+                              <select class="state_select" id="id_city" v-model="v$.checkoutForm.city.$model">
+                                <option value="">Select a city</option>
+                                <option v-for="cityItem in cities" :key="cityItem" :value="cityItem">
+                                  {{cityItem}}
+                                </option>
+                              </select>
+                              <span v-if="v$.checkoutForm.city.$dirty && v$.checkoutForm.city.required.$invalid" class="text-danger">{{orderValidationMessages?.city?.required}}</span>
+
+
+                              </span
+                            >
+                          </p>
+                          <p
+                            class="form-row form-row-wide validate-required validate-phone"
+                            id="{{form.phone.id_for_label}}_field"
+                          >
+                            <label for="{{form.phone.id_for_label}}"
+                              >Phone&nbsp;<abbr
+                                class="required"
+                                title="required"
+                                >*</abbr
+                              ></label
+                            ><span class="woocommerce-input-wrapper"
+                              >
+                              <input type="text" v-model="v$.checkoutForm.phone.$model" class="input-text phone-input" id="id_phone" placeholder="+994xxxxxxxxx" autocomplete="tel">
+                              <span v-if="v$.checkoutForm.phone.$dirty && v$.checkoutForm.phone.required.$invalid" class="text-danger">{{orderValidationMessages?.phone?.required}}</span>
+                              <span v-if="v$.checkoutForm.phone.$dirty && v$.checkoutForm.phone.phoneValidator.$invalid" class="text-danger">{{orderValidationMessages?.phone?.regex}}</span>
+
+
+                              </span>
+                          </p>
+                          <p
+                            class="form-row form-row-wide validate-required validate-email"
+                            id="{{form.email.id_for_label}}_field"
+                          >
+                            <label for="{{form.email.id_for_label}}"
+                              >Email</label
+                            ><span class="woocommerce-input-wrapper"
+                              >
+                              <input type="email" v-model="v$.checkoutForm.email.$model" class="input-text" id="id_email" placeholder="Email" autocomplete="email username">
+                              <span v-if="v$.checkoutForm.email.$dirty && v$.checkoutForm.email.required.$invalid" class="text-danger">{{orderValidationMessages?.email?.required}}</span>
+
+
+                              </span>
+                          </p>
+                        </div>
+                      </div>
+
+                      <div class="woocommerce-additional-fields">
+                        <h3>Additional information</h3>
+                        <div
+                          class="woocommerce-additional-fields__field-wrapper"
+                        >
+                          <p
+                            class="form-row notes"
+                            id="{{form.notes.id_for_label}}_field"
+                          >
+                            <label for="{{form.notes.id_for_label}}"
+                              >Notes&nbsp;<span class="optional"
+                                >(optional)</span
+                              ></label
+                            ><span class="woocommerce-input-wrapper">
+                              <textarea v-model="checkoutForm.notes" class="input-text" placeholder="Notes" id="id_notes" cols="30" rows="10"></textarea>
+                            </span>
+                          </p>
                         </div>
                       </div>
                     </div>
+                    <button :disabled="v$.$invalid" type="submit" class="btn checkout-btn w-100">Place order</button>
+                    </form>
+                    {% endverbatim %}
+                  </div>
 
-                    <div class="col-12 col-lg-6">
-                      <div class="cart-wrapper">
-                        <div class="order-review-wrapper">
-                          <h3 id="order_review_heading">{% translate "Your Order" %}</h3>
+                  <div class="col-12 col-lg-6">
+                    <div class="cart-wrapper">
+                      <div class="order-review-wrapper">
+                        <h3 id="order_review_heading">{% translate "Your Order" %}</h3>
 
-                          <div
-                            id="order_review"
-                            class="woocommerce-checkout-review-order"
+                        <div
+                          id="order_review"
+                          class="woocommerce-checkout-review-order"
+                        >
+                          <table
+                            class="shop_table woocommerce-checkout-review-order-table"
                           >
-                            <table
-                              class="shop_table woocommerce-checkout-review-order-table"
-                            >
-                              <thead>
-                                <tr>
-                                  <th class="product-name">{% translate "Product" %}</th>
-                                  <th class="product-total">{% translate "Subtotal" %}</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {% if cart %}
-                                {% for item in cart %}
-                                {% with cartProduct=item.product %}
-                                <tr class="cart_item">
-                                    <td class="product-name">
-                                    <a href="{% url 'store:product-detail' category_slug=cartProduct.category_slug product_slug=cartProduct.slug %}">
-                                      <img width="32" height="32" src="{{cartProduct.image_feature}}" loading="lazy" />	
-                                      {{cartProduct.name}}&nbsp;						
-                                    </a>
-                                    <strong class="product-quantity"
-                                        >&times;&nbsp;{{item.quantity}}</strong
-                                    >
-                                    </td>
-                                    <td class="product-total">
-                                    <span
-                                        class="woocommerce-Price-amount amount"
-                                        ><bdi
-                                        ><span
-                                            class="woocommerce-Price-currencySymbol"
-                                            >&#36;</span
-                                        >{{item.total_price}}</bdi
-                                        ></span
-                                    >
-                                    </td>
-                                </tr>
-                                {% endwith %}
-                                {% endfor %}
-                                {% endif %}
-                              </tbody>
-                              <tfoot>
-                                <tr class="order-total">
-                                  <th>{% translate "Total" %}</th>
-                                  <td>
-                                    <strong
-                                      ><span
-                                        class="woocommerce-Price-amount amount"
-                                        ><bdi
-                                          ><span
-                                            class="woocommerce-Price-currencySymbol"
-                                            >&#36;</span
-                                          >{{cart.get_total_price}}</bdi
-                                        ></span
-                                      ></strong
-                                    >
+                            <thead>
+                              <tr>
+                                <th class="product-name">{% translate "Product" %}</th>
+                                <th class="product-total">{% translate "Subtotal" %}</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% if cart %}
+                              {% for item in cart %}
+                              {% with cartProduct=item.product %}
+                              <tr class="cart_item">
+                                  <td class="product-name">
+                                  <a href="{% url 'store:product-detail' category_slug=cartProduct.category_slug product_slug=cartProduct.slug %}">
+                                    <img width="32" height="32" src="{{cartProduct.image_feature}}" loading="lazy" />	
+                                    {{cartProduct.name}}&nbsp;						
+                                  </a>
+                                  <strong class="product-quantity"
+                                      >&times;&nbsp;{{item.quantity}}</strong
+                                  >
                                   </td>
-                                </tr>
-                              </tfoot>
-                            </table>
-                            <div
-                              id="payment"
-                              class="woocommerce-checkout-payment"
-                            >
-                              <div class="form-row place-order">
-                                <div
-                                  class="woocommerce-terms-and-conditions-wrapper"
-                                >
-                                  <div class="woocommerce-privacy-policy-text">
-                                    <p>
-                                      {% translate "privacy policy" as privacy_policy_text %}
-                                      {% url 'main:privacy-policy' as privacy_policy_link %}
-                                      {% blocktranslate %}
-                                      Before you proceed to complete your checkout, we kindly request that you take a moment to review our Privacy Policy. 
-                                      Our Privacy Policy outlines how we collect, use, and protect your personal information.
-                                      By understanding our privacy practices, you can have full confidence in providing your details for a seamless checkout experience. 
-                                      To view our Privacy Policy, please click <a href="{{privacy_policy_link}}" class="woocommerce-privacy-policy-link" target="_blank">{{privacy_policy_text}}</a>. 
-                                      Once you have familiarized yourself with our policy, you can proceed with confidence to complete your checkout.                                  
-                                      {% endblocktranslate %}                                      
-                                    </p>
-                                  </div>
+                                  <td class="product-total">
+                                  <span
+                                      class="woocommerce-Price-amount amount"
+                                      ><bdi
+                                      ><span
+                                          class="woocommerce-Price-currencySymbol"
+                                          >&#36;</span
+                                      >{{item.total_price}}</bdi
+                                      ></span
+                                  >
+                                  </td>
+                              </tr>
+                              {% endwith %}
+                              {% endfor %}
+                              {% endif %}
+                            </tbody>
+                            <tfoot>
+                              <tr class="order-total">
+                                <th>{% translate "Total" %}</th>
+                                <td>
+                                  <strong
+                                    ><span
+                                      class="woocommerce-Price-amount amount"
+                                      ><bdi
+                                        ><span
+                                          class="woocommerce-Price-currencySymbol"
+                                          >&#36;</span
+                                        >{{cart.get_total_price}}</bdi
+                                      ></span
+                                    ></strong
+                                  >
+                                </td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                          <div
+                            id="payment"
+                            class="woocommerce-checkout-payment"
+                          >
+                            <div class="form-row place-order">
+                              <div
+                                class="woocommerce-terms-and-conditions-wrapper"
+                              >
+                                <div class="woocommerce-privacy-policy-text">
+                                  <p>
+                                    {% translate "privacy policy" as privacy_policy_text %}
+                                    {% url 'main:privacy-policy' as privacy_policy_link %}
+                                    {% blocktranslate %}
+                                    Before you proceed to complete your checkout, we kindly request that you take a moment to review our Privacy Policy. 
+                                    Our Privacy Policy outlines how we collect, use, and protect your personal information.
+                                    By understanding our privacy practices, you can have full confidence in providing your details for a seamless checkout experience. 
+                                    To view our Privacy Policy, please click <a href="{{privacy_policy_link}}" class="woocommerce-privacy-policy-link" target="_blank">{{privacy_policy_text}}</a>. 
+                                    Once you have familiarized yourself with our policy, you can proceed with confidence to complete your checkout.                                  
+                                    {% endblocktranslate %}                                      
+                                  </p>
                                 </div>
-
-                                <button type="submit" class="btn w-100">{% translate "Place order" %}</button>
                               </div>
+
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </form>
+                </div>
+            </div>
+              {% else %}
+              <div class="d-flex justify-content-center flex-column align-items-center">
+                <h4>{% translate "Your shopping cart is currently empty." %}</h4>
+                <a href="{% url 'store:products' %}" class="btn">{% translate "Continue Shopping" %}</a>
               </div>
+              {% endif %}
             </div>
           </div>
         </div>
@@ -259,35 +276,9 @@
 
 {% block scripts %}
 <script>
-  let url = `ws://${window.location.host}/ws/order-socket-server/`
-
-  const orderSocket = new WebSocket(url)
-
-  orderSocket.onclose = function(e){
-    console.log("Socket closed")
-  }
-
-  const checkoutForm = document.querySelector('form.checkout')
-
-  checkoutForm.addEventListener('submit', async (event)=>{
-    event.preventDefault()
-    let formData = new FormData(checkoutForm);
-    await createOrder(formData)
-  })
-
-  async function createOrder(formData){
-    try{
-      const response = await fetch(checkoutURL, {
-        method: 'POST',
-        body: formData,
-        headers: { "X-CSRFToken": csrftoken },
-      });
-      const data = await response.json() 
-      window.location.replace(data?.success_url);
-    }catch(e){
-      console.log(e)
-    }
-  }
+  {{serializer.fields.first_name.error_messages.required}}
 
 </script>
+
+<script src="{% static 'js/main/checkout.js' %}"></script>
 {% endblock scripts %}

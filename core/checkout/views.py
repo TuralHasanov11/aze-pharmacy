@@ -4,10 +4,10 @@ import string
 from urllib.parse import urlencode
 
 from administration.notifications import sendDeliveryStatusNotification
-from api import serializers
 from asgiref.sync import async_to_sync
 from cart.processor import CartProcessor
 from channels.layers import get_channel_layer
+from checkout.serializers import OrderSerializer
 from django.contrib import messages
 from django.db import transaction
 from django.db.models import Prefetch
@@ -35,15 +35,15 @@ def index(request):
     template_name = "checkout/index.html"
     if request.method == 'POST':
         try:
-            form = OrderForm(request.POST)
-            if form.is_valid():
+            serializer = OrderSerializer(data=request.POST)
+            if serializer.is_valid(raise_exception=True):
                 channel_layer = get_channel_layer()
                 async_to_sync(channel_layer.send)("orders", {
                     "type": "order_created",
                     "message": "order was",
                 })
                 with transaction.atomic():
-                    order = form.save(commit=False)
+                    order = serializer.save()
                     order.total_paid = cart.get_total_price
                     order.order_key = order_key_generator()
                     order.payment_status = order.PaymentStatus.PAID
@@ -78,12 +78,12 @@ def index(request):
                     messages.success(request, _(
                         'Order was placed successfully'))
                     return JsonResponse(data={"success_url": successUrl})
-            return JsonResponse(status=422, data={"message": _("Order cannot be placed"), "errors": json.dumps(form.errors)})
         except Exception as e:
             return JsonResponse(status=400, data={"message": _("Order cannot be placed"), "errors": str(e)})
-    form = OrderForm()
+        
     return render(request, template_name, context={
         'cart': cart,
-        'form': form,
-        "breadcrumb": breadcrumb
+        "breadcrumb": breadcrumb,
     })
+
+
