@@ -25,6 +25,54 @@ img,
 	overflow: hidden
 }
 
+/*-- Margin Bottom --*/
+.mb-5 {
+	margin-bottom: 5px;
+}
+.mb-10 {
+	margin-bottom: 10px;
+}
+.mb-15 {
+	margin-bottom: 15px;
+}
+.mb-20 {
+	margin-bottom: 20px;
+}
+.mb-25 {
+	margin-bottom: 25px;
+}
+.mb-30 {
+	margin-bottom: 30px;
+}
+.mb-35 {
+	margin-bottom: 35px;
+}
+.mb-40 {
+	margin-bottom: 40px;
+}
+.mb-45 {
+	margin-bottom: 45px;
+}
+.mb-50 {
+	margin-bottom: 50px;
+}
+
+
+/*-- Padding Top --*/
+.pt-120 {
+	padding-top: 120px;
+}
+/*-- Padding Bottom --*/
+.pb-10 {
+	padding-bottom: 10px;
+}
+.pb-120 {
+	padding-bottom: 120px;
+}
+.pl-20{
+	padding-left: 20px;
+}
+
 a,
 button {
 	-webkit-transition: all 0.3s ease-out 0s;
@@ -1493,13 +1541,6 @@ body.search-visible {
 	text-transform: uppercase;
 }
 
-
-.product-widget-thumb-inner {
-	max-width: 90px;
-	background: #f5f5f5;
-}
-
-
 .product_list_widget li {
 	display: flex;
 	align-items: center;
@@ -1617,12 +1658,6 @@ body.search-visible {
 
 .inner-shop-details-img img {
 	max-width: 100%;
-}
-
-.inner-shop-details-img-wrap.woocommerce-product-gallery .flex-viewport {
-	margin-bottom: 15px;
-	background: #f7f7f7;
-	text-align: center;
 }
 
 .inner-shop-details-img-wrap .flex-control-nav li img {
@@ -3032,26 +3067,6 @@ div.testi-avatar-img img {
 	margin-bottom: 0;
 }
 
-.wp-block-group__inner-container h2,
-.wp-block-search__button-outside.wp-block-search__text-button.wp-block-search .wp-block-search__label {
-	font-size: 20px;
-	margin: 0 0 23px;
-	padding-left: 20px;
-	position: relative;
-	color: #222222;
-}
-
-.wp-block-group__inner-container h2::before,
-.wp-block-search__button-outside.wp-block-search__text-button.wp-block-search .wp-block-search__label::before {
-	content: "";
-	position: absolute;
-	left: 0;
-	top: 2px;
-	height: 20px;
-	width: 2px;
-	background: #0d9b4d;
-}
-
 .blog-avatar-img img {
 	border-radius: 50%;
 }
@@ -4156,4 +4171,41 @@ blockquote::before,
 
 .contact-form-control-wrap {
 	position: relative;
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-shopping-cart:before {
+    content: "\f107";
+}
+.flaticon-shopping-cart-1:before {
+    content: "\f108";
+}
+
+i[class*="flaticon-"] {
+    display: block;
+    line-height: 0;
+}
+
+.flaticon-layout:before {
+    content: "\f105";
+}
+.flaticon-search:before {
+    content: "\f106";
+}
+
+.flaticon-left-arrow:before {
+    content: "\f109";
+}
+.flaticon-right-arrow:before {
+    content: "\f10a";
 }

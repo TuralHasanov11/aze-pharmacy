@@ -1,8 +1,3 @@
-/**
- * jQuery plugin paroller.js v1.4.4
- * https://github.com/tgomilar/paroller.js
- * preview: https://tgomilar.github.io/paroller/
- **/
 (function (factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {

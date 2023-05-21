@@ -191,11 +191,7 @@
 .inner-shop-details-content .title {
 	font-size: 40px;
 }
-.blog-area .wp-block-quote.has-text-align-right,
-.blog-area .wp-block-quote.is-large,
-.blog-area .wp-block-quote.is-style-large {
-	padding: 45px 40px;
-}
+
 .inner-shop-item .home-shop-content {
 	padding: 30px 25px;
 }
@@ -958,19 +954,6 @@ blockquote p,
 .format-quote blockquote p,
 .blog-details-content blockquote p {
 	font-size: 24px;
-}
-.blog-area .wp-block-quote.has-text-align-right,
-.blog-area .wp-block-quote.is-large,
-.blog-area .wp-block-quote.is-style-large {
-	padding: 40px 25px;
-}
-.blog-area .wp-block-quote.is-large cite,
-.blog-area .wp-block-quote.is-style-large cite {
-	text-align: center;
-	font-size: .8em;
-}
-.wp-block-pullquote.is-style-solid-color blockquote {
-	max-width: 85%;
 }
 .error-content .content {
 	font-size: 34px;
