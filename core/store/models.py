@@ -1,8 +1,8 @@
 # from decimal import Decimal
-
 from ckeditor_uploader import fields as ckeditorFields
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.db.models import Prefetch
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -34,9 +34,29 @@ class Category(MPTTModel):
         return reverse("store:category-products", kwargs={"category_slug": self.slug})
 
 
+class ProductQuerySet(models.QuerySet):
+    def list_queryset(self):
+        return self.select_related('category').prefetch_related(
+            Prefetch('product_image', queryset=ProductImage.objects.filter(
+                is_feature=True), to_attr='image_feature'),
+        )
+
+    def detail_queryset(self):
+        return self.select_related('category', 'product_stock').prefetch_related(
+            Prefetch('product_image', queryset=ProductImage.objects.filter(
+                is_feature=True), to_attr='image_feature'),
+            Prefetch('product_image', to_attr='images')
+        )
+    
 class ProductManager(models.Manager):
     def get_queryset(self):
-        return super(ProductManager, self).get_queryset().order_by('-created_at').filter(is_active=True)
+        return ProductQuerySet(self.model, using=self._db).order_by('-created_at').filter(is_active=True)
+    
+    def list_queryset(self):
+        return self.get_queryset().list_queryset()
+
+    def detail_queryset(self):
+        return self.get_queryset().detail_queryset()
 
 
 class RichTextEditorField(ckeditorFields.RichTextUploadingField):

@@ -1,5 +1,9 @@
 {% load static %}
 {% load i18n %}
+<script
+  type="text/javascript"
+  src="{% static 'js/vue.global.min.js' %}"
+></script>
 <script>
   const csrftoken = "{{csrf_token}}"
   const entriesPerPageText = "{% translate 'entries per page' %}"

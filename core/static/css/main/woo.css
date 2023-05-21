@@ -361,14 +361,6 @@ a.added_to_cart.wc-forward::after {
 .woocommerce #commentform p {
     margin: 0;
 }
-.comment-notes {
-    margin-bottom: 15px !important;
-}
-.comment-form-rating {
-    margin-bottom: 20px;
-}
-
-
 
 .star-rating span {
     position: absolute;

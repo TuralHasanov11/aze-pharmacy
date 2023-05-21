@@ -25,25 +25,30 @@ createApp({
       },
       v$: Vuelidate.useVuelidate(),
       cities: [],
-      orderValidationMessages:{},
+      checkoutFormValidationMessages:{},
+      checkoutFormLabels:{},
       submitLoading: false
     };
   },
 
   mounted(){
     this.getCities()
-    this.getOrderValidationMessages()
+    this.getCheckoutFormDetails()
   },
 
   methods:{
     async getCities(){
-        const response = await fetch(citiesApiURL);
+        const response = await fetch('/api/cities');
         this.cities = await response.json() 
     },
 
-    async getOrderValidationMessages(){
-        const response = await fetch(orderValidationMessagesApiURL);
-        this.orderValidationMessages = await response.json() 
+    async getCheckoutFormDetails(){
+        const response = await fetch("/api/checkout-form-details");
+        const data = await response.json() 
+        for (const field in data) {
+            this.checkoutFormValidationMessages[field] = data[field].error_messages
+            this.checkoutFormLabels[field] = data[field].label
+        }
     },
 
     async checkout(){
@@ -62,7 +67,7 @@ createApp({
             formData.append('email', this.email)
             formData.append('notes', this.notes)
 
-            const response = await fetch(checkoutURL, {
+            const response = await fetch('/api/checkout', {
                 method: 'POST',
                 body: formData,
                 headers: { "X-CSRFToken": csrftoken },
@@ -76,6 +81,7 @@ createApp({
                 throw new Error(JSON.stringify(data))
             }
         } catch (e) {
+            this.submitLoading = false
             console.log(e)
         }
     }

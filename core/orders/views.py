@@ -1,5 +1,4 @@
 from django.db.models import Prefetch
-from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _

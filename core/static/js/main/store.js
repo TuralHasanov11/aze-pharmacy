@@ -5,7 +5,7 @@ jQuery(document).ready(function ($) {
     const productId = $(e.currentTarget).data('product_id');
     const result = await addToWishlist(productId)
     $(e.currentTarget).hide()
-    $(e.currentTarget).siblings('.remove_from_wishlist_button').css('display', 'flex')
+    $(e.currentTarget).siblings('.remove_from_wishlist_button').css('display', 'block')
     $('#wishlist-quantity').html(result.quantity)
   })
 
@@ -15,13 +15,13 @@ jQuery(document).ready(function ($) {
     const result = await removeFromWishlist(productId)
     $(e.currentTarget).hide()
     $(e.currentTarget).closest('.wishlist_product').hide()
-    $(e.currentTarget).siblings('.add_to_wishlist_button').css('display', 'flex')
+    $(e.currentTarget).siblings('.add_to_wishlist_button').css('display', 'block')
     $('#wishlist-quantity').html(result.quantity)
   })
 
   async function addToWishlist(productId) {
     try {
-      const response = await fetch(wishlistAddURL, {
+      const response = await fetch('/api/wishlist/add', {
         method: 'POST',
         body: JSON.stringify({
           product_id: productId,
@@ -37,7 +37,7 @@ jQuery(document).ready(function ($) {
 
   async function removeFromWishlist(productId) {
     try {
-      const response = await fetch(wishlistRemoveURL, {
+      const response = await fetch('/api/wishlist/remove', {
         method: 'POST',
         body: JSON.stringify({
           product_id: productId,
@@ -57,7 +57,7 @@ jQuery(document).ready(function ($) {
     const productQuantity = $(e.currentTarget).data('quantity');
 
     try {
-      const response = await fetch(cartAddURL, {
+      const response = await fetch('/api/cart/add', {
         method: 'POST',
         body: JSON.stringify({
           product_id: productId,
@@ -86,7 +86,7 @@ jQuery(document).ready(function ($) {
   $('.remove_from_cart_button').on('click', async (e) => {
     e.preventDefault();
     try {
-      await fetch(cartRemoveURL, {
+      await fetch('/api/cart/remove', {
         method: 'POST',
         body: JSON.stringify({
           product_id: $(e.currentTarget).data('product_id'),
@@ -140,7 +140,7 @@ jQuery(document).ready(function ($) {
     try {
       const productId = $(e.currentTarget).data('product_id')
       const productQuantity = $(e.currentTarget).val()
-      const response = await fetch(cartUpdateURL, {
+      const response = await fetch('/api/cart/update', {
         method: 'POST',
         body: JSON.stringify({
           product_id: productId,

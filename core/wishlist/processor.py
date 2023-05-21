@@ -9,10 +9,7 @@ class WishlistProcessor:
         self.session = request.session
         try:
             wishlistContainer: list[int] = self.session["wishlist"]
-            products = Product.objects.select_related('category').prefetch_related(
-                Prefetch('product_image', queryset=ProductImage.objects.filter(
-                    is_feature=True), to_attr='image_feature'),
-            ).filter(id__in=[key for key in wishlistContainer])
+            products = Product.products.list_queryset().filter(id__in=[key for key in wishlistContainer])
         except Exception:
             self.session["wishlist"] = []
             wishlistContainer = []

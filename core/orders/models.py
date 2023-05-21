@@ -15,11 +15,12 @@ class Order(models.Model):
     email = models.EmailField(max_length=254, blank=True, null=True)
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message=_("Phone number must be entered in the format: '+994xxxxxxxxx'. Up to 12 digits allowed"))
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$')
     phone = models.CharField(validators=[phone_regex], max_length=17)
     total_paid = models.DecimalField(max_digits=7, decimal_places=2)
     order_key = models.CharField(max_length=200, unique=True)
-    payment_status = models.CharField(max_length=20, choices=PaymentStatus.choices, default=PaymentStatus.PENDING)
+    payment_status = models.CharField(
+        max_length=20, choices=PaymentStatus.choices, default=PaymentStatus.PENDING)
     notes = models.TextField(blank=True, null=True)
     is_flagged = models.BooleanField(default=False)
     seen = models.BooleanField(default=False)
@@ -28,18 +29,18 @@ class Order(models.Model):
 
     class Meta:
         ordering = ('-created_at',)
-    
+
     def __str__(self):
         return str(self.full_name)
 
     @property
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
-    
+
     @property
     def payment_status_value(self):
         return self.get_payment_status_display
-    
+
     @property
     def payment_status_color(self):
         if self.payment_status == self.PaymentStatus.PAID:
@@ -50,8 +51,10 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, related_name='order_items', on_delete=models.SET_NULL, null=True)
+    order = models.ForeignKey(
+        Order, related_name='items', on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        Product, related_name='order_items', on_delete=models.SET_NULL, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
     sub_total = models.DecimalField(max_digits=6, decimal_places=2, default=0)
@@ -71,8 +74,10 @@ class OrderDelivery(models.Model):
         RETURNED = "RETURNED", _("Returned")
         CANCELLED = "CANCELLED", _("Cancelled")
 
-    order = models.OneToOneField(Order, related_name='order_delivery', on_delete=models.CASCADE)
-    delivery_status = models.CharField(max_length=30, choices=DeliveryStatus.choices, default=DeliveryStatus.PROCESSING)
+    order = models.OneToOneField(
+        Order, related_name='order_delivery', on_delete=models.CASCADE)
+    delivery_status = models.CharField(
+        max_length=30, choices=DeliveryStatus.choices, default=DeliveryStatus.PROCESSING)
     delivery_date = models.DateField(null=True, blank=True)
     courier_name = models.CharField(max_length=255, null=True, blank=True)
     tracking_number = models.CharField(max_length=100, null=True, blank=True)
@@ -80,4 +85,3 @@ class OrderDelivery(models.Model):
     @property
     def delivery_status_value(self):
         return self.get_delivery_status_display
-    

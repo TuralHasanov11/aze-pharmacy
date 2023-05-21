@@ -142,7 +142,7 @@
         return `<div class="list-group-item order-item border mb-1 ${order.seen?'bg-light':''}" data-id="${order.id}">
             <div class="d-flex w-100 justify-content-between align-items-center p-1 text-decoration-none">
                 <span class="flag-btn"onclick="flagOrder(this, ${order.id})"><i class="${flag}"></i></span>
-                <a href="${ordersURL + order.id}" class="d-flex w-100 justify-content-between p-1 text-decoration-none">
+                <a href="${ordersURL + order.id}?prev_page=${currentPage}" class="d-flex w-100 justify-content-between p-1 text-decoration-none">
                     <h6 class="m-0">
                         <span>${order.full_name}</span> ${!order.seen?`<span class="badge badge-sm text-bg-success">${newWord}`:''}</span>
                     </h6>

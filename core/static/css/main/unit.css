@@ -1251,13 +1251,7 @@ ul {
     height: auto;
     margin-right: 20px;
 }
-.comment-form-cookies-consent label {
-    display: inline-block;
-}
-.comment-form-cookies-consent {
-    margin-left: 18px;
-    display: none;
-}
+
 pre {
   display: block;
   font-size: 87.5%;

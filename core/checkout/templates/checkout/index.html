@@ -15,22 +15,23 @@
               {% if cart %}
               <div id="checkout-app" class="woocommerce">
                 <div class="row" id="customer_details">
-                  <div class="col-12 col-lg-6">
+                  <div class="col-12 col-lg-6 mb-3">
                     {% verbatim %}
                     <form @submit.prevent="checkout" class="woocommerce-checkout"
                     >
-                    <div id="customer_form_details">
+                    <div id="customer_form_details" class="mb-3">
                       <div class="woocommerce-billing-fields">
-                        <h3>{% translate "Billing Details" %}</h3>
+                        <h3></h3>
                         <div
                           class="woocommerce-billing-fields__field-wrapper"
                         >
                           <p
                             class="form-row form-row-first validate-required"
-                            id="{{form.first_name.id_for_label}}_field"
+                            id="id_first_name_field"
                           >
-                            <label for="{{form.first_name.id_for_label}}"
-                              >First Name&nbsp;<abbr
+                            <label for="id_first_name"
+                              :class="{'text-danger':v$.checkoutForm.firstName.$dirty && v$.checkoutForm.firstName.$invalid}"
+                              >{{checkoutFormLabels?.first_name}}&nbsp;<abbr
                                 class="required"
                                 title="required"
                                 >*</abbr
@@ -38,15 +39,16 @@
                             ><span class="woocommerce-input-wrapper"
                               >
                               <input type="text" v-model="v$.checkoutForm.firstName.$model" class="input-text" id="id_first_name" placeholder="First Name" autocomplete="given-name">
-                              <span v-if="v$.checkoutForm.firstName.$dirty && v$.checkoutForm.firstName.required.$invalid" class="text-danger">{{orderValidationMessages?.first_name?.required}}</span>
+                              <span v-if="v$.checkoutForm.firstName.$dirty && v$.checkoutForm.firstName.required.$invalid" class="text-danger">{{checkoutFormValidationMessages?.first_name?.required}}</span>
                               </span>
                           </p>
                           <p
                             class="form-row form-row-last validate-required"
-                            id="{{form.last_name.id_for_label}}_field"
+                            id="id_last_name_field"
                           >
-                            <label for="{{form.last_name.id_for_label}}"
-                              >Last Name&nbsp;<abbr
+                            <label for="id_last_name"
+                              :class="{'text-danger':v$.checkoutForm.lastName.$dirty && v$.checkoutForm.lastName.$invalid}"
+                              >{{checkoutFormLabels?.last_name}}&nbsp;<abbr
                                 class="required"
                                 title="required"
                                 >*</abbr
@@ -54,15 +56,16 @@
                             ><span class="woocommerce-input-wrapper"
                               >                                
                               <input type="text" v-model="v$.checkoutForm.lastName.$model" class="input-text" id="id_last_name" placeholder="Last Name" autocomplete="family-name">
-                              <span v-if="v$.checkoutForm.lastName.$dirty && v$.checkoutForm.lastName.required.$invalid" class="text-danger">{{orderValidationMessages?.last_name?.required}}</span>
+                              <span v-if="v$.checkoutForm.lastName.$dirty && v$.checkoutForm.lastName.required.$invalid" class="text-danger">{{checkoutFormValidationMessages?.last_name?.required}}</span>
                               </span>
                           </p>
                           <p
                             class="form-row form-row-wide address-field validate-required"
-                            id="{{form.address.id_for_label}}_field"
+                            id="id_address_field"
                           >
-                            <label for="{{form.address.id_for_label}}"
-                              >Address&nbsp;<abbr
+                            <label for="id_address"
+                              :class="{'text-danger':v$.checkoutForm.address.$dirty && v$.checkoutForm.address.$invalid}"
+                              >{{checkoutFormLabels?.address}}&nbsp;<abbr
                                 class="required"
                                 title="required"
                                 >*</abbr
@@ -70,17 +73,16 @@
                             ><span class="woocommerce-input-wrapper"
                               >
                               <input type="text" v-model="v$.checkoutForm.address.$model" class="input-text" id="id_address" placeholder="House number and street name" autocomplete="address-line1">
-                              <span v-if="v$.checkoutForm.address.$dirty && v$.checkoutForm.address.required.$invalid" class="text-danger">{{orderValidationMessages?.address?.required}}</span>
-
-
+                              <span v-if="v$.checkoutForm.address.$dirty && v$.checkoutForm.address.required.$invalid" class="text-danger">{{checkoutFormValidationMessages?.address?.required}}</span>
                               </span>
                           </p>
                           <p
                             class="form-row form-row-wide address-field validate-required validate-state"
-                            id="{{form.city.id_for_label}}_field"
+                            id="id_city_field"
                           >
-                            <label for="{{form.city.id_for_label}}"
-                              >City&nbsp;<abbr
+                            <label for="id_city"
+                              :class="{'text-danger':v$.checkoutForm.city.$dirty && v$.checkoutForm.city.$invalid}"
+                              >{{checkoutFormLabels?.city}}&nbsp;<abbr
                                 class="required"
                                 title="required"
                                 >*</abbr
@@ -88,23 +90,22 @@
                             ><span class="woocommerce-input-wrapper"
                               >
                               <select class="state_select" id="id_city" v-model="v$.checkoutForm.city.$model">
-                                <option value="">Select a city</option>
+                                <option class="empty-city-option" value=""></option>
                                 <option v-for="cityItem in cities" :key="cityItem" :value="cityItem">
                                   {{cityItem}}
                                 </option>
                               </select>
-                              <span v-if="v$.checkoutForm.city.$dirty && v$.checkoutForm.city.required.$invalid" class="text-danger">{{orderValidationMessages?.city?.required}}</span>
-
-
+                              <span v-if="v$.checkoutForm.city.$dirty && v$.checkoutForm.city.required.$invalid" class="text-danger">{{checkoutFormValidationMessages?.city?.required}}</span>
                               </span
                             >
                           </p>
                           <p
                             class="form-row form-row-wide validate-required validate-phone"
-                            id="{{form.phone.id_for_label}}_field"
+                            id="id_phone_field"
                           >
-                            <label for="{{form.phone.id_for_label}}"
-                              >Phone&nbsp;<abbr
+                            <label for="id_phone"
+                              :class="{'text-danger':v$.checkoutForm.phone.$dirty && v$.checkoutForm.phone.$invalid}"
+                              >{{checkoutFormLabels?.phone}}&nbsp;<abbr
                                 class="required"
                                 title="required"
                                 >*</abbr
@@ -112,41 +113,40 @@
                             ><span class="woocommerce-input-wrapper"
                               >
                               <input type="text" v-model="v$.checkoutForm.phone.$model" class="input-text phone-input" id="id_phone" placeholder="+994xxxxxxxxx" autocomplete="tel">
-                              <span v-if="v$.checkoutForm.phone.$dirty && v$.checkoutForm.phone.required.$invalid" class="text-danger">{{orderValidationMessages?.phone?.required}}</span>
-                              <span v-if="v$.checkoutForm.phone.$dirty && v$.checkoutForm.phone.phoneValidator.$invalid" class="text-danger">{{orderValidationMessages?.phone?.regex}}</span>
-
-
+                              <span class="form-text phone-input-helper"></span>
+                              <span v-if="v$.checkoutForm.phone.$dirty && v$.checkoutForm.phone.required.$invalid" class="text-danger">{{checkoutFormValidationMessages?.phone?.required}}</span>
+                              <span v-if="v$.checkoutForm.phone.$dirty && v$.checkoutForm.phone.phoneValidator.$invalid" class="text-danger">{{checkoutFormValidationMessages?.phone?.regex}}</span>
                               </span>
                           </p>
                           <p
                             class="form-row form-row-wide validate-required validate-email"
-                            id="{{form.email.id_for_label}}_field"
+                            id="id_email_field"
                           >
-                            <label for="{{form.email.id_for_label}}"
-                              >Email</label
+                            <label for="id_email"
+                              :class="{'text-danger':v$.checkoutForm.email.$dirty && v$.checkoutForm.email.$invalid}"
+                              >{{checkoutFormLabels?.email}} <span class="optional"
+                              ></span
+                            ></label
                             ><span class="woocommerce-input-wrapper"
                               >
                               <input type="email" v-model="v$.checkoutForm.email.$model" class="input-text" id="id_email" placeholder="Email" autocomplete="email username">
-                              <span v-if="v$.checkoutForm.email.$dirty && v$.checkoutForm.email.required.$invalid" class="text-danger">{{orderValidationMessages?.email?.required}}</span>
-
-
+                              <span v-if="v$.checkoutForm.email.$dirty && v$.checkoutForm.email.required.$invalid" class="text-danger">{{checkoutFormValidationMessages?.email?.required}}</span>
                               </span>
                           </p>
                         </div>
                       </div>
-
                       <div class="woocommerce-additional-fields">
-                        <h3>Additional information</h3>
+                        <h3></h3>
                         <div
                           class="woocommerce-additional-fields__field-wrapper"
                         >
                           <p
                             class="form-row notes"
-                            id="{{form.notes.id_for_label}}_field"
+                            id="id_notes_field"
                           >
-                            <label for="{{form.notes.id_for_label}}"
-                              >Notes&nbsp;<span class="optional"
-                                >(optional)</span
+                            <label for="id_notes"
+                              >{{checkoutFormLabels?.notes}}&nbsp;<span class="optional"
+                                ></span
                               ></label
                             ><span class="woocommerce-input-wrapper">
                               <textarea v-model="checkoutForm.notes" class="input-text" placeholder="Notes" id="id_notes" cols="30" rows="10"></textarea>
@@ -155,7 +155,8 @@
                         </div>
                       </div>
                     </div>
-                    <button :disabled="v$.$invalid" type="submit" class="btn checkout-btn w-100">Place order</button>
+                    <p v-if="v$.$invalid&&v$.$dirty" class="form-invalid-feedback text-danger"></p>
+                    <button :disabled="v$.$invalid||submitLoading" type="submit" class="btn checkout-btn w-100"></button>
                     </form>
                     {% endverbatim %}
                   </div>
@@ -276,8 +277,15 @@
 
 {% block scripts %}
 <script>
-  {{serializer.fields.first_name.error_messages.required}}
-
+  document.querySelectorAll('.optional').forEach(element => {
+    element.innerHTML = '({% translate "optional" %})'
+  })
+  document.querySelector('.form-invalid-feedback').innerHTML = '{% translate "Please fill the required fields" %}'
+  document.querySelector('.checkout-btn').innerHTML = '{% translate "Place order" %}'
+  document.querySelector('.woocommerce-additional-fields h3').innerHTML = '{% translate "Additional information" %}'
+  document.querySelector('.empty-city-option').innerHTML = '{% translate "Select a city" %}'
+  document.querySelector('.woocommerce-billing-fields>h3').innerHTML = '{% translate "Billing Details" %}'
+  document.querySelector('.phone-input-helper').innerHTML = `{% translate "Phone number must be entered in the format: '+994xxxxxxxxx'. Up to 12 digits allowed" %}`
 </script>
 
 <script src="{% static 'js/main/checkout.js' %}"></script>

@@ -1,13 +1,13 @@
 from django.contrib.postgres.search import (SearchQuery, SearchRank,
                                             SearchVector)
 from django.core import paginator
-from django.db.models import Count, Prefetch
+from django.db.models import Count
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_GET
-from store.models import Category, Product, ProductImage
+from store.models import Category, Product
 
 orderingContainer = [
     {'name': _('Name'), 'value': 'name'},
@@ -27,17 +27,11 @@ def products(request: HttpRequest):
     if search:
         searchQuery = SearchQuery(search)
         searchVector = SearchVector("name", "description", "category__name", "regular_price", "discount", "discount_price")
-        productsQueryset = Product.products.annotate(
+        productsQueryset = Product.products.list_queryset().annotate(
             search=searchVector, rank=SearchRank(searchVector, searchQuery)
-        ).filter(search=searchQuery).select_related('category').prefetch_related(
-            Prefetch('product_image', queryset=ProductImage.objects.filter(
-                is_feature=True), to_attr='image_feature'),
-        ).order_by("rank", selectedOrderByValue)
+        ).filter(search=searchQuery).order_by("rank", selectedOrderByValue)
     else:
-        productsQueryset = Product.products.select_related('category').prefetch_related(
-            Prefetch('product_image', queryset=ProductImage.objects.filter(
-                is_feature=True), to_attr='image_feature'),
-        ).order_by(selectedOrderByValue)
+        productsQueryset = Product.products.list_queryset().order_by(selectedOrderByValue)
     
     pagination = paginator.Paginator(productsQueryset, 20)
     pageNumber = request.GET.get('page')
@@ -63,10 +57,7 @@ def categoryProducts(request: HttpRequest, category_slug: str):
     categories = Category.objects.annotate(
         products_count=Count("product_category")).all().order_by("name")
     category = Category.objects.get(slug=category_slug)
-    productsQueryset = Product.products.filter(category__slug=category_slug).select_related('category').prefetch_related(
-        Prefetch('product_image', queryset=ProductImage.objects.filter(
-            is_feature=True), to_attr='image_feature'),
-    ).order_by(request.GET.get('sort_by', 'name'))
+    productsQueryset = Product.products.list_queryset().filter(category__slug=category_slug).order_by(request.GET.get('sort_by', 'name'))
     pagination = paginator.Paginator(productsQueryset, 20)
     pageNumber = request.GET.get('page')
     products = pagination.get_page(pageNumber)
@@ -91,16 +82,8 @@ def categoryProducts(request: HttpRequest, category_slug: str):
 @require_GET
 def productDetail(request: HttpRequest, category_slug: str, product_slug: str):
     try:
-        product = Product.products.select_related('category', 'product_stock').prefetch_related(
-            Prefetch('product_image', queryset=ProductImage.objects.filter(
-                is_feature=True), to_attr='image_feature'),
-            Prefetch('product_image', to_attr='images')
-        ).get(slug=product_slug, category__slug=category_slug)
-
-        relatedProducts = Product.products.filter(category__slug=product.category.slug).select_related('category').prefetch_related(
-            Prefetch('product_image', queryset=ProductImage.objects.filter(
-                is_feature=True), to_attr='image_feature'),
-        ).order_by(request.GET.get('sort_by', 'name'))[:4]
+        product = Product.products.detail_queryset().get(slug=product_slug, category__slug=category_slug)
+        relatedProducts = Product.products.list_queryset().filter(category__slug=product.category.slug).order_by(request.GET.get('sort_by', 'name'))[:4]
 
         breadcrumb = [
             {"title": _("Shop")},

@@ -1,7 +1,6 @@
 from decimal import Decimal
 
-from django.db.models import Prefetch
-from store.models import Product, ProductImage
+from store.models import Product
 
 
 def productSerializer(product: Product):
@@ -19,10 +18,7 @@ class CartProcessor:
         self.session = request.session
         try:
             cartContainer = self.session["cart"]
-            products = Product.objects.select_related('category').prefetch_related(
-                Prefetch('product_image', queryset=ProductImage.objects.filter(
-                    is_feature=True), to_attr='image_feature'),
-            ).filter(id__in=[key for key in cartContainer.keys()])
+            products = Product.products.list_queryset().filter(id__in=[key for key in cartContainer.keys()])
         except Exception:
             self.session["cart"] = {}
             cartContainer = {}
@@ -42,7 +38,6 @@ class CartProcessor:
 
     def __iter__(self):
         cart = self.cart.copy()
-
         for item in cart.values():
             item['total_price'] = str(
                 Decimal(item['price']) * item['quantity'])

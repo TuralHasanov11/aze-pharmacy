@@ -77,15 +77,6 @@
 ></script>
 
 <script>  
-  const csrftoken = "{{csrf_token}}"
-  const cartAddURL = '{% url "cart:add" %}'
-  const cartUpdateURL = '{% url "cart:update" %}'
-  const cartRemoveURL = '{% url "cart:remove" %}'
-  const wishlistAddURL = "{% url 'wishlist:add' %}"
-  const wishlistRemoveURL = "{% url 'wishlist:remove' %}"
   const productUrl = "{% url 'store:product-detail' category_slug='category_slug_value' product_slug='product_slug_value' %}"
-  const checkoutURL = "{% url 'checkout:index' %}"
-  const citiesApiURL = "{% url 'api:cities' %}"
-  const orderValidationMessagesApiURL = "{% url 'api:order-validation-messages' %}"
 </script>
 <script src="{% static 'js/main/store.js' %}"></script>
