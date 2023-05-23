@@ -1,5 +1,7 @@
 
 
+from urllib.parse import urlencode
+
 from administration import forms
 from administration.notifications import sendDeliveryStatusNotification
 from django.conf import settings
@@ -27,7 +29,7 @@ from main.models import Company, Question, SiteInfo, SiteText
 from news.models import Post
 from orders.models import Order, OrderItem
 from services.models import Service
-from store.models import Category, Product, ProductImage, Stock
+from store.models import Category, Product, ProductImage
 
 creator_dashboard_list = [
     {"name": _("Services"), "route": "administration:service-list",
@@ -140,6 +142,9 @@ class DocumentDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
     success_message = _("Document was deleted successfully!")
     success_url = reverse_lazy('administration:document-list')
 
+    def get_success_url(self) -> str:
+        return reverse('administration:document-list') + f"?{urlencode({'page': self.request.GET.get('page', 1)})}"
+
 
 class CompanyListCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = Company
@@ -238,7 +243,9 @@ class PostDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
     permission_required = ["news.delete_post"]
     login_url = reverse_lazy('administration:index')
     success_message = _("Post was deleted successfully!")
-    success_url = reverse_lazy('administration:post-list')
+
+    def get_success_url(self) -> str:
+        return reverse('administration:post-list') + f"?{urlencode({'page': self.request.GET.get('page', 1)})}"
 
 
 @require_http_methods(['GET', 'POST'])
@@ -375,7 +382,7 @@ class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
     context_object_name = "product"
 
     def get_queryset(self):
-        return super().get_queryset().select_related('category', 'product_stock').prefetch_related(
+        return super().get_queryset().select_related('category').prefetch_related(
             Prefetch('product_image', queryset=ProductImage.objects.filter(
                 is_feature=True), to_attr='image_feature'),
             Prefetch('product_image', to_attr='images')
@@ -388,17 +395,11 @@ class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
 def productCreate(request):
     if request.method == 'POST':
         form = forms.ProductForm(request.POST, request.FILES)
-        stock_formset = forms.StockFormSet(
-            data=request.POST, files=request.FILES)
         product_image_formset = forms.ProductImageFormSet(
             data=request.POST, files=request.FILES)
-        if form.is_valid() and stock_formset.is_valid() and product_image_formset.is_valid():
+        if form.is_valid() and product_image_formset.is_valid():
             with transaction.atomic():
                 product = form.save()
-                for item in stock_formset:
-                    stock = item.save(commit=False)
-                    stock.product = product
-                    stock.save()
                 for item in product_image_formset:
                     productImage = item.save(commit=False)
                     productImage.product = product
@@ -409,12 +410,10 @@ def productCreate(request):
         messages.error(request, _("Product cannot be saved!"))
     else:
         form = forms.ProductForm()
-        stock_formset = forms.StockFormSet(queryset=Stock.objects.none())
         product_image_formset = forms.ProductImageFormSet(
             queryset=ProductImage.objects.none())
     return render(request, "administration/store/products/create.html", context={
         'form': form,
-        'stock_formset': stock_formset,
         'product_image_formset': product_image_formset,
     })
 
@@ -428,14 +427,11 @@ def productUpdate(request, pk: int):
     if request.method == 'POST':
         form = forms.ProductForm(
             instance=product, data=request.POST, files=request.FILES)
-        stock_formset = forms.StockFormSet(
-            instance=product, data=request.POST, files=request.FILES)
         product_image_formset = forms.ProductImageFormSet(
             instance=product, data=request.POST, files=request.FILES)
-        if form.is_valid() and stock_formset.is_valid() and product_image_formset.is_valid():
+        if form.is_valid() and product_image_formset.is_valid():
             with transaction.atomic():
                 product = form.save()
-                stock_formset.save()
                 product_image_formset.save()
                 messages.success(
                     request, _("Product was saved successfully!"))
@@ -443,13 +439,11 @@ def productUpdate(request, pk: int):
         messages.error(request, _("Product cannot be saved!"))
     else:
         form = forms.ProductForm(instance=product)
-        stock_formset = forms.StockFormSet(instance=product)
         product_image_formset = forms.ProductImageFormSet(instance=product)
 
     return render(request, "administration/store/products/edit.html", context={
         "product": product,
         'form': form,
-        'stock_formset': stock_formset,
         'product_image_formset': product_image_formset,
     })
 
@@ -459,7 +453,9 @@ class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
     permission_required = ["store.delete_product"]
     login_url = reverse_lazy('administration:index')
     success_message = _("Product was deleted successfully!")
-    success_url = reverse_lazy('administration:store-product-list')
+
+    def get_success_url(self) -> str:
+        return reverse('administration:store-product-list') + f"?{urlencode({'page': self.request.GET.get('page', 1)})}"
 
 
 class OrdersView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):

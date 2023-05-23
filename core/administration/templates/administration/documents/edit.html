@@ -13,11 +13,11 @@
                         </h1>
                     </div>
                     <div class="col-12 col-xl-auto mb-3">
-                        <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:document-list' %}">
+                        <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:document-list' %}?page={{request.GET.prev_page|default:1}}">
                             <i class="me-1" data-feather="list"></i>
                             {% translate "Back to Document List" %}
                         </a>
-                        <form class="delete-form" action="{% url 'administration:document-delete' pk=document.pk %}" method="POST">
+                        <form class="delete-form" action="{% url 'administration:document-delete' pk=document.pk %}?page={{request.GET.prev_page|default:1}}" method="POST">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-sm btn-danger">
                                 <i class="me-1" data-feather="trash-2"></i>

@@ -15,16 +15,16 @@ from mptt.forms import TreeNodeChoiceField
 from news.models import Post
 from orders.models import Order, OrderDelivery
 from services.models import Service
-from store.models import Category, Product, ProductImage, Stock
+from store.models import Category, Product, ProductImage
 
 
 class ServiceForm(forms.ModelForm):
     name = forms.CharField(label=_('Name'), widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': _('Name'), 'title': _('Please enter name'),}))
+        attrs={'class': 'form-control', 'placeholder': _('Name'), 'title': _('Please enter name'), }))
     cover_image = forms.ImageField(label=_("Cover Image"), widget=forms.ClearableFileInput(
-        attrs={'multiple': False, 'class': 'form-control', 'title': _('Please upload image'),}))
+        attrs={'multiple': False, 'class': 'form-control', 'title': _('Please upload image'), }))
     description = forms.CharField(label=_('Description'), widget=forms.Textarea(
-        attrs={'class': 'form-control', 'placeholder': _('Description'), 'title': _('Please enter description'),}), required=False)
+        attrs={'class': 'form-control', 'placeholder': _('Description'), 'title': _('Please enter description'), }), required=False)
 
     class Meta:
         model = Service
@@ -174,18 +174,25 @@ class ProductForm(forms.ModelForm):
     regular_price = forms.DecimalField(label=_('Regular Price'), widget=forms.NumberInput(
         attrs={'class': 'form-control', 'placeholder': _('Regular Price'), 'title': _('Please enter regular price')}))
     discount = forms.IntegerField(label=_('Discount'), widget=forms.NumberInput(
-        attrs={'class': 'form-control', 'placeholder': _('Discount'), 'title': _('Please enter discount')}), initial=0, required=False)
+        attrs={'class': 'form-control', 'placeholder': _('Discount'), 'title': _('Please enter discount')}), 
+        initial=0, required=False)
     weight = forms.IntegerField(label=_('Weight'), widget=forms.NumberInput(
-        attrs={'class': 'form-control', 'placeholder': _('Weight'), 'title': _('Please enter weight')}), initial=0, required=False)
+        attrs={'class': 'form-control', 'placeholder': _('Weight'), 'title': _('Please enter weight')}), 
+        initial=0, required=False)
     is_active = forms.BooleanField(label=_('Is Active'), widget=forms.CheckboxInput(
-        attrs={'class': 'form-check-input', 'placeholder': _('Is Active')}), required=False)
+        attrs={'class': 'form-check-input', 'placeholder': _('Is Active')}))
+    in_stock = forms.BooleanField(label=_('In Stock'), widget=forms.CheckboxInput(
+        attrs={'class': 'form-check-input', 'placeholder': _('In Stock')}))
+    maximum_purchase_units = forms.IntegerField(label=_('Maximum Number of Purchase Units'), widget=forms.NumberInput(
+        attrs={'class': 'form-control', 'placeholder': _('Maximum Number of Purchase Units'), 
+               'title': _('Please enter maximum number of purchase units')}))
     description = forms.CharField(
         label=_("Description"), widget=ckeditor_widgets.CKEditorUploadingWidget(), required=False)
 
     class Meta:
         model = Product
-        fields = ('name', 'sku', 'description', 'regular_price',
-                  'discount', 'weight', 'is_active', 'category')
+        fields = ('name', 'sku', 'description', 'regular_price', 'in_stock',
+                  'discount', 'weight', 'is_active', 'category', 'maximum_purchase_units')
 
     def save(self, commit=True):
         product = super().save(commit)
@@ -195,29 +202,18 @@ class ProductForm(forms.ModelForm):
         return product
 
 
-class StockForm(forms.ModelForm):
-    units = forms.IntegerField(label=_('Units'), widget=forms.NumberInput(
-        attrs={'class': 'form-control', 'placeholder': _('Units'), 'title': _('Please enter units')}), initial=0, required=False)
-
-    class Meta:
-        model = Stock
-        fields = ('units',)
-
-
 class ProductImageForm(forms.ModelForm):
     image = forms.ImageField(label=_('Image'), widget=forms.ClearableFileInput(
-        attrs={'class': 'form-control', 'placeholder': _('Image'), 'title': _('Please upload image'), 
+        attrs={'class': 'form-control', 'placeholder': _('Image'), 'title': _('Please upload image'),
                'multiple': False}), required=False)
     is_feature = forms.BooleanField(label=_('Is Feature'), widget=forms.CheckboxInput(
         attrs={'class': 'form-check-input'}), required=False)
 
     class Meta:
-        model = Stock
+        model = ProductImage
         fields = ('image', 'is_feature')
 
 
-StockFormSet = forms.inlineformset_factory(
-    parent_model=Product, model=Stock, max_num=1, form=StockForm)
 ProductImageFormSet = forms.inlineformset_factory(
     parent_model=Product, model=ProductImage, form=ProductImageForm, can_delete=True)
 
@@ -240,13 +236,13 @@ class SiteInfoForm(forms.ModelForm):
     twitter_link = forms.URLField(label=_('Twitter link'), widget=forms.URLInput(
         attrs={'class': 'form-control', 'placeholder': _('Twitter link'), 'title': _('Please enter twitter link')}))
     banner_image = forms.ImageField(label=_('Banner Image'), widget=forms.ClearableFileInput(
-        attrs={'class': 'form-control', 'placeholder': _('Banner Image'), 'title': _('Please upload banner image'), 
+        attrs={'class': 'form-control', 'placeholder': _('Banner Image'), 'title': _('Please upload banner image'),
                'multiple': False}), required=False)
     breadcrumb_image = forms.ImageField(label=_('Breadcrumb Image'), widget=forms.ClearableFileInput(
-        attrs={'class': 'form-control', 'placeholder': _('Breadcrumb Image'), 'title': _('Please upload breadcrumb image'), 
+        attrs={'class': 'form-control', 'placeholder': _('Breadcrumb Image'), 'title': _('Please upload breadcrumb image'),
                'multiple': False}), required=False)
     about_image = forms.ImageField(label=_('About Image'), widget=forms.ClearableFileInput(
-        attrs={'class': 'form-control', 'placeholder': _('About Image'), 'title': _('Please upload about image'), 
+        attrs={'class': 'form-control', 'placeholder': _('About Image'), 'title': _('Please upload about image'),
                'multiple': False}), required=False)
 
     class Meta:
@@ -258,10 +254,10 @@ class SiteInfoForm(forms.ModelForm):
 
 class SiteTextForm(forms.ModelForm):
     language = forms.ChoiceField(label=_("Language"), widget=forms.Select(
-        attrs={"class": "form-select", 'readonly': True, 'disabled': True, 
+        attrs={"class": "form-select", 'readonly': True, 'disabled': True,
                'title': _('Please select language')}), choices=settings.LANGUAGES)
     about = forms.CharField(label=_('About'), widget=forms.Textarea(
-        attrs={'class': 'form-control', 'placeholder': _('About'), 'rows': 25, 
+        attrs={'class': 'form-control', 'placeholder': _('About'), 'rows': 25,
                'title': _('Please enter about text')}))
     return_policy = forms.CharField(
         label=_("Return Policy"), widget=ckeditor_widgets.CKEditorUploadingWidget(), required=False)
@@ -310,7 +306,8 @@ class OrderDeliveryForm(forms.ModelForm):
     delivery_status = forms.ChoiceField(label=_('Delivery Status'), choices=OrderDelivery.DeliveryStatus.choices, widget=forms.Select(
         attrs={'class': 'form-control', 'placeholder': _('Delivery Status'), 'title': _('Please select delivery status')}))
     delivery_date = forms.DateField(label=_('Delivery Date'), widget=DatePickerInput(
-        attrs={'class': 'form-control','min': datetime.date.today(), 'title': _('Please enter delivery date')},
+        attrs={'class': 'form-control', 'min': datetime.date.today(),
+               'title': _('Please enter delivery date')},
         options={"locale": 'az', "format": "MM/DD/YYYY"}))
 
     class Meta:
@@ -334,14 +331,14 @@ class OrderDeliveryForm(forms.ModelForm):
             raise forms.ValidationError(
                 _("Delivery Status cannot be changed!"))
         return delivery_status
-    
+
     def clean_delivery_date(self):
         delivery_date = self.cleaned_data['delivery_date']
         if (self.cleaned_data['delivery_date'] < datetime.date.today()):
             raise forms.ValidationError(
                 _("Delivery date can be minimum today"))
         return delivery_date
-    
-    
+
+
 OrderDeliveryFormSet = forms.inlineformset_factory(
     parent_model=Order, model=OrderDelivery, max_num=1, form=OrderDeliveryForm)

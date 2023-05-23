@@ -47,7 +47,7 @@ class ProductQuerySet(models.QuerySet):
         )
 
     def detail_queryset(self):
-        return self.select_related('category', 'product_stock').prefetch_related(
+        return self.select_related('category').prefetch_related(
             Prefetch('product_image', queryset=ProductImage.objects.filter(
                 is_feature=True), to_attr='image_feature'),
             Prefetch('product_image', to_attr='images')
@@ -86,6 +86,8 @@ class Product(models.Model):
     discount_price = models.DecimalField(
         default=0, blank=True, max_digits=6, decimal_places=2)
     weight = models.FloatField(null=True, blank=True)
+    in_stock = models.BooleanField(default=True)
+    maximum_purchase_units = models.IntegerField(default=10, validators=[MinValueValidator(0), MaxValueValidator(100)])
     created_at = models.DateTimeField(auto_now_add=True, editable=False,)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -97,6 +99,14 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+    
+    @property
+    def in_stock_display_value(self):
+        return _('In Stock') if self.in_stock else _('Not in Stock')
+    
+    @property
+    def is_active_display_value(self):
+        return _('Active') if self.is_active else _('Not Active')
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -124,9 +134,3 @@ class ProductImage(models.Model):
 
     class Meta:
         ordering = ('-is_feature', )
-
-
-class Stock(models.Model):
-    product = models.OneToOneField(
-        Product, related_name="product_stock", on_delete=models.CASCADE) 
-    units = models.IntegerField(default=0, validators=[MinValueValidator(0)])

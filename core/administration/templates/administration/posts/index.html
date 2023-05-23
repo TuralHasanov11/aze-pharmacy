@@ -78,9 +78,9 @@
                                         <td>{{post.created_at|date:"d.m.Y"}}</td>
                                         <td>{{post.updated_at|date:"d.m.Y"}}</td>
                                         <td>
-                                            <a href="{% url 'administration:post-detail' pk=post.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="file"></i></a>
-                                            <a href="{% url 'administration:post-update' pk=post.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
-                                            <form class="delete-form" action="{% url 'administration:post-delete' pk=post.pk %}" method="POST">
+                                            <a href="{% url 'administration:post-detail' pk=post.pk %}?prev_page={{posts.number}}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="file"></i></a>
+                                            <a href="{% url 'administration:post-update' pk=post.pk %}?prev_page={{posts.number}}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
+                                            <form class="delete-form" action="{% url 'administration:post-delete' pk=post.pk %}?page={{posts.number}}" method="POST">
                                                 {% csrf_token %}
                                                 <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark"><i data-feather="trash-2"></i></button>
                                             </form>

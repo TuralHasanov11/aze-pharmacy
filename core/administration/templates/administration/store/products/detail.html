@@ -65,19 +65,22 @@
                     <div class="card-header"><a href="{% url 'administration:store-category-update' pk=product.category.pk %}">{{product.category}}</a></div>
                     <div class="card-header">{% translate "Pricing" %}</div>
                     <div class="card-body">
-                        <h5 class="card-title">{% translate "Regular Price" %}</h5>
+                        <h6 class="card-title">{% translate "Regular Price" %}</h6>
                         <p class="card-text">{{product.regular_price}}</p>
-                        <h5 class="card-title">{% translate "Discount" %}</h5>
+                        <h6 class="card-title">{% translate "Discount" %}</h6>
                         <p class="card-text">{{product.discount}}</p>
-                        <h5 class="card-title">{% translate "Discount Price" %}</h5>
+                        <h6 class="card-title">{% translate "Discount Price" %}</h6>
                         <p class="card-text">{{product.discount_price}}</p>
-                        <h5 class="card-title">{% translate "Weight" %}</h5>
+                        <h6 class="card-title">{% translate "Weight" %}</h6>
                         <p class="card-text">{{product.weight|default:'-'}}</p>
-                    </div>
-                    <div class="card-header">{% translate "Stock Data" %}</div>
-                    <div class="card-body">
-                        <h5 class="card-title">{% translate "Available units" %}</h5>
-                        <p class="card-text">{{product.product_stock.units}}</p>
+                        <p class="card-text">                                            
+                            <span class="badge {% if product.in_stock %}bg-success{% else %}bg-danger{% endif %} rounded-pill">{{product.in_stock_display_value}}</span>
+                        </p>
+                        <p class="card-text">
+                            <span class="badge {% if product.is_active %}bg-success{% else %}bg-danger{% endif %} rounded-pill">{{product.is_active_display_value}}</span>
+                        </p>
+                        <h6 class="card-title">{% translate "Maximum Number of Purchase Units" %}</h6>
+                        <p class="card-text">{{product.maximum_purchase_units}}</p>
                     </div>
                 </div>
             </div>

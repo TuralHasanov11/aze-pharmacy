@@ -10,7 +10,7 @@ class CheckoutSerializer(serializers.ModelSerializer):
     last_name = serializers.CharField(label=_('Last Name'), error_messages={'required': _('Please enter your last name')})
     address = serializers.CharField(label=_('House number and street name'), error_messages={'required': _('Please enter your address')})
     city = serializers.CharField(label=_('City'), error_messages={'required': _('Please select a city')})
-    phone = serializers.RegexField(regex=r'^\+?1?\d{9,15}$', label=_('Phone'), 
+    phone = serializers.RegexField(regex=r'^\+?1?\d{12}$', label=_('Phone'), 
                                    error_messages={'required': _('Please enter your phone number'),
                                                    'regex': _('Please enter your phone in correct format')})
     email = serializers.EmailField(label=_('Email'), allow_blank=True, error_messages={'email': _('Please enter a valid email address')})

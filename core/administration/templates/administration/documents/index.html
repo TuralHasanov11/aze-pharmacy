@@ -62,8 +62,8 @@
                                                 <td>{{document.name}}</td>
                                                 <td>{{document.updated_at|date:"d.m.Y"}}</td>
                                                 <td>
-                                                    <a href="{% url 'administration:document-update' pk=document.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
-                                                    <form class="delete-form" action="{% url 'administration:document-delete' pk=document.pk %}" method="POST">
+                                                    <a href="{% url 'administration:document-update' pk=document.pk %}?prev_page={{documents.number}}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
+                                                    <form class="delete-form" action="{% url 'administration:document-delete' pk=document.pk %}?page={{documents.number}}" method="POST">
                                                         {% csrf_token %}
                                                         <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark"><i data-feather="trash-2"></i></button>
                                                     </form>

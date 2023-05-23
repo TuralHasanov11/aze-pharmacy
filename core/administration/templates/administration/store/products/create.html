@@ -77,25 +77,21 @@
                   {{ form.is_active.errors }}
                 </div>
                 <div class="col-12 mb-4">
+                  <label class="mb-1" for="{{ form.in_stock.id_for_label }}">{{ form.in_stock.label }}</label>
+                  {{ form.in_stock }} 
+                  {{ form.in_stock.errors }}
+                </div>
+                <div class="col-12 mb-4">
+                  <label class="mb-1" for="{{ form.max_purchase_units.id_for_label }}">{{ form.max_purchase_units.label }}</label>
+                  {{ form.max_purchase_units }} 
+                  {{ form.max_purchase_units.errors }}
+                </div>
+                <div class="col-12 mb-4">
                     <label class="form-label mb-1" for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
                     {{ form.description }} 
                     {{ form.description.errors }}
                 </div>
               </div>
-                
-            </div>
-            <div class="card-header">{% translate "Stock" %}</div>
-            <div class="card-body">
-                {{ stock_formset.management_form }} 
-                {% for formset_item in stock_formset %}
-                {% include "components/form/hidden-fields.html" with hidden_fields=formset_item.hidden_fields %}
-                {{formset_item.non_form_errors}}
-                <div class="mb-4">
-                    <label class="mb-1" for="{{ formset_item.units.id_for_label }}">{{ formset_item.units.label }}</label>
-                    {{ formset_item.units }} 
-                    {{ formset_item.units.errors }}
-                </div>
-                {% endfor %}
             </div>
             <div class="card-header">{% translate "Images" %}</div>
             <div class="card-body">

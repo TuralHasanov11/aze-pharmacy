@@ -15,7 +15,7 @@ class Order(models.Model):
     email = models.EmailField(max_length=254, blank=True, null=True)
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$')
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{12}$')
     phone = models.CharField(validators=[phone_regex], max_length=17)
     total_paid = models.DecimalField(max_digits=7, decimal_places=2)
     order_key = models.CharField(max_length=200, unique=True)

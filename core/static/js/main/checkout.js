@@ -9,7 +9,7 @@ orderSocket.onclose = function (e) {
     console.log("Socket closed")
 }
 
-const phoneValidator = helpers.regex(/^\+?1?\d{9,15}$/)
+const phoneValidator = helpers.regex(/^\+?1?\d{12}$/)
 
 createApp({
   data() {

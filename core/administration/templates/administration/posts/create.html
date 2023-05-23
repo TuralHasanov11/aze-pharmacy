@@ -19,7 +19,7 @@
           <div class="col-12 col-xl-auto mb-3">
             <a
               class="btn btn-sm btn-light text-primary"
-              href="{% url 'administration:post-list' %}"
+              href="{% url 'administration:post-list' %}?page={{request.GET.prev_page|default:1}}"
             >
               <i class="me-1" data-feather="arrow-left"></i>
               {% translate "Back to Post List" %}

@@ -118,7 +118,7 @@
                                         <td>{{product.discount}}%</td>
                                         <td><a href="{% url 'administration:store-category-update' pk=product.category.id %}">{{product.category}}</a></td>
                                         <td>
-                                            {% include "components/admin/status-button.html" with is_active=product.is_active %}
+                                            <span class="badge {% if product.is_active %}bg-success{% else %}bg-danger{% endif %} rounded-pill">{{product.is_active_display_value}}</span>
                                         </td>
                                         <td>{{product.updated_at|date:"d.m.Y"}}</td>
                                         <td>
