@@ -1,8 +1,13 @@
-# from decimal import Decimal
+import os
+import shutil
+
 from ckeditor_uploader import fields as ckeditorFields
+from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Prefetch
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -48,6 +53,7 @@ class ProductQuerySet(models.QuerySet):
             Prefetch('product_image', to_attr='images')
         )
     
+
 class ProductManager(models.Manager):
     def get_queryset(self):
         return ProductQuerySet(self.model, using=self._db).order_by('-created_at').filter(is_active=True)
@@ -96,6 +102,13 @@ class Product(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
+
+
+@receiver(post_delete, sender=Product)
+def on_product_delete(sender, instance, *args, **kwargs): 
+    pass  
+    # file_location = os.path.join(settings.BASE_DIR, f"media/{instance.slug}")
+    # shutil.rmtree(file_location, ignore_errors = False)
 
 
 def product_image_path(instance, filename):

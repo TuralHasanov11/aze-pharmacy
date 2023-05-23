@@ -57,15 +57,15 @@ createApp({
             if (this.v$.$invalid) return 
             
             this.submitLoading = true
-
+            
             const formData = new FormData();
-            formData.append('first_name', this.firstName)
-            formData.append('last_name', this.lastName)
-            formData.append('phone', this.phone)
-            formData.append('address', this.address)
-            formData.append('city', this.city)
-            formData.append('email', this.email)
-            formData.append('notes', this.notes)
+            formData.append('first_name', this.checkoutForm.firstName)
+            formData.append('last_name', this.checkoutForm.lastName)
+            formData.append('phone', this.checkoutForm.phone)
+            formData.append('address', this.checkoutForm.address)
+            formData.append('city', this.checkoutForm.city)
+            formData.append('email', this.checkoutForm.email)
+            formData.append('notes', this.checkoutForm.notes)
 
             const response = await fetch('/api/checkout', {
                 method: 'POST',

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-21 13:42+0200\n"
+"POT-Creation-Date: 2023-05-23 11:54+0200\n"
 "PO-Revision-Date: 2023-05-19 18:50+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -102,8 +102,8 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: .\administration\context_processors.py:67 .\store\views.py:48
-#: .\store\views.py:76 .\store\views.py:79 .\store\views.py:108
+#: .\administration\context_processors.py:67 .\store\views.py:42
+#: .\store\views.py:67 .\store\views.py:70 .\store\views.py:91
 msgid "Products"
 msgstr ""
 
@@ -227,7 +227,7 @@ msgstr ""
 #: .\administration\templates\administration\orders\detail.html:49
 #: .\administration\templates\administration\users\index.html:34
 #: .\administration\templates\administration\users\index.html:43
-#: .\checkout\serializers.py:16 .\orders\forms.py:31 .\orders\forms.py:32
+#: .\checkout\serializers.py:16
 msgid "Email"
 msgstr ""
 
@@ -257,7 +257,7 @@ msgstr ""
 #: .\administration\forms.py:134 .\administration\forms.py:135
 #: .\administration\templates\administration\auth\profile.html:42
 #: .\administration\templates\administration\orders\detail.html:41
-#: .\checkout\serializers.py:9 .\orders\forms.py:11 .\orders\forms.py:12
+#: .\checkout\serializers.py:9
 msgid "First Name"
 msgstr ""
 
@@ -269,7 +269,7 @@ msgstr ""
 #: .\administration\forms.py:136 .\administration\forms.py:137
 #: .\administration\templates\administration\auth\profile.html:48
 #: .\administration\templates\administration\orders\detail.html:45
-#: .\checkout\serializers.py:10 .\orders\forms.py:15 .\orders\forms.py:16
+#: .\checkout\serializers.py:10
 msgid "Last Name"
 msgstr ""
 
@@ -399,7 +399,7 @@ msgstr ""
 
 #: .\administration\forms.py:226 .\administration\forms.py:227
 #: .\administration\templates\administration\orders\detail.html:61
-#: .\checkout\serializers.py:13 .\orders\forms.py:26
+#: .\checkout\serializers.py:13
 msgid "Phone"
 msgstr ""
 
@@ -536,7 +536,7 @@ msgid "Answer"
 msgstr ""
 
 #: .\administration\forms.py:297 .\administration\forms.py:298
-#: .\checkout\serializers.py:17 .\orders\forms.py:35
+#: .\checkout\serializers.py:17
 msgid "Notes"
 msgstr ""
 
@@ -709,7 +709,7 @@ msgstr ""
 #: .\administration\templates\administration\orders\index.html:34
 #: .\administration\templates\administration\posts\index.html:36
 #: .\administration\templates\administration\store\products\index.html:36
-#: .\templates\components\admin\imports\scripts.html:6
+#: .\templates\components\admin\imports\scripts.html:10
 msgid "Search"
 msgstr ""
 
@@ -737,8 +737,8 @@ msgstr ""
 #: .\administration\templates\administration\orders\detail.html:16
 #: .\administration\templates\administration\orders\detail.html:35
 #: .\orders\templates\orders\detail.html:2
-#: .\orders\templates\orders\detail.html:22 .\orders\views.py:24
-#: .\orders\views.py:26
+#: .\orders\templates\orders\detail.html:22 .\orders\views.py:23
+#: .\orders\views.py:25
 msgid "Order Details"
 msgstr ""
 
@@ -747,7 +747,7 @@ msgid "Back to Order List"
 msgstr ""
 
 #: .\administration\templates\administration\orders\detail.html:57
-#: .\checkout\serializers.py:12 .\orders\forms.py:23
+#: .\checkout\serializers.py:12
 msgid "City"
 msgstr ""
 
@@ -774,7 +774,7 @@ msgstr ""
 
 #: .\administration\templates\administration\orders\detail.html:92
 #: .\cart\templates\cart\summary.html:29
-#: .\checkout\templates\checkout\index.html:177
+#: .\checkout\templates\checkout\index.html:178
 #: .\orders\templates\orders\detail.html:102
 msgid "Product"
 msgstr ""
@@ -797,15 +797,15 @@ msgstr ""
 
 #: .\administration\templates\administration\orders\detail.html:95
 #: .\cart\templates\cart\summary.html:32
-#: .\checkout\templates\checkout\index.html:178
+#: .\checkout\templates\checkout\index.html:179
 #: .\templates\components\default\header.html:90
 msgid "Subtotal"
 msgstr ""
 
 #: .\administration\templates\administration\orders\detail.html:110
 #: .\cart\templates\cart\summary.html:120
-#: .\checkout\templates\checkout\index.html:213
-#: .\templates\components\admin\imports\scripts.html:9
+#: .\checkout\templates\checkout\index.html:214
+#: .\templates\components\admin\imports\scripts.html:13
 msgid "Total"
 msgstr ""
 
@@ -1206,7 +1206,19 @@ msgstr ""
 msgid "Order was not saved!"
 msgstr ""
 
-#: .\cart\templates\cart\summary.html:2 .\cart\views.py:17 .\cart\views.py:19
+#: .\api\views.py:171
+msgid "New order: "
+msgstr ""
+
+#: .\api\views.py:177
+msgid "Order was placed successfully"
+msgstr ""
+
+#: .\api\views.py:180
+msgid "Order cannot be placed"
+msgstr ""
+
+#: .\cart\templates\cart\summary.html:2 .\cart\views.py:12 .\cart\views.py:14
 msgid "Shopping Cart"
 msgstr ""
 
@@ -1227,46 +1239,46 @@ msgid "Proceed to checkout"
 msgstr ""
 
 #: .\cart\templates\cart\summary.html:142
-#: .\checkout\templates\checkout\index.html:263
+#: .\checkout\templates\checkout\index.html:264
 msgid "Your shopping cart is currently empty."
 msgstr ""
 
 #: .\cart\templates\cart\summary.html:143
-#: .\checkout\templates\checkout\index.html:264
+#: .\checkout\templates\checkout\index.html:265
 msgid "Continue Shopping"
 msgstr ""
 
-#: .\cart\views.py:18 .\checkout\views.py:30 .\library\views.py:18
+#: .\cart\views.py:13 .\checkout\views.py:14 .\library\views.py:18
 #: .\main\context_processors.py:11 .\main\templates\main\index.html:2
 #: .\main\views.py:42 .\main\views.py:83 .\main\views.py:98 .\main\views.py:110
 #: .\main\views.py:123 .\main\views.py:135 .\main\views.py:150
-#: .\news\views.py:18 .\news\views.py:32 .\orders\views.py:25
-#: .\services\views.py:18 .\store\views.py:47 .\store\views.py:75
-#: .\store\views.py:107 .\wishlist\views.py:16
+#: .\news\views.py:18 .\news\views.py:32 .\orders\views.py:24
+#: .\services\views.py:18 .\store\views.py:41 .\store\views.py:66
+#: .\store\views.py:90 .\wishlist\views.py:13
 msgid "Home"
 msgstr ""
 
-#: .\checkout\serializers.py:9 .\orders\forms.py:13 .\orders\forms.py:14
+#: .\checkout\serializers.py:9
 msgid "Please enter your first name"
 msgstr ""
 
-#: .\checkout\serializers.py:10 .\orders\forms.py:17 .\orders\forms.py:18
+#: .\checkout\serializers.py:10
 msgid "Please enter your last name"
 msgstr ""
 
-#: .\checkout\serializers.py:11 .\orders\forms.py:19 .\orders\forms.py:20
+#: .\checkout\serializers.py:11
 msgid "House number and street name"
 msgstr ""
 
-#: .\checkout\serializers.py:11 .\orders\forms.py:21 .\orders\forms.py:22
+#: .\checkout\serializers.py:11
 msgid "Please enter your address"
 msgstr ""
 
-#: .\checkout\serializers.py:12 .\orders\forms.py:24 .\orders\forms.py:25
+#: .\checkout\serializers.py:12
 msgid "Please select a city"
 msgstr ""
 
-#: .\checkout\serializers.py:14 .\orders\forms.py:28 .\orders\forms.py:29
+#: .\checkout\serializers.py:14
 msgid "Please enter your phone number"
 msgstr ""
 
@@ -1274,16 +1286,16 @@ msgstr ""
 msgid "Please enter your phone in correct format"
 msgstr ""
 
-#: .\checkout\serializers.py:16 .\orders\forms.py:32 .\orders\forms.py:33
+#: .\checkout\serializers.py:16
 msgid "Please enter a valid email address"
 msgstr ""
 
-#: .\checkout\serializers.py:26 .\orders\forms.py:49
+#: .\checkout\serializers.py:26
 msgid "Invalid city"
 msgstr ""
 
-#: .\checkout\templates\checkout\index.html:2 .\checkout\views.py:29
-#: .\checkout\views.py:31 .\templates\components\default\header.html:93
+#: .\checkout\templates\checkout\index.html:2 .\checkout\views.py:13
+#: .\checkout\views.py:15 .\templates\components\default\header.html:93
 msgid "Checkout"
 msgstr ""
 
@@ -1294,15 +1306,15 @@ msgstr ""
 "is easy to use and we offer a variety of payment options to suit your needs. "
 "Review your order and complete your purchase now."
 
-#: .\checkout\templates\checkout\index.html:166
+#: .\checkout\templates\checkout\index.html:167
 msgid "Your Order"
 msgstr ""
 
-#: .\checkout\templates\checkout\index.html:240
+#: .\checkout\templates\checkout\index.html:241
 msgid "privacy policy"
 msgstr ""
 
-#: .\checkout\templates\checkout\index.html:242
+#: .\checkout\templates\checkout\index.html:243
 #, python-format
 msgid ""
 "\n"
@@ -1323,36 +1335,34 @@ msgid ""
 "                                    "
 msgstr ""
 
-#: .\checkout\templates\checkout\index.html:280
+#: .\checkout\templates\checkout\index.html:281
 msgid "optional"
 msgstr ""
 
-#: .\checkout\templates\checkout\index.html:282
+#: .\checkout\templates\checkout\index.html:283
 msgid "Please fill the required fields"
 msgstr ""
 
-#: .\checkout\templates\checkout\index.html:283
+#: .\checkout\templates\checkout\index.html:284
 msgid "Place order"
 msgstr ""
 
-#: .\checkout\templates\checkout\index.html:284
+#: .\checkout\templates\checkout\index.html:285
 msgid "Additional information"
 msgstr ""
 
-#: .\checkout\templates\checkout\index.html:285
+#: .\checkout\templates\checkout\index.html:286
 msgid "Select a city"
 msgstr ""
 
-#: .\checkout\templates\checkout\index.html:286
+#: .\checkout\templates\checkout\index.html:287
 msgid "Billing Details"
 msgstr ""
 
-#: .\checkout\views.py:77
-msgid "Order was placed successfully"
-msgstr ""
-
-#: .\checkout\views.py:80
-msgid "Order cannot be placed"
+#: .\checkout\templates\checkout\index.html:288
+msgid ""
+"Phone number must be entered in the format: '+994xxxxxxxxx'. Up to 12 digits "
+"allowed"
 msgstr ""
 
 #: .\core\settings.py:144
@@ -1376,8 +1386,8 @@ msgstr ""
 "informed about the latest healthcare research and trends."
 
 #: .\main\context_processors.py:15 .\main\context_processors.py:30
-#: .\store\templates\store\products\index.html:3 .\store\views.py:46
-#: .\store\views.py:74 .\store\views.py:106
+#: .\store\templates\store\products\index.html:3 .\store\views.py:40
+#: .\store\views.py:65 .\store\views.py:89
 msgid "Shop"
 msgstr ""
 
@@ -1586,14 +1596,6 @@ msgstr ""
 "discoveries, medical breakthroughs, and health-related news. Read more and "
 "be informed!"
 
-#: .\orders\forms.py:36
-msgid "Notes about your order, e.g. special notes for delivery."
-msgstr ""
-
-#: .\orders\forms.py:37 .\orders\forms.py:38
-msgid "Please enter your notes"
-msgstr ""
-
 #: .\orders\models.py:9
 msgid "Pending"
 msgstr ""
@@ -1606,33 +1608,27 @@ msgstr ""
 msgid "Failed"
 msgstr ""
 
-#: .\orders\models.py:18
-msgid ""
-"Phone number must be entered in the format: '+994xxxxxxxxx'. Up to 12 digits "
-"allowed"
-msgstr ""
-
-#: .\orders\models.py:67
+#: .\orders\models.py:70
 msgid "Processing"
 msgstr ""
 
-#: .\orders\models.py:68
+#: .\orders\models.py:71
 msgid "Shipped"
 msgstr ""
 
-#: .\orders\models.py:69
+#: .\orders\models.py:72
 msgid "Delivered"
 msgstr ""
 
-#: .\orders\models.py:70
+#: .\orders\models.py:73
 msgid "Failed Delivery"
 msgstr ""
 
-#: .\orders\models.py:71
+#: .\orders\models.py:74
 msgid "Returned"
 msgstr ""
 
-#: .\orders\models.py:72
+#: .\orders\models.py:75
 msgid "Cancelled"
 msgstr ""
 
@@ -1679,7 +1675,7 @@ msgstr ""
 "covered. Our team of professionals is dedicated to providing you with the "
 "best healthcare services. Explore our services and book an appointment today!"
 
-#: .\store\models.py:23
+#: .\store\models.py:28
 msgid "categories"
 msgstr ""
 
@@ -1727,15 +1723,15 @@ msgstr ""
 msgid "Price high to low"
 msgstr ""
 
-#: .\templates\components\admin\imports\scripts.html:5
+#: .\templates\components\admin\imports\scripts.html:9
 msgid "entries per page"
 msgstr ""
 
-#: .\templates\components\admin\imports\scripts.html:7
+#: .\templates\components\admin\imports\scripts.html:11
 msgid "Showing"
 msgstr ""
 
-#: .\templates\components\admin\imports\scripts.html:8
+#: .\templates\components\admin\imports\scripts.html:12
 msgid "entries"
 msgstr ""
 
@@ -1835,8 +1831,8 @@ msgstr ""
 msgid "Staff"
 msgstr ""
 
-#: .\wishlist\templates\wishlist\wishlist.html:3 .\wishlist\views.py:15
-#: .\wishlist\views.py:17
+#: .\wishlist\templates\wishlist\wishlist.html:3 .\wishlist\views.py:12
+#: .\wishlist\views.py:14
 msgid "Wishlist"
 msgstr ""
 

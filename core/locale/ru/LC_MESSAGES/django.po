@@ -8,17 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-21 13:42+0200\n"
-"PO-Revision-Date: 2023-05-21 13:40+0400\n"
+"POT-Creation-Date: 2023-05-23 11:54+0200\n"
+"PO-Revision-Date: 2023-05-23 11:55+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Translated-Using: django-rosetta 0.9.9\n"
 
 #: .\administration\context_processors.py:7
@@ -104,8 +102,8 @@ msgstr "Магазин"
 msgid "Categories"
 msgstr "Категории"
 
-#: .\administration\context_processors.py:67 .\store\views.py:48
-#: .\store\views.py:76 .\store\views.py:79 .\store\views.py:108
+#: .\administration\context_processors.py:67 .\store\views.py:42
+#: .\store\views.py:67 .\store\views.py:70 .\store\views.py:91
 msgid "Products"
 msgstr "Продукты"
 
@@ -229,7 +227,7 @@ msgstr "Пожалуйста, введите название"
 #: .\administration\templates\administration\orders\detail.html:49
 #: .\administration\templates\administration\users\index.html:34
 #: .\administration\templates\administration\users\index.html:43
-#: .\checkout\serializers.py:16 .\orders\forms.py:31 .\orders\forms.py:32
+#: .\checkout\serializers.py:16
 msgid "Email"
 msgstr "Email"
 
@@ -259,7 +257,7 @@ msgstr "Имя пользователя"
 #: .\administration\forms.py:134 .\administration\forms.py:135
 #: .\administration\templates\administration\auth\profile.html:42
 #: .\administration\templates\administration\orders\detail.html:41
-#: .\checkout\serializers.py:9 .\orders\forms.py:11 .\orders\forms.py:12
+#: .\checkout\serializers.py:9
 msgid "First Name"
 msgstr "Имя"
 
@@ -271,7 +269,7 @@ msgstr "Пожалуйста, введите имя"
 #: .\administration\forms.py:136 .\administration\forms.py:137
 #: .\administration\templates\administration\auth\profile.html:48
 #: .\administration\templates\administration\orders\detail.html:45
-#: .\checkout\serializers.py:10 .\orders\forms.py:15 .\orders\forms.py:16
+#: .\checkout\serializers.py:10
 msgid "Last Name"
 msgstr "Фамилия"
 
@@ -401,7 +399,7 @@ msgstr "Изображение Oбложки"
 
 #: .\administration\forms.py:226 .\administration\forms.py:227
 #: .\administration\templates\administration\orders\detail.html:61
-#: .\checkout\serializers.py:13 .\orders\forms.py:26
+#: .\checkout\serializers.py:13
 msgid "Phone"
 msgstr "Телефон"
 
@@ -538,7 +536,7 @@ msgid "Answer"
 msgstr "Отвечать"
 
 #: .\administration\forms.py:297 .\administration\forms.py:298
-#: .\checkout\serializers.py:17 .\orders\forms.py:35
+#: .\checkout\serializers.py:17
 msgid "Notes"
 msgstr "Примечания"
 
@@ -711,7 +709,7 @@ msgstr "Список Документов"
 #: .\administration\templates\administration\orders\index.html:34
 #: .\administration\templates\administration\posts\index.html:36
 #: .\administration\templates\administration\store\products\index.html:36
-#: .\templates\components\admin\imports\scripts.html:6
+#: .\templates\components\admin\imports\scripts.html:10
 msgid "Search"
 msgstr "Поиск"
 
@@ -739,8 +737,8 @@ msgstr "Панели мониторинга"
 #: .\administration\templates\administration\orders\detail.html:16
 #: .\administration\templates\administration\orders\detail.html:35
 #: .\orders\templates\orders\detail.html:2
-#: .\orders\templates\orders\detail.html:22 .\orders\views.py:24
-#: .\orders\views.py:26
+#: .\orders\templates\orders\detail.html:22 .\orders\views.py:23
+#: .\orders\views.py:25
 msgid "Order Details"
 msgstr "Информация Для Заказа"
 
@@ -749,7 +747,7 @@ msgid "Back to Order List"
 msgstr "Назад к Cписку Заказов"
 
 #: .\administration\templates\administration\orders\detail.html:57
-#: .\checkout\serializers.py:12 .\orders\forms.py:23
+#: .\checkout\serializers.py:12
 msgid "City"
 msgstr "Город"
 
@@ -776,7 +774,7 @@ msgstr "Дата Oбновления"
 
 #: .\administration\templates\administration\orders\detail.html:92
 #: .\cart\templates\cart\summary.html:29
-#: .\checkout\templates\checkout\index.html:177
+#: .\checkout\templates\checkout\index.html:178
 #: .\orders\templates\orders\detail.html:102
 msgid "Product"
 msgstr "Продукт"
@@ -799,15 +797,15 @@ msgstr "Количество"
 
 #: .\administration\templates\administration\orders\detail.html:95
 #: .\cart\templates\cart\summary.html:32
-#: .\checkout\templates\checkout\index.html:178
+#: .\checkout\templates\checkout\index.html:179
 #: .\templates\components\default\header.html:90
 msgid "Subtotal"
 msgstr "Промежуточный итог"
 
 #: .\administration\templates\administration\orders\detail.html:110
 #: .\cart\templates\cart\summary.html:120
-#: .\checkout\templates\checkout\index.html:213
-#: .\templates\components\admin\imports\scripts.html:9
+#: .\checkout\templates\checkout\index.html:214
+#: .\templates\components\admin\imports\scripts.html:13
 msgid "Total"
 msgstr "Общий"
 
@@ -1208,7 +1206,20 @@ msgstr "Заказ успешно обновлен!"
 msgid "Order was not saved!"
 msgstr "Заказ не сохранился!"
 
-#: .\cart\templates\cart\summary.html:2 .\cart\views.py:17 .\cart\views.py:19
+#: .\api\views.py:171
+#| msgid "New Order: "
+msgid "New order: "
+msgstr "Новый заказ:"
+
+#: .\api\views.py:177
+msgid "Order was placed successfully"
+msgstr "Заказ был успешно размещен"
+
+#: .\api\views.py:180
+msgid "Order cannot be placed"
+msgstr "Заказ не может быть размещен"
+
+#: .\cart\templates\cart\summary.html:2 .\cart\views.py:12 .\cart\views.py:14
 msgid "Shopping Cart"
 msgstr "Корзина"
 
@@ -1229,46 +1240,46 @@ msgid "Proceed to checkout"
 msgstr "Перейти к оформлению заказа"
 
 #: .\cart\templates\cart\summary.html:142
-#: .\checkout\templates\checkout\index.html:263
+#: .\checkout\templates\checkout\index.html:264
 msgid "Your shopping cart is currently empty."
 msgstr "Ваша корзина пуста."
 
 #: .\cart\templates\cart\summary.html:143
-#: .\checkout\templates\checkout\index.html:264
+#: .\checkout\templates\checkout\index.html:265
 msgid "Continue Shopping"
 msgstr "Продолжить покупки"
 
-#: .\cart\views.py:18 .\checkout\views.py:30 .\library\views.py:18
+#: .\cart\views.py:13 .\checkout\views.py:14 .\library\views.py:18
 #: .\main\context_processors.py:11 .\main\templates\main\index.html:2
-#: .\main\views.py:42 .\main\views.py:83 .\main\views.py:98 .\main\views.py:110
-#: .\main\views.py:123 .\main\views.py:135 .\main\views.py:150
-#: .\news\views.py:18 .\news\views.py:32 .\orders\views.py:25
-#: .\services\views.py:18 .\store\views.py:47 .\store\views.py:75
-#: .\store\views.py:107 .\wishlist\views.py:16
+#: .\main\views.py:42 .\main\views.py:83 .\main\views.py:98
+#: .\main\views.py:110 .\main\views.py:123 .\main\views.py:135
+#: .\main\views.py:150 .\news\views.py:18 .\news\views.py:32
+#: .\orders\views.py:24 .\services\views.py:18 .\store\views.py:41
+#: .\store\views.py:66 .\store\views.py:90 .\wishlist\views.py:13
 msgid "Home"
 msgstr "Дом"
 
-#: .\checkout\serializers.py:9 .\orders\forms.py:13 .\orders\forms.py:14
+#: .\checkout\serializers.py:9
 msgid "Please enter your first name"
 msgstr "Пожалуйста, введите ваше имя"
 
-#: .\checkout\serializers.py:10 .\orders\forms.py:17 .\orders\forms.py:18
+#: .\checkout\serializers.py:10
 msgid "Please enter your last name"
 msgstr "Пожалуйста, введите свою фамилию"
 
-#: .\checkout\serializers.py:11 .\orders\forms.py:19 .\orders\forms.py:20
+#: .\checkout\serializers.py:11
 msgid "House number and street name"
 msgstr "Номер дома и название улицы"
 
-#: .\checkout\serializers.py:11 .\orders\forms.py:21 .\orders\forms.py:22
+#: .\checkout\serializers.py:11
 msgid "Please enter your address"
 msgstr "Пожалуйста, введите свой адрес"
 
-#: .\checkout\serializers.py:12 .\orders\forms.py:24 .\orders\forms.py:25
+#: .\checkout\serializers.py:12
 msgid "Please select a city"
 msgstr "Пожалуйста, выберите город"
 
-#: .\checkout\serializers.py:14 .\orders\forms.py:28 .\orders\forms.py:29
+#: .\checkout\serializers.py:14
 msgid "Please enter your phone number"
 msgstr "Пожалуйста, введите свой номер телефона"
 
@@ -1276,16 +1287,16 @@ msgstr "Пожалуйста, введите свой номер телефон�
 msgid "Please enter your phone in correct format"
 msgstr "Пожалуйста, введите свой телефон в правильном формате"
 
-#: .\checkout\serializers.py:16 .\orders\forms.py:32 .\orders\forms.py:33
+#: .\checkout\serializers.py:16
 msgid "Please enter a valid email address"
 msgstr "Пожалуйста, введите действительный адрес электронной почты"
 
-#: .\checkout\serializers.py:26 .\orders\forms.py:49
+#: .\checkout\serializers.py:26
 msgid "Invalid city"
 msgstr "Неверный город"
 
-#: .\checkout\templates\checkout\index.html:2 .\checkout\views.py:29
-#: .\checkout\views.py:31 .\templates\components\default\header.html:93
+#: .\checkout\templates\checkout\index.html:2 .\checkout\views.py:13
+#: .\checkout\views.py:15 .\templates\components\default\header.html:93
 msgid "Checkout"
 msgstr "Проверить"
 
@@ -1297,78 +1308,63 @@ msgstr ""
 "оплаты в соответствии с вашими потребностями. Проверьте свой заказ и "
 "завершите покупку прямо сейчас."
 
-#: .\checkout\templates\checkout\index.html:166
+#: .\checkout\templates\checkout\index.html:167
 msgid "Your Order"
 msgstr "Ваш Заказ"
 
-#: .\checkout\templates\checkout\index.html:240
+#: .\checkout\templates\checkout\index.html:241
 msgid "privacy policy"
 msgstr "политика конфиденциальности"
 
-#: .\checkout\templates\checkout\index.html:242
+#: .\checkout\templates\checkout\index.html:243
 #, python-format
 msgid ""
 "\n"
-"                                    Before you proceed to complete your "
-"checkout, we kindly request that you take a moment to review our Privacy "
-"Policy. \n"
-"                                    Our Privacy Policy outlines how we "
-"collect, use, and protect your personal information.\n"
-"                                    By understanding our privacy practices, "
-"you can have full confidence in providing your details for a seamless "
-"checkout experience. \n"
-"                                    To view our Privacy Policy, please click "
-"<a href=\"%(privacy_policy_link)s\" class=\"woocommerce-privacy-policy-link"
-"\" target=\"_blank\">%(privacy_policy_text)s</a>. \n"
-"                                    Once you have familiarized yourself with "
-"our policy, you can proceed with confidence to complete your "
-"checkout.                                  \n"
+"                                    Before you proceed to complete your checkout, we kindly request that you take a moment to review our Privacy Policy. \n"
+"                                    Our Privacy Policy outlines how we collect, use, and protect your personal information.\n"
+"                                    By understanding our privacy practices, you can have full confidence in providing your details for a seamless checkout experience. \n"
+"                                    To view our Privacy Policy, please click <a href=\"%(privacy_policy_link)s\" class=\"woocommerce-privacy-policy-link\" target=\"_blank\">%(privacy_policy_text)s</a>. \n"
+"                                    Once you have familiarized yourself with our policy, you can proceed with confidence to complete your checkout.                                  \n"
 "                                    "
 msgstr ""
 "\n"
-"Прежде чем вы приступите к оформлению заказа, мы просим вас уделить немного "
-"времени для ознакомления с нашей Политикой конфиденциальности.\n"
-"Наша Политика конфиденциальности описывает, как мы собираем, используем и "
-"защищаем вашу личную информацию.\n"
-"Поняв наши правила конфиденциальности, вы можете быть полностью уверены в "
-"том, что предоставите свои данные для беспрепятственного оформления заказа.\n"
-"Чтобы ознакомиться с нашей Политикой конфиденциальности, нажмите <a href="
-"\"%(privacy_policy_link)s\" class=\"woocommerce-privacy-policy-link\" target="
-"\"_blank\">%(privacy_policy_text)s</a>.\n"
-"После того, как вы ознакомились с нашей политикой, вы можете с уверенностью "
-"приступить к оформлению заказа."
+"Прежде чем вы приступите к оформлению заказа, мы просим вас уделить немного времени для ознакомления с нашей Политикой конфиденциальности.\n"
+"Наша Политика конфиденциальности описывает, как мы собираем, используем и защищаем вашу личную информацию.\n"
+"Поняв наши правила конфиденциальности, вы можете быть полностью уверены в том, что предоставите свои данные для беспрепятственного оформления заказа.\n"
+"Чтобы ознакомиться с нашей Политикой конфиденциальности, нажмите <a href=\"%(privacy_policy_link)s\" class=\"woocommerce-privacy-policy-link\" target=\"_blank\">%(privacy_policy_text)s</a>.\n"
+"После того, как вы ознакомились с нашей политикой, вы можете с уверенностью приступить к оформлению заказа."
 
-#: .\checkout\templates\checkout\index.html:280
+#: .\checkout\templates\checkout\index.html:281
 msgid "optional"
 msgstr "необязательный"
 
-#: .\checkout\templates\checkout\index.html:282
+#: .\checkout\templates\checkout\index.html:283
 msgid "Please fill the required fields"
 msgstr "Пожалуйста, заполните обязательные поля"
 
-#: .\checkout\templates\checkout\index.html:283
+#: .\checkout\templates\checkout\index.html:284
 msgid "Place order"
 msgstr "Разместить заказ"
 
-#: .\checkout\templates\checkout\index.html:284
+#: .\checkout\templates\checkout\index.html:285
 msgid "Additional information"
 msgstr "Дополнительная информация"
 
-#: .\checkout\templates\checkout\index.html:285
+#: .\checkout\templates\checkout\index.html:286
 msgid "Select a city"
 msgstr "Выберите город"
 
-#: .\checkout\templates\checkout\index.html:286
+#: .\checkout\templates\checkout\index.html:287
 msgid "Billing Details"
 msgstr "Платежные Pеквизиты"
 
-#: .\checkout\views.py:77
-msgid "Order was placed successfully"
-msgstr "Заказ был успешно размещен"
-
-#: .\checkout\views.py:80
-msgid "Order cannot be placed"
-msgstr "Заказ не может быть размещен"
+#: .\checkout\templates\checkout\index.html:288
+msgid ""
+"Phone number must be entered in the format: '+994xxxxxxxxx'. Up to 12 digits"
+" allowed"
+msgstr ""
+"Номер телефона необходимо вводить в формате: '+994xxxxxxxxx'. Допускается до"
+" 12 цифр"
 
 #: .\core\settings.py:144
 msgid "Azerbaijani"
@@ -1392,8 +1388,8 @@ msgstr ""
 "области здравоохранения."
 
 #: .\main\context_processors.py:15 .\main\context_processors.py:30
-#: .\store\templates\store\products\index.html:3 .\store\views.py:46
-#: .\store\views.py:74 .\store\views.py:106
+#: .\store\templates\store\products\index.html:3 .\store\views.py:40
+#: .\store\views.py:65 .\store\views.py:89
 msgid "Shop"
 msgstr "Магазин"
 
@@ -1511,9 +1507,9 @@ msgid "Career Description"
 msgstr ""
 "Ознакомьтесь с компаниями, с которыми мы сотрудничаем в сфере "
 "здравоохранения. Узнайте о наших стратегических партнерствах и альянсах с "
-"ведущими организациями, занимающимися продвижением медицинских исследований, "
-"технологий и инноваций. Узнайте больше о нашей сети отраслевых партнеров и о "
-"нашей приверженности развитию сотрудничества, которое формирует будущее "
+"ведущими организациями, занимающимися продвижением медицинских исследований,"
+" технологий и инноваций. Узнайте больше о нашей сети отраслевых партнеров и "
+"о нашей приверженности развитию сотрудничества, которое формирует будущее "
 "здравоохранения."
 
 #: .\main\templates\main\career.html:33
@@ -1526,8 +1522,8 @@ msgid "Contact Description"
 msgstr ""
 "Contact us for any questions or inquiries about our products and services. "
 "Our customer support team is available 24/7 to assist you with any queries "
-"you may have. Reach out to us today and let us help you with your healthcare "
-"needs."
+"you may have. Reach out to us today and let us help you with your healthcare"
+" needs."
 
 #: .\main\templates\main\contact.html:41
 msgid "Office Address"
@@ -1567,9 +1563,9 @@ msgid "Privacy Policy Description"
 msgstr ""
 "В нашей политике конфиденциальности изложены наши обязательства по защите "
 "вашей личной информации и данных. Узнайте о наших методах сбора и хранения "
-"данных, а также о том, как мы используем вашу информацию, чтобы сделать ваши "
-"покупки более удобными. Прочитайте нашу политику конфиденциальности сейчас и "
-"делайте покупки с уверенностью."
+"данных, а также о том, как мы используем вашу информацию, чтобы сделать ваши"
+" покупки более удобными. Прочитайте нашу политику конфиденциальности сейчас "
+"и делайте покупки с уверенностью."
 
 #: .\main\templates\main\return-policy.html:3
 msgid "Return Policy Description"
@@ -1603,18 +1599,9 @@ msgstr "Свежие Hовости"
 msgid "News Description"
 msgstr ""
 "Будьте в курсе последних новостей и тенденций в области медицины. На нашей "
-"странице новостей вы найдете информативный и образовательный контент о новых "
-"открытиях, медицинских открытиях и новостях, связанных со здоровьем. Читайте "
-"больше и будьте в курсе!"
-
-#: .\orders\forms.py:36
-msgid "Notes about your order, e.g. special notes for delivery."
-msgstr ""
-"Примечания к вашему заказу, например. специальные примечания для доставки."
-
-#: .\orders\forms.py:37 .\orders\forms.py:38
-msgid "Please enter your notes"
-msgstr "Пожалуйста, введите ваши заметки"
+"странице новостей вы найдете информативный и образовательный контент о новых"
+" открытиях, медицинских открытиях и новостях, связанных со здоровьем. "
+"Читайте больше и будьте в курсе!"
 
 #: .\orders\models.py:9
 msgid "Pending"
@@ -1628,35 +1615,27 @@ msgstr "Оплаченный"
 msgid "Failed"
 msgstr "Неуспешный"
 
-#: .\orders\models.py:18
-msgid ""
-"Phone number must be entered in the format: '+994xxxxxxxxx'. Up to 12 digits "
-"allowed"
-msgstr ""
-"Номер телефона необходимо вводить в формате: '+994xxxxxxxxx'. Допускается до "
-"12 цифр"
-
-#: .\orders\models.py:67
+#: .\orders\models.py:70
 msgid "Processing"
 msgstr "Обработка"
 
-#: .\orders\models.py:68
+#: .\orders\models.py:71
 msgid "Shipped"
 msgstr "Отправленный"
 
-#: .\orders\models.py:69
+#: .\orders\models.py:72
 msgid "Delivered"
 msgstr "Доставленный"
 
-#: .\orders\models.py:70
+#: .\orders\models.py:73
 msgid "Failed Delivery"
 msgstr "Неудачная Доставка"
 
-#: .\orders\models.py:71
+#: .\orders\models.py:74
 msgid "Returned"
 msgstr "Вернулся"
 
-#: .\orders\models.py:72
+#: .\orders\models.py:75
 msgid "Cancelled"
 msgstr "Отменено"
 
@@ -1704,7 +1683,7 @@ msgstr ""
 "профессионалов стремится предоставить вам лучшие медицинские услуги. "
 "Ознакомьтесь с нашими услугами и запишитесь на прием уже сегодня!"
 
-#: .\store\models.py:23
+#: .\store\models.py:28
 msgid "categories"
 msgstr "категории"
 
@@ -1753,21 +1732,21 @@ msgstr "Цена от низкой до высокой"
 msgid "Price high to low"
 msgstr "Цена от высокой к низкой"
 
-#: .\templates\components\admin\imports\scripts.html:5
+#: .\templates\components\admin\imports\scripts.html:9
 msgid "entries per page"
 msgstr "записей на странице"
 
-#: .\templates\components\admin\imports\scripts.html:7
+#: .\templates\components\admin\imports\scripts.html:11
 msgid "Showing"
 msgstr "Показаны"
 
-#: .\templates\components\admin\imports\scripts.html:8
+#: .\templates\components\admin\imports\scripts.html:12
 msgid "entries"
 msgstr "записи"
 
 #: .\templates\components\admin\navbar.html:14
-#: .\templates\layouts\admin.html:19 .\templates\layouts\authentication.html:24
-#: .\user\models.py:38
+#: .\templates\layouts\admin.html:19
+#: .\templates\layouts\authentication.html:24 .\user\models.py:38
 msgid "Admin"
 msgstr "Администратор"
 
@@ -1861,8 +1840,8 @@ msgstr "Оператор"
 msgid "Staff"
 msgstr "Персонал"
 
-#: .\wishlist\templates\wishlist\wishlist.html:3 .\wishlist\views.py:15
-#: .\wishlist\views.py:17
+#: .\wishlist\templates\wishlist\wishlist.html:3 .\wishlist\views.py:12
+#: .\wishlist\views.py:14
 msgid "Wishlist"
 msgstr "Список желаний"
 
@@ -1870,9 +1849,16 @@ msgstr "Список желаний"
 msgid "Wishlist Description"
 msgstr ""
 "Отслеживайте свои любимые товары для здоровья и лекарства, добавляя их в "
-"свой список желаний. Наша функция списка желаний позволяет легко отслеживать "
-"продукты, которые вы хотите приобрести в будущем. Просмотрите наши продукты "
-"и добавьте их в свой список желаний сегодня!"
+"свой список желаний. Наша функция списка желаний позволяет легко отслеживать"
+" продукты, которые вы хотите приобрести в будущем. Просмотрите наши продукты"
+" и добавьте их в свой список желаний сегодня!"
+
+#~ msgid "Notes about your order, e.g. special notes for delivery."
+#~ msgstr ""
+#~ "Примечания к вашему заказу, например. специальные примечания для доставки."
+
+#~ msgid "Please enter your notes"
+#~ msgstr "Пожалуйста, введите ваши заметки"
 
 #, fuzzy
 #~ msgid "Order is not found"

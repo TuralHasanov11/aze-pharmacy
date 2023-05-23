@@ -168,7 +168,7 @@ def checkout(request):
                 channel_layer = get_channel_layer()
                 async_to_sync(channel_layer.group_send)("orders", {
                     "type": "order_created",
-                    "message": "new order",
+                    "message": _("New order: ") + f" {order.id}",
                 })
 
                 cart.clear()

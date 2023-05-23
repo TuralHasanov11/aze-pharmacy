@@ -11,6 +11,17 @@
         <main class="mb-5">
             <h2 class="text-center mb-4"><a href="{{config.app.site_url}}" target="_blank" class="text-decoration-none text-dark fw-bold">{{config.app.name}}</a></h2>
             <p class="mb-2">Hörmətli {{order.full_name}},</p>
+            <p class="mb-2">
+                Təəssüflə bildiririk ki, sifariş nömrəsi {{order.id}} olan sifarişiniz uğursuz çatdırılma cəhdi səbəbindən bizə qaytarılıb. 
+                Paket göstərilən çatdırılma ünvanına çata bilmədi.
+            </p>
+            <p class="mb-2">
+                Bu problemi həll etmək və uğurlu çatdırılmanı təmin etmək üçün <a class="text-success" href="{{config.app.site_url}}{% url 'main:contact' %}" target="_blank">Müştəri Dəstəyi Əlaqəsi</a> ünvanında müştəri dəstək komandamızla əlaqə saxlayın. 
+                Çatdırılma ünvanını yoxlamaqda və ya yeni çatdırılma cəhdini təşkil etməkdə sizə kömək edəcəyik.
+            </p>
+            <p class="mb-2">
+                Yaranmış hər hansı narahatlığa görə üzr istəyirik və əməkdaşlığınız üçün təşəkkür edirik.
+            </p>
         </main>
         <footer class="text-center">
             <img src="{{config.app.site_url}}{% static 'images/logo.png' %}" style="width: 30px; height:30px">

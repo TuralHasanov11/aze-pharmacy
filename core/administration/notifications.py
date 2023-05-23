@@ -64,9 +64,9 @@ class DeliveryEmailNotification(DeliveryNotification):
         PROCESSING = "Sifarişiniz hazırlanır"
         SHIPPED = "Sifarişiniz yoldadır"
         DELIVERED = "Sifarişiniz çatdırılıb"
-        FAILED_DELIVERY = "Uğursuz çatdırılma"
-        RETURNED = "Sifarişiniz qayıtdı"
-        CANCELLED = "Sifarişiniz ləğv edildi"
+        FAILED_DELIVERY = "Sifarişinizin çatdırılması uğursuz oldu"
+        RETURNED = "Sifarişiniz geri qaytarıldı"
+        CANCELLED = "Sifarişinizin çatdırılması ləğv edildi"
     
     @property
     def subject(self):

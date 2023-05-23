@@ -11,6 +11,12 @@
         <main class="mb-5">
             <h2 class="text-center mb-4"><a href="{{config.app.site_url}}" target="_blank" class="text-decoration-none text-dark fw-bold">{{config.app.name}}</a></h2>
             <p class="mb-2">Hörmətli {{order.full_name}},</p>
+            <p class="mb-2">Sifariş nömrəsi {{order.id}} ilə sifarişinizin çatdırılmasının ləğv edildiyini təəssüflə bildiririk. Bunun səbəb ola biləcəyi hər hansı narahatlığa görə üzr istəyirik.</p>
+            <p class="mb-2">
+                Hər hansı bir sualınız varsa və ya əlavə yardıma ehtiyacınız varsa,
+                <a class="text-success" href="{{config.app.site_url}}{% url 'main:contact' %}" target="_blank">Müştəri Dəstəyi Əlaqəsi</a>
+                ünvanında müştəri dəstək komandamızla əlaqə saxlamaqdan çəkinməyin.
+            </p>
         </main>
         <footer class="text-center">
             <img src="{{config.app.site_url}}{% static 'images/logo.png' %}" style="width: 30px; height:30px">
