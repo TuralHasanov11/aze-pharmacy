@@ -46,13 +46,17 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-header">{{product.name}}</div>
-                    <img class="card-img-top" src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% else %}{% static 'images/main/products/default.png' %}{% endif %}" alt="{{product.name}}">
+                    <img class="product-feature-image card-img-top" src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% else %}{% static 'images/main/products/default.png' %}{% endif %}" alt="{{product.name}}">
                     <div class="card-body">
                         <h5 class="card-title">{{product.name}}</h5>
                         <p class="card-text">{{product.description|safe}}</p>
-                        {% for product_image in product.images %}
-                        <img width="256" height="256" src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% else %}{% static 'images/main/products/default.png' %}{% endif %}" />
-                        {% endfor %}
+                        <div class="row">
+                            {% for product_image in product.images %}
+                            <div class="col-12 col-md-6">
+                                {% if product_image.image %}<img class="product-image" width="256" height="256" src="{{product_image.image.url}}" />{% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -74,8 +78,6 @@
                     <div class="card-body">
                         <h5 class="card-title">{% translate "Available units" %}</h5>
                         <p class="card-text">{{product.product_stock.units}}</p>
-                        <h5 class="card-title">{% translate "Sold units" %}</h5>
-                        <p class="card-text">{{product.product_stock.units_sold}}</p>
                     </div>
                 </div>
             </div>

@@ -52,12 +52,12 @@ class ProductQuerySet(models.QuerySet):
                 is_feature=True), to_attr='image_feature'),
             Prefetch('product_image', to_attr='images')
         )
-    
+
 
 class ProductManager(models.Manager):
     def get_queryset(self):
         return ProductQuerySet(self.model, using=self._db).order_by('-created_at').filter(is_active=True)
-    
+
     def list_queryset(self):
         return self.get_queryset().list_queryset()
 
@@ -105,14 +105,13 @@ class Product(models.Model):
 
 
 @receiver(post_delete, sender=Product)
-def on_product_delete(sender, instance, *args, **kwargs): 
-    pass  
-    # file_location = os.path.join(settings.BASE_DIR, f"media/{instance.slug}")
-    # shutil.rmtree(file_location, ignore_errors = False)
+def on_product_delete(sender, instance, *args, **kwargs):
+    shutil.rmtree(os.path.join(settings.MEDIA_ROOT,
+                  f"products/{instance.id}"), ignore_errors=False)
 
 
 def product_image_path(instance, filename):
-    return f"products/{instance.product.slug}/{filename}"
+    return f"products/{instance.product.id}/{filename}"
 
 
 class ProductImage(models.Model):
@@ -129,6 +128,5 @@ class ProductImage(models.Model):
 
 class Stock(models.Model):
     product = models.OneToOneField(
-        Product, related_name="product_stock", on_delete=models.CASCADE)
+        Product, related_name="product_stock", on_delete=models.CASCADE) 
     units = models.IntegerField(default=0, validators=[MinValueValidator(0)])
-    units_sold = models.IntegerField(default=0, validators=[MinValueValidator(0)])

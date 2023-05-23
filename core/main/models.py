@@ -23,7 +23,7 @@ class LanguageField(models.CharField):
 
 
 def company_cover_image_path(instance, filename):
-    return f"companies/{slugify(instance.name)}/{filename}"
+    return f"companies/{slugify(instance.name)}-{filename}"
 
 
 class Company(models.Model):

@@ -2,6 +2,7 @@
 
 from administration import forms
 from administration.notifications import sendDeliveryStatusNotification
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
@@ -444,7 +445,7 @@ def productUpdate(request, pk: int):
         form = forms.ProductForm(instance=product)
         stock_formset = forms.StockFormSet(instance=product)
         product_image_formset = forms.ProductImageFormSet(instance=product)
-    
+
     return render(request, "administration/store/products/edit.html", context={
         "product": product,
         'form': form,
@@ -585,4 +586,3 @@ def orderDetail(request, id: int):
         order_delivery_formset = forms.OrderDeliveryFormSet(instance=order)
 
     return render(request, template_name, {"order": order, "form": form, "order_delivery_formset": order_delivery_formset})
-

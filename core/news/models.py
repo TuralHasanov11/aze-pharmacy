@@ -15,7 +15,7 @@ class RichTextEditorField(ckeditorFields.RichTextUploadingField):
 
 
 def post_cover_image_path(instance, filename):
-    return f"posts/{instance.slug}/{filename}"
+    return f"posts/{instance.slug}-{filename}"
 
 
 class Post(models.Model):

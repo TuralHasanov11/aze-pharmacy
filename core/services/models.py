@@ -3,7 +3,7 @@ from django.utils.text import slugify
 
 
 def service_cover_image_path(instance, filename):
-    return f"services/{slugify(instance.name)}/{filename}"
+    return f"services/{slugify(instance.name)}-{filename}"
 
 
 class Service(models.Model):
@@ -16,3 +16,4 @@ class Service(models.Model):
 
     def __str__(self):
         return self.name 
+    

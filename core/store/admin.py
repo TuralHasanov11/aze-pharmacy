@@ -29,7 +29,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Stock)
 class StockAdmin(admin.ModelAdmin):
-    list_display = ('product', 'units', 'units_sold')
+    list_display = ('product', 'units')
 
 
 @admin.register(ProductImage)

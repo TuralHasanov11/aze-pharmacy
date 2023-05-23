@@ -6,7 +6,7 @@ from django.utils.text import slugify
 
 
 def document_file_path(instance, filename):
-    return f"documents/{slugify(instance.name)}/{filename}"
+    return f"documents/{slugify(instance.name)}-{filename}"
 
 
 class SupportedDocumentFormats(Enum):
@@ -19,6 +19,8 @@ class SupportedDocumentFormats(Enum):
     PPTM: str = "pptm"
     MOV: str = "mov"
     WEBM: str = "webm"
+    PNG: str = "png"
+    JPG: str = "jpg"
 
     @staticmethod
     def list():
