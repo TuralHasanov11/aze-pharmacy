@@ -68,6 +68,10 @@ jQuery(document).ready(function ($) {
 
       const data = await response.json();
 
+      if(!response.ok){
+        throw new Error(JSON.stringify(data))
+      }
+
       const product = productComponent(data)
       if ($(`.mini_cart_item[data-product_id='${productId}']`).length === 0) {
         $(".cart_list").append(product);
@@ -79,7 +83,7 @@ jQuery(document).ready(function ($) {
       $("#cart-total-price").html(data.total_price);
       $("#cart-quantity").html(data.quantity)
     } catch (error) {
-      console.log(error)
+      errorAlert(JSON.parse(error.message)?.message)
     }
   })
 
@@ -95,7 +99,7 @@ jQuery(document).ready(function ($) {
       });
       location.reload();
     } catch (error) {
-      console.log(error)
+      errorAlert(JSON.parse(error.message)?.message)
     }
   })
 
@@ -164,7 +168,7 @@ jQuery(document).ready(function ($) {
         $(`.cart_item[data-product_id='${productId}']`).find('.product-subtotal-price').html(data.item.total_price)
       }
     } catch (error) {
-      console.log(error)
+      errorAlert(JSON.parse(error.message)?.message)
     }
   })
 

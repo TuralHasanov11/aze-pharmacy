@@ -224,6 +224,11 @@ class PostCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
     success_message = _("Post was created successfully!")
     success_url = reverse_lazy('administration:post-list')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
+
 
 class PostUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Post
@@ -236,6 +241,11 @@ class PostUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
 
     def get_success_url(self):
         return reverse("administration:post-update", kwargs={"pk": self.object.pk})
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class PostDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):

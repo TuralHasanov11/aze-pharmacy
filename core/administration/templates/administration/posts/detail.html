@@ -45,10 +45,12 @@
     <div class="container-fluid px-4">
         <div class="card">
             <div class="card-header">{{post.title}}</div>
-            <img class="card-img-top" src="{{post.cover_image.url}}" alt="{{post.title}}">
+            <img class="card-img-top post-cover-img" src="{{post.cover_image.url}}" alt="{{post.title}}">
             <div class="card-body">
-                <h5 class="card-title">{{post.title}}</h5>
-                <h6 class="card-title"><i class="far fa-calendar-alt"></i> {{post.created_at|date:"j M Y"}}</h6>
+                <h5 class="card-title mb-3">{{post.title}}</h5>
+                <h6 class="card-title mb-3"><i class="far fa-calendar-alt"></i> {{post.created_at|date:"j M Y"}}</h6>
+                <h6 class="card-title mb-3"><i class="far fa-user"></i> {{post.last_modified_by}}</h6>
+                <hr>
                 <p class="card-text">{{post.description|safe}}</p>
             </div>
         </div>

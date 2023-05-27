@@ -379,3 +379,29 @@ function getCookie(name) {
 }
 
 const csrftoken = getCookie('csrftoken');
+
+const swalCustom = Swal.mixin({
+  customClass: {
+      confirmButton: 'btn btn-success',
+      cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+function successAlert(message) {
+  swalCustom.fire({
+      icon: 'success',
+      text: message,
+      confirmButtonText: okText
+  })
+}
+
+function errorAlert(message) {
+  swalCustom.fire({
+      icon: 'error',
+      text: message,
+      showCancelButton: true,
+      showConfirmButton: false,
+      cancelButtonText: okText
+  })
+}

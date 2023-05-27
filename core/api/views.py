@@ -121,12 +121,14 @@ def cartAdd(request):
             Prefetch('product_image', queryset=ProductImage.objects.filter(
                 is_feature=True), to_attr='image_feature'),
         ).get(id=data['product_id'])
+        
         item = cart.create(product=product, quantity=int(
             data['product_quantity']))
-
+            
         return JsonResponse({'quantity': cart.__len__(), 'total_price': cart.get_total_price, "item": item})
     except Exception as err:
-        return HttpResponseBadRequest(str(err))
+        return JsonResponse(status=status.HTTP_422_UNPROCESSABLE_ENTITY, 
+                        data={"message": str(err)})
 
 
 @require_POST
@@ -135,10 +137,10 @@ def cartRemove(request):
         cart = CartProcessor(request)
         data = json.load(request)
         cart.remove(productId=data["product_id"])
-
         return JsonResponse({'quantity': cart.__len__(), 'total_price': cart.get_total_price})
     except Exception as err:
-        return HttpResponseBadRequest(str(err))
+        return JsonResponse(status=status.HTTP_422_UNPROCESSABLE_ENTITY, 
+                        data={"message": str(err)})
 
 
 @require_POST
@@ -148,10 +150,10 @@ def cartUpdate(request):
         data = json.load(request)
         item = cart.update(productId=int(data['product_id']),
                            quantity=int(data['product_quantity']))
-
         return JsonResponse({'quantity': cart.__len__(), 'total_price': cart.get_total_price, "item": item})
     except Exception as err:
-        return HttpResponseBadRequest(str(err))
+        return JsonResponse(status=status.HTTP_422_UNPROCESSABLE_ENTITY, 
+                        data={"message": str(err)})
 
 
 @require_POST

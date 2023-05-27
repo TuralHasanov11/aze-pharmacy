@@ -1,5 +1,8 @@
+import os
 from decimal import Decimal
 
+from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 from store.models import Product
 
 
@@ -9,7 +12,7 @@ def productSerializer(product: Product):
         "name": product.name,
         "slug": product.slug,
         "category_slug": product.category.slug,
-        "image_feature": product.image_feature[0].image.url,
+        "image_feature": product.image_feature[0].image.url if product.image_feature else f"{settings.MEDIA_URL}products/default.png",
     }
 
 
@@ -28,7 +31,7 @@ class CartProcessor:
         if cartContainer:
             for product in products:
                 self.cart[str(product.id)] = {
-                    'price': str(product.regular_price),
+                    'price': str(product.discount_price),
                     'quantity': next(cartContainer[key]["quantity"] for key in cartContainer.keys() if int(key) == product.id),
                     'product': productSerializer(product)
                 }
@@ -52,58 +55,53 @@ class CartProcessor:
 
     def create(self, product: Product, quantity: int):
         productId = str(product.id)
-        try:
-            if productId in self.cart:
-                self.cart[productId]["price"] = str(product.discount_price)
-                self.cart[productId]["quantity"] += quantity
-            else:
-                self.cart[productId] = {'price': str(
-                    product.discount_price), 'quantity': quantity}
+        if not product.in_stock:
+            raise ValueError(_("Product is not in stock"))
+        elif productId in self.cart:
+            self.cart[productId]["quantity"] += quantity
+            self.cart[productId]["price"] = str(product.discount_price)
+        else:
+            self.cart[productId] = {'price': str(
+                product.discount_price), 'quantity': quantity}
+        
+        if self.cart[productId]["quantity"] > product.maximum_purchase_units:
+            raise ValueError(_("You exceeded maximum purchase limit"))
+        elif self.cart[productId]["quantity"] < 1:
+            self.cart.pop(productId)
+            return None
 
-            self.cart[productId]["product"] = productSerializer(product)
+        self.cart[productId]["product"] = productSerializer(product)
 
-            self.session["cart"] = self.cart
-            self.save()
-            return self.cart[productId]
-        except Exception:
-            raise Exception(
-                "Product cannot be added or modified in Shopping cart")
+        self.session["cart"] = self.cart
+        self.save()
+        return self.cart[productId]
+            
 
     def update(self, productId: int, quantity: int):
         productId = str(productId)
-        try:
-            if productId in self.cart:
-                if quantity > 0:    
-                    self.cart[productId]['quantity'] = quantity
-                    self.cart[productId]['total_price'] = str(Decimal(self.cart[productId]['price']) * quantity)
-                else:
-                    self.cart.pop(productId)
-                    return None
+        if productId in self.cart:
+            if quantity > 0:    
+                self.cart[productId]['quantity'] = quantity
+                self.cart[productId]['total_price'] = str(Decimal(self.cart[productId]['price']) * quantity)
+            else:
+                self.cart.pop(productId)
+                return None
 
-            self.session["cart"] = self.cart
-            self.save()
-            return self.cart[productId]
-        except Exception:
-            raise Exception(
-                "Product cannot be added or modified in Shopping cart")
+        self.session["cart"] = self.cart
+        self.save()
+        return self.cart[productId]
 
     def remove(self, productId: int) -> None:
-        try:
-            productId = str(productId)
-            if productId in self.cart:
-                del self.cart[productId]
-                self.session["cart"] = self.cart
-                self.save()
-        except Exception:
-            raise Exception("Product is not removed from Shopping cart")
+        productId = str(productId)
+        if productId in self.cart:
+            del self.cart[productId]
+            self.session["cart"] = self.cart
+            self.save()
 
     def clear(self) -> None:
-        try:
-            del self.cart
-            self.session["cart"] = {}
-            self.save()
-        except Exception:
-            raise Exception("Shopping cart cannot be cleared")
+        del self.cart
+        self.session["cart"] = {}
+        self.save()
 
     def save(self) -> None:
         self.session.modified = True

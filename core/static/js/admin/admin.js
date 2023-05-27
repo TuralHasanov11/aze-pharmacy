@@ -90,7 +90,7 @@ window.addEventListener('DOMContentLoaded', event => {
         } else {
             element.setCustomValidity("");
         }
-        element.addEventListener('change', function (event) {
+        element.addEventListener('input', function (event) {
             if (!event.currentTarget.checkValidity()) {
                 event.currentTarget.setCustomValidity(event.currentTarget.getAttribute('title'))
             }

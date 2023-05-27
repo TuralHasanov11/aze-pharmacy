@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <script
   type="text/javascript"
   src="{% static 'js/vue.global.min.js' %}"
@@ -57,6 +58,9 @@
   type="text/javascript"
   src="{% static 'js/main/slick.js' %}"
 ></script>
+<script>
+  const okText = '{% translate "Ok" %}'
+</script>
 <script type="text/javascript" src="{% static 'js/main/main.js' %}"></script>
 
 <script
