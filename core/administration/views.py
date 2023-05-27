@@ -553,6 +553,7 @@ def orderDetail(request, id: int):
         Prefetch('refunds', queryset=OrderRefund.objects.all())
     ).get(id=id)
     delivery_form = forms.OrderDeliveryForm(instance=OrderDelivery.objects.get(order=order))
+    refund_form = forms.OrderRefundForm()
 
     if request.POST:
         form = forms.OrderForm(data=request.POST, instance=order)
@@ -567,4 +568,4 @@ def orderDetail(request, id: int):
             order.save()
         form = forms.OrderForm(instance=order)
 
-    return render(request, template_name, {"order": order, "form": form, "delivery_form": delivery_form})
+    return render(request, template_name, {"order": order, "form": form, "delivery_form": delivery_form, "refund_form": refund_form})

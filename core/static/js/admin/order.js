@@ -1,17 +1,17 @@
 const fullRefundInput = document.getElementById('id_full_refund')
-const refundAmountInput = document.getElementById('id_refund_amount')
+const refundAmountInput = document.getElementById('id_amount')
+const refundReasonInput = document.getElementById('id_reason')
 const refundBtn = document.getElementById('refund_btn')
 const totalRefundElement = document.getElementById('total_refund')
 const orderRefundListElement = document.getElementById('orderRefundList')
 const deliveryForm = document.getElementById('delivery-form')
+const refundForm = document.getElementById('refund-form')
 
-document.getElementById('refund-form').addEventListener('submit', async (event) => {
+refundForm.addEventListener('submit', async (event) => {
   event.preventDefault()
   refundBtn.disabled = true
 
-  const formData = new FormData();
-  formData.append('amount', refundAmountInput.value)
-  formData.append('full_refund', fullRefundInput.checked)
+  const formData = new FormData(event.currentTarget);
 
   try {
     const response = await fetch(`/api/orders/${orderId}/refund`, {
@@ -24,15 +24,15 @@ document.getElementById('refund-form').addEventListener('submit', async (event) 
 
     if (response.ok) {
       successAlert(data.message)
-      refundAmountInput.value = ''
-      totalRefundElement.innerHTML = data.order.total_refund
-      orderRefundListElement.innerHTML = refundComponent(data.order_refund) + orderRefundListElement.innerHTML
+      handleRefundSuccess(data)
       refundBtn.disabled = false
-    } else {
+    } else{
       throw new Error(JSON.stringify(data))
     }
   } catch (error) {
+    refundBtn.disabled = false
     errorAlert(JSON.parse(error.message)?.message)
+    handleRefundErrors(JSON.parse(error.message).errors)
   }
 })
 
@@ -52,20 +52,36 @@ deliveryForm.addEventListener('submit', async (event) => {
     if (response.ok) {
       successAlert(data.message)
       handleDeliverySuccess()
-      refundBtn.disabled = false
-    } else {
+    } else{
       throw new Error(JSON.stringify(data))
     }
   } catch (error) {
+    refundBtn.disabled = false
     errorAlert(JSON.parse(error.message)?.message)
     handleDeliveryErrors(JSON.parse(error.message)?.errors)
-    refundBtn.disabled = false
   }
 })
 
+function handleRefundSuccess(data){
+  for (const field in deliveryForm.elements) {
+    deliveryForm.elements[field]?.classList?.remove('is-invalid')
+  }
+  refundAmountInput.value = ''
+  refundReasonInput.value = ''
+  totalRefundElement.innerHTML = data.order.total_refund
+  orderRefundListElement.innerHTML = refundComponent(data.order_refund) + orderRefundListElement.innerHTML
+}
+
+function handleRefundErrors(errors){
+  for (const field in errors) {
+    document.getElementById(`id_${field}`).classList.add('is-invalid')
+    document.getElementById(`id_${field}_errors`).innerHTML = errors[field].join('\n')
+  }
+}
+
 function handleDeliverySuccess(){
   for (const field in deliveryForm.elements) {
-    deliveryForm.elements[field].classList.remove('is-invalid')
+    deliveryForm.elements[field]?.classList?.remove('is-invalid')
   }
 }
 
@@ -83,7 +99,7 @@ fullRefundInput.addEventListener('change', (event) => {
     refundBtn.classList.remove('btn-disabled')
   } else {
     document.getElementById('refund_amount').classList.remove('d-none')
-    if (event.currentTarget.value < Number(orderTotalPaid)) {
+    if (event.currentTarget.value < Number(orderTotalPaid) - Number(orderTotalRefund)) {
       refundBtn.disabled = false
       refundBtn.classList.remove('btn-disabled')
     } else {
@@ -99,7 +115,7 @@ refundAmountInput.addEventListener('input', (event) => {
 })
 
 function validateRefundAmount(amount) {
-  if (amount && amount !== '' && amount !== 'NaN' && amount < Number(orderTotalPaid)) {
+  if (amount && amount !== '' && amount !== 'NaN' && amount < Number(orderTotalPaid) - Number(orderTotalRefund)) {
     refundBtn.disabled = false
     refundBtn.classList.remove('btn-disabled')
     document.getElementById('refundAmountHelp').classList.remove('invalid-feedback')

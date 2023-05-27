@@ -13,16 +13,20 @@ class OrderSerializer(serializers.ModelSerializer):
                   'get_payment_status_display')
 
 
-class OrderRefundCreateSerializer(serializers.Serializer):
+class OrderRefundCreateSerializer(serializers.ModelSerializer):
     amount = serializers.DecimalField(
         max_digits=5, min_value=0, decimal_places=2, required=False)
-    full_refund = serializers.BooleanField()
+    full_refund = serializers.BooleanField(default=False, required=False)
 
-    def validate(self, data):
-        if data['amount'] + self.context["order"].total_refund > self.context["order"].total_paid:
+    class Meta:
+        model = OrderRefund
+        fields = ('amount', 'full_refund', 'reason')
+
+    def validate_amount(self, value):
+        if value + self.context["order"].total_refund > self.context["order"].total_paid:
             raise serializers.ValidationError(
-                _("Refund amount is greater than order payment amount"))
-        return data
+                _("Refund Amount should not be greater than remainder of total payment"))
+        return value
 
 
 class OrderDeliveryUpdateSerializer(serializers.ModelSerializer):
@@ -33,4 +37,4 @@ class OrderDeliveryUpdateSerializer(serializers.ModelSerializer):
 class OrderRefundSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderRefund
-        fields = ('id', 'order', 'amount', 'created_date')
+        fields = ('id', 'order', 'reason', 'amount', 'created_date')

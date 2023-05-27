@@ -2,7 +2,8 @@ import json
 from urllib.parse import urlencode
 
 from administration.forms import OrderDeliveryForm
-from administration.notifications import sendDeliveryStatusNotification
+from administration.notifications import (sendDeliveryStatusNotification,
+                                          sendRefundNotification)
 from api import pagination
 from api.serializers import (OrderDeliveryUpdateSerializer,
                              OrderRefundCreateSerializer,
@@ -27,6 +28,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import (require_GET, require_http_methods,
                                           require_POST)
 from orders.models import Order, OrderDelivery, OrderItem, OrderRefund
+from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from store.models import Product, ProductImage
@@ -248,25 +250,32 @@ def orderRefund(request, id: int):
         order = Order.objects.get(id=id)
         serializer = OrderRefundCreateSerializer(
             data=request.POST, context={"order": order})
-        if serializer.is_valid(raise_exception=True):
-            data = serializer.validated_data
-            if data["full_refund"]:
-                amount = order.total_paid
-            else:
-                amount = data["amount"]
-            # PaymentGateway.refund(request=request, amount=float(amount),
-            #                       orderId=order.order_key, sessionId=order.session_id)
-            orderRefund = OrderRefund.objects.create(order=order, amount=amount)
-            orderRefundSerializer = OrderRefundSerializer(instance=orderRefund)
-            order.payment_status = Order.PaymentStatus.REFUNDED
-            order.total_refund += amount
-            order.save()
-            orderSerializer = OrderSerializer(instance=order)
-            return Response(data={"message": _("Order was refunded"), 
-                                  "order": orderSerializer.data, 
-                                  "order_refund": orderRefundSerializer.data})
+        if serializer.is_valid():
+            with transaction.atomic():
+                data = serializer.validated_data
+                if "full_refund" in data and data.get("full_refund"):
+                    data["amount"] = order.total_paid
+                # PaymentGateway.refund(request=request, amount=float(amount),
+                #                       orderId=order.order_key, sessionId=order.session_id)
+                orderRefund = OrderRefund.objects.create(
+                    order=order, amount=data["amount"], reason=data["reason"])
+                order.payment_status = Order.PaymentStatus.REFUNDED
+                order.total_refund += orderRefund.amount
+                order.save()
+
+                sendRefundNotification(
+                    request=request, order=order, refund=orderRefund)
+
+                orderRefundSerializer = OrderRefundSerializer(
+                    instance=orderRefund)
+                orderSerializer = OrderSerializer(instance=order)
+                return Response(data={"message": _("Order was refunded"),
+                                      "order": orderSerializer.data,
+                                      "order_refund": orderRefundSerializer.data})
+        return Response(status=status.HTTP_422_UNPROCESSABLE_ENTITY, 
+                        data={"message": _("Order cannot be refunded"), "errors": serializer.errors})
     except Order.DoesNotExist:
-        return Response(status=404, data={"message": _("Order was not found")})
+        return Response(status=status.HTTP_404_NOT_FOUND, data={"message": _("Order was not found")})
 
 
 @login_required
@@ -275,10 +284,20 @@ def orderRefund(request, id: int):
 def updateOrderDelivery(request, id: int):
     try:
         delivery = OrderDelivery.objects.get(order_id=id)
+        order = Order.objects.get(id=id)
         form = OrderDeliveryForm(instance=delivery, data=request.POST)
         if form.is_valid():
-            form.save()
+            if form.has_changed():
+                with transaction.atomic():
+                    changedData = form.changed_data
+                    delivery = form.save()
+                    if "delivery_status" in changedData:
+                        try:
+                            sendDeliveryStatusNotification(
+                                request=request, order=order, delivery=delivery)
+                        except Exception as e:
+                            return Response(status=400, data={"message": str(e)})
             return Response(data={"message": _("Order delivery was updated")})
-        return Response(status=400, data={"message": _("Order delivery cannot be updated"), "errors": form.errors})
+        return Response(status=422, data={"message": _("Order delivery cannot be updated"), "errors": form.errors})
     except Order.DoesNotExist:
         return Response(status=404, data={"message": _("Order was not found")})

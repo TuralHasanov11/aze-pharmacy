@@ -318,7 +318,7 @@ class OrderDeliveryForm(forms.ModelForm):
     STAGES = {
         "PROCESSING": [OrderDelivery.DeliveryStatus.SHIPPED.name, OrderDelivery.DeliveryStatus.CANCELLED.name],
         "SHIPPED": [OrderDelivery.DeliveryStatus.DELIVERED.name, OrderDelivery.DeliveryStatus.FAILED_DELIVERY.name],
-        "DELIVERED": [],
+        "DELIVERED": [OrderDelivery.DeliveryStatus.RETURNED.name],
         "FAILED_DELIVERY": [OrderDelivery.DeliveryStatus.PROCESSING.name],
         "RETURNED": [OrderDelivery.DeliveryStatus.PROCESSING.name],
         "CANCELLED": [],
@@ -340,3 +340,15 @@ class OrderDeliveryForm(forms.ModelForm):
         return delivery_date
 
 
+class OrderRefundForm(forms.ModelForm):
+    amount = forms.DecimalField(label=_('Refund Amount'), widget=forms.NumberInput(
+        attrs={'class': 'form-control', 'placeholder': _('Refund Amount'), 'title': _('Please enter refund amount')}),
+        help_text=_('Refund Amount should not be greater than remainder of total payment'), required=False)
+    reason = forms.CharField(label=_('Reason'), widget=forms.Textarea(
+        attrs={'class': 'form-control', 'placeholder': _('Reason'), 'title': _('Please enter reason')}))
+    full_refund = forms.BooleanField(required=False, initial=False, label=_('Full Refund'), widget=forms.CheckboxInput(
+        attrs={'class': 'form-check-input', 'placeholder': _('Full Refund')}))
+
+    class Meta:
+        model = OrderDelivery
+        fields = ('amount', 'reason', 'full_refund')

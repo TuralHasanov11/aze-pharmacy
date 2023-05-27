@@ -86,8 +86,8 @@
                       <span>{{order.updated_at|date:"d.m.Y H:i"}}</span>
                     </li>
                   </ul>
-                  {% include 'components/messages.html' with messages=messages %}
                   <form method="post" id="order-form">
+                  {% include 'components/messages.html' with messages=messages %}
                   {{ form.media }} 
                   {% csrf_token %}
                   <div class="card mb-4">
@@ -147,7 +147,6 @@
               <div class="row">
                 <div class="col-12">
                   <form id="delivery-form">
-                    {% csrf_token %}
                     <div class="card mb-4">
                       <div class="card-header">{% translate "Edit Order Delivery Information" %}</div>
                       <div class="card-body">
@@ -199,16 +198,27 @@
                     <div class=" card mb-4">
                       <div class="card-header">{% translate "Refund Order" %}</div>
                       <div class="card-body">
-                        <div class="form-check mb-4">
-                          <input class="form-check-input" type="checkbox" id="id_full_refund">
-                          <label class="form-check-label" for="id_full_refund">
-                            {% translate "Full Refund" %}
+                        <div class="mb-4">
+                          <label class="form-check-label" for="{{refund_form.reason.id_for_label}}">
+                            {{refund_form.reason.label}}
                           </label>
+                          {{refund_form.reason}}
+                          <div id="{{refund_form.reason.label}}_errors" class="invalid-feedback"></div> 
+                        </div>
+                        <div class="form-check mb-4">
+                          {{refund_form.full_refund}}
+                          <label class="form-check-label" for="{{refund_form.full_refund.id_for_label}}">
+                            {{refund_form.full_refund.label}}
+                          </label>
+                          <div id="{{refund_form.full_refund.id_for_label}}_errors" class="invalid-feedback"></div> 
                         </div>
                         <div id="refund_amount" class="mb-4">
-                            <label class="mb-1" for="id_refund_amount">{% translate "Refund Amount" %}</label>
-                            <input type="number" value="0" max="{{order.total_paid}}" class="form-control" id="id_refund_amount">
-                            <div id="refundAmountHelp" class="form-text">{% translate "Refund amount is greater than order payment amount" %}</div>
+                            <label class="mb-1" for="{{refund_form.amount.id_for_label}}">{{refund_form.amount.label}}</label>
+                            {{refund_form.amount}}
+                            <div id="refundAmountHelp" class="form-text">
+                              {{refund_form.amount.help_text}}
+                            </div>
+                            <div id="{{refund_form.amount.id_for_label}}_errors" class="invalid-feedback"></div> 
                         </div>
                         <button id="refund_btn" disabled class="btn btn-success btn-disabled" type="submit">{% translate "Make Refund" %}</button>
                       </div>
@@ -226,6 +236,7 @@
 {% block scripts %}
 <script>
   const orderTotalPaid = "{{order.total_paid}}"
+  const orderTotalRefund = "{{order.total_refund}}"
   const orderId = "{{order.id}}"
   const okText = '{% translate "Ok" %}'
 
