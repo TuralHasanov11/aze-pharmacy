@@ -42,60 +42,85 @@ window.addEventListener('DOMContentLoaded', event => {
         let datatableSelector = document.querySelector('.datatable-selector')
         let datatableInput = document.querySelector('.datatable-input')
         let datatableInfo = document.querySelector('.datatable-info')
-        if(datatableSelector){
+        if (datatableSelector) {
             datatableSelector.nextSibling.data = entriesPerPageText
         }
-        if(datatableInput){
+        if (datatableInput) {
             datatableInput.placeholder = `${searchText}...`
         }
-        if(datatableInfo){
+        if (datatableInfo) {
             let datatableInfoNumbers = datatableInfo.innerText.match(/\d+/g)
             datatableInfo.innerText = `${showingText} ${datatableInfoNumbers[0]}-${datatableInfoNumbers[1]} ${entriesText}. ${totalText} ${datatableInfoNumbers[2]}`
         }
-        
+
     });
 
 
-    document.querySelectorAll('input').forEach(function (element){
-        if(!element.checkValidity()){
+    document.querySelectorAll('input').forEach(function (element) {
+        if (!element.checkValidity()) {
             element.setCustomValidity(element.getAttribute('title'))
-        }else{
+        } else {
             element.setCustomValidity("");
         }
-        element.addEventListener('input', function(event){
-            if(!event.currentTarget.checkValidity()){
+        element.addEventListener('input', function (event) {
+            if (!event.currentTarget.checkValidity()) {
                 event.currentTarget.setCustomValidity(event.currentTarget.getAttribute('title'))
             }
             event.currentTarget.setCustomValidity("");
         })
     })
 
-    document.querySelectorAll('select').forEach(function (element){
-        if(!element.checkValidity()){
+    document.querySelectorAll('select').forEach(function (element) {
+        if (!element.checkValidity()) {
             element.setCustomValidity(element.getAttribute('title'))
-        }else{
+        } else {
             element.setCustomValidity("");
         }
-        element.addEventListener('change', function(event){
-            if(!event.currentTarget.checkValidity()){
-                event.currentTarget.setCustomValidity(event.currentTarget.getAttribute('title'))
-            }
-            event.currentTarget.setCustomValidity("");
-        })  
-    })
-
-    document.querySelectorAll('textarea').forEach(function (element){
-        if(!element.checkValidity()){
-            element.setCustomValidity(element.getAttribute('title'))
-        }else{
-            element.setCustomValidity("");
-        }
-        element.addEventListener('change', function(event){
-            if(!event.currentTarget.checkValidity()){
+        element.addEventListener('change', function (event) {
+            if (!event.currentTarget.checkValidity()) {
                 event.currentTarget.setCustomValidity(event.currentTarget.getAttribute('title'))
             }
             event.currentTarget.setCustomValidity("");
         })
     })
 
+    document.querySelectorAll('textarea').forEach(function (element) {
+        if (!element.checkValidity()) {
+            element.setCustomValidity(element.getAttribute('title'))
+        } else {
+            element.setCustomValidity("");
+        }
+        element.addEventListener('change', function (event) {
+            if (!event.currentTarget.checkValidity()) {
+                event.currentTarget.setCustomValidity(event.currentTarget.getAttribute('title'))
+            }
+            event.currentTarget.setCustomValidity("");
+        })
+    })
 });
+
+const swalCustom = Swal.mixin({
+    customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+    },
+    buttonsStyling: false
+})
+
+function successAlert(message) {
+    swalCustom.fire({
+        icon: 'success',
+        text: message,
+        confirmButtonText: okText
+    })
+}
+
+function errorAlert(message) {
+    swalCustom.fire({
+        icon: 'error',
+        text: message,
+        showCancelButton: true,
+        showConfirmButton: false,
+        cancelButtonText: okText
+    })
+}

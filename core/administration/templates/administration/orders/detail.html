@@ -63,7 +63,11 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <span class="fw-bold">{% translate "Total Paid" %}</span>
-                      <span>{{order.total_paid}} &#8380;</span>
+                      <span>{{order.total_paid}} &#8380;</span> 
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <span class="fw-bold">{% translate "Refunded Payment" %}</span>
+                      <span><span id="total_refund">{{order.total_refund}}</span> &#8380;</span> 
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <span class="fw-bold">{% translate "Order Key" %}</span>
@@ -82,6 +86,24 @@
                       <span>{{order.updated_at|date:"d.m.Y H:i"}}</span>
                     </li>
                   </ul>
+                  {% include 'components/messages.html' with messages=messages %}
+                  <form method="post" id="order-form">
+                  {{ form.media }} 
+                  {% csrf_token %}
+                  <div class="card mb-4">
+                    <div class="card-header">{% translate "Edit Order Details" %}</div>
+                    <div class="card-body">
+                      {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
+                      {{form.non_form_errors}}
+                      <div class="mb-4">
+                          <label class="mb-1" for="{{ form.notes.id_for_label }}">{{ form.notes.label }}</label>
+                          {{ form.notes }} 
+                          {{ form.notes.errors }}
+                      </div>
+                      <button class="btn btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
+                    </div>
+                  </div>
+                  </form>
                 </div>
                 <div class="col-12 col-lg-7">
                   <div class="table-responsive mb-4">
@@ -99,7 +121,13 @@
                         {% for item in order.items.all %}
                         <tr>
                           <th scope="row">{{forloop.counter}}</th>
-                          <td><a href="{% url 'administration:store-product-update' pk=item.product.id %}">{{item.product.name}}</a></td>
+                          <td>
+                            {% if item.product.id %}
+                            <a href="{% url 'administration:store-product-update' pk=item.product.id %}">{{item.product.name}}</a>
+                            {% else %}
+                            {% translate "Deleted Product" %}
+                            {% endif %}
+                          </td>
                           <td>{{item.price}}</td>
                           <td>{{item.quantity}}</td>
                           <td>{{item.sub_total}}</td>
@@ -116,64 +144,92 @@
                 </div>
               </div>
               <hr>
-              {% include 'components/messages.html' with messages=messages %}
-              <form method="post" id="order-form">
-                {{ form.media }} 
-                {% csrf_token %}
-                <div class="row">
-                  <div class="col-12 col-md-6">
-                    <div class=" card mb-4">
-                      <div class="card-header">{% translate "Edit Order Details" %}</div>
-                      <div class="card-body">
-                        {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
-                        {{form.non_form_errors}}
-                        <div class="mb-4">
-                            <label class="mb-1" for="{{ form.notes.id_for_label }}">{{ form.notes.label }}</label>
-                            {{ form.notes }} 
-                            {{ form.notes.errors }}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="col-12 col-md-6">
+              <div class="row">
+                <div class="col-12">
+                  <form id="delivery-form">
+                    {% csrf_token %}
                     <div class="card mb-4">
                       <div class="card-header">{% translate "Edit Order Delivery Information" %}</div>
                       <div class="card-body">
-                        {{ order_delivery_formset.management_form }} 
-                        {% for formset_item in order_delivery_formset %}
-                        {{ formset_item.media }} 
-                        {% include "components/form/hidden-fields.html" with hidden_fields=formset_item.hidden_fields %}
-                        {{formset_item.non_form_errors}}
+                        {{ delivery_form.media }} 
                         <div class="mb-4">
-                            <label class="mb-1" for="{{ formset_item.courier_name.id_for_label }}">{{ formset_item.courier_name.label }}</label>
-                            {{ formset_item.courier_name }} 
-                            {{ formset_item.courier_name.errors }}
+                            <label class="mb-1" for="{{ delivery_form.courier_name.id_for_label }}">{{ delivery_form.courier_name.label }}</label>
+                            {{ delivery_form.courier_name }}
+                              <div id="{{delivery_form.courier_name.id_for_label}}_errors" class="invalid-feedback"></div> 
                         </div>
                         <div class="mb-4">
-                          <label class="mb-1" for="{{ formset_item.tracking_number.id_for_label }}">{{ formset_item.tracking_number.label }}</label>
-                          {{ formset_item.tracking_number }} 
-                          {{ formset_item.tracking_number.errors }}
+                          <label class="mb-1" for="{{ delivery_form.tracking_number.id_for_label }}">{{ delivery_form.tracking_number.label }}</label>
+                          {{ delivery_form.tracking_number }}
+                            <div id="{{delivery_form.tracking_number.id_for_label}}_errors" class="invalid-feedback"></div> 
                         </div>
                         <div class="mb-4">
-                          <label class="mb-1" for="{{ formset_item.delivery_status.id_for_label }}">{{ formset_item.delivery_status.label }}</label>
-                          {{ formset_item.delivery_status }} 
-                          {{ formset_item.delivery_status.errors }}
+                          <label class="mb-1" for="{{ delivery_form.delivery_status.id_for_label }}">{{ delivery_form.delivery_status.label }}</label>
+                          {{ delivery_form.delivery_status }}
+                            <div id="{{delivery_form.delivery_status.id_for_label}}_errors" class="invalid-feedback"></div> 
                         </div>
                         <div class="mb-4">
-                          <label class="mb-1" for="{{ formset_item.delivery_date.id_for_label }}">{{ formset_item.delivery_date.label }}</label>
-                          {{ formset_item.delivery_date }} 
-                          {{ formset_item.delivery_date.errors }}
+                          <label class="mb-1" for="{{ delivery_form.delivery_date.id_for_label }}">{{ delivery_form.delivery_date.label }}</label>
+                          {{ delivery_form.delivery_date }}
+                            <div id="{{delivery_form.delivery_date.id_for_label}}_errors" class="invalid-feedback"></div> 
                         </div>
-                        {% endfor %}
+                        <button id="delivery_submit_btn" class="btn btn-success btn-disabled" type="submit">{% translate "Save Delivery" %}</button>
                       </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class=" card mb-4">
+                    <div class="card-header">{% translate "Refunds" %}</div>
+                    <div class="card-body">
+                      <ol id="orderRefundList" class="list-group list-group-numbered">
+                        {% for refund in order.refunds.all %}
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">{{refund.created_date}}</div>
+                          </div>
+                          <span class="badge bg-primary rounded-pill">{{refund.amount}} &#8380;</span>
+                        </li>
+                        {% endfor %}
+                      </ol>
                     </div>
                   </div>
                 </div>
-                <button class="btn btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
-              </form>
+                <div class="col-12 col-md-6">
+                  <form method="post" id="refund-form">
+                    <div class=" card mb-4">
+                      <div class="card-header">{% translate "Refund Order" %}</div>
+                      <div class="card-body">
+                        <div class="form-check mb-4">
+                          <input class="form-check-input" type="checkbox" id="id_full_refund">
+                          <label class="form-check-label" for="id_full_refund">
+                            {% translate "Full Refund" %}
+                          </label>
+                        </div>
+                        <div id="refund_amount" class="mb-4">
+                            <label class="mb-1" for="id_refund_amount">{% translate "Refund Amount" %}</label>
+                            <input type="number" value="0" max="{{order.total_paid}}" class="form-control" id="id_refund_amount">
+                            <div id="refundAmountHelp" class="form-text">{% translate "Refund amount is greater than order payment amount" %}</div>
+                        </div>
+                        <button id="refund_btn" disabled class="btn btn-success btn-disabled" type="submit">{% translate "Make Refund" %}</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
         </div>
   </div>
 </main>
 {% endblock content %}
+
+
+{% block scripts %}
+<script>
+  const orderTotalPaid = "{{order.total_paid}}"
+  const orderId = "{{order.id}}"
+  const okText = '{% translate "Ok" %}'
+
+</script>
+
+<script src="{% static 'js/admin/order.js' %}"></script>
+{% endblock scripts %}

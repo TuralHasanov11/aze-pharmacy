@@ -215,3 +215,4 @@ TWILIO_PHONE = os.environ.get('TWILIO_PHONE', None)
 
 PAYRIFF_SECRET_KEY = os.environ.get('PAYRIFF_SECRET_KEY', None)
 PAYRIFF_API_ENDPOINT = os.environ.get('PAYRIFF_API_ENDPOINT', None)
+PAYRIFF_MERCHANT = os.environ.get('PAYRIFF_MERCHANT', None)

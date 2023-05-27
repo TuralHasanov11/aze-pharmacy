@@ -1,14 +1,16 @@
 import json
-import random
-import string
 from urllib.parse import urlencode
 
+from administration.forms import OrderDeliveryForm
 from administration.notifications import sendDeliveryStatusNotification
 from api import pagination
-from api.serializers import OrderSerializer
+from api.serializers import (OrderDeliveryUpdateSerializer,
+                             OrderRefundCreateSerializer,
+                             OrderRefundSerializer, OrderSerializer)
 from asgiref.sync import async_to_sync
 from cart.processor import CartProcessor
 from channels.layers import get_channel_layer
+from checkout.payment import PaymentGateway
 from checkout.serializers import CheckoutSerializer
 from checkout.utils import getCities
 from django.contrib import messages
@@ -17,11 +19,14 @@ from django.contrib.postgres.search import (SearchQuery, SearchRank,
                                             SearchVector)
 from django.db import transaction
 from django.db.models import Prefetch
-from django.http import HttpResponseBadRequest, JsonResponse
+from django.http import (HttpResponseBadRequest, HttpResponseNotFound,
+                         JsonResponse)
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.decorators.http import require_POST
-from orders.models import Order, OrderDelivery, OrderItem
+from django.views.decorators.http import (require_GET, require_http_methods,
+                                          require_POST)
+from orders.models import Order, OrderDelivery, OrderItem, OrderRefund
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from store.models import Product, ProductImage
@@ -70,16 +75,38 @@ def orderFlag(request, id: int):
     order.save()
     serializer = OrderSerializer(order)
     return Response(data=serializer.data)
-    
+
 
 @api_view(['GET'])
 def checkoutFormDetails(request):
     serializer = CheckoutSerializer()
     messages: dict = {}
-    print(serializer)
     for field in serializer.fields.keys():
-        messages[field] = {"error_messages": serializer.fields[field].error_messages, "label": serializer.fields[field].label}
+        messages[field] = {"error_messages": serializer.fields[field].error_messages,
+                           "label": serializer.fields[field].label}
     return Response(data=messages)
+
+
+@require_POST
+def wishlistAdd(request):
+    try:
+        data = json.load(request)
+        wishlist = WishlistProcessor(request)
+        wishlist.add(productId=int(data['product_id']))
+        return JsonResponse({'quantity': wishlist.__len__()})
+    except Exception as err:
+        return HttpResponseBadRequest(str(err))
+
+
+@require_POST
+def wishlistRemove(request):
+    try:
+        data = json.load(request)
+        wishlist = WishlistProcessor(request)
+        wishlist.remove(productId=int(data['product_id']))
+        return JsonResponse({'quantity': wishlist.__len__()})
+    except Exception as err:
+        return HttpResponseBadRequest(str(err))
 
 
 @require_POST
@@ -123,10 +150,6 @@ def cartUpdate(request):
         return JsonResponse({'quantity': cart.__len__(), 'total_price': cart.get_total_price, "item": item})
     except Exception as err:
         return HttpResponseBadRequest(str(err))
-    
-
-def order_key_generator(size=32, chars=string.ascii_lowercase + string.digits):
-    return ''.join(random.choice(chars) for _ in range(size))
 
 
 @require_POST
@@ -135,18 +158,10 @@ def checkout(request):
         cart = CartProcessor(request)
         serializer = CheckoutSerializer(data=request.POST)
         if serializer.is_valid(raise_exception=True):
-            channel_layer = get_channel_layer()
-            async_to_sync(channel_layer.send)("orders", {
-                "type": "order_created",
-                "message": "order was",
-            })
             with transaction.atomic():
-                order = serializer.save()
+                order = Order(**serializer.validated_data)
                 order.total_paid = cart.get_total_price
-                order.order_key = order_key_generator()
-                order.payment_status = order.PaymentStatus.PAID
                 order.save()
-
                 for item in cart:
                     OrderItem.objects.create(
                         order_id=order.id,
@@ -156,47 +171,114 @@ def checkout(request):
                         quantity=item['quantity']
                     )
 
-                delivery = OrderDelivery.objects.create(order=order)
-                order = Order.objects.select_related('order_delivery').prefetch_related(
-                    Prefetch('items', queryset=OrderItem.objects.select_related(
-                        'product__category').all()),
-                ).get(id=order.id)
-                
-                sendDeliveryStatusNotification(
-                        request=request, order=order, delivery=delivery)
-                
-                channel_layer = get_channel_layer()
-                async_to_sync(channel_layer.group_send)("orders", {
-                    "type": "order_created",
-                    "message": _("New order: ") + f" {order.id}",
-                })
-
-                cart.clear()
-                successUrl = f"{reverse('orders:detail', kwargs={'id': order.id})}?{urlencode({'order_key': order.order_key})}#order-summary"
-                messages.success(request, _(
-                    'Order was placed successfully'))
-                return JsonResponse(data={"success_url": successUrl})
+                paymentData = PaymentGateway.charge(request=request, description=f"{order.full_name}-{order.total_paid}",
+                                                    amount=order.total_paid)
+                print(paymentData)
+                order.order_key = 123
+                order.session_id = 124124
+                order.save()
+                return JsonResponse(data=paymentData["payload"])
     except Exception as e:
         return JsonResponse(status=400, data={"message": _("Order cannot be placed"), "errors": str(e)})
-    
+
+
+@require_http_methods(['GET', 'POST'])
+def approvePayment(request):
+    # try:
+    print(request.method)
+    print(request.POST)
+    data = request.POST.get("payload")
+    cart = CartProcessor(request)
+    order = Order.objects.select_related('order_delivery').prefetch_related(
+        Prefetch('items', queryset=OrderItem.objects.select_related(
+            'product__category').all()),
+    ).get(order_key=data["orderID"])
+    order.payment_status = Order.PaymentStatus.PAID
+    order.save()
+    delivery = OrderDelivery.objects.create(order=order)
+
+    sendDeliveryStatusNotification(
+        request=request, order=order, delivery=delivery)
+
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)("orders", {
+        "type": "order_created",
+        "message": _("New order: ") + f" {order.id}",
+    })
+    cart.clear()
+    messages.success(request, _('Order was placed successfully'))
+    return redirect(f"{reverse('orders:detail', kwargs={'id': order.id})}?{urlencode({'order_key': order.order_key})}#order-summary")
+    # except Exception as e:
+    #     messages.error(request, _("Order cannot be placed"))
+    #     print(str(e))
+    #     return redirect(f"{reverse('checkout:failed')}#order-failed")
+
 
 @require_POST
-def wishlistAdd(request):
+def cancelPayment(request):
     try:
-        data = json.load(request)
-        wishlist = WishlistProcessor(request)
-        wishlist.add(productId=int(data['product_id']))
-        return JsonResponse({'quantity': wishlist.__len__()})
-    except Exception as err:
-        return HttpResponseBadRequest(str(err))
+        data = request.POST.get("payload")
+        print(data)
+        Order.objects.get(order_key=data["orderID"]).delete()
+        return redirect("checkout:index")
+    except Exception:
+        messages.error(request, _("Order cannot be cancelled"))
+        return redirect("checkout:index")
 
 
 @require_POST
-def wishlistRemove(request):
+def declinePayment(request):
     try:
-        data = json.load(request)
-        wishlist = WishlistProcessor(request)
-        wishlist.remove(productId=int(data['product_id']))
-        return JsonResponse({'quantity': wishlist.__len__()})
-    except Exception as err:
-        return HttpResponseBadRequest(str(err))
+        data = request.POST.get("payload")
+        print(data)
+        order = Order.objects.get(order_key=data["orderID"])
+        order.payment_status = Order.PaymentStatus.CANCELLED
+        order.save()
+        return redirect("checkout:index")
+    except Exception:
+        messages.error(request, _("Order cannot be declined"))
+        return redirect("checkout:index")
+
+
+@login_required
+@api_view(['POST'])
+@permission_required(['orders.change_order'], raise_exception=True)
+def orderRefund(request, id: int):
+    try:
+        order = Order.objects.get(id=id)
+        serializer = OrderRefundCreateSerializer(
+            data=request.POST, context={"order": order})
+        if serializer.is_valid(raise_exception=True):
+            data = serializer.validated_data
+            if data["full_refund"]:
+                amount = order.total_paid
+            else:
+                amount = data["amount"]
+            # PaymentGateway.refund(request=request, amount=float(amount),
+            #                       orderId=order.order_key, sessionId=order.session_id)
+            orderRefund = OrderRefund.objects.create(order=order, amount=amount)
+            orderRefundSerializer = OrderRefundSerializer(instance=orderRefund)
+            order.payment_status = Order.PaymentStatus.REFUNDED
+            order.total_refund += amount
+            order.save()
+            orderSerializer = OrderSerializer(instance=order)
+            return Response(data={"message": _("Order was refunded"), 
+                                  "order": orderSerializer.data, 
+                                  "order_refund": orderRefundSerializer.data})
+    except Order.DoesNotExist:
+        return Response(status=404, data={"message": _("Order was not found")})
+
+
+@login_required
+@api_view(['POST'])
+@permission_required(['orders.change_order'], raise_exception=True)
+def updateOrderDelivery(request, id: int):
+    try:
+        delivery = OrderDelivery.objects.get(order_id=id)
+        form = OrderDeliveryForm(instance=delivery, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return Response(data={"message": _("Order delivery was updated")})
+        return Response(status=400, data={"message": _("Order delivery cannot be updated"), "errors": form.errors})
+    except Order.DoesNotExist:
+        return Response(status=404, data={"message": _("Order was not found")})

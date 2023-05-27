@@ -27,7 +27,7 @@ from django.views.generic.list import ListView
 from library.models import Document
 from main.models import Company, Question, SiteInfo, SiteText
 from news.models import Post
-from orders.models import Order, OrderItem
+from orders.models import Order, OrderDelivery, OrderItem, OrderRefund
 from services.models import Service
 from store.models import Category, Product, ProductImage
 
@@ -545,40 +545,26 @@ class FAQDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageM
 @require_http_methods(['GET', 'POST'])
 @permission_required(["orders.change_order", "orders.view_order"], login_url=reverse_lazy('administration:index'))
 def orderDetail(request, id: int):
-    form_class = forms.OrderForm
     template_name = 'administration/orders/detail.html'
     success_message = _("Order was updated successfully!")
     order = Order.objects.select_related('order_delivery').prefetch_related(
         Prefetch('items', queryset=OrderItem.objects.select_related(
             'product__category').all()),
+        Prefetch('refunds', queryset=OrderRefund.objects.all())
     ).get(id=id)
+    delivery_form = forms.OrderDeliveryForm(instance=OrderDelivery.objects.get(order=order))
 
     if request.POST:
-        form = form_class(data=request.POST, instance=order)
-        order_delivery_formset = forms.OrderDeliveryFormSet(
-            data=request.POST, instance=order)
-        if form.is_valid() and order_delivery_formset.is_valid():
-            with transaction.atomic():
-                order = form.save()
-                if order_delivery_formset.has_changed():
-                    deliveryForm = order_delivery_formset[0]
-                    changedData = deliveryForm.changed_data
-                    delivery = deliveryForm.save()
-                    if "delivery_status" in changedData:
-                        try:
-                            sendDeliveryStatusNotification(
-                                request=request, order=order, delivery=delivery)
-                        except Exception as e:
-                            messages.error(request, str(e))
-                            return redirect(reverse("administration:order-detail", kwargs={"id": order.id})+"#order-form")
-                messages.success(request, success_message)
-                return redirect(reverse("administration:order-detail", kwargs={"id": order.id})+"#order-form")
+        form = forms.OrderForm(data=request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            messages.success(request, success_message)
+            return redirect(reverse("administration:order-detail", kwargs={"id": order.id})+"#order-form")
         messages.error(request, _("Order was not saved!"))
     else:
         if not order.seen:
             order.seen = True
             order.save()
-        form = form_class(instance=order)
-        order_delivery_formset = forms.OrderDeliveryFormSet(instance=order)
+        form = forms.OrderForm(instance=order)
 
-    return render(request, template_name, {"order": order, "form": form, "order_delivery_formset": order_delivery_formset})
+    return render(request, template_name, {"order": order, "form": form, "delivery_form": delivery_form})

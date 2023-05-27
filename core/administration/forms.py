@@ -308,7 +308,7 @@ class OrderDeliveryForm(forms.ModelForm):
     delivery_date = forms.DateField(label=_('Delivery Date'), widget=DatePickerInput(
         attrs={'class': 'form-control', 'min': datetime.date.today(),
                'title': _('Please enter delivery date')},
-        options={"locale": 'az', "format": "MM/DD/YYYY"}))
+        options={"locale": 'az', "format": "DD-MM-YYYY"}))
 
     class Meta:
         model = OrderDelivery
@@ -340,5 +340,3 @@ class OrderDeliveryForm(forms.ModelForm):
         return delivery_date
 
 
-OrderDeliveryFormSet = forms.inlineformset_factory(
-    parent_model=Order, model=OrderDelivery, max_num=1, form=OrderDeliveryForm)

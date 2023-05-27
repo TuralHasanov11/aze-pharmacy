@@ -28,3 +28,5 @@ def detail(request, id: int):
         return render(request, template_name=template_name, context={'order': order, "breadcrumb": breadcrumb, "order_quantity": order_quantity})
     except Order.DoesNotExist:
         return redirect('main:not-found')
+    
+

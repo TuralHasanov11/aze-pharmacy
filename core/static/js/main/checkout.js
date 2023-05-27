@@ -75,8 +75,8 @@ createApp({
 
             const data = await response.json()
 
-            if(response.ok && data.success_url){
-                window.location.replace(data?.success_url);
+            if(response.ok){
+                window.location.replace(data?.sessionId);
             }else{
                 throw new Error(JSON.stringify(data))
             }

@@ -19774,3 +19774,7 @@ img.product-feature-image{
 		height: 380px;
 	}
 }
+
+.btn-disabled{
+  cursor: not-allowed;
+}

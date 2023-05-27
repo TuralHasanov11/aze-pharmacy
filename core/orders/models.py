@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -8,7 +10,9 @@ class Order(models.Model):
     class PaymentStatus(models.TextChoices):
         PENDING = "PENDING", _("Pending")
         PAID = "PAID", _("Paid")
+        CANCELLED = "CANCELLED", _("Cancelled")
         FAILED = "FAILED", _("Failed")
+        REFUNDED = "REFUNDED", _("Refunded")
 
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
@@ -18,7 +22,9 @@ class Order(models.Model):
     phone_regex = RegexValidator(regex=r'^\+?1?\d{12}$')
     phone = models.CharField(validators=[phone_regex], max_length=17)
     total_paid = models.DecimalField(max_digits=7, decimal_places=2)
-    order_key = models.CharField(max_length=200, unique=True)
+    total_refund = models.DecimalField(max_digits=7, decimal_places=2, default=0)
+    order_key = models.CharField(max_length=255, unique=True, null=True)
+    session_id = models.CharField(max_length=255, unique=True, null=True)
     payment_status = models.CharField(
         max_length=20, choices=PaymentStatus.choices, default=PaymentStatus.PENDING)
     notes = models.TextField(blank=True, null=True)
@@ -49,6 +55,24 @@ class Order(models.Model):
             return "danger"
         return "primary"
 
+
+class OrderRefund(models.Model):
+    order = models.ForeignKey(
+        Order, related_name='refunds', on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=6, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('-created_at',)
+
+    def __str__(self):
+        return str(self.amount)
+    
+    @property
+    def created_date(self):
+        return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
+    
 
 class OrderItem(models.Model):
     order = models.ForeignKey(

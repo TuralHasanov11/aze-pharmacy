@@ -6,14 +6,14 @@ from wishlist.processor import WishlistProcessor
 
 
 @require_GET
-def wishlist(request):
+def index(request):
     result = WishlistProcessor(request)
     breadcrumb = [
         {"title": _("Wishlist")},
         {"title": _("Home"), "route": reverse("main:index")},
         {"title": _("Wishlist")},
     ]
-    return render(request, 'wishlist/wishlist.html', {
+    return render(request, 'wishlist/index.html', {
         'wishlist': result,
         'breadcrumb': breadcrumb
     })
