@@ -15,7 +15,7 @@
       >
         <div class="col-lg-6">
           <div class="inner-shop-details-flex-wrap mb-5">
-            <img src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% else %}{% static 'images/main/products/default.png' %}{% endif %}" class="product-feature-image mb-5">
+            <img src="{{product.get_image_feature}}" class="product-feature-image mb-5">
             {% include "components/products/image-gallery.html" with images=product.images %}   
           </div>
         </div>
@@ -44,6 +44,7 @@
               >
               {% endif %}
             </div>
+            {% if product.in_stock %}
             <div class="inner-shop-perched-info">
               <div
                 class="suxnix-cart-action"
@@ -83,6 +84,7 @@
                 </button>
               </div>
             </div>
+            {% endif %}
             <div
               class="tinv-wraper woocommerce tinv-wishlist tinvwl-shortcode-add-to-cart"
             >

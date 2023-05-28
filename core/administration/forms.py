@@ -324,7 +324,9 @@ class OrderDeliveryForm(forms.ModelForm):
     delivery_date = forms.DateField(label=_('Delivery Date'), widget=DatePickerInput(
         attrs={'class': 'form-control', 'min': datetime.date.today(),
                'title': _('Please enter delivery date')},
-        options={"locale": 'az', "format": "DD-MM-YYYY"}))
+        options={"locale": 'az', "format": "DD-MM-YYYY"}), required=False)
+    last_modified_by = forms.CharField(label=_('Last Modified by'), widget=forms.TextInput(
+        attrs={'class': 'form-control', 'readonly': True, 'disabled': True}), required=False, disabled=True)
 
     class Meta:
         model = OrderDelivery
@@ -354,6 +356,18 @@ class OrderDeliveryForm(forms.ModelForm):
             raise forms.ValidationError(
                 _("Delivery date can be minimum today"))
         return delivery_date
+    
+    def __init__(self, *args, **kwargs):
+        if 'last_modified_by' in kwargs:
+            self.last_modified_by = kwargs.pop('last_modified_by')
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        print(self.last_modified_by)
+        delivery = super().save(commit)
+        delivery.last_modified_by = self.last_modified_by
+        delivery.save()
+        return delivery
 
 
 class OrderRefundForm(forms.ModelForm):

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 00:20+0200\n"
+"POT-Creation-Date: 2023-05-28 17:52+0200\n"
 "PO-Revision-Date: 2023-05-19 18:50+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -181,7 +181,7 @@ msgstr ""
 #: .\administration\forms.py:79 .\administration\forms.py:202
 #: .\administration\templates\administration\services\index.html:31
 #: .\administration\templates\administration\services\index.html:39
-#: .\store\templates\store\products\detail.html:126
+#: .\store\templates\store\products\detail.html:128
 msgid "Description"
 msgstr ""
 
@@ -369,7 +369,7 @@ msgstr ""
 
 #: .\administration\forms.py:190 .\administration\forms.py:191
 #: .\administration\templates\administration\store\products\detail.html:74
-#: .\store\templates\store\products\detail.html:110
+#: .\store\templates\store\products\detail.html:112
 msgid "Weight"
 msgstr ""
 
@@ -382,7 +382,7 @@ msgid "Is Active"
 msgstr ""
 
 #: .\administration\forms.py:195 .\administration\forms.py:196
-#: .\store\models.py:105
+#: .\store\models.py:112
 msgid "In Stock"
 msgstr ""
 
@@ -584,35 +584,39 @@ msgstr ""
 msgid "Please enter delivery date"
 msgstr ""
 
-#: .\administration\forms.py:348
+#: .\administration\forms.py:328
+msgid "Last Modified by"
+msgstr ""
+
+#: .\administration\forms.py:350
 msgid "Delivery Status cannot be changed!"
 msgstr ""
 
-#: .\administration\forms.py:355
+#: .\administration\forms.py:357
 msgid "Delivery date can be minimum today"
 msgstr ""
 
-#: .\administration\forms.py:360 .\administration\forms.py:361
+#: .\administration\forms.py:374 .\administration\forms.py:375
 msgid "Refund Amount"
 msgstr ""
 
-#: .\administration\forms.py:362
+#: .\administration\forms.py:376
 msgid "Please enter refund amount"
 msgstr ""
 
-#: .\administration\forms.py:363 .\api\serializers.py:28
+#: .\administration\forms.py:377 .\api\serializers.py:28
 msgid "Refund Amount should not be greater than remainder of total payment"
 msgstr ""
 
-#: .\administration\forms.py:364 .\administration\forms.py:365
+#: .\administration\forms.py:378 .\administration\forms.py:379
 msgid "Reason"
 msgstr ""
 
-#: .\administration\forms.py:366
+#: .\administration\forms.py:380
 msgid "Please enter reason"
 msgstr ""
 
-#: .\administration\forms.py:367 .\administration\forms.py:368
+#: .\administration\forms.py:381 .\administration\forms.py:382
 msgid "Full Refund"
 msgstr ""
 
@@ -653,6 +657,7 @@ msgstr ""
 #: .\administration\templates\administration\documents\edit.html:53
 #: .\administration\templates\administration\documents\index.html:100
 #: .\administration\templates\administration\orders\detail.html:103
+#: .\administration\templates\administration\orders\detail.html:178
 #: .\administration\templates\administration\posts\create.html:75
 #: .\administration\templates\administration\posts\edit.html:86
 #: .\administration\templates\administration\services\edit.html:58
@@ -745,9 +750,11 @@ msgstr ""
 
 #: .\administration\templates\administration\documents\index.html:42
 #: .\administration\templates\administration\documents\index.html:53
+#: .\administration\templates\administration\posts\index.html:52
+#: .\administration\templates\administration\posts\index.html:67
 #: .\administration\templates\administration\store\products\index.html:71
 #: .\administration\templates\administration\store\products\index.html:105
-msgid "Updated At"
+msgid "Update Date"
 msgstr ""
 
 #: .\administration\templates\administration\documents\index.html:84
@@ -767,8 +774,8 @@ msgstr ""
 #: .\administration\templates\administration\orders\detail.html:16
 #: .\administration\templates\administration\orders\detail.html:35
 #: .\orders\templates\orders\detail.html:2
-#: .\orders\templates\orders\detail.html:22 .\orders\views.py:23
-#: .\orders\views.py:25
+#: .\orders\templates\orders\detail.html:22 .\orders\views.py:22
+#: .\orders\views.py:24
 msgid "Order Details"
 msgstr ""
 
@@ -829,7 +836,7 @@ msgstr ""
 #: .\cart\templates\cart\summary.html:31
 #: .\orders\templates\orders\detail.html:39
 #: .\orders\templates\orders\detail.html:105
-#: .\store\templates\store\products\detail.html:66
+#: .\store\templates\store\products\detail.html:67
 msgid "Quantity"
 msgstr ""
 
@@ -855,23 +862,20 @@ msgstr ""
 msgid "Edit Order Delivery Information"
 msgstr ""
 
-#: .\administration\templates\administration\orders\detail.html:174
-msgid "Save Delivery"
-msgstr ""
-
-#: .\administration\templates\administration\orders\detail.html:181
+#: .\administration\templates\administration\orders\detail.html:185
 msgid "Refunds"
 msgstr ""
 
-#: .\administration\templates\administration\orders\detail.html:199
+#: .\administration\templates\administration\orders\detail.html:205
 msgid "Refund Order"
 msgstr ""
 
-#: .\administration\templates\administration\orders\detail.html:223
+#: .\administration\templates\administration\orders\detail.html:229
 msgid "Make Refund"
 msgstr ""
 
-#: .\administration\templates\administration\orders\detail.html:241
+#: .\administration\templates\administration\orders\detail.html:247
+#: .\templates\components\default\imports\scripts.html:62
 msgid "Ok"
 msgstr ""
 
@@ -933,11 +937,6 @@ msgstr ""
 #: .\administration\templates\administration\posts\index.html:49
 #: .\administration\templates\administration\posts\index.html:64
 msgid "Creation Date"
-msgstr ""
-
-#: .\administration\templates\administration\posts\index.html:52
-#: .\administration\templates\administration\posts\index.html:67
-msgid "Update Date"
 msgstr ""
 
 #: .\administration\templates\administration\services\edit.html:18
@@ -1095,7 +1094,7 @@ msgstr ""
 
 #: .\administration\templates\administration\store\products\index.html:63
 #: .\administration\templates\administration\store\products\index.html:97
-#: .\store\templates\store\products\detail.html:114
+#: .\store\templates\store\products\detail.html:116
 msgid "Category"
 msgstr ""
 
@@ -1247,44 +1246,52 @@ msgstr ""
 msgid "Order was not saved!"
 msgstr ""
 
-#: .\api\views.py:185
+#: .\api\views.py:130
+msgid "Product was not found"
+msgstr ""
+
+#: .\api\views.py:188
 msgid "Order cannot be placed"
 msgstr ""
 
-#: .\api\views.py:209
+#: .\api\views.py:212
 msgid "New order: "
 msgstr ""
 
-#: .\api\views.py:212
+#: .\api\views.py:215
 msgid "Order was placed successfully"
 msgstr ""
 
-#: .\api\views.py:228
+#: .\api\views.py:231
 msgid "Order cannot be cancelled"
 msgstr ""
 
-#: .\api\views.py:242
+#: .\api\views.py:245
 msgid "Order cannot be declined"
 msgstr ""
 
-#: .\api\views.py:273
+#: .\api\views.py:276
 msgid "Order was refunded"
 msgstr ""
 
-#: .\api\views.py:277
+#: .\api\views.py:280
 msgid "Order cannot be refunded"
 msgstr ""
 
-#: .\api\views.py:279 .\api\views.py:304
+#: .\api\views.py:282 .\api\views.py:308
 msgid "Order was not found"
 msgstr ""
 
-#: .\api\views.py:301
+#: .\api\views.py:305
 msgid "Order delivery was updated"
 msgstr ""
 
-#: .\api\views.py:302
+#: .\api\views.py:306
 msgid "Order delivery cannot be updated"
+msgstr ""
+
+#: .\cart\processor.py:66
+msgid "You exceeded maximum purchase limit"
 msgstr ""
 
 #: .\cart\templates\cart\summary.html:2 .\cart\views.py:17 .\cart\views.py:19
@@ -1314,15 +1321,16 @@ msgstr ""
 
 #: .\cart\templates\cart\summary.html:143
 #: .\checkout\templates\checkout\index.html:265
+#: .\store\templates\store\products\index.html:68
 msgid "Continue Shopping"
 msgstr ""
 
 #: .\cart\views.py:18 .\checkout\views.py:13 .\checkout\views.py:27
 #: .\library\views.py:18 .\main\context_processors.py:11
-#: .\main\templates\main\index.html:2 .\main\views.py:42 .\main\views.py:83
+#: .\main\templates\main\index.html:2 .\main\views.py:41 .\main\views.py:83
 #: .\main\views.py:98 .\main\views.py:110 .\main\views.py:123
 #: .\main\views.py:135 .\main\views.py:150 .\news\views.py:18
-#: .\news\views.py:32 .\orders\views.py:24 .\services\views.py:18
+#: .\news\views.py:32 .\orders\views.py:23 .\services\views.py:18
 #: .\store\views.py:41 .\store\views.py:66 .\store\views.py:90
 #: .\wishlist\views.py:13
 msgid "Home"
@@ -1368,17 +1376,6 @@ msgstr ""
 #: .\checkout\views.py:28
 msgid "Order Failed"
 msgstr ""
-
-#: .\checkout\templates\checkout\failed.html:3
-#, fuzzy
-#| msgid "Order Details Description"
-msgid "Order Failed Description"
-msgstr ""
-"View the detailed information of your specific order on our online pharmacy. "
-"The Order Details page provides you with a comprehensive overview of your "
-"purchase, including itemized products, quantities, prices, and shipping "
-"details. Stay informed about your specific order and review all the relevant "
-"information at a glance."
 
 #: .\checkout\templates\checkout\index.html:2 .\checkout\views.py:12
 #: .\checkout\views.py:14 .\templates\components\default\header.html:93
@@ -1485,7 +1482,7 @@ msgstr ""
 
 #: .\main\context_processors.py:20 .\main\context_processors.py:36
 #: .\main\templates\main\contact.html:2 .\main\templates\main\contact.html:109
-#: .\main\views.py:41 .\main\views.py:43
+#: .\main\views.py:40 .\main\views.py:42
 #: .\templates\components\default\footer.html:85
 msgid "Contact Us"
 msgstr ""
@@ -1682,43 +1679,43 @@ msgstr ""
 "discoveries, medical breakthroughs, and health-related news. Read more and "
 "be informed!"
 
-#: .\orders\models.py:11
+#: .\orders\models.py:12
 msgid "Pending"
 msgstr ""
 
-#: .\orders\models.py:12
+#: .\orders\models.py:13
 msgid "Paid"
 msgstr ""
 
-#: .\orders\models.py:13 .\orders\models.py:100
+#: .\orders\models.py:14 .\orders\models.py:118
 msgid "Cancelled"
 msgstr ""
 
-#: .\orders\models.py:14
+#: .\orders\models.py:15
 msgid "Failed"
 msgstr ""
 
-#: .\orders\models.py:15
+#: .\orders\models.py:16
 msgid "Refunded"
 msgstr ""
 
-#: .\orders\models.py:95
+#: .\orders\models.py:113
 msgid "Processing"
 msgstr ""
 
-#: .\orders\models.py:96
+#: .\orders\models.py:114
 msgid "Shipped"
 msgstr ""
 
-#: .\orders\models.py:97
+#: .\orders\models.py:115
 msgid "Delivered"
 msgstr ""
 
-#: .\orders\models.py:98
+#: .\orders\models.py:116
 msgid "Failed Delivery"
 msgstr ""
 
-#: .\orders\models.py:99
+#: .\orders\models.py:117
 msgid "Returned"
 msgstr ""
 
@@ -1765,19 +1762,19 @@ msgstr ""
 "covered. Our team of professionals is dedicated to providing you with the "
 "best healthcare services. Explore our services and book an appointment today!"
 
-#: .\store\models.py:28
+#: .\store\models.py:31
 msgid "categories"
 msgstr ""
 
-#: .\store\models.py:105
+#: .\store\models.py:112
 msgid "Not in Stock"
 msgstr ""
 
-#: .\store\models.py:109
+#: .\store\models.py:120
 msgid "Active"
 msgstr ""
 
-#: .\store\models.py:109
+#: .\store\models.py:120
 msgid "Not Active"
 msgstr ""
 
@@ -1789,11 +1786,11 @@ msgstr ""
 msgid "Remove from Wishlist"
 msgstr ""
 
-#: .\store\templates\store\products\detail.html:82
+#: .\store\templates\store\products\detail.html:83
 msgid "Add to Cart"
 msgstr ""
 
-#: .\store\templates\store\products\detail.html:133
+#: .\store\templates\store\products\detail.html:135
 msgid "Related Products"
 msgstr ""
 
@@ -1805,12 +1802,16 @@ msgstr ""
 "reliable delivery services. Browse our product categories and find the right "
 "products for your healthcare needs."
 
-#: .\store\templates\store\products\index.html:15
+#: .\store\templates\store\products\index.html:16
 msgid "Order by"
 msgstr ""
 
-#: .\store\templates\store\products\index.html:48
+#: .\store\templates\store\products\index.html:49
 msgid "Product Categories"
+msgstr ""
+
+#: .\store\templates\store\products\index.html:67
+msgid "The products you searched for do not exist"
 msgstr ""
 
 #: .\store\views.py:14 .\templates\components\main\blog-area.html:9
@@ -1839,7 +1840,7 @@ msgstr ""
 
 #: .\templates\components\admin\navbar.html:14
 #: .\templates\layouts\admin.html:19 .\templates\layouts\authentication.html:24
-#: .\user\models.py:38
+#: .\user\models.py:39
 msgid "Admin"
 msgstr ""
 
@@ -1904,25 +1905,41 @@ msgstr ""
 msgid "Discounted Products"
 msgstr ""
 
-#: .\templates\components\products\product-home.html:29
-#: .\templates\components\products\product.html:74
+#: .\templates\components\products\product-home.html:32
+#: .\templates\components\products\product.html:83
 msgid "Buy Now"
 msgstr ""
 
-#: .\templates\components\products\product.html:21
-msgid "Sale"
+#: .\user\models.py:11
+msgid "Email is required"
 msgstr ""
 
-#: .\user\models.py:39
-msgid "Editor"
+#: .\user\models.py:13
+msgid "Username is required"
 msgstr ""
 
 #: .\user\models.py:40
-msgid "Operator"
+msgid "Editor"
 msgstr ""
 
 #: .\user\models.py:41
+msgid "Operator"
+msgstr ""
+
+#: .\user\models.py:42
 msgid "Staff"
+msgstr ""
+
+#: .\wishlist\processor.py:41
+msgid "Product cannot be added to Wishlist"
+msgstr ""
+
+#: .\wishlist\processor.py:50
+msgid "Product is not removed from Wishlist"
+msgstr ""
+
+#: .\wishlist\processor.py:58
+msgid "Wishlist cannot be cleared"
 msgstr ""
 
 #: .\wishlist\templates\wishlist\index.html:3 .\wishlist\views.py:12
@@ -1937,6 +1954,16 @@ msgstr ""
 "to your wishlist. Our wishlist feature makes it easy to keep track of "
 "products you want to purchase in the future. Browse our products and add "
 "them to your wishlist today!"
+
+#, fuzzy
+#~| msgid "Order Details Description"
+#~ msgid "Order Failed Description"
+#~ msgstr ""
+#~ "View the detailed information of your specific order on our online "
+#~ "pharmacy. The Order Details page provides you with a comprehensive "
+#~ "overview of your purchase, including itemized products, quantities, "
+#~ "prices, and shipping details. Stay informed about your specific order and "
+#~ "review all the relevant information at a glance."
 
 #~ msgid "Orders Description"
 #~ msgstr ""

@@ -46,7 +46,7 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-header">{{product.name}}</div>
-                    <img class="product-feature-image card-img-top" src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% else %}{% static 'images/main/products/default.png' %}{% endif %}" alt="{{product.name}}">
+                    <img class="product-feature-image card-img-top" src="{{product.get_image_feature}}" alt="{{product.name}}">
                     <div class="card-body">
                         <h5 class="card-title">{{product.name}}</h5>
                         <p class="card-text">{{product.description|safe}}</p>

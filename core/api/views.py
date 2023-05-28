@@ -5,7 +5,7 @@ from administration.forms import OrderDeliveryForm
 from administration.notifications import (sendDeliveryStatusNotification,
                                           sendRefundNotification)
 from api import pagination
-from api.serializers import (OrderDeliveryUpdateSerializer,
+from api.serializers import (OrderDeliverySerializer,
                              OrderRefundCreateSerializer,
                              OrderRefundSerializer, OrderSerializer)
 from asgiref.sync import async_to_sync
@@ -20,8 +20,7 @@ from django.contrib.postgres.search import (SearchQuery, SearchRank,
                                             SearchVector)
 from django.db import transaction
 from django.db.models import Prefetch
-from django.http import (HttpResponseBadRequest, HttpResponseNotFound,
-                         JsonResponse)
+from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -120,15 +119,18 @@ def cartAdd(request):
         product = Product.objects.select_related('category').prefetch_related(
             Prefetch('product_image', queryset=ProductImage.objects.filter(
                 is_feature=True), to_attr='image_feature'),
-        ).get(id=data['product_id'])
-        
+        ).get(id=data['product_id'], in_stock=True)
+
         item = cart.create(product=product, quantity=int(
             data['product_quantity']))
-            
+
         return JsonResponse({'quantity': cart.__len__(), 'total_price': cart.get_total_price, "item": item})
+    except Product.DoesNotExist:
+        return JsonResponse(status=status.HTTP_404_NOT_FOUND,
+                            data={"message": _("Product was not found")})
     except Exception as err:
-        return JsonResponse(status=status.HTTP_422_UNPROCESSABLE_ENTITY, 
-                        data={"message": str(err)})
+        return JsonResponse(status=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            data={"message": str(err)})
 
 
 @require_POST
@@ -139,8 +141,8 @@ def cartRemove(request):
         cart.remove(productId=data["product_id"])
         return JsonResponse({'quantity': cart.__len__(), 'total_price': cart.get_total_price})
     except Exception as err:
-        return JsonResponse(status=status.HTTP_422_UNPROCESSABLE_ENTITY, 
-                        data={"message": str(err)})
+        return JsonResponse(status=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            data={"message": str(err)})
 
 
 @require_POST
@@ -152,8 +154,8 @@ def cartUpdate(request):
                            quantity=int(data['product_quantity']))
         return JsonResponse({'quantity': cart.__len__(), 'total_price': cart.get_total_price, "item": item})
     except Exception as err:
-        return JsonResponse(status=status.HTTP_422_UNPROCESSABLE_ENTITY, 
-                        data={"message": str(err)})
+        return JsonResponse(status=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            data={"message": str(err)})
 
 
 @require_POST
@@ -260,7 +262,7 @@ def orderRefund(request, id: int):
                 # PaymentGateway.refund(request=request, amount=float(amount),
                 #                       orderId=order.order_key, sessionId=order.session_id)
                 orderRefund = OrderRefund.objects.create(
-                    order=order, amount=data["amount"], reason=data["reason"])
+                    order=order, amount=data["amount"], reason=data["reason"], created_by=request.user)
                 order.payment_status = Order.PaymentStatus.REFUNDED
                 order.total_refund += orderRefund.amount
                 order.save()
@@ -274,7 +276,7 @@ def orderRefund(request, id: int):
                 return Response(data={"message": _("Order was refunded"),
                                       "order": orderSerializer.data,
                                       "order_refund": orderRefundSerializer.data})
-        return Response(status=status.HTTP_422_UNPROCESSABLE_ENTITY, 
+        return Response(status=status.HTTP_422_UNPROCESSABLE_ENTITY,
                         data={"message": _("Order cannot be refunded"), "errors": serializer.errors})
     except Order.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND, data={"message": _("Order was not found")})
@@ -287,7 +289,7 @@ def updateOrderDelivery(request, id: int):
     try:
         delivery = OrderDelivery.objects.get(order_id=id)
         order = Order.objects.get(id=id)
-        form = OrderDeliveryForm(instance=delivery, data=request.POST)
+        form = OrderDeliveryForm(instance=delivery, data=request.POST, last_modified_by=request.user)
         if form.is_valid():
             if form.has_changed():
                 with transaction.atomic():
@@ -299,7 +301,8 @@ def updateOrderDelivery(request, id: int):
                                 request=request, order=order, delivery=delivery)
                         except Exception as e:
                             return Response(status=400, data={"message": str(e)})
-            return Response(data={"message": _("Order delivery was updated")})
+            serializer = OrderDeliverySerializer(instance=delivery)
+            return Response(data={"message": _("Order delivery was updated"), "delivery": serializer.data})
         return Response(status=422, data={"message": _("Order delivery cannot be updated"), "errors": form.errors})
     except Order.DoesNotExist:
         return Response(status=404, data={"message": _("Order was not found")})

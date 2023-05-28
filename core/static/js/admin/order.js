@@ -51,7 +51,7 @@ deliveryForm.addEventListener('submit', async (event) => {
 
     if (response.ok) {
       successAlert(data.message)
-      handleDeliverySuccess()
+      handleDeliverySuccess(data)
     } else{
       throw new Error(JSON.stringify(data))
     }
@@ -79,10 +79,12 @@ function handleRefundErrors(errors){
   }
 }
 
-function handleDeliverySuccess(){
+function handleDeliverySuccess(data){
   for (const field in deliveryForm.elements) {
     deliveryForm.elements[field]?.classList?.remove('is-invalid')
   }
+
+  document.getElementById('id_last_modified_by').value = data.delivery.last_modified_by_name
 }
 
 function handleDeliveryErrors(errors){
@@ -99,7 +101,7 @@ fullRefundInput.addEventListener('change', (event) => {
     refundBtn.classList.remove('btn-disabled')
   } else {
     document.getElementById('refund_amount').classList.remove('d-none')
-    if (event.currentTarget.value < Number(orderTotalPaid) - Number(orderTotalRefund)) {
+    if (event.currentTarget.value <= Number(orderTotalPaid) - Number(orderTotalRefund)) {
       refundBtn.disabled = false
       refundBtn.classList.remove('btn-disabled')
     } else {
@@ -115,7 +117,7 @@ refundAmountInput.addEventListener('input', (event) => {
 })
 
 function validateRefundAmount(amount) {
-  if (amount && amount !== '' && amount !== 'NaN' && amount < Number(orderTotalPaid) - Number(orderTotalRefund)) {
+  if (amount && amount !== '' && amount !== 'NaN' && amount <= Number(orderTotalPaid) - Number(orderTotalRefund)) {
     refundBtn.disabled = false
     refundBtn.classList.remove('btn-disabled')
     document.getElementById('refundAmountHelp').classList.remove('invalid-feedback')
@@ -129,10 +131,12 @@ function validateRefundAmount(amount) {
 }
 
 function refundComponent(refund) {
-  return `<li class="list-group-item d-flex justify-content-between align-items-start">
-    <div class="ms-2 me-auto">
-      <div class="fw-bold">${refund.created_date}</div>
+  return `<li class="list-group-item list-group-item-action">
+    <div class="d-flex w-100 justify-content-between">
+      <h6 class="mb-1">${refund.amount} &#8380;</h6>
+      <small>${refund.created_date}</small>
     </div>
-    <span class="badge bg-primary rounded-pill">${refund.amount} &#8380;</span>
+    <p class="mb-1">${refund.created_by_name}</p>
+    <small>${refund.reason}</small>
   </li>`
 }

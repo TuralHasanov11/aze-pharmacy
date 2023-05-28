@@ -142,9 +142,13 @@
                 <span class="flag-btn"onclick="flagOrder(this, ${order.id})"><i class="${flag}"></i></span>
                 <a href="${ordersURL + order.id}?prev_page=${currentPage}" class="d-flex w-100 justify-content-between p-1 text-decoration-none">
                     <h6 class="m-0">
-                        <span>${order.full_name}</span> ${!order.seen?`<span class="badge badge-sm text-bg-success">${newWord}`:''}</span>
+                        <span>${order.full_name}</span> 
+                        ${!order.seen?`<span class="badge badge-sm text-bg-success">${newWord}</span>`:''}
+                        <span class="badge badge-sm text-bg-${order.payment_status_color}">${order.get_payment_status_display}</span>
                     </h6>
-                  <small class="text-dark">${orderDate}</small>
+                    <small class="text-dark d-flex justify-content-between">
+                        ${orderDate}
+                    </small>
                 </a>
             </div>
           </div>`

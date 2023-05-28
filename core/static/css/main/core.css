@@ -1335,7 +1335,8 @@ body.search-visible {
 
 .on-sale-wrap .onsale,
 .home-shop-thumb .discount,
-.home-shop-thumb .onsale {
+.home-shop-thumb .onsale,
+.home-shop-thumb .not_in_stock {
 	position: absolute;
 	top: 0;
 	right: -40px;

@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.contrib.auth import get_user_model
 from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -51,9 +52,21 @@ class Order(models.Model):
     def payment_status_color(self):
         if self.payment_status == self.PaymentStatus.PAID:
             return "success"
+        elif self.payment_status == self.PaymentStatus.CANCELLED:
+            return "dark"
+        elif self.payment_status == self.PaymentStatus.REFUNDED:
+            return "warning"
         elif self.payment_status == self.PaymentStatus.FAILED:
             return "danger"
         return "primary"
+    
+    @property
+    def updated_date(self):
+        return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
+    
+    @property
+    def created_date(self):
+        return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
 
 
 class OrderRefund(models.Model):
@@ -61,6 +74,7 @@ class OrderRefund(models.Model):
         Order, related_name='refunds', on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=6, decimal_places=2)
     reason = models.TextField(null=False, blank=False)
+    created_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -73,6 +87,10 @@ class OrderRefund(models.Model):
     @property
     def created_date(self):
         return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
+    
+    @property
+    def created_by_name(self):
+        return str(self.created_by) if self.created_by else ""
     
 
 class OrderItem(models.Model):
@@ -106,7 +124,18 @@ class OrderDelivery(models.Model):
     delivery_date = models.DateField(null=True, blank=True)
     courier_name = models.CharField(max_length=255, null=True, blank=True)
     tracking_number = models.CharField(max_length=100, null=True, blank=True)
+    last_modified_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    @property
+    def updated_date(self):
+        return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
 
     @property
     def delivery_status_value(self):
         return self.get_delivery_status_display
+    
+    @property
+    def last_modified_by_name(self):
+        return str(self.last_modified_by)

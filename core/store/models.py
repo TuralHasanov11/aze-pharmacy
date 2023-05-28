@@ -1,5 +1,6 @@
 import os
 import shutil
+from datetime import datetime
 
 from ckeditor_uploader import fields as ckeditorFields
 from django.conf import settings
@@ -19,6 +20,8 @@ class Category(MPTTModel):
     slug = models.SlugField(max_length=255, unique=True)
     parent = TreeForeignKey("self", on_delete=models.PROTECT,
                             related_name="children", null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class MPTTMeta:
         order_insertion_by = ["name"]
@@ -72,6 +75,9 @@ class RichTextEditorField(ckeditorFields.RichTextUploadingField):
         super().__init__(*args, **kwargs)
 
 
+default_product_image_path: str = f"{settings.STATIC_URL}images/main/products/default.png"
+
+
 class Product(models.Model):
     slug = models.SlugField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
@@ -87,7 +93,8 @@ class Product(models.Model):
         default=0, blank=True, max_digits=6, decimal_places=2)
     weight = models.FloatField(null=True, blank=True)
     in_stock = models.BooleanField(default=True)
-    maximum_purchase_units = models.IntegerField(default=10, validators=[MinValueValidator(0), MaxValueValidator(100)])
+    maximum_purchase_units = models.IntegerField(
+        default=10, validators=[MinValueValidator(0), MaxValueValidator(100)])
     created_at = models.DateTimeField(auto_now_add=True, editable=False,)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -99,14 +106,26 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     @property
     def in_stock_display_value(self):
         return _('In Stock') if self.in_stock else _('Not in Stock')
-    
+
+    @property
+    def get_image_feature(self):
+        return self.image_feature[0].image.url if self.image_feature else f"{default_product_image_path}"
+
     @property
     def is_active_display_value(self):
         return _('Active') if self.is_active else _('Not Active')
+    
+    @property
+    def created_date(self):
+        return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
+    
+    @property
+    def updated_date(self):
+        return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -116,7 +135,7 @@ class Product(models.Model):
 
 @receiver(post_delete, sender=Product)
 def on_product_delete(sender, instance, *args, **kwargs):
-    shutil.rmtree(os.path.join(settings.MEDIA_ROOT,
+    shutil.rmtree(os.path.join(settings.MEDIA_URL,
                   f"products/{instance.id}"), ignore_errors=False)
 
 
@@ -127,7 +146,8 @@ def product_image_path(instance, filename):
 class ProductImage(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name="product_image")
-    image = models.ImageField(upload_to=product_image_path)
+    image = models.ImageField(
+        upload_to=product_image_path, default=f"{default_product_image_path}")
     is_feature = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)

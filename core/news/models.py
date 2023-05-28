@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime
 
 from ckeditor_uploader import fields as ckeditorFields
 from django import urls
@@ -36,10 +37,14 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return urls.reverse("news:detail", kwargs={"slug": self.slug})
-
+    
     @property
-    def get_absolute_cover_image_url(self):
-        return f"{settings.MEDIA_URL}{self.cover_image.url}"
+    def created_date(self):
+        return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
+    
+    @property
+    def updated_date(self):
+        return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
 
     def save(self, *args, **kwargs):
         if not self.slug:

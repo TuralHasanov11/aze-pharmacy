@@ -79,11 +79,11 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <span class="fw-bold">{% translate "Created Date" %}</span>
-                      <span>{{order.created_at|date:"d.m.Y H:i"}}</span>
+                      <span>{{order.created_date}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <span class="fw-bold">{% translate "Updated Date" %}</span>
-                      <span>{{order.updated_at|date:"d.m.Y H:i"}}</span>
+                      <span>{{order.updated_date}}</span>
                     </li>
                   </ul>
                   <form method="post" id="order-form">
@@ -171,7 +171,11 @@
                           {{ delivery_form.delivery_date }}
                             <div id="{{delivery_form.delivery_date.id_for_label}}_errors" class="invalid-feedback"></div> 
                         </div>
-                        <button id="delivery_submit_btn" class="btn btn-success btn-disabled" type="submit">{% translate "Save Delivery" %}</button>
+                        <div class="mb-4">
+                          <label class="mb-1" for="{{ delivery_form.last_modified_by.id_for_label }}">{{ delivery_form.last_modified_by.label }}</label>
+                          {{ delivery_form.last_modified_by }}
+                        </div>
+                        <button id="delivery_submit_btn" class="btn btn-success btn-disabled" type="submit">{% translate "Save" %}</button>
                       </div>
                     </div>
                   </form>
@@ -180,16 +184,18 @@
                   <div class=" card mb-4">
                     <div class="card-header">{% translate "Refunds" %}</div>
                     <div class="card-body">
-                      <ol id="orderRefundList" class="list-group list-group-numbered">
+                      <ul id="orderRefundList" class="list-group">
                         {% for refund in order.refunds.all %}
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                          <div class="ms-2 me-auto">
-                            <div class="fw-bold">{{refund.created_date}}</div>
+                        <li class="list-group-item list-group-item-action">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">{{refund.amount}} &#8380;</h6>
+                            <small>{{refund.created_date}}</small>
                           </div>
-                          <span class="badge bg-primary rounded-pill">{{refund.amount}} &#8380;</span>
+                          <p class="mb-1">{{refund.created_by_name}}</p>
+                          <small>{{refund.reason}}</small>
                         </li>
                         {% endfor %}
-                      </ol>
+                      </ul>
                     </div>
                   </div>
                 </div>

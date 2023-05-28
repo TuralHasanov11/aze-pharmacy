@@ -8,6 +8,7 @@
 
   <div class="inner-shop-area">
     <div class="container">
+      {% if products %}
       <div class="row justify-content-center">
         <div class="col-xl-9 col-lg-8 col-md-12 col-sm-8">
           <div class="shop-top-wrap">
@@ -61,6 +62,12 @@
           </aside>
         </div>
       </div>
+      {% else %}
+      <div class="d-flex justify-content-center flex-column align-items-center">
+        <h4>{% translate "The products you searched for do not exist" %}</h4>
+        <a href="{% url 'store:products' %}" class="btn">{% translate "Continue Shopping" %}</a>
+      </div>
+      {% endif %}
     </div>
   </div>
 </main>

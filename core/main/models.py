@@ -30,6 +30,8 @@ class Company(models.Model):
     name = models.CharField(max_length=255, unique=True)
     link = models.URLField()
     cover_image = models.ImageField(upload_to=company_cover_image_path)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ["name"]
@@ -67,6 +69,7 @@ class SiteText(models.Model):
     privacy_policy = RichTextEditorField()
     terms_and_conditions = RichTextEditorField()
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name_plural = "Site Texts"
@@ -79,6 +82,8 @@ class Question(models.Model):
     language = LanguageField()
     question = models.TextField()
     answer = RichTextEditorField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.question

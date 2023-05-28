@@ -1,3 +1,4 @@
+from datetime import datetime
 from enum import Enum
 
 from django.core.validators import FileExtensionValidator
@@ -39,3 +40,11 @@ class Document(models.Model):
 
     def __str__(self):
         return self.name
+    
+    @property
+    def created_date(self):
+        return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
+    
+    @property
+    def updated_date(self):
+        return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
