@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <script
   type="text/javascript"
   src="{% static 'js/vue.global.min.js' %}"
@@ -9,7 +10,7 @@
 
 <script
   type="text/javascript"
-  src="{% static 'js/main/jquery.js' %}"
+  src="{% static 'js/jquery.js' %}"
 ></script>
 <script
   type="text/javascript"
@@ -57,6 +58,9 @@
   type="text/javascript"
   src="{% static 'js/main/slick.js' %}"
 ></script>
+<script>
+  const okText = '{% translate "Ok" %}'
+</script>
 <script type="text/javascript" src="{% static 'js/main/main.js' %}"></script>
 
 <script
@@ -77,13 +81,7 @@
 ></script>
 
 <script>  
-  const csrftoken = "{{csrf_token}}"
-  const cartAddURL = '{% url "cart:add" %}'
-  const cartUpdateURL = '{% url "cart:update" %}'
-  const cartRemoveURL = '{% url "cart:remove" %}'
-  const wishlistAddURL = "{% url 'wishlist:add' %}"
-  const wishlistRemoveURL = "{% url 'wishlist:remove' %}"
   const productUrl = "{% url 'store:product-detail' category_slug='category_slug_value' product_slug='product_slug_value' %}"
-  const checkoutURL = "{% url 'checkout:index' %}"
 </script>
 <script src="{% static 'js/main/store.js' %}"></script>
+<script src="{% static 'js/main/contact-form.js' %}"></script>

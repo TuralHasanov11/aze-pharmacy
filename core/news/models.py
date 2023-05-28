@@ -1,8 +1,10 @@
 import uuid
+from datetime import datetime
 
 from ckeditor_uploader import fields as ckeditorFields
 from django import urls
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.template.defaultfilters import slugify
 
@@ -15,7 +17,7 @@ class RichTextEditorField(ckeditorFields.RichTextUploadingField):
 
 
 def post_cover_image_path(instance, filename):
-    return f"posts/{instance.slug}/{filename}"
+    return f"posts/{instance.slug}-{filename}"
 
 
 class Post(models.Model):
@@ -23,6 +25,7 @@ class Post(models.Model):
     slug = models.SlugField(unique=True)
     cover_image = models.ImageField(upload_to=post_cover_image_path)
     description = RichTextEditorField()
+    last_modified_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -34,10 +37,18 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return urls.reverse("news:detail", kwargs={"slug": self.slug})
-
+    
     @property
-    def get_absolute_cover_image_url(self):
-        return f"{settings.MEDIA_URL}{self.cover_image.url}"
+    def created_date(self):
+        return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
+    
+    @property
+    def updated_date(self):
+        return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
+    
+    @property
+    def last_modified_by_name(self):
+        return str(self.last_modified_by)
 
     def save(self, *args, **kwargs):
         if not self.slug:

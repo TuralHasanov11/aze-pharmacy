@@ -4,8 +4,9 @@
   <div class="home-shop-item">
     <div class="home-shop-thumb">
       <a decoding="async" href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}">
-        <img src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% else %}{% static 'images/main/products/default.png' %}{% endif %}" alt="{{product.name}}">
+        <img src="{{product.get_image_feature}}" alt="{{product.name}}">
         {% if product.discount %}<div class="discount">-{{product.discount}}%</div>{% endif %}
+        {% if not product.in_stock %}<div class="not_in_stock bg-secondary">{{product.in_stock_display_value}}</div>{% endif %}
       </a>
     </div>
     <div class="home-shop-content">
@@ -18,6 +19,7 @@
           <span class="woocommerce-Price-currencySymbol">&#036;</span>{{product.regular_price}}</span>								
         </span>
       <div class="shop-content-bottom">
+        {% if product.in_stock %}
         <button
           data-quantity="1"
           class="add-cart-btn cart-button icon-btn product_type_simple add_to_cart_button ajax_add_to_cart"
@@ -25,6 +27,7 @@
           rel="nofollow"
           ><i class="flaticon-shopping-cart-1"></i
         ></button>
+        {% endif %}
         <a href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}" class="btn btn-two">
           {% translate "Buy Now" %}
         </a>

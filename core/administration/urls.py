@@ -38,7 +38,6 @@ urlpatterns = [
     path('store/products/<int:pk>/delete', views.ProductDeleteView.as_view(), name='store-product-delete'),
     path('orders', views.OrdersView.as_view(), name='order-list'),
     path('orders/<int:id>', views.orderDetail, name='order-detail'),
-    # path('orders/<int:pk>/delivery/update', views.updateOrderDelivery, name='order-delivery-update'),
     path('site/info', views.siteInfo, name='site-info'),
     path('site/texts', views.siteTexts, name='site-texts'),
     path('site/faq', views.FAQListView.as_view(), name='site-faq-list'),

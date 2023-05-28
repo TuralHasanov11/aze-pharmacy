@@ -56,6 +56,10 @@
                         {{ form.language }} 
                         {{ form.language.errors  }}
                     </div>
+                    <div class="mb-4">
+                        <label class="mb-1">{% translate "Last Modified by" %}: </label>
+                        {{question.last_modified_by|default:'-'}} 
+                    </div>
                     <button class="btn btn-success btn-sm" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
                 </form>
             </div>

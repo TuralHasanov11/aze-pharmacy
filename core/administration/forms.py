@@ -15,20 +15,31 @@ from mptt.forms import TreeNodeChoiceField
 from news.models import Post
 from orders.models import Order, OrderDelivery
 from services.models import Service
-from store.models import Category, Product, ProductImage, Stock
+from store.models import Category, Product, ProductImage
 
 
 class ServiceForm(forms.ModelForm):
     name = forms.CharField(label=_('Name'), widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': _('Name'), 'title': _('Please enter name'),}))
+        attrs={'class': 'form-control', 'placeholder': _('Name'), 'title': _('Please enter name'), }))
     cover_image = forms.ImageField(label=_("Cover Image"), widget=forms.ClearableFileInput(
-        attrs={'multiple': False, 'class': 'form-control', 'title': _('Please upload image'),}))
+        attrs={'multiple': False, 'class': 'form-control', 'title': _('Please upload image'), }))
     description = forms.CharField(label=_('Description'), widget=forms.Textarea(
-        attrs={'class': 'form-control', 'placeholder': _('Description'), 'title': _('Please enter description'),}), required=False)
+        attrs={'class': 'form-control', 'placeholder': _('Description'), 'title': _('Please enter description'), }), required=False)
 
     class Meta:
         model = Service
-        fields = '__all__'
+        fields = ('name', 'cover_image', 'description')
+
+    def __init__(self, *args, **kwargs):
+        if 'last_modified_by' in kwargs:
+            self.last_modified_by = kwargs.pop('last_modified_by')
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        instance = super().save(commit)
+        instance.last_modified_by = self.last_modified_by
+        instance.save()
+        return instance
 
 
 class CategoryForm(forms.ModelForm):
@@ -45,6 +56,17 @@ class CategoryForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields["parent"].widget.attrs.update({"class": "form-select"})
 
+    def __init__(self, *args, **kwargs):
+        if 'last_modified_by' in kwargs:
+            self.last_modified_by = kwargs.pop('last_modified_by')
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        instance = super().save(commit)
+        instance.last_modified_by = self.last_modified_by
+        instance.save()
+        return instance
+
 
 class DocumentForm(forms.ModelForm):
     name = forms.CharField(label=_('Name'), widget=forms.TextInput(
@@ -55,6 +77,17 @@ class DocumentForm(forms.ModelForm):
     class Meta:
         model = Document
         fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        if 'last_modified_by' in kwargs:
+            self.last_modified_by = kwargs.pop('last_modified_by')
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        instance = super().save(commit)
+        instance.last_modified_by = self.last_modified_by
+        instance.save()
+        return instance
 
 
 class CompanyForm(forms.ModelForm):
@@ -69,6 +102,17 @@ class CompanyForm(forms.ModelForm):
         model = Company
         fields = '__all__'
 
+    def __init__(self, *args, **kwargs):
+        if 'last_modified_by' in kwargs:
+            self.last_modified_by = kwargs.pop('last_modified_by')
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        instance = super().save(commit)
+        instance.last_modified_by = self.last_modified_by
+        instance.save()
+        return instance
+
 
 class PostForm(forms.ModelForm):
     title = forms.CharField(max_length=255, label=_('Title'), widget=forms.TextInput(
@@ -80,7 +124,18 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ('title', 'cover_image', 'description')
+        fields = ('title', 'cover_image', 'description', 'last_modified_by')
+
+    def __init__(self, *args, **kwargs):
+        if 'last_modified_by' in kwargs:
+            self.last_modified_by = kwargs.pop('last_modified_by')
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        instance = super().save(commit)
+        instance.last_modified_by = self.last_modified_by
+        instance.save()
+        return instance
 
 
 class UserLoginForm(auth_forms.AuthenticationForm):
@@ -123,8 +178,10 @@ class UserCreateForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super().save(commit)
+        user.last_modified_by = self.last_modified_by
         group = auth_models.Group.objects.get(name=user.get_role_display())
         user.groups.add(group)
+        user.save()
         return user
 
 
@@ -144,14 +201,21 @@ class UserUpdateForm(forms.ModelForm):
         model = get_user_model()
         fields = ('username', 'email', 'role', 'first_name', 'last_name')
 
+    def __init__(self, *args, **kwargs):
+        if 'last_modified_by' in kwargs:
+            self.last_modified_by = kwargs.pop('last_modified_by')
+        super().__init__(*args, **kwargs)
+
     def save(self, commit=True):
         user = super().save(commit)
+        user.last_modified_by = self.last_modified_by
         group = auth_models.Group.objects.get(name=user.get_role_display())
         current_group = self.instance.groups.filter(
             name=user.get_role_display())
         if not current_group:
             user.groups.clear()
             user.groups.add(group)
+        user.save()
         return user
 
 
@@ -174,50 +238,51 @@ class ProductForm(forms.ModelForm):
     regular_price = forms.DecimalField(label=_('Regular Price'), widget=forms.NumberInput(
         attrs={'class': 'form-control', 'placeholder': _('Regular Price'), 'title': _('Please enter regular price')}))
     discount = forms.IntegerField(label=_('Discount'), widget=forms.NumberInput(
-        attrs={'class': 'form-control', 'placeholder': _('Discount'), 'title': _('Please enter discount')}), initial=0, required=False)
+        attrs={'class': 'form-control', 'placeholder': _('Discount'), 'title': _('Please enter discount')}),
+        initial=0, required=False)
     weight = forms.IntegerField(label=_('Weight'), widget=forms.NumberInput(
-        attrs={'class': 'form-control', 'placeholder': _('Weight'), 'title': _('Please enter weight')}), initial=0, required=False)
+        attrs={'class': 'form-control', 'placeholder': _('Weight'), 'title': _('Please enter weight')}),
+        initial=0, required=False)
     is_active = forms.BooleanField(label=_('Is Active'), widget=forms.CheckboxInput(
-        attrs={'class': 'form-check-input', 'placeholder': _('Is Active')}), required=False)
+        attrs={'class': 'form-check-input', 'placeholder': _('Is Active')}), required=False, initial=True)
+    in_stock = forms.BooleanField(label=_('In Stock'), widget=forms.CheckboxInput(
+        attrs={'class': 'form-check-input', 'placeholder': _('In Stock')}), required=False, initial=True)
+    maximum_purchase_units = forms.IntegerField(label=_('Maximum Number of Purchase Units'), widget=forms.NumberInput(
+        attrs={'class': 'form-control', 'placeholder': _('Maximum Number of Purchase Units'),
+               'title': _('Please enter maximum number of purchase units')}),
+        initial=Product._meta.get_field('maximum_purchase_units').default)
     description = forms.CharField(
         label=_("Description"), widget=ckeditor_widgets.CKEditorUploadingWidget(), required=False)
 
     class Meta:
         model = Product
-        fields = ('name', 'sku', 'description', 'regular_price',
-                  'discount', 'weight', 'is_active', 'category')
+        fields = ('name', 'sku', 'description', 'regular_price', 'in_stock',
+                  'discount', 'weight', 'is_active', 'category', 'maximum_purchase_units')
+
+    def __init__(self, *args, **kwargs):
+        if 'last_modified_by' in kwargs:
+            self.last_modified_by = kwargs.pop('last_modified_by')
+        super().__init__(*args, **kwargs)
 
     def save(self, commit=True):
-        product = super().save(commit)
-        product.discount_price = product.regular_price - \
-            (product.regular_price * product.discount / 100)
-        product.save()
-        return product
-
-
-class StockForm(forms.ModelForm):
-    units = forms.IntegerField(label=_('Units'), widget=forms.NumberInput(
-        attrs={'class': 'form-control', 'placeholder': _('Units'), 'title': _('Please enter units')}), initial=0, required=False)
-
-    class Meta:
-        model = Stock
-        fields = ('units',)
+        instance = super().save(commit)
+        instance.last_modified_by = self.last_modified_by
+        instance.save()
+        return instance
 
 
 class ProductImageForm(forms.ModelForm):
     image = forms.ImageField(label=_('Image'), widget=forms.ClearableFileInput(
-        attrs={'class': 'form-control', 'placeholder': _('Image'), 'title': _('Please upload image'), 
+        attrs={'class': 'form-control', 'placeholder': _('Image'), 'title': _('Please upload image'),
                'multiple': False}), required=False)
     is_feature = forms.BooleanField(label=_('Is Feature'), widget=forms.CheckboxInput(
         attrs={'class': 'form-check-input'}), required=False)
 
     class Meta:
-        model = Stock
+        model = ProductImage
         fields = ('image', 'is_feature')
 
 
-StockFormSet = forms.inlineformset_factory(
-    parent_model=Product, model=Stock, max_num=1, form=StockForm)
 ProductImageFormSet = forms.inlineformset_factory(
     parent_model=Product, model=ProductImage, form=ProductImageForm, can_delete=True)
 
@@ -240,28 +305,38 @@ class SiteInfoForm(forms.ModelForm):
     twitter_link = forms.URLField(label=_('Twitter link'), widget=forms.URLInput(
         attrs={'class': 'form-control', 'placeholder': _('Twitter link'), 'title': _('Please enter twitter link')}))
     banner_image = forms.ImageField(label=_('Banner Image'), widget=forms.ClearableFileInput(
-        attrs={'class': 'form-control', 'placeholder': _('Banner Image'), 'title': _('Please upload banner image'), 
+        attrs={'class': 'form-control', 'placeholder': _('Banner Image'), 'title': _('Please upload banner image'),
                'multiple': False}), required=False)
     breadcrumb_image = forms.ImageField(label=_('Breadcrumb Image'), widget=forms.ClearableFileInput(
-        attrs={'class': 'form-control', 'placeholder': _('Breadcrumb Image'), 'title': _('Please upload breadcrumb image'), 
+        attrs={'class': 'form-control', 'placeholder': _('Breadcrumb Image'), 'title': _('Please upload breadcrumb image'),
                'multiple': False}), required=False)
     about_image = forms.ImageField(label=_('About Image'), widget=forms.ClearableFileInput(
-        attrs={'class': 'form-control', 'placeholder': _('About Image'), 'title': _('Please upload about image'), 
+        attrs={'class': 'form-control', 'placeholder': _('About Image'), 'title': _('Please upload about image'),
                'multiple': False}), required=False)
 
     class Meta:
         model = SiteInfo
         fields = ['phone', 'address', 'email', 'facebook_link', 'instagram_link', 'youtube_link', 'tiktok_link',
-                  'twitter_link', 'banner_image', 'breadcrumb_image', 'about_image'
-                  ]
+                  'twitter_link', 'banner_image', 'breadcrumb_image', 'about_image']
+
+    def __init__(self, *args, **kwargs):
+        if 'last_modified_by' in kwargs:
+            self.last_modified_by = kwargs.pop('last_modified_by')
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        instance = super().save(commit)
+        instance.last_modified_by = self.last_modified_by
+        instance.save()
+        return instance
 
 
 class SiteTextForm(forms.ModelForm):
     language = forms.ChoiceField(label=_("Language"), widget=forms.Select(
-        attrs={"class": "form-select", 'readonly': True, 'disabled': True, 
-               'title': _('Please select language')}), choices=settings.LANGUAGES)
+        attrs={"class": "form-select", 'readonly': True,
+               'title': _('Please select language')}), choices=settings.LANGUAGES, disabled=True)
     about = forms.CharField(label=_('About'), widget=forms.Textarea(
-        attrs={'class': 'form-control', 'placeholder': _('About'), 'rows': 25, 
+        attrs={'class': 'form-control', 'placeholder': _('About'), 'rows': 25,
                'title': _('Please enter about text')}))
     return_policy = forms.CharField(
         label=_("Return Policy"), widget=ckeditor_widgets.CKEditorUploadingWidget(), required=False)
@@ -276,6 +351,9 @@ class SiteTextForm(forms.ModelForm):
                   'privacy_policy', 'terms_and_conditions']
 
 
+SiteTextFormSet = forms.modelformset_factory(
+    model=SiteText, form=SiteTextForm, max_num=len(settings.LANGUAGES))
+
 class FAQForm(forms.ModelForm):
     language = forms.ChoiceField(label=_("Language"), widget=forms.Select(
         attrs={"class": "form-select", 'title': _('Please select language')}), choices=settings.LANGUAGES)
@@ -288,9 +366,16 @@ class FAQForm(forms.ModelForm):
         model = Question
         fields = ['question', 'answer', 'language']
 
+    def __init__(self, *args, **kwargs):
+        if 'last_modified_by' in kwargs:
+            self.last_modified_by = kwargs.pop('last_modified_by')
+        super().__init__(*args, **kwargs)
 
-SiteTextFormSet = forms.modelformset_factory(
-    model=SiteText, form=SiteTextForm, max_num=len(settings.LANGUAGES))
+    def save(self, commit=True):
+        instance = super().save(commit)
+        instance.last_modified_by = self.last_modified_by
+        instance.save()
+        return instance
 
 
 class OrderForm(forms.ModelForm):
@@ -304,14 +389,20 @@ class OrderForm(forms.ModelForm):
 
 class OrderDeliveryForm(forms.ModelForm):
     courier_name = forms.CharField(label=_('Courier Name'), widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': _('Courier Name'), 'title': _('Please enter courier name')}))
+        attrs={'class': 'form-control', 'placeholder': _('Courier Name'),
+               'title': _('Please enter courier name')}), required=False)
     tracking_number = forms.CharField(label=_('Tracking Number'), widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': _('Tracking Number'), 'title': _('Please enter tracking number')}))
-    delivery_status = forms.ChoiceField(label=_('Delivery Status'), choices=OrderDelivery.DeliveryStatus.choices, widget=forms.Select(
-        attrs={'class': 'form-control', 'placeholder': _('Delivery Status'), 'title': _('Please select delivery status')}))
+        attrs={'class': 'form-control', 'placeholder': _('Tracking Number'),
+               'title': _('Please enter tracking number')}), required=False)
+    delivery_status = forms.ChoiceField(label=_('Delivery Status'),
+                                        choices=OrderDelivery.DeliveryStatus.choices, widget=forms.Select(
+        attrs={'class': 'form-control', 'placeholder': _('Delivery Status'),
+               'title': _('Please select delivery status')}))
     delivery_date = forms.DateField(label=_('Delivery Date'), widget=DatePickerInput(
-        attrs={'class': 'form-control','min': datetime.date.today(), 'title': _('Please enter delivery date')},
-        options={"locale": 'az', "format": "MM/DD/YYYY"}))
+        attrs={'class': 'form-control', 'min': datetime.date.today(),
+               'title': _('Please enter delivery date')},
+        options={"locale": 'az', "format": "DD-MM-YYYY"}), required=False)
+
 
     class Meta:
         model = OrderDelivery
@@ -321,7 +412,7 @@ class OrderDeliveryForm(forms.ModelForm):
     STAGES = {
         "PROCESSING": [OrderDelivery.DeliveryStatus.SHIPPED.name, OrderDelivery.DeliveryStatus.CANCELLED.name],
         "SHIPPED": [OrderDelivery.DeliveryStatus.DELIVERED.name, OrderDelivery.DeliveryStatus.FAILED_DELIVERY.name],
-        "DELIVERED": [],
+        "DELIVERED": [OrderDelivery.DeliveryStatus.RETURNED.name],
         "FAILED_DELIVERY": [OrderDelivery.DeliveryStatus.PROCESSING.name],
         "RETURNED": [OrderDelivery.DeliveryStatus.PROCESSING.name],
         "CANCELLED": [],
@@ -334,14 +425,37 @@ class OrderDeliveryForm(forms.ModelForm):
             raise forms.ValidationError(
                 _("Delivery Status cannot be changed!"))
         return delivery_status
-    
+
     def clean_delivery_date(self):
         delivery_date = self.cleaned_data['delivery_date']
         if (self.cleaned_data['delivery_date'] < datetime.date.today()):
             raise forms.ValidationError(
                 _("Delivery date can be minimum today"))
         return delivery_date
-    
-    
-OrderDeliveryFormSet = forms.inlineformset_factory(
-    parent_model=Order, model=OrderDelivery, max_num=1, form=OrderDeliveryForm)
+
+    def __init__(self, *args, **kwargs):
+        if 'last_modified_by' in kwargs:
+            self.last_modified_by = kwargs.pop('last_modified_by')
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        instance = super().save(commit)
+        instance.last_modified_by = self.last_modified_by
+        instance.save()
+        return instance
+
+
+class OrderRefundForm(forms.ModelForm):
+    amount = forms.DecimalField(label=_('Refund Amount'), widget=forms.NumberInput(
+        attrs={'class': 'form-control', 'placeholder': _('Refund Amount'),
+               'title': _('Please enter refund amount')}),
+        help_text=_('Refund Amount should not be greater than remainder of total payment'), required=False)
+    reason = forms.CharField(label=_('Reason'), widget=forms.Textarea(
+        attrs={'class': 'form-control', 'placeholder': _('Reason'),
+               'title': _('Please enter reason')}))
+    full_refund = forms.BooleanField(required=False, initial=False, label=_('Full Refund'), widget=forms.CheckboxInput(
+        attrs={'class': 'form-check-input', 'placeholder': _('Full Refund')}))
+
+    class Meta:
+        model = OrderDelivery
+        fields = ('amount', 'reason', 'full_refund')

@@ -74,6 +74,10 @@
                         {{form.about_image}}
                         {% if site_info.about_image %}<img class="mt-3" width="64" height="64" src="{{site_info.about_image.url}}">{% endif %}
                     </div>
+                    <div class="mb-3">
+                        <label class="small mb-1">{% translate "Last Modified by" %}: </label>
+                        {{site_info.last_modified_by|default:'-'}} 
+                    </div>
                 </div>
                 <hr class="my-4" />
                 <div class="d-flex justify-content-between">

@@ -1,7 +1,10 @@
 
 
+from urllib.parse import urlencode
+
 from administration import forms
 from administration.notifications import sendDeliveryStatusNotification
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
@@ -24,9 +27,9 @@ from django.views.generic.list import ListView
 from library.models import Document
 from main.models import Company, Question, SiteInfo, SiteText
 from news.models import Post
-from orders.models import Order, OrderItem
+from orders.models import Order, OrderDelivery, OrderItem, OrderRefund
 from services.models import Service
-from store.models import Category, Product, ProductImage, Stock
+from store.models import Category, Product, ProductImage
 
 creator_dashboard_list = [
     {"name": _("Services"), "route": "administration:service-list",
@@ -69,6 +72,11 @@ class ServiceListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Success
         context = super().get_context_data(**kwargs)
         context['services'] = self.model.objects.all()
         return context
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class ServiceUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -82,6 +90,11 @@ class ServiceUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
 
     def get_success_url(self):
         return reverse("administration:service-update", kwargs={"pk": self.object.pk})
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class ServiceDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -117,6 +130,11 @@ class DocumentListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
         documents = pagination.get_page(pageNumber)
         context['documents'] = documents
         return context
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class DocumentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -130,6 +148,11 @@ class DocumentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
 
     def get_success_url(self):
         return reverse("administration:document-update", kwargs={"pk": self.object.pk})
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class DocumentDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -138,6 +161,9 @@ class DocumentDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
     login_url = reverse_lazy('administration:index')
     success_message = _("Document was deleted successfully!")
     success_url = reverse_lazy('administration:document-list')
+
+    def get_success_url(self) -> str:
+        return reverse('administration:document-list') + f"?{urlencode({'page': self.request.GET.get('page', 1)})}"
 
 
 class CompanyListCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
@@ -153,6 +179,11 @@ class CompanyListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Success
         context = super().get_context_data(**kwargs)
         context['companies'] = self.model.objects.all()
         return context
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class CompanyUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -166,6 +197,11 @@ class CompanyUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
 
     def get_success_url(self):
         return reverse("administration:company-update", kwargs={"pk": self.object.pk})
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class CompanyDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -218,6 +254,11 @@ class PostCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
     success_message = _("Post was created successfully!")
     success_url = reverse_lazy('administration:post-list')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
+
 
 class PostUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Post
@@ -230,6 +271,11 @@ class PostUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
 
     def get_success_url(self):
         return reverse("administration:post-update", kwargs={"pk": self.object.pk})
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class PostDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -237,7 +283,9 @@ class PostDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
     permission_required = ["news.delete_post"]
     login_url = reverse_lazy('administration:index')
     success_message = _("Post was deleted successfully!")
-    success_url = reverse_lazy('administration:post-list')
+
+    def get_success_url(self) -> str:
+        return reverse('administration:post-list') + f"?{urlencode({'page': self.request.GET.get('page', 1)})}"
 
 
 @require_http_methods(['GET', 'POST'])
@@ -282,6 +330,11 @@ class UserCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
     success_message = _("User was created successfully!")
     success_url = reverse_lazy('administration:user-list')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
+
 
 class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     model = get_user_model()
@@ -294,6 +347,11 @@ class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
 
     def get_success_url(self):
         return reverse("administration:user-update", kwargs={"pk": self.object.pk})
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class UserDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -317,6 +375,11 @@ class CategoryListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
         context = super().get_context_data(**kwargs)
         context['categories'] = self.model.objects.all()
         return context
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class CategoryUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -330,6 +393,11 @@ class CategoryUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
 
     def get_success_url(self):
         return reverse("administration:store-category-update", kwargs={"pk": self.object.pk})
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class CategoryDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -374,7 +442,7 @@ class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
     context_object_name = "product"
 
     def get_queryset(self):
-        return super().get_queryset().select_related('category', 'product_stock').prefetch_related(
+        return super().get_queryset().select_related('category').prefetch_related(
             Prefetch('product_image', queryset=ProductImage.objects.filter(
                 is_feature=True), to_attr='image_feature'),
             Prefetch('product_image', to_attr='images')
@@ -386,18 +454,12 @@ class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
 @permission_required('store.add_product', login_url=reverse_lazy('administration:index'))
 def productCreate(request):
     if request.method == 'POST':
-        form = forms.ProductForm(request.POST, request.FILES)
-        stock_formset = forms.StockFormSet(
-            data=request.POST, files=request.FILES)
+        form = forms.ProductForm(request.POST, request.FILES, last_modified_by=request.user)
         product_image_formset = forms.ProductImageFormSet(
             data=request.POST, files=request.FILES)
-        if form.is_valid() and stock_formset.is_valid() and product_image_formset.is_valid():
+        if form.is_valid() and product_image_formset.is_valid():
             with transaction.atomic():
                 product = form.save()
-                for item in stock_formset:
-                    stock = item.save(commit=False)
-                    stock.product = product
-                    stock.save()
                 for item in product_image_formset:
                     productImage = item.save(commit=False)
                     productImage.product = product
@@ -408,12 +470,10 @@ def productCreate(request):
         messages.error(request, _("Product cannot be saved!"))
     else:
         form = forms.ProductForm()
-        stock_formset = forms.StockFormSet(queryset=Stock.objects.none())
         product_image_formset = forms.ProductImageFormSet(
             queryset=ProductImage.objects.none())
     return render(request, "administration/store/products/create.html", context={
         'form': form,
-        'stock_formset': stock_formset,
         'product_image_formset': product_image_formset,
     })
 
@@ -426,15 +486,12 @@ def productUpdate(request, pk: int):
 
     if request.method == 'POST':
         form = forms.ProductForm(
-            instance=product, data=request.POST, files=request.FILES)
-        stock_formset = forms.StockFormSet(
-            instance=product, data=request.POST, files=request.FILES)
+            instance=product, data=request.POST, files=request.FILES, last_modified_by=request.user)
         product_image_formset = forms.ProductImageFormSet(
             instance=product, data=request.POST, files=request.FILES)
-        if form.is_valid() and stock_formset.is_valid() and product_image_formset.is_valid():
+        if form.is_valid() and product_image_formset.is_valid():
             with transaction.atomic():
                 product = form.save()
-                stock_formset.save()
                 product_image_formset.save()
                 messages.success(
                     request, _("Product was saved successfully!"))
@@ -442,13 +499,11 @@ def productUpdate(request, pk: int):
         messages.error(request, _("Product cannot be saved!"))
     else:
         form = forms.ProductForm(instance=product)
-        stock_formset = forms.StockFormSet(instance=product)
         product_image_formset = forms.ProductImageFormSet(instance=product)
-    
+
     return render(request, "administration/store/products/edit.html", context={
         "product": product,
         'form': form,
-        'stock_formset': stock_formset,
         'product_image_formset': product_image_formset,
     })
 
@@ -458,7 +513,9 @@ class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
     permission_required = ["store.delete_product"]
     login_url = reverse_lazy('administration:index')
     success_message = _("Product was deleted successfully!")
-    success_url = reverse_lazy('administration:store-product-list')
+
+    def get_success_url(self) -> str:
+        return reverse('administration:store-product-list') + f"?{urlencode({'page': self.request.GET.get('page', 1)})}"
 
 
 class OrdersView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
@@ -491,7 +548,7 @@ def siteInfo(request):
     siteInfo = SiteInfo.objects.first()
     if request.method == 'POST':
         form = forms.SiteInfoForm(
-            instance=siteInfo, data=request.POST, files=request.FILES)
+            instance=siteInfo, data=request.POST, files=request.FILES, last_modified_by=request.user)
         if form.is_valid():
             form.save()
             messages.success(request, _("Site Info was saved successfully!"))
@@ -522,6 +579,11 @@ class FAQCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageM
     success_message = _("Question was created successfully!")
     success_url = reverse_lazy('administration:site-faq-list')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
+
 
 class FAQUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Question
@@ -534,6 +596,11 @@ class FAQUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageM
 
     def get_success_url(self):
         return reverse("administration:site-faq-update", kwargs={"pk": self.object.pk})
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class FAQDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -548,41 +615,27 @@ class FAQDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageM
 @require_http_methods(['GET', 'POST'])
 @permission_required(["orders.change_order", "orders.view_order"], login_url=reverse_lazy('administration:index'))
 def orderDetail(request, id: int):
-    form_class = forms.OrderForm
     template_name = 'administration/orders/detail.html'
     success_message = _("Order was updated successfully!")
     order = Order.objects.select_related('order_delivery').prefetch_related(
         Prefetch('items', queryset=OrderItem.objects.select_related(
             'product__category').all()),
+        Prefetch('refunds', queryset=OrderRefund.objects.all())
     ).get(id=id)
+    delivery_form = forms.OrderDeliveryForm(instance=OrderDelivery.objects.get(order=order))
+    refund_form = forms.OrderRefundForm()
 
     if request.POST:
-        form = form_class(data=request.POST, instance=order)
-        order_delivery_formset = forms.OrderDeliveryFormSet(
-            data=request.POST, instance=order)
-        if form.is_valid() and order_delivery_formset.is_valid():
-            with transaction.atomic():
-                order = form.save()
-                if order_delivery_formset.has_changed():
-                    deliveryForm = order_delivery_formset[0]
-                    changedData = deliveryForm.changed_data
-                    delivery = deliveryForm.save()
-                    if "delivery_status" in changedData:
-                        try:
-                            sendDeliveryStatusNotification(
-                                request=request, order=order, delivery=delivery)
-                        except Exception as e:
-                            messages.error(request, str(e))
-                            return redirect(reverse("administration:order-detail", kwargs={"id": order.id})+"#order-form")
-                messages.success(request, success_message)
-                return redirect(reverse("administration:order-detail", kwargs={"id": order.id})+"#order-form")
+        form = forms.OrderForm(data=request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            messages.success(request, success_message)
+            return redirect(reverse("administration:order-detail", kwargs={"id": order.id})+"#order-form")
         messages.error(request, _("Order was not saved!"))
     else:
         if not order.seen:
             order.seen = True
             order.save()
-        form = form_class(instance=order)
-        order_delivery_formset = forms.OrderDeliveryFormSet(instance=order)
+        form = forms.OrderForm(instance=order)
 
-    return render(request, template_name, {"order": order, "form": form, "order_delivery_formset": order_delivery_formset})
-
+    return render(request, template_name, {"order": order, "form": form, "delivery_form": delivery_form, "refund_form": refund_form})

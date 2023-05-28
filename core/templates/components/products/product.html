@@ -8,18 +8,25 @@
           <img
             width="605"
             height="580"
-            src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% else %}{% static 'images/main/products/default.png' %}{% endif %}"
+            src="{{product.get_image_feature}}"
             class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
             decoding="async"
             loading="lazy"
-            srcset="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% else %}{% static 'images/main/products/default.png' %}{% endif %} 605w,
-                    {% if product.image_feature %}{{product.image_feature.0.image.url}}{% else %}{% static 'images/main/products/default.png' %}{% endif %} 300w"
+            srcset="{{product.get_image_feature}} 605w,
+                    {{product.get_image_feature}} 300w"
             sizes="(max-width: 605px) 100vw, 605px"
         /></a>
 
+        {% if product.discount %}
         <div class="on-sale-wrap">
-          {% if product.discount %}<span class="onsale">{% translate "Sale" %}!</span>{% endif %}
+          <span class="onsale">-{{product.discount}}%</span>
         </div>
+        {% endif %}
+        {% if not product.in_stock %}
+        <div class="on-sale-wrap">
+          <span class="onsale bg-secondary">{{product.in_stock_display_value}}</span>
+        </div>
+        {% endif %}
       </div>
 
       <div class="home-shop-content">
@@ -60,6 +67,7 @@
           </span>
         </div>
         <div class="shop-content-bottom">
+          {% if product.in_stock %}
           <button
             data-quantity="1"
             class="add-cart-btn cart-button icon-btn product_type_simple add_to_cart_button ajax_add_to_cart"
@@ -68,6 +76,7 @@
             rel="nofollow"
             ><i class="flaticon-shopping-cart-1"></i
           ></button>
+          {% endif %}
           <a
             href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}"
             class="btn btn-two"

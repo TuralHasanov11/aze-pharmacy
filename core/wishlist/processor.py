@@ -1,18 +1,16 @@
-from django.db.models import Prefetch
-from store.models import Product, ProductImage
+from django.utils.translation import gettext_lazy as _
+from store.models import Product
 
 
 class WishlistProcessor:
     wishlist: list[int]
+    products: list[Product]
 
     def __init__(self, request):
         self.session = request.session
         try:
             wishlistContainer: list[int] = self.session["wishlist"]
-            products = Product.objects.select_related('category').prefetch_related(
-                Prefetch('product_image', queryset=ProductImage.objects.filter(
-                    is_feature=True), to_attr='image_feature'),
-            ).filter(id__in=[key for key in wishlistContainer])
+            products = Product.products.list_queryset().filter(id__in=[key for key in wishlistContainer])
         except Exception:
             self.session["wishlist"] = []
             wishlistContainer = []
@@ -40,7 +38,7 @@ class WishlistProcessor:
                 self.session["wishlist"] = self.wishlist
                 self.save()
         except Exception:
-            raise Exception("Product cannot be added to Wishlist")
+            raise Exception(_("Product cannot be added to Wishlist"))
 
     def remove(self, productId: int) -> None:
         try:
@@ -49,7 +47,7 @@ class WishlistProcessor:
                 self.session["wishlist"] = self.wishlist
                 self.save()
         except Exception:
-            raise Exception("Product is not removed from Wishlist")
+            raise Exception(_("Product is not removed from Wishlist"))
 
     def clear(self) -> None:
         try:
@@ -57,7 +55,7 @@ class WishlistProcessor:
             self.session["wishlist"] = []
             self.save()
         except Exception:
-            raise Exception("Wishlist cannot be cleared")
+            raise Exception(_("Wishlist cannot be cleared"))
 
     def save(self) -> None:
         self.session.modified = True

@@ -120,14 +120,6 @@
 	width: 550px;
 	height: 550px;
 }
-.blog-bg-shape.one {
-	width: 550px;
-	height: 550px;
-}
-.blog-bg-shape.two {
-	width: 580px;
-	height: 580px;
-}
 .footer-widgets-wrap .row [class*="col-"]:nth-child(4n+2) .footer-widget {
 	padding-left: 0;
 }
@@ -199,11 +191,7 @@
 .inner-shop-details-content .title {
 	font-size: 40px;
 }
-.blog-area .wp-block-quote.has-text-align-right,
-.blog-area .wp-block-quote.is-large,
-.blog-area .wp-block-quote.is-style-large {
-	padding: 45px 40px;
-}
+
 .inner-shop-item .home-shop-content {
 	padding: 30px 25px;
 }
@@ -428,12 +416,7 @@
 .blog-details-content blockquote {
 	font-size: 24px;
 }
-.rp-content {
-	padding: 30px 25px;
-}
-.rp-content h4 {
-	font-size: 19px;
-}
+
 .blog-avatar-wrap {
 	padding: 40px 40px;
 	display: block;
@@ -442,9 +425,7 @@
 .blog-post-avatar-img {
 	margin: 0 auto 18px;
 }
-.comment-form {
-	padding: 35px;
-}
+
 .blog-post-navigation .prev-link h4,
 .blog-post-navigation .next-link h4 {
 	font-size: 24px;
@@ -625,9 +606,7 @@
 	padding-top: 15px;
 	margin-bottom: 35px;
 }
-.rp-content h4 {
-	font-size: 20px;
-}
+
 .shop-sidebar {
 	margin: 100px 0 0;
 }
@@ -923,24 +902,7 @@
 .latest-comments ul li .children {
 	margin-left: 0;
 }
-.comment-form {
-	padding: 25px;
-}
-.comment-form .comment-field input {
-	padding: 16px 25px;
-	padding-right: 35px;
-}
-.comment-form .comment-field i {
-	right: 20px;
-}
-.comment-form .comment-field textarea {
-	padding: 20px 25px;
-	padding-right: 35px;
-}
-.comment-form .btn {
-	margin-top: 0;
-	padding: 16px 30px;
-}
+
 .inner-shop-area .shop-top-left p {
 	text-align: center;
 }
@@ -992,19 +954,6 @@ blockquote p,
 .format-quote blockquote p,
 .blog-details-content blockquote p {
 	font-size: 24px;
-}
-.blog-area .wp-block-quote.has-text-align-right,
-.blog-area .wp-block-quote.is-large,
-.blog-area .wp-block-quote.is-style-large {
-	padding: 40px 25px;
-}
-.blog-area .wp-block-quote.is-large cite,
-.blog-area .wp-block-quote.is-style-large cite {
-	text-align: center;
-	font-size: .8em;
-}
-.wp-block-pullquote.is-style-solid-color blockquote {
-	max-width: 85%;
 }
 .error-content .content {
 	font-size: 34px;
@@ -1122,18 +1071,11 @@ blockquote p,
 .blog-details-content blockquote {
 	font-size: 26px;
 }
-.rp-content {
-	padding: 35px 30px;
-}
-.rp-content h4 {
-	font-size: 24px;
-}
+
 .blog-avatar-wrap {
 	padding: 40px 35px;
 }
-.comment-form {
-	padding: 35px;
-}
+
 .inner-shop-details-content .title {
 	font-size: 32px;
 }

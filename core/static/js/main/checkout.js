@@ -1,136 +1,73 @@
 const { createApp } = Vue;
-const { required, minLength } = VuelidateValidators
+const { required, minLength, email, helpers  } = VuelidateValidators
 
+let url = `ws://${window.location.host}/ws/order-socket-server/`
+
+const orderSocket = new WebSocket(url)
+
+orderSocket.onclose = function (e) {
+    console.log("Socket closed")
+}
+
+const phoneValidator = helpers.regex(/^\+?1?\d{12}$/)
 
 createApp({
   data() {
     return {
-      first_name: "",
-      last_name: "",
-      city: "",
-      phone: "",
-      address: "",
-      email: "",
-      v$: Vuelidate.useVuelidate()
+      checkoutForm:{
+        firstName: "",
+        lastName: "",
+        city: "",
+        phone: "+994",
+        address: "",
+        email: "",
+        notes:"",
+      },
+      v$: Vuelidate.useVuelidate(),
+      cities: [],
+      checkoutFormValidationMessages:{},
+      checkoutFormLabels:{},
+      submitLoading: false
     };
   },
 
-  validations: {
-    first_name: {
-        required,
-    },
-    last_name: {
-        required,
-    },
-    city: {
-        required,
-    },
-    phone: {
-        required,
-    },
-    address: {
-        required,
-    },
-    email: {
-        email,
-    },
-  }
-}).mount("#checkout-app");
+  mounted(){
+    this.getCities()
+    this.getCheckoutFormDetails()
+  },
 
+  methods:{
+    async getCities(){
+        const response = await fetch('/api/cities');
+        this.cities = await response.json() 
+    },
 
-jQuery(document).ready(function ($) {
-
-    let firstNameValid = false
-    let lastNameValid = false
-    let emailValid = false
-    let addressValid = false 
-    let cityValid = false
-    let phoneValid = false
-    let notesValid = false
-
-    function setValidity(event, valid=true){
-        if(valid){
-            $(event.currentTarget).removeClass('is-invalid')
-            $(event.currentTarget).siblings('.invalid-feedback').hide()
-        }else{
-            $(event.currentTarget).addClass('is-invalid')
-            $(event.currentTarget).siblings('.invalid-feedback').show()
+    async getCheckoutFormDetails(){
+        const response = await fetch("/api/checkout-form-details");
+        const data = await response.json() 
+        for (const field in data) {
+            this.checkoutFormValidationMessages[field] = data[field].error_messages
+            this.checkoutFormLabels[field] = data[field].label
         }
-        $('.checkout-btn').prop('disabled', formValid())
-    }
+    },
 
-    $('input[name="first_name"]').on('blur', (event) => {
-        const valid = event.currentTarget.checkValidity()
-        setValidity(event, valid)
-        firstNameValid = valid
-    })
-
-
-    $('input[name="last_name"]').on('blur', (event) => {
-        const valid = event.currentTarget.checkValidity()
-        setValidity(event, valid)
-        lastNameValid = valid
-    })
-
-    $('input[name="address"]').on('blur', (event) => {
-        const valid = event.currentTarget.checkValidity()
-        setValidity(event, valid)
-        addressValid = valid
-    })
-
-    $('select[name="city"]').on('change', (event) => {
-        const valid = event.currentTarget.checkValidity()
-        console.log(event.currentTarget.checkValidity())
-        setValidity(event, valid)
-        cityValid = valid
-    })
-
-    $('input[name="phone"]').on('blur', (event) => {
-        const valid = event.currentTarget.checkValidity() || !validatePhoneNumber($(event.currentTarget).val())
-        setValidity(event, valid)
-        phoneValid = valid
-    })
-
-    function validatePhoneNumber(input_str) {
-        return /^\+?1?\d{9,15}$/.test(input_str);
-    }
-
-    $('input[name="email"]').on('blur', (event) => {
-        const valid = event.currentTarget.checkValidity()
-        setValidity(event, valid)
-        emailValid = valid
-    })
-
-    $('textarea[name="notes"]').on('blur', (event) => {
-        const valid = event.currentTarget.checkValidity()
-        setValidity(event, valid)
-        notesValid = valid
-    })
-
-    let url = `ws://${window.location.host}/ws/order-socket-server/`
-
-    const orderSocket = new WebSocket(url)
-
-    orderSocket.onclose = function (e) {
-        console.log("Socket closed")
-    }
-
-    function formValid(){
-        return firstNameValid && lastNameValid && emailValid && addressValid && cityValid && phoneValid && notesValid
-    }
-
-    const checkoutForm = $('form.checkout')
-    checkoutForm.on('submit', async (event) => {
-        event.preventDefault()
-        if(formValid()){
-            let formData = new FormData(event.currentTarget);
-            await createOrder(formData)
-        }
-    })
-
-    async function createOrder(formData) {
+    async checkout(){
         try {
-            const response = await fetch(checkoutURL, {
+            this.v$.$touch()
+            if (this.v$.$invalid) return 
+            
+            this.submitLoading = true
+            
+            const formData = new FormData();
+            formData.append('first_name', this.checkoutForm.firstName)
+            formData.append('last_name', this.checkoutForm.lastName)
+            formData.append('phone', this.checkoutForm.phone)
+            formData.append('address', this.checkoutForm.address)
+            formData.append('city', this.checkoutForm.city)
+            formData.append('email', this.checkoutForm.email)
+            formData.append('notes', this.checkoutForm.notes)
+
+            const response = await fetch('/api/checkout', {
                 method: 'POST',
                 body: formData,
                 headers: { "X-CSRFToken": csrftoken },
@@ -138,15 +75,39 @@ jQuery(document).ready(function ($) {
 
             const data = await response.json()
 
-            if(response.ok && data.success_url){
-                window.location.replace(data?.success_url);
+            if(response.ok){
+                window.location.replace(data?.sessionId);
             }else{
                 throw new Error(JSON.stringify(data))
             }
         } catch (e) {
+            this.submitLoading = false
             console.log(e)
         }
     }
+  },
 
-});
-
+  validations: {
+    checkoutForm:{
+        firstName: {
+            required
+        },
+        lastName: {
+            required
+        },
+        city: {
+            required
+        },
+        phone: {
+            required,
+            phoneValidator
+        },
+        address: {
+            required
+        },
+        email: {
+            email
+        },
+    },
+  }
+}).mount("#checkout-app");

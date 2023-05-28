@@ -1,0 +1,24 @@
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Order Failed" %}{% endblock title %} 
+{% block content %}
+<main class="main-area fix">
+  {%include "components/breadcrumb.html" with breadcrumb=breadcrumb%}
+
+  <div class="tg-page-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="tg-page-content suxnix-page-content">
+            <div class="tp-page-post">
+              <div class="woocommerce">
+                {% include 'components/messages.html' with messages=messages %}
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

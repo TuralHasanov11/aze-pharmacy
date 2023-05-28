@@ -1,21 +1,19 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{config.app.site_url}}{% static 'css/main/bootstrap.css' %}">
-</head>
-<body>
-    <div class="container bg-light p-3">
-        <main class="mb-5">
-            <h2 class="text-center mb-4"><a href="{{config.app.site_url}}" target="_blank" class="text-decoration-none text-dark fw-bold">{{config.app.name}}</a></h2>
-            <p class="mb-2">Hörmətli {{order.full_name}},</p>
-        </main>
-        <footer class="text-center">
-            <img src="{{config.app.site_url}}{% static 'images/logo.png' %}" style="width: 30px; height:30px">
-            <p>Hörmətlə,<br>{{config.app.name}}</p>
-        </footer>
-    </div>
-</body>
-</html>
+{% extends 'components/notifications/email-layout.html' %} 
+{% block content %}
+<p class="mb-4">Hörmətli {{order.full_name}},</p>
+<p class="mb-4">
+  Sifariş nömrəsi {{order.id}} ilə sifarişinizin çatdırılmasının ləğv edildiyini
+  təəssüflə bildiririk. Bunun səbəb ola biləcəyi hər hansı narahatlığa görə üzr
+  istəyirik.
+</p>
+<p class="mb-4">
+  Hər hansı bir sualınız varsa və ya əlavə yardıma ehtiyacınız varsa,
+  <a
+    class="text-success"
+    href="{{config.app.site_url}}{% url 'main:contact' %}"
+    target="_blank"
+    >Müştəri Dəstəyi Əlaqəsi</a
+  >
+  ünvanında müştəri dəstək komandamızla əlaqə saxlamaqdan çəkinməyin.
+</p>
+{% endblock content %}

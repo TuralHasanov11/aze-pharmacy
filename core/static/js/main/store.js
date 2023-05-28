@@ -21,7 +21,7 @@ jQuery(document).ready(function ($) {
 
   async function addToWishlist(productId) {
     try {
-      const response = await fetch(wishlistAddURL, {
+      const response = await fetch('/api/wishlist/add', {
         method: 'POST',
         body: JSON.stringify({
           product_id: productId,
@@ -37,7 +37,7 @@ jQuery(document).ready(function ($) {
 
   async function removeFromWishlist(productId) {
     try {
-      const response = await fetch(wishlistRemoveURL, {
+      const response = await fetch('/api/wishlist/remove', {
         method: 'POST',
         body: JSON.stringify({
           product_id: productId,
@@ -57,7 +57,7 @@ jQuery(document).ready(function ($) {
     const productQuantity = $(e.currentTarget).data('quantity');
 
     try {
-      const response = await fetch(cartAddURL, {
+      const response = await fetch('/api/cart/add', {
         method: 'POST',
         body: JSON.stringify({
           product_id: productId,
@@ -67,6 +67,10 @@ jQuery(document).ready(function ($) {
       });
 
       const data = await response.json();
+
+      if(!response.ok){
+        throw new Error(JSON.stringify(data))
+      }
 
       const product = productComponent(data)
       if ($(`.mini_cart_item[data-product_id='${productId}']`).length === 0) {
@@ -79,14 +83,14 @@ jQuery(document).ready(function ($) {
       $("#cart-total-price").html(data.total_price);
       $("#cart-quantity").html(data.quantity)
     } catch (error) {
-      console.log(error)
+      errorAlert(JSON.parse(error.message)?.message)
     }
   })
 
   $('.remove_from_cart_button').on('click', async (e) => {
     e.preventDefault();
     try {
-      await fetch(cartRemoveURL, {
+      await fetch('/api/cart/remove', {
         method: 'POST',
         body: JSON.stringify({
           product_id: $(e.currentTarget).data('product_id'),
@@ -95,7 +99,7 @@ jQuery(document).ready(function ($) {
       });
       location.reload();
     } catch (error) {
-      console.log(error)
+      errorAlert(JSON.parse(error.message)?.message)
     }
   })
 
@@ -140,7 +144,7 @@ jQuery(document).ready(function ($) {
     try {
       const productId = $(e.currentTarget).data('product_id')
       const productQuantity = $(e.currentTarget).val()
-      const response = await fetch(cartUpdateURL, {
+      const response = await fetch('/api/cart/update', {
         method: 'POST',
         body: JSON.stringify({
           product_id: productId,
@@ -164,7 +168,7 @@ jQuery(document).ready(function ($) {
         $(`.cart_item[data-product_id='${productId}']`).find('.product-subtotal-price').html(data.item.total_price)
       }
     } catch (error) {
-      console.log(error)
+      errorAlert(JSON.parse(error.message)?.message)
     }
   })
 

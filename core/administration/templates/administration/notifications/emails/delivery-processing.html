@@ -1,81 +1,68 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{config.app.site_url}}{% static 'css/main/bootstrap.css' %}">
-</head>
-<body>
-    <div class="container bg-light p-3">
-        <main class="mb-5">
-            <h2 class="text-center mb-4"><a href="{{config.app.site_url}}" target="_blank" class="text-decoration-none text-dark fw-bold">{{config.app.name}}</a></h2>
-            <p class="mb-2">Hörmətli {{order.full_name}},</p>
-            <h4 class="mb-2">Sifarişiniz üçün təşəkkür edirik.</h4>
-            <p class="mb-4">
-                Sifarişinizin təfərrüatları aşağıdakı görə bilərsiniz:
-            </p>
-            <p class="text-center mb-4"><a href="{{config.app.site_url}}{% url 'orders:detail' id=order.id %}?order_key={{order.order_key}}" class="btn-success btn-lg btn">Sifarişi İzlə</a></p>
-            <div class="list-group mb-4">
-                <li class="list-group-item list-group-item-action active text-center">
-                    Sifarişiniz
-                </li>
-                {% for item in order.items.all %}
-                <a href="{{config.app.site_url}}{% url 'store:product-detail' category_slug=item.product.category.slug product_slug=item.product.slug %}" class="list-group-item d-flex justify-content-between align-items-center">
-                    <div class="d-flex w-100 justify-content-between">
-                    <h6 class="mb-1">{{item.product.name}}</h6>
-                    </div>
-                    <span class="badge bg-success rounded-pill">{{item.quantity}}</span>
-                </a>
-                {% endfor %}
-            </div>
-            <div class="list-group mb-4">
-                <li class="list-group-item list-group-item-action active text-center">
-                    Sifarişin Detalları
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h6 class="mb-1">Sifariş nömrəsi</h6>
-                    </div>
-                    <span>{{order.id}}</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h6 class="mb-1">Sifariş tarixi</h6>
-                    </div>
-                    <span>{{order.created_at|date:'d.m.Y'}}</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h6 class="mb-1">Ümumi Məbləğ</h6>
-                    </div>
-                    <span>{{order.total_paid}} &#8380;</span>
-                </li>
-            </div>
-            <div class="list-group mb-4">
-                <li class="list-group-item list-group-item-action active text-center">
-                    Çatdırılma Məlumatları
-                </li>
-                <li class="list-group-item">{{order.full_name}}</li>
-                {% if order.email %}<li class="list-group-item">{{order.email}}</li>{% endif %}
-                <li class="list-group-item">
-                    {{order.city}}
-                </li>
-                <li class="list-group-item">
-                    {{order.address}}
-                </li>
-            </div>
-            <p class="mt-5">
-                Bu e-poçt sifarişinizin qəbulunu təsdiqləyir. 
-                Tezliklə məhsulların çatdırılmasını təsdiq edən e-poçt göndəriləcək.
-                Ümid edirik ki, sizi tezliklə saytımıza yenidən salamlayacağıq.
-                Sualiniz var? <a class="text-success" href="{{config.app.site_url}}{% url 'main:contact' %}" target="_blank">Əlaqə</a> bölməmizə daxil olun
-            </p>
-        </main>
-        <footer class="text-center">
-            <img src="{{config.app.site_url}}{% static 'images/logo.png' %}" style="width: 30px; height:30px">
-            <p>Hörmətlə,<br>{{config.app.name}}</p>
-        </footer>
-    </div>
-</body>
-</html>
+{% extends 'components/notifications/email-layout.html' %} 
+
+{% block content %}
+<p class="mb-4">Hörmətli {{order.full_name}},</p>
+<h4 class="mb-4">Sifarişiniz üçün təşəkkür edirik.</h4>
+<p class="mb-4">Sifarişinizin təfərrüatları aşağıdakı görə bilərsiniz:</p>
+<p class="text-center mb-4">
+  <a
+    href="{{config.app.site_url}}{% url 'orders:detail' id=order.id %}?order_key={{order.order_key}}"
+    class="btn-success btn-lg btn"
+    >Sifarişi İzlə</a
+  >
+</p>
+<div class="list-group mb-4">
+  <li class="list-group-item list-group-item-action active text-center">
+    Sifarişiniz
+  </li>
+  {% for item in order.items.all %}
+  <a
+    href="{{config.app.site_url}}{% url 'store:product-detail' category_slug=item.product.category.slug product_slug=item.product.slug %}"
+    class="list-group-item d-flex justify-content-between align-items-center"
+  >
+    <h6>{{item.product.name}}</h6>
+    <span class="badge bg-success rounded-pill">{{item.quantity}}</span>
+  </a>
+  {% endfor %}
+</div>
+<div class="list-group mb-4">
+  <li class="list-group-item list-group-item-action active text-center">
+    Sifarişin Detalları
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <h6>Sifariş nömrəsi</h6>
+    <span>{{order.id}}</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <h6>Sifariş tarixi</h6>
+    <span>{{order.created_date}}</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <h6>Ümumi Məbləğ</h6>
+    <span>{{order.total_paid}} &#8380;</span>
+  </li>
+</div>
+<div class="list-group mb-4">
+  <li class="list-group-item list-group-item-action active text-center">
+    Çatdırılma Məlumatları
+  </li>
+  <li class="list-group-item">{{order.full_name}}</li>
+  {% if order.email %}
+  <li class="list-group-item">{{order.email}}</li>
+  {% endif %}
+  <li class="list-group-item">{{order.city}}</li>
+  <li class="list-group-item">{{order.address}}</li>
+</div>
+<p class="mb-4">
+  Bu e-poçt sifarişinizin qəbulunu təsdiqləyir. Tezliklə məhsulların
+  çatdırılmasını təsdiq edən e-poçt göndəriləcək. Ümid edirik ki, sizi tezliklə
+  saytımıza yenidən salamlayacağıq. Sualiniz var?
+  <a
+    class="text-success"
+    href="{{config.app.site_url}}{% url 'main:contact' %}"
+    target="_blank"
+    >Əlaqə</a
+  >
+  bölməmizə daxil olun
+</p>
+{% endblock content %}

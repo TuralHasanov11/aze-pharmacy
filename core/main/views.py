@@ -12,11 +12,10 @@ from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_GET, require_http_methods
 from django.views.generic.list import ListView
-from news.models import Post
-from store.models import Category, Product, ProductImage
-
 from main.forms import ContactForm
 from main.models import Company, Question, SiteInfo, SiteText
+from news.models import Post
+from store.models import Category, Product, ProductImage
 
 
 @require_GET
@@ -57,7 +56,8 @@ def contact(request: HttpRequest):
                 msg = EmailMessage(
                     subject=data["subject"],
                     body=content,
-                    from_email=os.environ.get("COMPANY_EMAIL_NO_REPLY", "test@test.com"),
+                    from_email=os.environ.get(
+                        "COMPANY_EMAIL_NO_REPLY", "test@test.com"),
                     to=[os.environ.get("COMPANY_EMAIL", "")],
                 )
                 msg.content_subtype = "html"

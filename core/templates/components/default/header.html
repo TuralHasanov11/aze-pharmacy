@@ -97,7 +97,7 @@
                   </li>
 
                   <li class="header-shop-cart">
-                    <a href="{% url 'wishlist:wishlist' %}" class="cart-count text-success">
+                    <a href="{% url 'wishlist:index' %}" class="cart-count text-success">
                       <i class="fas fa-heart"></i>
                       <span id="wishlist-quantity" class="mini-cart-count">
                         {{wishlist|length}}
@@ -173,7 +173,7 @@
                   <li
                     class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home"
                   >
-                    <a href="{% url 'wishlist:wishlist' %}" class="cart-count text-success">
+                    <a href="{% url 'wishlist:index' %}" class="cart-count text-success">
                       <i class="fas fa-heart"></i>
                     </a>
                   </li>
@@ -224,5 +224,5 @@
       </div>
     </div>
   </div>
-  <div class="search-backdrop"></div>
+  <div class="search-backdrop" style="cursor: url({% static 'images/main/icons/cross-out.png' %}), pointer;"></div>
 </header>

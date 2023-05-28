@@ -1,5 +1,4 @@
 from django.db.models import Prefetch
-from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -10,7 +9,6 @@ from store.models import ProductImage
 
 @require_GET
 def detail(request, id: int):
-    template_name = 'orders/detail.html'
     try:
         order = Order.objects.select_related('order_delivery').prefetch_related(
             Prefetch('items', queryset=OrderItem.objects.select_related('product__category').prefetch_related(
@@ -26,6 +24,9 @@ def detail(request, id: int):
             {"title": _("Order Details")},
         ]
         
-        return render(request, template_name=template_name, context={'order': order, "breadcrumb": breadcrumb, "order_quantity": order_quantity})
+        return render(request, template_name='orders/detail.html', 
+                      context={'order': order, "breadcrumb": breadcrumb, "order_quantity": order_quantity})
     except Order.DoesNotExist:
         return redirect('main:not-found')
+    
+

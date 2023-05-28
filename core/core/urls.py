@@ -6,12 +6,11 @@ from django.urls import include, path, re_path
 
 urlpatterns = [
     path('django-admin/', admin.site.urls),
-
+    path('api/', include('api.urls', namespace='api')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
 urlpatterns += i18n_patterns(
-    path('ckeditor/', include('ckeditor_uploader.urls')),
-
     path('', include('main.urls')),
     path('news/', include('news.urls', namespace="news")),
     path('services/', include('services.urls', namespace="services")),
@@ -22,8 +21,6 @@ urlpatterns += i18n_patterns(
     path('checkout/', include('checkout.urls', namespace="checkout")),
     path('orders/', include('orders.urls', namespace="orders")),
     path('admin/', include('administration.urls', namespace="administration")),
-
-    path('api/', include('api.urls', 'api')),
 )
 
 handler404 = "main.views.notFound"
