@@ -45,6 +45,10 @@ class Post(models.Model):
     @property
     def updated_date(self):
         return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
+    
+    @property
+    def last_modified_by_name(self):
+        return str(self.last_modified_by)
 
     def save(self, *args, **kwargs):
         if not self.slug:

@@ -72,6 +72,11 @@ class ServiceListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Success
         context = super().get_context_data(**kwargs)
         context['services'] = self.model.objects.all()
         return context
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class ServiceUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -85,6 +90,11 @@ class ServiceUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
 
     def get_success_url(self):
         return reverse("administration:service-update", kwargs={"pk": self.object.pk})
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class ServiceDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -120,6 +130,11 @@ class DocumentListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
         documents = pagination.get_page(pageNumber)
         context['documents'] = documents
         return context
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class DocumentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -133,6 +148,11 @@ class DocumentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
 
     def get_success_url(self):
         return reverse("administration:document-update", kwargs={"pk": self.object.pk})
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class DocumentDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -159,6 +179,11 @@ class CompanyListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Success
         context = super().get_context_data(**kwargs)
         context['companies'] = self.model.objects.all()
         return context
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class CompanyUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -172,6 +197,11 @@ class CompanyUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
 
     def get_success_url(self):
         return reverse("administration:company-update", kwargs={"pk": self.object.pk})
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class CompanyDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -300,6 +330,11 @@ class UserCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
     success_message = _("User was created successfully!")
     success_url = reverse_lazy('administration:user-list')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
+
 
 class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     model = get_user_model()
@@ -312,6 +347,11 @@ class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
 
     def get_success_url(self):
         return reverse("administration:user-update", kwargs={"pk": self.object.pk})
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class UserDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -335,6 +375,11 @@ class CategoryListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
         context = super().get_context_data(**kwargs)
         context['categories'] = self.model.objects.all()
         return context
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class CategoryUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -348,6 +393,11 @@ class CategoryUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
 
     def get_success_url(self):
         return reverse("administration:store-category-update", kwargs={"pk": self.object.pk})
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class CategoryDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -404,7 +454,7 @@ class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
 @permission_required('store.add_product', login_url=reverse_lazy('administration:index'))
 def productCreate(request):
     if request.method == 'POST':
-        form = forms.ProductForm(request.POST, request.FILES)
+        form = forms.ProductForm(request.POST, request.FILES, last_modified_by=request.user)
         product_image_formset = forms.ProductImageFormSet(
             data=request.POST, files=request.FILES)
         if form.is_valid() and product_image_formset.is_valid():
@@ -436,7 +486,7 @@ def productUpdate(request, pk: int):
 
     if request.method == 'POST':
         form = forms.ProductForm(
-            instance=product, data=request.POST, files=request.FILES)
+            instance=product, data=request.POST, files=request.FILES, last_modified_by=request.user)
         product_image_formset = forms.ProductImageFormSet(
             instance=product, data=request.POST, files=request.FILES)
         if form.is_valid() and product_image_formset.is_valid():
@@ -498,7 +548,7 @@ def siteInfo(request):
     siteInfo = SiteInfo.objects.first()
     if request.method == 'POST':
         form = forms.SiteInfoForm(
-            instance=siteInfo, data=request.POST, files=request.FILES)
+            instance=siteInfo, data=request.POST, files=request.FILES, last_modified_by=request.user)
         if form.is_valid():
             form.save()
             messages.success(request, _("Site Info was saved successfully!"))
@@ -529,6 +579,11 @@ class FAQCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageM
     success_message = _("Question was created successfully!")
     success_url = reverse_lazy('administration:site-faq-list')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
+
 
 class FAQUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Question
@@ -541,6 +596,11 @@ class FAQUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageM
 
     def get_success_url(self):
         return reverse("administration:site-faq-update", kwargs={"pk": self.object.pk})
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class FAQDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):

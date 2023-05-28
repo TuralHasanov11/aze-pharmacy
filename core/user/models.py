@@ -47,6 +47,7 @@ class User(AbstractUser):
     is_admin = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
     last_login_at = models.DateTimeField(auto_now=True)
+    last_modified_by = models.ForeignKey('User', on_delete=models.SET_NULL, blank=True, null=True)
     role = models.CharField(max_length=50, choices=Role.choices, default=Role.STAFF)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
@@ -66,6 +67,10 @@ class User(AbstractUser):
     @property
     def updated_date(self):
         return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
+    
+    @property
+    def last_modified_by_name(self):
+        return str(self.last_modified_by)
 
     class Meta:
         ordering = ('username',)

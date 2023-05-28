@@ -1,7 +1,7 @@
 from decimal import Decimal
 
 from django.utils.translation import gettext_lazy as _
-from store.models import Product, ProductImage
+from store.models import Product
 
 
 def productSerializer(product: Product):

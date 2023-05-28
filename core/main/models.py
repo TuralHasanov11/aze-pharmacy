@@ -1,5 +1,6 @@
 from ckeditor_uploader import fields as ckeditorFields
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
@@ -30,6 +31,8 @@ class Company(models.Model):
     name = models.CharField(max_length=255, unique=True)
     link = models.URLField()
     cover_image = models.ImageField(upload_to=company_cover_image_path)
+    last_modified_by = models.ForeignKey(
+        get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -39,6 +42,10 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
+    
+    @property
+    def last_modified_by_name(self):
+        return str(self.last_modified_by)
 
 
 class SiteInfo(models.Model):
@@ -54,12 +61,17 @@ class SiteInfo(models.Model):
     banner_image = models.ImageField(upload_to="site/", null=True, blank=True, default="site/banner_default.jpg")
     breadcrumb_image = models.ImageField(upload_to="site/", null=True, blank=True, default="site/breadcrumb_default.jpg")
     about_image = models.ImageField(upload_to="site/", null=True, blank=True, default="site/about_image_default.jpg")
+    last_modified_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Site Infos"
 
     def __str__(self):
         return f'Site Info - {self.created_at}'
+    
+    @property
+    def last_modified_by_name(self):
+        return str(self.last_modified_by)
 
 
 class SiteText(models.Model):
@@ -68,6 +80,7 @@ class SiteText(models.Model):
     return_policy = RichTextEditorField()
     privacy_policy = RichTextEditorField()
     terms_and_conditions = RichTextEditorField()
+    last_modified_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -77,15 +90,24 @@ class SiteText(models.Model):
     def __str__(self):
         return f'Site Text - {self.language}'
     
+    @property
+    def last_modified_by_name(self):
+        return str(self.last_modified_by)
+    
 
 class Question(models.Model):
     language = LanguageField()
     question = models.TextField()
     answer = RichTextEditorField()
+    last_modified_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.question
+    
+    @property
+    def last_modified_by_name(self):
+        return str(self.last_modified_by)
     
 

@@ -50,6 +50,10 @@
                         {{form.file}} 
                         {{ form.file.errors }}
                     </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label class="mb-1">{% translate "Last Modified by" %}: </label>
+                        {{document.last_modified_by|default:'-'}} 
+                    </div>
                     <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
                 </form>
             </div>

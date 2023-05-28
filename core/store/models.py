@@ -4,6 +4,7 @@ from datetime import datetime
 
 from ckeditor_uploader import fields as ckeditorFields
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Prefetch
@@ -20,6 +21,8 @@ class Category(MPTTModel):
     slug = models.SlugField(max_length=255, unique=True)
     parent = TreeForeignKey("self", on_delete=models.PROTECT,
                             related_name="children", null=True, blank=True)
+    last_modified_by = models.ForeignKey(
+        get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -41,6 +44,9 @@ class Category(MPTTModel):
     def get_absolute_url(self):
         return reverse("store:category-products", kwargs={"category_slug": self.slug})
 
+    @property
+    def last_modified_by_name(self):
+        return str(self.last_modified_by)
 
 class ProductQuerySet(models.QuerySet):
     def list_queryset(self):
@@ -95,6 +101,8 @@ class Product(models.Model):
     in_stock = models.BooleanField(default=True)
     maximum_purchase_units = models.IntegerField(
         default=10, validators=[MinValueValidator(0), MaxValueValidator(100)])
+    last_modified_by = models.ForeignKey(
+        get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False,)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -118,18 +126,24 @@ class Product(models.Model):
     @property
     def is_active_display_value(self):
         return _('Active') if self.is_active else _('Not Active')
-    
+
     @property
     def created_date(self):
         return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
-    
+
     @property
     def updated_date(self):
         return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
+    
+    @property
+    def last_modified_by_name(self):
+        return str(self.last_modified_by)
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
+        self.discount_price = self.regular_price - \
+            (self.regular_price * self.discount / 100)
         return super().save(*args, **kwargs)
 
 

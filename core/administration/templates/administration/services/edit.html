@@ -55,6 +55,10 @@
                         {{form.cover_image}} 
                         {{ form.cover_image.errors  }}
                     </div>
+                    <div class="mb-4">
+                        <label class="mb-1">{% translate "Last Modified by" %}: </label>
+                        {{service.last_modified_by|default:'-'}} 
+                    </div>
                     <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
                 </form>
             </div>

@@ -71,6 +71,10 @@
                                 {{ form.role }} 
                                 {{ form.role.errors  }}
                             </div>
+                            <div class="mb-3">
+                                <label class="small mb-1">{% translate "Last Modified by" %}: </label>
+                                {{user.last_modified_by|default:'-'}}  
+                            </div>
                             <button class="btn btn-primary" type="submit">{% translate "Save" %}</button>
                         </form>
                     </div>

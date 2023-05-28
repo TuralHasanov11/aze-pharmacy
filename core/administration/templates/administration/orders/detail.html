@@ -172,8 +172,8 @@
                             <div id="{{delivery_form.delivery_date.id_for_label}}_errors" class="invalid-feedback"></div> 
                         </div>
                         <div class="mb-4">
-                          <label class="mb-1" for="{{ delivery_form.last_modified_by.id_for_label }}">{{ delivery_form.last_modified_by.label }}</label>
-                          {{ delivery_form.last_modified_by }}
+                          <label class="mb-1">{% translate "Last Modified by" %}</label>
+                          <input type="text" disabled class="form-control" value="{{ order.order_delivery.last_modified_by|default:'-' }}">
                         </div>
                         <button id="delivery_submit_btn" class="btn btn-success btn-disabled" type="submit">{% translate "Save" %}</button>
                       </div>
