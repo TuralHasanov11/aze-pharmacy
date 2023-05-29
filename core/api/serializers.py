@@ -10,7 +10,7 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = ('id', 'first_name', 'last_name', 'full_name', 'email', 'address', 'city', 
                   'phone', 'total_paid', 'total_refund', 'order_key', 'session_id', 
                   'payment_status', 'notes', 'is_flagged', 'seen', 'created_at', 'updated_at', 
-                  'get_payment_status_display', 'payment_status_color')
+                  'payment_status_value', 'payment_status_color')
 
 
 class OrderRefundCreateSerializer(serializers.ModelSerializer):

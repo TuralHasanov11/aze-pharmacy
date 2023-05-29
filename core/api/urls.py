@@ -4,7 +4,6 @@ from django.urls import path
 app_name = "api"
 
 urlpatterns = [
-    path('orders', views.orders, name='orders'),
     path('cities', views.cities, name='cities'),
     path('orders/<int:id>/flag', views.orderFlag, name='order-flag'),
     path('orders/<int:id>/refund', views.orderRefund, name='order-refund'),

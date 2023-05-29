@@ -41,23 +41,23 @@
                     {{form.non_form_errors}}
                     {{ form.media }}
                     <div class="mb-4">
-                        <label class="mb-1" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                        <label class="mb-1 small" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
                         {{ form.name }} 
                         {{ form.name.errors }}
                     </div>
                     <div class="mb-4">
-                        <label class="mb-1" for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+                        <label class="mb-1 small" for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
                         {{ form.description }} 
                         {{ form.description.errors  }}
                     </div>
                     <div class="mb-4">
-                        <label class="mb-1" for="{{ form.cover_image.id_for_label }}">{{ form.cover_image.label }}</label>
+                        <label class="mb-1 small" for="{{ form.cover_image.id_for_label }}">{{ form.cover_image.label }}</label>
                         {{form.cover_image}} 
                         {{ form.cover_image.errors  }}
                     </div>
                     <div class="mb-4">
                         <label class="mb-1">{% translate "Last Modified by" %}: </label>
-                        {{service.last_modified_by|default:'-'}} 
+                        <small><b>{{service.last_modified_by|default:'-'}}</b></small>
                     </div>
                     <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
                 </form>

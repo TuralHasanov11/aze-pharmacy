@@ -34,33 +34,6 @@ from store.models import Product, ProductImage
 from wishlist.processor import WishlistProcessor
 
 
-@login_required
-@api_view(['GET'])
-@permission_required(['orders.view_order', 'orders.change_order'], raise_exception=True)
-def orders(request):
-    search = request.GET.get('search', None)
-    isFlagged = bool(request.GET.get('is_flagged', False))
-    selectedOrderByValue = request.GET.get('order_by', '-created_at')
-
-    if search:
-        searchQuery = SearchQuery(search)
-        searchVector = SearchVector("first_name", "last_name", "email", "address", "city", "phone",
-                                    "total_paid", "order_key", "payment_status", "notes",)
-        ordersQueryset = Order.objects.annotate(
-            search=searchVector, rank=SearchRank(searchVector, searchQuery)
-        ).filter(search=searchQuery).order_by("rank", selectedOrderByValue)
-    else:
-        ordersQueryset = Order.objects.order_by(selectedOrderByValue)
-
-    if isFlagged:
-        ordersQueryset = ordersQueryset.filter(is_flagged=isFlagged)
-
-    paginator = pagination.OrderPagination()
-    orders = paginator.paginate_queryset(ordersQueryset, request)
-    serializer = OrderSerializer(orders, many=True)
-    return paginator.get_paginated_response(serializer.data)
-
-
 @api_view(['GET'])
 def cities(request):
     cities = getCities()

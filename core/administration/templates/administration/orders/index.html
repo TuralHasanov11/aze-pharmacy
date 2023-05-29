@@ -70,7 +70,7 @@
 {% block scripts %}
 
 <script type='text/javascript'>
-    const ordersAPIURL = "{% url 'api:orders' %}"
+    const ordersAPIURL = "{% url 'administration:orders' %}"
     const ordersURL = "{% url 'administration:order-list' %}/" 
     const newWord = "{% translate 'New' %}"
     const urlParams = new URLSearchParams(window.location.search);
@@ -141,11 +141,11 @@
             <div class="d-flex w-100 justify-content-between align-items-center p-1 text-decoration-none">
                 <span class="flag-btn"onclick="flagOrder(this, ${order.id})"><i class="${flag}"></i></span>
                 <a href="${ordersURL + order.id}?prev_page=${currentPage}" class="d-flex w-100 justify-content-between p-1 text-decoration-none">
-                    <h6 class="m-0">
-                        <span>${order.full_name}</span> 
-                        ${!order.seen?`<span class="badge badge-sm text-bg-success">${newWord}</span>`:''}
-                        <span class="badge badge-sm text-bg-${order.payment_status_color}">${order.get_payment_status_display}</span>
-                    </h6>
+                    <span class="m-0 text-dark">
+                        <span class='order-customer-name'>${order.full_name}</span> 
+                        ${!order.seen?`<span class="badge text-bg-success order-seen">${newWord}</span>`:''}
+                        <span class="badge text-bg-${order.payment_status_color} order-payment-status">${order.payment_status_value}</span>
+                    </span>
                     <small class="text-dark d-flex justify-content-between">
                         ${orderDate}
                     </small>

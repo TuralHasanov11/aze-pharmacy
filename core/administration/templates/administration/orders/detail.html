@@ -36,7 +36,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-12 col-lg-5">
-                  <ul class="list-group mb-4">
+                  <ul class="list-group mb-4 order-details">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <span class="fw-bold">{% translate "First Name" %}</span>
                       <span>{{order.first_name}}</span>
@@ -107,7 +107,7 @@
                 </div>
                 <div class="col-12 col-lg-7">
                   <div class="table-responsive mb-4">
-                    <table class="table table-striped table-bordered">
+                    <table class="table table-striped table-bordered entry-table">
                       <thead class="table-primary">
                         <tr>
                           <th scope="col">#</th>
@@ -173,7 +173,7 @@
                         </div>
                         <div class="mb-4">
                           <label class="mb-1">{% translate "Last Modified by" %}</label>
-                          <input type="text" disabled class="form-control" value="{{ order.order_delivery.last_modified_by|default:'-' }}">
+                          <input type="text" disabled class="form-control form-control-sm" value="{{ order.order_delivery.last_modified_by|default:'-' }}">
                         </div>
                         <button id="delivery_submit_btn" class="btn btn-success btn-disabled" type="submit">{% translate "Save" %}</button>
                       </div>
