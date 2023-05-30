@@ -50,19 +50,13 @@ class PaymentGateway:
         except Exception as e:
             print(str(e))
             raise e
-        
-    
-    @staticmethod
-    def refund(request):
-        pass
-
 
     @staticmethod
     def getOrder(request):
         pass
 
     @staticmethod
-    def refund(request: HttpRequest, amount: float, orderId:int, sessionId: str):
+    def refund(request: HttpRequest, amount: float, orderId: int, sessionId: str):
         try:
             data =  {
                 "body": {
@@ -72,12 +66,14 @@ class PaymentGateway:
                 },
                 "merchant": settings.PAYRIFF_MERCHANT
             }
-            response = requests.post("https://api.payriff.com/api/v2/createOrder", 
-                                     data=str(data), 
-                                     headers={"Authorization": settings.PAYRIFF_SECRET_KEY}
-                                )
-            print(response.status_code)
-            print(response.text)
-            return response.json()
+            print(data)
+            return data
+            # response = requests.post("https://api.payriff.com/api/v2/createOrder", 
+            #                          data=str(data), 
+            #                          headers={"Authorization": settings.PAYRIFF_SECRET_KEY}
+            #                     )
+            # print(response.status_code)
+            # print(response.text)
+            # return response.json()
         except Exception as e:
             raise Exception(str(e))

@@ -1,4 +1,5 @@
 {% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% load l10n %}
 {% block title %}{% translate "Order Details" %}{% endblock title %}
 {% block content %}
 <main>
@@ -241,8 +242,8 @@
 
 {% block scripts %}
 <script>
-  const orderTotalPaid = "{{order.total_paid}}"
-  const orderTotalRefund = "{{order.total_refund}}"
+  const orderTotalPaid = "{{order.total_paid|unlocalize }}"
+  const orderTotalRefund = "{{order.total_refund|unlocalize}}"
   const orderId = "{{order.id}}"
   const okText = '{% translate "Ok" %}'
 

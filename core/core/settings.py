@@ -11,10 +11,12 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = str(os.environ.get("DEBUG")) == "True"
 
 if DEBUG:
-    ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
 else:
-    ALLOWED_HOSTS = [os.environ.get("SITE_URL"), ]
+    ALLOWED_HOSTS = [os.environ.get("SITE_URL"), '*']
 
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 INSTALLED_APPS = [
     'daphne',
@@ -34,6 +36,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rosetta',
     'bootstrap_datepicker_plus',
+    'corsheaders',
 
     'main',
     'news',
@@ -53,6 +56,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
