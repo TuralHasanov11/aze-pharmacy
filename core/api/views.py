@@ -4,7 +4,6 @@ from urllib.parse import urlencode
 from administration.forms import OrderDeliveryForm
 from administration.notifications import (sendDeliveryStatusNotification,
                                           sendRefundNotification)
-from api import pagination
 from api.serializers import (OrderDeliverySerializer,
                              OrderRefundCreateSerializer,
                              OrderRefundSerializer, OrderSerializer)
@@ -16,16 +15,14 @@ from checkout.serializers import CheckoutSerializer
 from checkout.utils import getCities
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.postgres.search import (SearchQuery, SearchRank,
-                                            SearchVector)
 from django.db import transaction
 from django.db.models import Prefetch
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.decorators.http import (require_GET, require_http_methods,
-                                          require_POST)
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods, require_POST
 from orders.models import Order, OrderDelivery, OrderItem, OrderRefund
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -149,48 +146,45 @@ def checkout(request):
                         sub_total=item['total_price'],
                         quantity=item['quantity']
                     )
-
                 paymentData = PaymentGateway.charge(request=request, description=f"{order.full_name}-{order.total_paid}",
-                                                    amount=order.total_paid)
-                print(paymentData)
-                order.order_key = 123
-                order.session_id = 124124
+                                                    amount=float(order.total_paid))
+                order.order_id = paymentData["payload"]["orderId"]
+                order.order_key = paymentData["payload"]["sessionId"]
                 order.save()
                 return JsonResponse(data=paymentData["payload"])
     except Exception as e:
         return JsonResponse(status=400, data={"message": _("Order cannot be placed"), "errors": str(e)})
 
 
+@csrf_exempt
 @require_http_methods(['GET', 'POST'])
 def approvePayment(request):
-    # try:
-    print(request.method)
-    print(request.POST)
-    data = request.POST.get("payload")
-    cart = CartProcessor(request)
-    order = Order.objects.select_related('order_delivery').prefetch_related(
-        Prefetch('items', queryset=OrderItem.objects.select_related(
-            'product__category').all()),
-    ).get(order_key=data["orderID"])
-    order.payment_status = Order.PaymentStatus.PAID
-    order.save()
-    delivery = OrderDelivery.objects.create(order=order)
+    try:
+        data = request.POST.get("payload")
+        cart = CartProcessor(request)
+        order = Order.objects.select_related('order_delivery').prefetch_related(
+            Prefetch('items', queryset=OrderItem.objects.select_related(
+                'product__category').all()),
+        ).get(order_key=data["sessionID"], order_id=data["orderID"])
+        order.payment_status = Order.PaymentStatus.PAID
+        order.save()
+        delivery = OrderDelivery.objects.create(order=order)
 
-    sendDeliveryStatusNotification(
-        request=request, order=order, delivery=delivery)
+        sendDeliveryStatusNotification(
+            request=request, order=order, delivery=delivery)
 
-    channel_layer = get_channel_layer()
-    async_to_sync(channel_layer.group_send)("orders", {
-        "type": "order_created",
-        "message": _("New order: ") + f" {order.id}",
-    })
-    cart.clear()
-    messages.success(request, _('Order was placed successfully'))
-    return redirect(f"{reverse('orders:detail', kwargs={'id': order.id})}?{urlencode({'order_key': order.order_key})}#order-summary")
-    # except Exception as e:
-    #     messages.error(request, _("Order cannot be placed"))
-    #     print(str(e))
-    #     return redirect(f"{reverse('checkout:failed')}#order-failed")
+        channel_layer = get_channel_layer()
+        async_to_sync(channel_layer.group_send)("orders", {
+            "type": "order_created",
+            "message": _("New order: ") + f" {order.id}",
+        })
+        cart.clear()
+        messages.success(request, _('Order was placed successfully'))
+        return redirect(f"{reverse('orders:detail', kwargs={'id': order.id})}?{urlencode({'order_key': order.order_key})}#order-summary")
+    except Exception as e:
+        messages.error(request, _("Order cannot be placed"))
+        print(str(e))
+        return redirect(f"{reverse('checkout:failed')}#order-failed")
 
 
 @require_POST
@@ -198,7 +192,7 @@ def cancelPayment(request):
     try:
         data = request.POST.get("payload")
         print(data)
-        Order.objects.get(order_key=data["orderID"]).delete()
+        Order.objects.get(order_key=data["sessionID"], order_id=data["orderID"]).delete()
         return redirect("checkout:index")
     except Exception:
         messages.error(request, _("Order cannot be cancelled"))
@@ -210,7 +204,7 @@ def declinePayment(request):
     try:
         data = request.POST.get("payload")
         print(data)
-        order = Order.objects.get(order_key=data["orderID"])
+        order = Order.objects.get(order_key=data["sessionID"], order_id=data["orderID"])
         order.payment_status = Order.PaymentStatus.CANCELLED
         order.save()
         return redirect("checkout:index")
@@ -232,8 +226,9 @@ def orderRefund(request, id: int):
                 data = serializer.validated_data
                 if "full_refund" in data and data.get("full_refund"):
                     data["amount"] = order.total_paid
-                # PaymentGateway.refund(request=request, amount=float(amount),
-                #                       orderId=order.order_key, sessionId=order.session_id)
+
+                PaymentGateway.refund(request=request, amount=float(data["amount"]),
+                                      orderId=order.order_id, sessionId=order.order_key)
                 orderRefund = OrderRefund.objects.create(
                     order=order, amount=data["amount"], reason=data["reason"], created_by=request.user)
                 order.payment_status = Order.PaymentStatus.REFUNDED
@@ -253,6 +248,8 @@ def orderRefund(request, id: int):
                         data={"message": _("Order cannot be refunded"), "errors": serializer.errors})
     except Order.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND, data={"message": _("Order was not found")})
+    except Exception:
+        return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": _("Refund failed")})
 
 
 @login_required
@@ -262,7 +259,8 @@ def updateOrderDelivery(request, id: int):
     try:
         delivery = OrderDelivery.objects.get(order_id=id)
         order = Order.objects.get(id=id)
-        form = OrderDeliveryForm(instance=delivery, data=request.POST, last_modified_by=request.user)
+        form = OrderDeliveryForm(
+            instance=delivery, data=request.POST, last_modified_by=request.user)
         if form.is_valid():
             if form.has_changed():
                 with transaction.atomic():

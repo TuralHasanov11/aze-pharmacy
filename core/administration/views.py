@@ -3,7 +3,6 @@
 from urllib.parse import urlencode
 
 from administration import forms
-from administration.notifications import sendDeliveryStatusNotification
 from api import pagination
 from api.serializers import OrderSerializer
 from django.contrib import messages
@@ -32,7 +31,6 @@ from main.models import Company, Question, SiteInfo, SiteText
 from news.models import Post
 from orders.models import Order, OrderDelivery, OrderItem, OrderRefund
 from rest_framework.decorators import api_view
-from rest_framework.response import Response
 from services.models import Service
 from store.models import Category, Product, ProductImage
 
@@ -650,7 +648,6 @@ def orderDetail(request, id: int):
     return render(request, template_name, {"order": order, "form": form, "delivery_form": delivery_form, "refund_form": refund_form})
 
 
-
 @login_required
 @api_view(['GET'])
 @permission_required(['orders.view_order', 'orders.change_order'], raise_exception=True)
@@ -662,7 +659,7 @@ def orders(request):
     if search:
         searchQuery = SearchQuery(search)
         searchVector = SearchVector("first_name", "last_name", "email", "address", "city", "phone",
-                                    "total_paid", "order_key", "payment_status", "notes",)
+                                    "total_paid", "order_id", "payment_status", "notes",)
         ordersQueryset = Order.objects.annotate(
             search=searchVector, rank=SearchRank(searchVector, searchQuery)
         ).filter(search=searchQuery).order_by("rank", selectedOrderByValue)

@@ -38,7 +38,8 @@ def default_footer_menu(request):
             ],
             "company_information": [
                 {"title": _("About Us"), "route": "main:about"},
-                {"title": _("Terms and Conditions"), "route": "main:terms-and-conditions"},
+                {"title": _("Terms and Conditions"),
+                 "route": "main:terms-and-conditions"},
                 {"title": _("Privacy Policy"), "route": "main:privacy-policy"},
                 {"title": _("Return Policy"), "route": "main:return-policy"},
             ]
@@ -49,19 +50,30 @@ def default_footer_menu(request):
 def site_info(request):
     siteInfo = SiteInfo.objects.only(
         "phone", "address", "email", "facebook_link", "twitter_link", "instagram_link", "youtube_link", "tiktok_link").first()
+    if siteInfo:
+        return {
+            "site_info": {
+                "phone": siteInfo.phone,
+                "address": siteInfo.address,
+                "email": siteInfo.email,
+                "breadcrumb_image": siteInfo.breadcrumb_image.url,
+                "banner_image": siteInfo.banner_image.url,
+                "social_links": [
+                    {"link": siteInfo.facebook_link, "icon": "fab fa-facebook"},
+                    {"link": siteInfo.twitter_link, "icon": "fab fa-twitter"},
+                    {"link": siteInfo.instagram_link, "icon": "fab fa-instagram"},
+                    {"link": siteInfo.youtube_link, "icon": "fab fa-youtube"},
+                    {"link": siteInfo.tiktok_link, "icon": "fab fa-tiktok"},
+                ]
+            }
+        }
     return {
         "site_info": {
-            "phone": siteInfo.phone,
-            "address": siteInfo.address,
-            "email": siteInfo.email,
-            "breadcrumb_image": siteInfo.breadcrumb_image.url,
-            "banner_image": siteInfo.banner_image.url,
-            "social_links": [
-                {"link": siteInfo.facebook_link, "icon": "fab fa-facebook"},
-                {"link": siteInfo.twitter_link, "icon": "fab fa-twitter"},
-                {"link": siteInfo.instagram_link, "icon": "fab fa-instagram"},
-                {"link": siteInfo.youtube_link, "icon": "fab fa-youtube"},
-                {"link": siteInfo.tiktok_link, "icon": "fab fa-tiktok"},
-            ]
+            "phone": "",
+            "address": "",
+            "email": "",
+            "breadcrumb_image": "",
+            "banner_image": "",
+            "social_links": []
         }
     }

@@ -7,9 +7,9 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'first_name', 'last_name', 'full_name', 'email', 'address', 'city', 
-                  'phone', 'total_paid', 'total_refund', 'order_key', 'session_id', 
-                  'payment_status', 'notes', 'is_flagged', 'seen', 'created_at', 'updated_at', 
+        fields = ('id', 'first_name', 'last_name', 'full_name', 'email', 'address', 'city',
+                  'phone', 'total_paid', 'total_refund', 'order_id', 'order_key',
+                  'payment_status', 'notes', 'is_flagged', 'seen', 'created_at', 'updated_at',
                   'payment_status_value', 'payment_status_color')
 
 
@@ -33,9 +33,12 @@ class OrderDeliverySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrderDelivery
-        fields = ('delivery_status', 'delivery_date', 'courier_name', 'tracking_number', 'last_modified_by_name')
+        fields = ('delivery_status', 'delivery_date', 'courier_name',
+                  'tracking_number', 'last_modified_by_name')
+
 
 class OrderRefundSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderRefund
-        fields = ('id', 'order', 'reason', 'amount', 'created_date', 'created_by_name')
+        fields = ('id', 'order', 'reason', 'amount',
+                  'created_date', 'created_by_name')

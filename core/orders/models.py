@@ -24,8 +24,8 @@ class Order(models.Model):
     phone = models.CharField(validators=[phone_regex], max_length=17)
     total_paid = models.DecimalField(max_digits=7, decimal_places=2)
     total_refund = models.DecimalField(max_digits=7, decimal_places=2, default=0)
+    order_id = models.CharField(max_length=255, unique=True, null=True)
     order_key = models.CharField(max_length=255, unique=True, null=True)
-    session_id = models.CharField(max_length=255, unique=True, null=True)
     payment_status = models.CharField(
         max_length=20, choices=PaymentStatus.choices, default=PaymentStatus.PENDING)
     notes = models.TextField(blank=True, null=True)
@@ -67,6 +67,11 @@ class Order(models.Model):
     @property
     def created_date(self):
         return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
+    
+    # def save(self, *args, **kwargs):
+    #     if not self.uuid:
+    #         self.uuid = uuid.uuid4()
+    #     return super().save(*args, **kwargs)
 
 
 class OrderRefund(models.Model):
