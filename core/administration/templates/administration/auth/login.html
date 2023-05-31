@@ -10,6 +10,9 @@
                     <div class="card-body">
                         <form method="POST">
                             {% csrf_token %}
+                            {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
+                            {{form.non_form_errors}}
+                            {{form.errors}}
                             <div class="mb-3">
                                 <label class="small mb-1" for="{{form.username.id_for_label}}">{{form.username.label}}</label>
                                 {{form.username}}
