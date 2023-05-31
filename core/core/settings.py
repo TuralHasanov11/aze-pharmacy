@@ -11,7 +11,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = str(os.environ.get("DEBUG")) == "True"
 SITE_URL = os.environ.get("SITE_URL")
 
-ALLOWED_HOST = ['*']
+ALLOWED_HOST = [SITE_URL, '*']
 
 CORS_ALLOW_ALL_ORIGINS = True
 
