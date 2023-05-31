@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+import dj_database_url
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 
@@ -109,6 +110,12 @@ DATABASES = {
         'PORT': os.environ.get("POSTGRES_PORT"),
     }
 }
+
+DATABASE_URL = os.environ.get("DATABASE_URL", None)
+if DATABASE_URL:
+    db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=1800)
+    DATABASES['default'].update(db_from_env)
+
 
 AUTH_USER_MODEL = 'user.User'
 
