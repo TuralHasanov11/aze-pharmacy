@@ -28,10 +28,8 @@ def index(request: HttpRequest):
     )
     categories = Category.objects.annotate(
         products_count=Count("product_category")).all().order_by("name")
-    siteText = SiteText.objects.values('about').filter(
-        language=get_language()).first()
     return render(request, 'main/index.html', context={"posts": posts, "companies": companies, "discounted_products": discountedProducts,
-                                                       "categories": categories, "about": siteText["about"]})
+                                                       "categories": categories})
 
 
 @require_http_methods(['GET', 'POST'])
