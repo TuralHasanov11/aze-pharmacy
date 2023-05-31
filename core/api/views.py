@@ -160,31 +160,37 @@ def checkout(request):
 @require_http_methods(['GET', 'POST'])
 def approvePayment(request):
     try:
-        data = request.POST.get("payload")
-        cart = CartProcessor(request)
-        order = Order.objects.select_related('order_delivery').prefetch_related(
-            Prefetch('items', queryset=OrderItem.objects.select_related(
-                'product__category').all()),
-        ).get(order_key=data["sessionID"], order_id=data["orderID"])
-        order.payment_status = Order.PaymentStatus.PAID
-        order.save()
-        delivery = OrderDelivery.objects.create(order=order)
+        if request.method == 'POST':
+            data = json.load(request)["payload"]
+            # cart = CartProcessor(request)
+            order = Order.objects.select_related('order_delivery').prefetch_related(
+                Prefetch('items', queryset=OrderItem.objects.select_related(
+                    'product__category').all()),
+            ).get(order_key=data["sessionID"], order_id=data["orderID"])
+            order.payment_status = Order.PaymentStatus.PAID
+            order.save()
+            delivery, created = OrderDelivery.objects.get_or_create(order=order)
 
-        sendDeliveryStatusNotification(
-            request=request, order=order, delivery=delivery)
+            # sendDeliveryStatusNotification(
+            #     request=request, order=order, delivery=delivery)
 
-        channel_layer = get_channel_layer()
-        async_to_sync(channel_layer.group_send)("orders", {
-            "type": "order_created",
-            "message": _("New order: ") + f" {order.id}",
-        })
-        cart.clear()
-        messages.success(request, _('Order was placed successfully'))
-        return redirect(f"{reverse('orders:detail', kwargs={'id': order.id})}?{urlencode({'order_key': order.order_key})}#order-summary")
+            channel_layer = get_channel_layer()
+            async_to_sync(channel_layer.group_send)("orders", {
+                "type": "order_created",
+                "message": _("New order: ") + f" {order.id}",
+            })
+            # cart.clear()
+            # messages.success(request, _('Order was placed successfully'))
+            return JsonResponse(data={"message": _("Order placed"), "data": data})
+            return redirect(f"{reverse('orders:detail', kwargs={'id': order.id})}?{urlencode({'order_key': order.order_key})}#order-summary")
+        else:
+            data = request.GET
+            print(data)
+            return JsonResponse(data={"message": _("Order placed"), "data": data})
     except Exception as e:
-        messages.error(request, _("Order cannot be placed"))
+        # messages.error(request, _("Order cannot be placed"))
         print(str(e))
-        return redirect(f"{reverse('checkout:failed')}#order-failed")
+        return JsonResponse(status=400, data={"message": _("Order cannot be placed"), "errors": str(e)})
 
 
 @require_POST
