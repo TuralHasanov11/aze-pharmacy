@@ -137,7 +137,7 @@ class PostForm(forms.ModelForm):
 
 class UserLoginForm(auth_forms.AuthenticationForm):
     username = forms.EmailField(label=_('Email'), widget=forms.EmailInput(
-        attrs={'class': 'form-control mb-3 form-control-sm', 'placeholder': 'Email', 'title': _('Please enter username')}))
+        attrs={'class': 'form-control mb-3 form-control-sm', 'placeholder': 'Email', 'title': _('Please enter email')}))
     password = forms.CharField(label=_('Password'), widget=forms.PasswordInput(
         attrs={'class': 'form-control form-control-sm', 'placeholder': 'Password', 'title': _('Please enter password')}))
 

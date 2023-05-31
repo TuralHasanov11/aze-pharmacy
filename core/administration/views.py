@@ -303,7 +303,7 @@ class LoginView(auth_views.LoginView):
     template_name = 'administration/auth/login.html'
 
 
-class LogoutView(LoginRequiredMixin, PermissionRequiredMixin, auth_views.LogoutView):
+class LogoutView(LoginRequiredMixin, auth_views.LogoutView):
     next_page = reverse_lazy('main:index')
 
 
