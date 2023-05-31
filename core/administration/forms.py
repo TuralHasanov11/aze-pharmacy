@@ -20,11 +20,11 @@ from store.models import Category, Product, ProductImage
 
 class ServiceForm(forms.ModelForm):
     name = forms.CharField(label=_('Name'), widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': _('Name'), 'title': _('Please enter name'), }))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Name'), 'title': _('Please enter name'), }))
     cover_image = forms.ImageField(label=_("Cover Image"), widget=forms.ClearableFileInput(
-        attrs={'multiple': False, 'class': 'form-control', 'title': _('Please upload image'), }))
+        attrs={'multiple': False, 'class': 'form-control form-control-sm', 'title': _('Please upload image'), }))
     description = forms.CharField(label=_('Description'), widget=forms.Textarea(
-        attrs={'class': 'form-control', 'placeholder': _('Description'), 'title': _('Please enter description'), }), required=False)
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Description'), 'title': _('Please enter description'), }), required=False)
 
     class Meta:
         model = Service
@@ -44,8 +44,8 @@ class ServiceForm(forms.ModelForm):
 
 class CategoryForm(forms.ModelForm):
     name = forms.CharField(label=_('Name'), widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': _('Name'), 'title': _('Please enter name')}))
-    parent = TreeNodeChoiceField(
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Name'), 'title': _('Please enter name')}))
+    parent = TreeNodeChoiceField(label=_('Parent'),
         queryset=Category.objects.all(), required=False)
 
     class Meta:
@@ -53,13 +53,10 @@ class CategoryForm(forms.ModelForm):
         fields = ('name', 'parent')
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["parent"].widget.attrs.update({"class": "form-select"})
-
-    def __init__(self, *args, **kwargs):
         if 'last_modified_by' in kwargs:
             self.last_modified_by = kwargs.pop('last_modified_by')
         super().__init__(*args, **kwargs)
+        self.fields["parent"].widget.attrs.update({"class": "form-select form-select-sm"})
 
     def save(self, commit=True):
         instance = super().save(commit)
@@ -70,9 +67,9 @@ class CategoryForm(forms.ModelForm):
 
 class DocumentForm(forms.ModelForm):
     name = forms.CharField(label=_('Name'), widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': _('Name'), 'title': _('Please enter name')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Name'), 'title': _('Please enter name')}))
     file = forms.FileField(label=_("File"), widget=forms.ClearableFileInput(
-        attrs={'multiple': False, 'class': 'form-control', 'title': _('Please upload file')}))
+        attrs={'multiple': False, 'class': 'form-control form-control-sm', 'title': _('Please upload file')}))
 
     class Meta:
         model = Document
@@ -92,11 +89,11 @@ class DocumentForm(forms.ModelForm):
 
 class CompanyForm(forms.ModelForm):
     name = forms.CharField(label=_('Name'), widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': _('Name'), 'title': _('Please enter name')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Name'), 'title': _('Please enter name')}))
     link = forms.URLField(label=_('Link'), widget=forms.URLInput(
-        attrs={'class': 'form-control', 'placeholder': _('Link'), 'title': _('Please enter link')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Link'), 'title': _('Please enter link')}))
     cover_image = forms.ImageField(label=_("Cover Image"), widget=forms.ClearableFileInput(
-        attrs={'multiple': False, 'class': 'form-control', 'title': _('Please upload cover image')}))
+        attrs={'multiple': False, 'class': 'form-control form-control-sm', 'title': _('Please upload cover image')}))
 
     class Meta:
         model = Company
@@ -116,9 +113,9 @@ class CompanyForm(forms.ModelForm):
 
 class PostForm(forms.ModelForm):
     title = forms.CharField(max_length=255, label=_('Title'), widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': _('Title'), 'title': _('Please enter title')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Title'), 'title': _('Please enter title')}))
     cover_image = forms.ImageField(label=_("Cover Image"), widget=forms.ClearableFileInput(
-        attrs={'multiple': False, 'class': 'form-control', 'title': _('Please upload cover image')}))
+        attrs={'multiple': False, 'class': 'form-control form-control-sm', 'title': _('Please upload cover image')}))
     description = forms.CharField(
         label=_("Description"), widget=ckeditor_widgets.CKEditorUploadingWidget())
 
@@ -140,9 +137,9 @@ class PostForm(forms.ModelForm):
 
 class UserLoginForm(auth_forms.AuthenticationForm):
     username = forms.EmailField(label=_('Email'), widget=forms.EmailInput(
-        attrs={'class': 'form-control mb-3', 'placeholder': 'Email', 'title': _('Please enter username')}))
+        attrs={'class': 'form-control mb-3 form-control-sm', 'placeholder': 'Email', 'title': _('Please enter username')}))
     password = forms.CharField(label=_('Password'), widget=forms.PasswordInput(
-        attrs={'class': 'form-control', 'placeholder': 'Password', 'title': _('Please enter password')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': 'Password', 'title': _('Please enter password')}))
 
     def confirm_login_allowed(self, user):
         pass
@@ -150,24 +147,29 @@ class UserLoginForm(auth_forms.AuthenticationForm):
 
 class UserCreateForm(UserCreationForm):
     username = forms.CharField(label=_('Username'), max_length=255, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': _('Username'), 'title': _('Please enter username')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Username'), 'title': _('Please enter username')}))
     first_name = forms.CharField(label=_('First Name'), max_length=255, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': _('First Name'), 'title': _('Please enter first name')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('First Name'), 'title': _('Please enter first name')}))
     last_name = forms.CharField(label=_('Last Name'), max_length=255, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': _('Last Name'), 'title': _('Please enter last name')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Last Name'), 'title': _('Please enter last name')}))
     email = forms.EmailField(label=_('Email'), max_length=255, widget=forms.EmailInput(
-        attrs={'class': 'form-control', 'placeholder': _('Email'), 'title': _('Please enter email')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Email'), 'title': _('Please enter email')}))
     role = forms.ChoiceField(label=_('Role'), choices=get_user_model().Role.choices, widget=forms.Select(
-        attrs={'class': 'form-select', 'title': _('Please select role')}), initial=get_user_model().Role.STAFF)
+        attrs={'class': 'form-select form-select-sm', 'title': _('Please select role')}), initial=get_user_model().Role.STAFF)
     password1 = forms.CharField(label=_('Password'), widget=forms.PasswordInput(
-        attrs={'class': 'form-control', 'placeholder': _('Password'), 'title': _('Please enter password')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Password'), 'title': _('Please enter password')}))
     password2 = forms.CharField(label=_('Repeat password'), widget=forms.PasswordInput(
-        attrs={'class': 'form-control', 'placeholder': _('Password Confirm'), 'title': _('Please confirm password')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Password Confirm'), 'title': _('Please confirm password')}))
 
     class Meta:
         model = get_user_model()
         fields = ('username', 'email', 'role', 'first_name',
                   'last_name', 'password1', 'password2')
+    
+    def __init__(self, *args, **kwargs):
+        if 'last_modified_by' in kwargs:
+            self.last_modified_by = kwargs.pop('last_modified_by')
+        super().__init__(*args, **kwargs)
 
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -187,15 +189,15 @@ class UserCreateForm(UserCreationForm):
 
 class UserUpdateForm(forms.ModelForm):
     username = forms.CharField(label=_('Username'), max_length=255, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': _('Username'), 'title': _('Please enter username')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Username'), 'title': _('Please enter username')}))
     first_name = forms.CharField(label=_('First Name'), max_length=255, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': _('First Name'), 'title': _('Please enter first name')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('First Name'), 'title': _('Please enter first name')}))
     last_name = forms.CharField(label=_('Last Name'), max_length=255, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': _('Last Name'), 'title': _('Please enter last name')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Last Name'), 'title': _('Please enter last name')}))
     email = forms.EmailField(label=_('Email'), max_length=255, widget=forms.EmailInput(
-        attrs={'class': 'form-control', 'placeholder': _('Email'), 'title': _('Please enter email')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Email'), 'title': _('Please enter email')}))
     role = forms.ChoiceField(label=_('Role'), choices=get_user_model().Role.choices, widget=forms.Select(
-        attrs={'class': 'form-select', 'title': _('Please select role')}))
+        attrs={'class': 'form-select form-select-sm', 'title': _('Please select role')}))
 
     class Meta:
         model = get_user_model()
@@ -209,7 +211,7 @@ class UserUpdateForm(forms.ModelForm):
     def save(self, commit=True):
         user = super().save(commit)
         user.last_modified_by = self.last_modified_by
-        group = auth_models.Group.objects.get(name=user.get_role_display())
+        group = auth_models.Group.objects.get(name=user.role)
         current_group = self.instance.groups.filter(
             name=user.get_role_display())
         if not current_group:
@@ -221,34 +223,34 @@ class UserUpdateForm(forms.ModelForm):
 
 class PasswordChangeForm(auth_forms.PasswordChangeForm):
     old_password = forms.CharField(label=_('Current Password'), widget=forms.PasswordInput(
-        attrs={'class': 'form-control', 'placeholder': _('Current Password'), 'title': _('Please enter old password')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Current Password'), 'title': _('Please enter old password')}))
     new_password1 = forms.CharField(label=_('New Password'), widget=forms.PasswordInput(
-        attrs={'class': 'form-control', 'placeholder': _('New Password'), 'title': _('Please enter new password')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('New Password'), 'title': _('Please enter new password')}))
     new_password2 = forms.CharField(label=_('Confirm Password'), widget=forms.PasswordInput(
-        attrs={'class': 'form-control', 'placeholder': _('Confirm Password'), 'title': _('Please confirm new password')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Confirm Password'), 'title': _('Please confirm new password')}))
 
 
 class ProductForm(forms.ModelForm):
     name = forms.CharField(label=_('Name'), widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': _('Name'), 'title': _('Please enter name')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Name'), 'title': _('Please enter name')}))
     sku = forms.IntegerField(label=_('SKU'), widget=forms.NumberInput(
-        attrs={'class': 'form-control', 'placeholder': _('SKU'), 'title': _('Please enter SKU')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('SKU'), 'title': _('Please enter SKU')}))
     category = forms.ModelChoiceField(label=_('category'), widget=forms.Select(
-        attrs={'class': 'form-select', 'title': _('Please select category')}), queryset=Category.objects.all())
+        attrs={'class': 'form-select form-select-sm', 'title': _('Please select category')}), queryset=Category.objects.all())
     regular_price = forms.DecimalField(label=_('Regular Price'), widget=forms.NumberInput(
-        attrs={'class': 'form-control', 'placeholder': _('Regular Price'), 'title': _('Please enter regular price')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Regular Price'), 'title': _('Please enter regular price')}))
     discount = forms.IntegerField(label=_('Discount'), widget=forms.NumberInput(
-        attrs={'class': 'form-control', 'placeholder': _('Discount'), 'title': _('Please enter discount')}),
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Discount'), 'title': _('Please enter discount')}),
         initial=0, required=False)
     weight = forms.IntegerField(label=_('Weight'), widget=forms.NumberInput(
-        attrs={'class': 'form-control', 'placeholder': _('Weight'), 'title': _('Please enter weight')}),
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Weight'), 'title': _('Please enter weight')}),
         initial=0, required=False)
     is_active = forms.BooleanField(label=_('Is Active'), widget=forms.CheckboxInput(
         attrs={'class': 'form-check-input', 'placeholder': _('Is Active')}), required=False, initial=True)
     in_stock = forms.BooleanField(label=_('In Stock'), widget=forms.CheckboxInput(
         attrs={'class': 'form-check-input', 'placeholder': _('In Stock')}), required=False, initial=True)
     maximum_purchase_units = forms.IntegerField(label=_('Maximum Number of Purchase Units'), widget=forms.NumberInput(
-        attrs={'class': 'form-control', 'placeholder': _('Maximum Number of Purchase Units'),
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Maximum Number of Purchase Units'),
                'title': _('Please enter maximum number of purchase units')}),
         initial=Product._meta.get_field('maximum_purchase_units').default)
     description = forms.CharField(
@@ -273,7 +275,7 @@ class ProductForm(forms.ModelForm):
 
 class ProductImageForm(forms.ModelForm):
     image = forms.ImageField(label=_('Image'), widget=forms.ClearableFileInput(
-        attrs={'class': 'form-control', 'placeholder': _('Image'), 'title': _('Please upload image'),
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Image'), 'title': _('Please upload image'),
                'multiple': False}), required=False)
     is_feature = forms.BooleanField(label=_('Is Feature'), widget=forms.CheckboxInput(
         attrs={'class': 'form-check-input'}), required=False)
@@ -289,29 +291,29 @@ ProductImageFormSet = forms.inlineformset_factory(
 
 class SiteInfoForm(forms.ModelForm):
     phone = forms.CharField(label=_('Phone'), widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': _('Phone'), 'title': _('Please enter phone')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Phone'), 'title': _('Please enter phone')}))
     address = forms.CharField(label=_('Address'), widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': _('address'), 'title': _('Please enter address')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('address'), 'title': _('Please enter address')}))
     email = forms.EmailField(label=_('Email'), widget=forms.EmailInput(
-        attrs={'class': 'form-control', 'placeholder': _('Email'), 'title': _('Please enter email')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Email'), 'title': _('Please enter email')}))
     facebook_link = forms.URLField(label=_('Facebook link'), widget=forms.URLInput(
-        attrs={'class': 'form-control', 'placeholder': _('Facebook link'), 'title': _('Please enter facebook link')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Facebook link'), 'title': _('Please enter facebook link')}))
     instagram_link = forms.URLField(label=_('Instagram link'), widget=forms.URLInput(
-        attrs={'class': 'form-control', 'placeholder': _('Instagram link'), 'title': _('Please enter instagram link')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Instagram link'), 'title': _('Please enter instagram link')}))
     youtube_link = forms.URLField(label=_('YouTube link'), widget=forms.URLInput(
-        attrs={'class': 'form-control', 'placeholder': _('YouTube link'), 'title': _('Please enter youtube link')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('YouTube link'), 'title': _('Please enter youtube link')}))
     tiktok_link = forms.URLField(label=_('TikTok link'), widget=forms.URLInput(
-        attrs={'class': 'form-control', 'placeholder': _('TikTok link'), 'title': _('Please enter tiktok link')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('TikTok link'), 'title': _('Please enter tiktok link')}))
     twitter_link = forms.URLField(label=_('Twitter link'), widget=forms.URLInput(
-        attrs={'class': 'form-control', 'placeholder': _('Twitter link'), 'title': _('Please enter twitter link')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Twitter link'), 'title': _('Please enter twitter link')}))
     banner_image = forms.ImageField(label=_('Banner Image'), widget=forms.ClearableFileInput(
-        attrs={'class': 'form-control', 'placeholder': _('Banner Image'), 'title': _('Please upload banner image'),
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Banner Image'), 'title': _('Please upload banner image'),
                'multiple': False}), required=False)
     breadcrumb_image = forms.ImageField(label=_('Breadcrumb Image'), widget=forms.ClearableFileInput(
-        attrs={'class': 'form-control', 'placeholder': _('Breadcrumb Image'), 'title': _('Please upload breadcrumb image'),
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Breadcrumb Image'), 'title': _('Please upload breadcrumb image'),
                'multiple': False}), required=False)
     about_image = forms.ImageField(label=_('About Image'), widget=forms.ClearableFileInput(
-        attrs={'class': 'form-control', 'placeholder': _('About Image'), 'title': _('Please upload about image'),
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('About Image'), 'title': _('Please upload about image'),
                'multiple': False}), required=False)
 
     class Meta:
@@ -333,10 +335,10 @@ class SiteInfoForm(forms.ModelForm):
 
 class SiteTextForm(forms.ModelForm):
     language = forms.ChoiceField(label=_("Language"), widget=forms.Select(
-        attrs={"class": "form-select", 'readonly': True,
+        attrs={"class": "form-select form-select-sm", 'readonly': True,
                'title': _('Please select language')}), choices=settings.LANGUAGES, disabled=True)
     about = forms.CharField(label=_('About'), widget=forms.Textarea(
-        attrs={'class': 'form-control', 'placeholder': _('About'), 'rows': 25,
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('About'), 'rows': 25,
                'title': _('Please enter about text')}))
     return_policy = forms.CharField(
         label=_("Return Policy"), widget=ckeditor_widgets.CKEditorUploadingWidget(), required=False)
@@ -356,9 +358,9 @@ SiteTextFormSet = forms.modelformset_factory(
 
 class FAQForm(forms.ModelForm):
     language = forms.ChoiceField(label=_("Language"), widget=forms.Select(
-        attrs={"class": "form-select", 'title': _('Please select language')}), choices=settings.LANGUAGES)
+        attrs={"class": "form-select form-select-sm", 'title': _('Please select language')}), choices=settings.LANGUAGES)
     question = forms.CharField(label=_('Question'), widget=forms.Textarea(
-        attrs={'class': 'form-control', 'placeholder': _('Question'), 'rows': 25, 'title': _('Please enter question')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Question'), 'rows': 25, 'title': _('Please enter question')}))
     answer = forms.CharField(
         label=_("Answer"), widget=ckeditor_widgets.CKEditorUploadingWidget(), required=False)
 
@@ -380,7 +382,7 @@ class FAQForm(forms.ModelForm):
 
 class OrderForm(forms.ModelForm):
     notes = forms.CharField(label=_('Notes'), widget=forms.Textarea(
-        attrs={'class': 'form-control', 'placeholder': _('Notes'), 'title': _('Please enter notes')}), required=False)
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Notes'), 'title': _('Please enter notes')}), required=False)
 
     class Meta:
         model = Order
@@ -389,17 +391,17 @@ class OrderForm(forms.ModelForm):
 
 class OrderDeliveryForm(forms.ModelForm):
     courier_name = forms.CharField(label=_('Courier Name'), widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': _('Courier Name'),
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Courier Name'),
                'title': _('Please enter courier name')}), required=False)
     tracking_number = forms.CharField(label=_('Tracking Number'), widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': _('Tracking Number'),
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Tracking Number'),
                'title': _('Please enter tracking number')}), required=False)
     delivery_status = forms.ChoiceField(label=_('Delivery Status'),
                                         choices=OrderDelivery.DeliveryStatus.choices, widget=forms.Select(
-        attrs={'class': 'form-control', 'placeholder': _('Delivery Status'),
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Delivery Status'),
                'title': _('Please select delivery status')}))
     delivery_date = forms.DateField(label=_('Delivery Date'), widget=DatePickerInput(
-        attrs={'class': 'form-control', 'min': datetime.date.today(),
+        attrs={'class': 'form-control form-control-sm', 'min': datetime.date.today(),
                'title': _('Please enter delivery date')},
         options={"locale": 'az', "format": "DD-MM-YYYY"}), required=False)
 
@@ -447,11 +449,11 @@ class OrderDeliveryForm(forms.ModelForm):
 
 class OrderRefundForm(forms.ModelForm):
     amount = forms.DecimalField(label=_('Refund Amount'), widget=forms.NumberInput(
-        attrs={'class': 'form-control', 'placeholder': _('Refund Amount'),
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Refund Amount'),
                'title': _('Please enter refund amount')}),
         help_text=_('Refund Amount should not be greater than remainder of total payment'), required=False)
     reason = forms.CharField(label=_('Reason'), widget=forms.Textarea(
-        attrs={'class': 'form-control', 'placeholder': _('Reason'),
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Reason'),
                'title': _('Please enter reason')}))
     full_refund = forms.BooleanField(required=False, initial=False, label=_('Full Refund'), widget=forms.CheckboxInput(
         attrs={'class': 'form-check-input', 'placeholder': _('Full Refund')}))

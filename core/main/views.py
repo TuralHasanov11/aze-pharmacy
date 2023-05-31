@@ -77,13 +77,13 @@ def contact(request: HttpRequest):
 def about(request: HttpRequest):
     siteText = SiteText.objects.only('about').filter(
         language=get_language()).first()
-    aboutImage = SiteInfo.objects.only('about_image').first().about_image
+    siteInfo = SiteInfo.objects.only('about_image').first()
     breadcrumb = [
         {"title": _("About Us")},
         {"title": _("Home"), "route": reverse("main:index")},
         {"title": _("About Us")},
     ]
-    return render(request, 'main/about.html', {'siteText': siteText, "breadcrumb": breadcrumb, "aboutImage": aboutImage})
+    return render(request, 'main/about.html', {'site_text': siteText, "breadcrumb": breadcrumb, "site_info_about": siteInfo})
 
 
 class CareerListView(ListView):

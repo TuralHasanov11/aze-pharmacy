@@ -23,7 +23,7 @@
             <div class="col-xl-8 col-12 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <table id="datatablesSimple">
+                        <table id="datatablesSimple" class="entry-table">
                             <thead>
                                 <tr>
                                     <th>{% translate "Name" %}</th>
@@ -41,7 +41,7 @@
                             <tbody>
                                 {% for company in companies %}
                                 <tr>
-                                    <td>{{company.name}}</td>
+                                    <td><a target="_blank" href="{{company.link}}">{{company.name}}</a></td>
                                     <td>{% if company.cover_image %}<img width="30" height="30" src="{{company.cover_image.url}}" alt="{{company.name}}">{% endif %}</td>
                                     <td>
                                         <a href="{% url 'administration:company-update' pk=company.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>

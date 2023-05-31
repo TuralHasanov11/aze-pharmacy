@@ -76,7 +76,7 @@ createApp({
             const data = await response.json()
 
             if(response.ok){
-                window.location.replace(data?.sessionId);
+                window.location.replace(data?.paymentUrl);
             }else{
                 throw new Error(JSON.stringify(data))
             }

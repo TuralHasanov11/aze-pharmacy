@@ -23,12 +23,11 @@
             <div class="col-xl-8 col-12 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <table id="datatablesSimple">
+                        <table id="datatablesSimple" class="entry-table">
                             <thead>
                                 <tr>
                                     <th>{% translate "Service" %}</th>
                                     <th>{% translate "Cover Image" %}</th>
-                                    <th>{% translate "Description" %}</th>
                                     <th>{% translate "Actions" %}</th>
                                 </tr>
                             </thead>
@@ -36,7 +35,6 @@
                                 <tr>
                                     <th>{% translate "Service" %}</th>
                                     <th>{% translate "Cover Image" %}</th>
-                                    <th>{% translate "Description" %}</th>
                                     <th>{% translate "Actions" %}</th>
                                 </tr>
                             </tfoot>
@@ -45,7 +43,6 @@
                                 <tr>
                                     <td>{{service.name}}</td>
                                     <td>{% if service.cover_image %}<img width="30" height="30" src="{{service.cover_image.url}}" alt="{{service.name}}">{% endif %}</td>
-                                    <td>{{service.description|truncatewords:6}}</td>
                                     <td>
                                         <a href="{% url 'administration:service-update' pk=service.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
                                         <form class="delete-form" action="{% url 'administration:service-delete' pk=service.pk %}" method="POST">

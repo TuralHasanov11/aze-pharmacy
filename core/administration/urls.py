@@ -37,6 +37,7 @@ urlpatterns = [
     path('store/products/<int:pk>/update', views.productUpdate, name='store-product-update'),
     path('store/products/<int:pk>/delete', views.ProductDeleteView.as_view(), name='store-product-delete'),
     path('orders', views.OrdersView.as_view(), name='order-list'),
+    path('api/orders', views.orders, name='orders'),
     path('orders/<int:id>', views.orderDetail, name='order-detail'),
     path('site/info', views.siteInfo, name='site-info'),
     path('site/texts', views.siteTexts, name='site-texts'),

@@ -1,5 +1,5 @@
 {% load mptt_tags %}
-<nav class="tree-nav">
+<nav class="tree-nav category-structure">
   {% recursetree categories %}
   <details class="tree-nav__item is-expandable" open>
     <summary class="tree-nav__item-title my-1">{{ node.name }}</summary>

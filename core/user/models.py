@@ -36,10 +36,10 @@ class UserManager(BaseUserManager):
 
 class User(AbstractUser):
     class Role(models.TextChoices):
-        ADMIN = "ADMIN", _("Admin")
-        EDITOR = "EDITOR", _("Editor")
-        OPERATOR = "OPERATOR", _("Operator")
-        STAFF = "STAFF", _("Staff")
+        ADMIN = "Admin", _("Admin")
+        EDITOR = "Editor", _("Editor")
+        OPERATOR = "Operator", _("Operator")
+        STAFF = "Staff", _("Staff")
 
     email = models.EmailField(max_length=255, unique=True)
     username = models.CharField(max_length=255)

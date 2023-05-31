@@ -23,11 +23,12 @@
             <div class="col-xl-8 col-12 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <div class="row justify-content-end">
+                        <div class="row">
                             <div class="col-12 col-md-6">
                                 <form method="GET"> 
-                                    <div class="mb-3">
-                                        <input type="search" name="search" value="{{request.GET.search}}" class="form-control" placeholder="{% translate 'Search' %}">
+                                    <div class="mb-3 d-flex">
+                                        <input type="search" name="search" value="{{request.GET.search}}" class="form-control form-control-sm me-2" placeholder="{% translate 'Search' %}">
+                                        <button type="submit" class="btn btn-primary btn-sm">{% translate "Search" %}</button>
                                     </div>
                                 </form>
                             </div>
@@ -59,7 +60,7 @@
                                         <tbody>
                                             {% for document in documents %}
                                             <tr>
-                                                <td>{{document.name}}</td>
+                                                <td><a target="_blank" href="{{document.file.url}}">{{document.name}}</a></td>
                                                 <td>{{document.updated_date}}</td>
                                                 <td>
                                                     <a href="{% url 'administration:document-update' pk=document.pk %}?prev_page={{documents.number}}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>

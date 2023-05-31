@@ -32,8 +32,9 @@
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <form method="GET"> 
-                            <div class="mb-3">
-                                <input type="search" name="search" value="{{request.GET.search}}" class="form-control" placeholder="{% translate 'Search' %}">
+                            <div class="mb-3 d-flex">
+                                <input type="search" name="search" value="{{request.GET.search}}" class="form-control form-control-sm me-2" placeholder="{% translate 'Search' %}">
+                                <button type="submit" class="btn btn-primary btn-sm">{% translate "Search" %}</button>
                             </div>
                         </form>
                     </div>
@@ -50,9 +51,8 @@
                                             {% translate "SKU" %}
                                             {% include "components/tables/order-button.html" with orderBy='sku' route='administration:store-product-list' %}
                                         </th>
-                                        <th>{% translate "Cover Image" %}</th>
                                         <th>
-                                            {% translate "Price" %}
+                                            {% translate "Price" %} &#8380;
                                             {% include "components/tables/order-button.html" with orderBy='regular_price' route='administration:store-product-list' %}
                                         </th>
                                         <th>
@@ -66,6 +66,9 @@
                                         <th>
                                             {% translate "Status" %}
                                             {% include "components/tables/order-button.html" with orderBy='status' route='administration:store-product-list' %}
+                                        </th>
+                                        <th>
+                                            {% translate "Stock" %}
                                         </th>
                                         <th>
                                             {% translate "Update Date" %}
@@ -84,9 +87,8 @@
                                             {% translate "SKU" %}
                                             {% include "components/tables/order-button.html" with orderBy='sku' route='administration:store-product-list' %}
                                         </th>
-                                        <th>{% translate "Cover Image" %}</th>
                                         <th>
-                                            {% translate "Price" %}
+                                            {% translate "Price" %} &#8380;
                                             {% include "components/tables/order-button.html" with orderBy='regular_price' route='administration:store-product-list' %}
                                         </th>
                                         <th>
@@ -102,6 +104,9 @@
                                             {% include "components/tables/order-button.html" with orderBy='status' route='administration:store-product-list' %}
                                         </th>
                                         <th>
+                                            {% translate "Stock" %}
+                                        </th>
+                                        <th>
                                             {% translate "Update Date" %}
                                             {% include "components/tables/order-button.html" with orderBy='updated_at' route='administration:store-product-list' %}
                                         </th>                            
@@ -113,12 +118,14 @@
                                     <tr>
                                         <td><a target="_blank" href="{% url 'store:product-detail' product_slug=product.slug category_slug=product.category.slug %}">{{product.name}}</a></td>
                                         <td>{{product.sku|default:""}}</td>
-                                        <td><img width="64" height="64" src="{% if product.image_feature %}{{product.image_feature.0.image.url}}{% else %}{% static 'images/main/products/default.png' %}{% endif %}" alt="{{product.name}}"></td>
                                         <td>{{product.regular_price}}</td>
                                         <td>{{product.discount}}%</td>
                                         <td><a href="{% url 'administration:store-category-update' pk=product.category.id %}">{{product.category}}</a></td>
                                         <td>
                                             <span class="badge {% if product.is_active %}bg-success{% else %}bg-danger{% endif %} rounded-pill">{{product.is_active_display_value}}</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge {% if product.in_stock %}bg-success{% else %}bg-danger{% endif %} rounded-pill">{{product.in_stock_display_value}}</span>
                                         </td>
                                         <td>{{product.updated_date}}</td>
                                         <td>

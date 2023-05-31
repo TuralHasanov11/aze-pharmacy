@@ -3,8 +3,8 @@
 from urllib.parse import urlencode
 
 from administration import forms
-from administration.notifications import sendDeliveryStatusNotification
-from django.conf import settings
+from api import pagination
+from api.serializers import OrderSerializer
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
@@ -12,6 +12,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.postgres.search import (SearchQuery, SearchRank,
+                                            SearchVector)
 from django.core import paginator
 from django.db import transaction
 from django.db.models import Prefetch
@@ -28,6 +30,7 @@ from library.models import Document
 from main.models import Company, Question, SiteInfo, SiteText
 from news.models import Post
 from orders.models import Order, OrderDelivery, OrderItem, OrderRefund
+from rest_framework.decorators import api_view
 from services.models import Service
 from store.models import Category, Product, ProductImage
 
@@ -70,9 +73,10 @@ class ServiceListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Success
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['services'] = self.model.objects.all()
+        context['services'] = self.model.objects.all().only('name',
+                                                            'cover_image')
         return context
-    
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs.update({'last_modified_by': self.request.user})
@@ -90,7 +94,7 @@ class ServiceUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
 
     def get_success_url(self):
         return reverse("administration:service-update", kwargs={"pk": self.object.pk})
-    
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs.update({'last_modified_by': self.request.user})
@@ -117,7 +121,7 @@ class DocumentListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
 
     def get_queryset(self):
         queryset = super().get_queryset().order_by(self.request.GET.get(
-            'order_by', '-created_at')).only('pk', 'name', 'updated_at')
+            'order_by', '-created_at'))
         if self.request.GET.get('search'):
             queryset = queryset.filter(
                 name__icontains=self.request.GET.get('search'))
@@ -130,7 +134,7 @@ class DocumentListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
         documents = pagination.get_page(pageNumber)
         context['documents'] = documents
         return context
-    
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs.update({'last_modified_by': self.request.user})
@@ -148,7 +152,7 @@ class DocumentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
 
     def get_success_url(self):
         return reverse("administration:document-update", kwargs={"pk": self.object.pk})
-    
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs.update({'last_modified_by': self.request.user})
@@ -179,7 +183,7 @@ class CompanyListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Success
         context = super().get_context_data(**kwargs)
         context['companies'] = self.model.objects.all()
         return context
-    
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs.update({'last_modified_by': self.request.user})
@@ -197,7 +201,7 @@ class CompanyUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
 
     def get_success_url(self):
         return reverse("administration:company-update", kwargs={"pk": self.object.pk})
-    
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs.update({'last_modified_by': self.request.user})
@@ -271,7 +275,7 @@ class PostUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
 
     def get_success_url(self):
         return reverse("administration:post-update", kwargs={"pk": self.object.pk})
-    
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs.update({'last_modified_by': self.request.user})
@@ -347,7 +351,7 @@ class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
 
     def get_success_url(self):
         return reverse("administration:user-update", kwargs={"pk": self.object.pk})
-    
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs.update({'last_modified_by': self.request.user})
@@ -375,7 +379,7 @@ class CategoryListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
         context = super().get_context_data(**kwargs)
         context['categories'] = self.model.objects.all()
         return context
-    
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs.update({'last_modified_by': self.request.user})
@@ -393,7 +397,7 @@ class CategoryUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
 
     def get_success_url(self):
         return reverse("administration:store-category-update", kwargs={"pk": self.object.pk})
-    
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs.update({'last_modified_by': self.request.user})
@@ -419,7 +423,8 @@ class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     def get_queryset(self):
         queryset = super().get_queryset().select_related('category').prefetch_related(
             Prefetch('product_image', queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature')).only(
-                'name', 'sku', 'regular_price', 'discount', 'discount_price', 'category', 'is_active', 'updated_at')
+                'name', 'sku', 'regular_price', 'discount', 'discount_price', 'category', 'is_active', 'updated_at').order_by(self.request.GET.get(
+                    'order_by', '-created_at'))
         if self.request.GET.get('search'):
             queryset = queryset.filter(
                 name__icontains=self.request.GET.get('search'))
@@ -454,7 +459,8 @@ class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
 @permission_required('store.add_product', login_url=reverse_lazy('administration:index'))
 def productCreate(request):
     if request.method == 'POST':
-        form = forms.ProductForm(request.POST, request.FILES, last_modified_by=request.user)
+        form = forms.ProductForm(
+            request.POST, request.FILES, last_modified_by=request.user)
         product_image_formset = forms.ProductImageFormSet(
             data=request.POST, files=request.FILES)
         if form.is_valid() and product_image_formset.is_valid():
@@ -596,7 +602,7 @@ class FAQUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageM
 
     def get_success_url(self):
         return reverse("administration:site-faq-update", kwargs={"pk": self.object.pk})
-    
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs.update({'last_modified_by': self.request.user})
@@ -622,7 +628,8 @@ def orderDetail(request, id: int):
             'product__category').all()),
         Prefetch('refunds', queryset=OrderRefund.objects.all())
     ).get(id=id)
-    delivery_form = forms.OrderDeliveryForm(instance=OrderDelivery.objects.get(order=order))
+    delivery_form = forms.OrderDeliveryForm(
+        instance=OrderDelivery.objects.get(order=order))
     refund_form = forms.OrderRefundForm()
 
     if request.POST:
@@ -639,3 +646,30 @@ def orderDetail(request, id: int):
         form = forms.OrderForm(instance=order)
 
     return render(request, template_name, {"order": order, "form": form, "delivery_form": delivery_form, "refund_form": refund_form})
+
+
+@login_required
+@api_view(['GET'])
+@permission_required(['orders.view_order', 'orders.change_order'], raise_exception=True)
+def orders(request):
+    search = request.GET.get('search', None)
+    isFlagged = bool(request.GET.get('is_flagged', False))
+    selectedOrderByValue = request.GET.get('order_by', '-created_at')
+
+    if search:
+        searchQuery = SearchQuery(search)
+        searchVector = SearchVector("first_name", "last_name", "email", "address", "city", "phone",
+                                    "total_paid", "order_id", "payment_status", "notes",)
+        ordersQueryset = Order.objects.annotate(
+            search=searchVector, rank=SearchRank(searchVector, searchQuery)
+        ).filter(search=searchQuery).order_by("rank", selectedOrderByValue)
+    else:
+        ordersQueryset = Order.objects.order_by(selectedOrderByValue)
+
+    if isFlagged:
+        ordersQueryset = ordersQueryset.filter(is_flagged=isFlagged)
+
+    paginator = pagination.OrderPagination()
+    orders = paginator.paginate_queryset(ordersQueryset, request)
+    serializer = OrderSerializer(orders, many=True)
+    return paginator.get_paginated_response(serializer.data)
