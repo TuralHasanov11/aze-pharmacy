@@ -11,11 +11,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = str(os.environ.get("DEBUG")) == "True"
 SITE_URL = os.environ.get("SITE_URL")
 
-if DEBUG:
-    ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
-else:
-    ALLOWED_HOSTS = [SITE_URL, '*']
-
+ALLOWED_HOST = ['*']
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -189,13 +185,13 @@ if USE_S3:
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
 else:
     STATIC_URL = '/static/'
-    STATIC_ROOT = '/static/'
+    STATIC_ROOT = BASE_DIR / 'static_cdn'
     MEDIA_URL = '/media/'
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_ROOT = BASE_DIR / 'media_cdn'
 
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    BASE_DIR / "static",
 ]
 
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
