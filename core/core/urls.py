@@ -3,7 +3,6 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path, re_path
-from main import views as main_views
 
 urlpatterns = [
     path('django-admin/', admin.site.urls),
@@ -12,8 +11,7 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
-    re_path('^$', main_views.index, name='index'),
-    re_path(r'^', include('main.urls')),
+    path('', include('main.urls')),
     path('news/', include('news.urls', namespace="news")),
     path('services/', include('services.urls', namespace="services")),
     path('library/', include('library.urls', namespace="library")),
