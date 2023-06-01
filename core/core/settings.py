@@ -143,6 +143,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LOGIN_URL = "administration:auth-login"
+LOGIN_REDIRECT_URL = "administration:index"
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -250,7 +251,7 @@ else:
     STATIC_URL = '/static/'
     STATIC_ROOT = BASE_DIR / 'static_cdn'
     MEDIA_URL = '/media/'
-    MEDIA_ROOT = BASE_DIR / 'media_cdn'
+    MEDIA_ROOT = BASE_DIR / 'media'
 
 
 STATICFILES_DIRS = [

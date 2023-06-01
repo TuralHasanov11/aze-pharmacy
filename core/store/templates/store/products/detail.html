@@ -92,7 +92,7 @@
                 role="button"
                 tabindex="0"
                 {% if product.id in wishlist.wishlist %}style="display: none;"{% endif %}
-                class="tinvwl_add_to_wishlist_button add_to_wishlist_button tinvwl-position-after"
+                class="tinvwl_add_to_wishlist_button add_to_wishlist_button wishlist-detail-btn tinvwl-position-after"
                 data-product_id="{{product.id}}"
                 ><i class="far fa-heart me-2"></i><span class="tinvwl_add_to_wishlist-text">{{addToWishListText}}</span>
               </a>
@@ -101,7 +101,7 @@
                 role="button"
                 tabindex="0"
                 {% if product.id not in wishlist.wishlist %}style="display: none;"{% endif %}
-                class="tinvwl_add_to_wishlist_button remove_from_wishlist_button tinvwl-position-after"
+                class="tinvwl_add_to_wishlist_button remove_from_wishlist_button wishlist-detail-btn tinvwl-position-after"
                 data-product_id="{{product.id}}"
                 ><i class="fa fa-heart me-2"></i><span class="tinvwl_add_to_wishlist-text">{{removeFromWishListText}}</span>
               </a>

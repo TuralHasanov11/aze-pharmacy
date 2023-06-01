@@ -15,9 +15,27 @@
       </h4>
 
       <span class="home-shop-price price">
+        {% if product.discount %}
+        <del aria-hidden="true">
+            <span class="woocommerce-Price-amount amount">
+                <bdi>
+                    <span class="woocommerce-Price-currencySymbol">&#36;</span>{{product.regular_price}}
+                </bdi>
+            </span>
+        </del>
+        <ins>
+            <span class="woocommerce-Price-amount amount">
+                <bdi>
+                    <span class="woocommerce-Price-currencySymbol">&#36;</span>{{product.discount_price}}
+                </bdi>
+            </span>
+        </ins>
+        {% else %}
         <span class="woocommerce-Price-amount amount">
           <span class="woocommerce-Price-currencySymbol">&#036;</span>{{product.regular_price}}</span>								
         </span>
+        {% endif %}
+        
       <div class="shop-content-bottom">
         {% if product.in_stock %}
         <button
