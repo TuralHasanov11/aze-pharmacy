@@ -153,4 +153,4 @@ class FAQListView(ListView):
 
 @require_GET
 def notFound(request, exception):
-    return render(request, 'main/404.html')
+    return redirect('main:index')
