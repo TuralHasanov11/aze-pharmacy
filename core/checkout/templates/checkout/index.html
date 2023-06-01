@@ -29,8 +29,8 @@
                             class="form-row form-row-first validate-required"
                             id="id_first_name_field"
                           >
-                            <label for="id_first_name"
-                              :class="{'text-danger':v$.checkoutForm.firstName.$dirty && v$.checkoutForm.firstName.$invalid}"
+                              <label for="id_first_name"
+                              :class="{'text-danger': v$.checkoutForm.firstName.$dirty && v$.checkoutForm.firstName?.$invalid}"
                               >{{checkoutFormLabels?.first_name}}&nbsp;<abbr
                                 class="required"
                                 title="required"
@@ -38,8 +38,8 @@
                               ></label
                             ><span class="woocommerce-input-wrapper"
                               >
-                              <input type="text" v-model="v$.checkoutForm.firstName.$model" class="input-text" id="id_first_name" placeholder="First Name" autocomplete="given-name">
-                              <span v-if="v$.checkoutForm.firstName.$dirty && v$.checkoutForm.firstName.required.$invalid" class="text-danger">{{checkoutFormValidationMessages?.first_name?.required}}</span>
+                              <input type="text" v-model="v$.checkoutForm.firstName.$model" @blur="v$.checkoutForm.firstName.$touch" class="input-text" id="id_first_name" placeholder="First Name" autocomplete="given-name">
+                              <span v-if="v$.checkoutForm.firstName.$dirty && v$.checkoutForm.firstName.required?.$invalid" class="text-danger">{{checkoutFormValidationMessages?.first_name?.required}}</span>
                               </span>
                           </p>
                           <p
@@ -47,7 +47,7 @@
                             id="id_last_name_field"
                           >
                             <label for="id_last_name"
-                              :class="{'text-danger':v$.checkoutForm.lastName.$dirty && v$.checkoutForm.lastName.$invalid}"
+                              :class="{'text-danger':v$.checkoutForm.lastName.$dirty && v$.checkoutForm.lastName?.$invalid}"
                               >{{checkoutFormLabels?.last_name}}&nbsp;<abbr
                                 class="required"
                                 title="required"
@@ -55,8 +55,8 @@
                               ></label
                             ><span class="woocommerce-input-wrapper"
                               >                                
-                              <input type="text" v-model="v$.checkoutForm.lastName.$model" class="input-text" id="id_last_name" placeholder="Last Name" autocomplete="family-name">
-                              <span v-if="v$.checkoutForm.lastName.$dirty && v$.checkoutForm.lastName.required.$invalid" class="text-danger">{{checkoutFormValidationMessages?.last_name?.required}}</span>
+                              <input type="text" v-model="v$.checkoutForm.lastName.$model" @blur="v$.checkoutForm.lastName.$touch" class="input-text" id="id_last_name" placeholder="Last Name" autocomplete="family-name">
+                              <span v-if="v$.checkoutForm.lastName.$dirty && v$.checkoutForm.lastName.required?.$invalid" class="text-danger">{{checkoutFormValidationMessages?.last_name?.required}}</span>
                               </span>
                           </p>
                           <p
@@ -64,7 +64,7 @@
                             id="id_address_field"
                           >
                             <label for="id_address"
-                              :class="{'text-danger':v$.checkoutForm.address.$dirty && v$.checkoutForm.address.$invalid}"
+                              :class="{'text-danger':v$.checkoutForm.address.$dirty && v$.checkoutForm.address?.$invalid}"
                               >{{checkoutFormLabels?.address}}&nbsp;<abbr
                                 class="required"
                                 title="required"
@@ -72,8 +72,8 @@
                               ></label
                             ><span class="woocommerce-input-wrapper"
                               >
-                              <input type="text" v-model="v$.checkoutForm.address.$model" class="input-text" id="id_address" placeholder="House number and street name" autocomplete="address-line1">
-                              <span v-if="v$.checkoutForm.address.$dirty && v$.checkoutForm.address.required.$invalid" class="text-danger">{{checkoutFormValidationMessages?.address?.required}}</span>
+                              <input type="text" v-model="v$.checkoutForm.address.$model" @blur="v$.checkoutForm.address.$touch" class="input-text" id="id_address" placeholder="House number and street name" autocomplete="address-line1">
+                              <span v-if="v$.checkoutForm.address.$dirty && v$.checkoutForm.address.required?.$invalid" class="text-danger">{{checkoutFormValidationMessages?.address?.required}}</span>
                               </span>
                           </p>
                           <p
@@ -81,7 +81,7 @@
                             id="id_city_field"
                           >
                             <label for="id_city"
-                              :class="{'text-danger':v$.checkoutForm.city.$dirty && v$.checkoutForm.city.$invalid}"
+                              :class="{'text-danger':v$.checkoutForm.city.$dirty && v$.checkoutForm.city?.$invalid}"
                               >{{checkoutFormLabels?.city}}&nbsp;<abbr
                                 class="required"
                                 title="required"
@@ -89,13 +89,13 @@
                               ></label
                             ><span class="woocommerce-input-wrapper"
                               >
-                              <select class="state_select" id="id_city" v-model="v$.checkoutForm.city.$model">
+                              <select class="state_select" id="id_city" v-model="v$.checkoutForm.city.$model" @blur="v$.checkoutForm.city.$touch">
                                 <option class="empty-city-option" value=""></option>
                                 <option v-for="cityItem in cities" :key="cityItem" :value="cityItem">
                                   {{cityItem}}
                                 </option>
                               </select>
-                              <span v-if="v$.checkoutForm.city.$dirty && v$.checkoutForm.city.required.$invalid" class="text-danger">{{checkoutFormValidationMessages?.city?.required}}</span>
+                              <span v-if="v$.checkoutForm.city.$dirty && v$.checkoutForm.city.required?.$invalid" class="text-danger">{{checkoutFormValidationMessages?.city?.required}}</span>
                               </span
                             >
                           </p>
@@ -104,7 +104,7 @@
                             id="id_phone_field"
                           >
                             <label for="id_phone"
-                              :class="{'text-danger':v$.checkoutForm.phone.$dirty && v$.checkoutForm.phone.$invalid}"
+                              :class="{'text-danger':v$.checkoutForm.phone.$dirty && v$.checkoutForm.phone?.$invalid}"
                               >{{checkoutFormLabels?.phone}}&nbsp;<abbr
                                 class="required"
                                 title="required"
@@ -112,10 +112,10 @@
                               ></label
                             ><span class="woocommerce-input-wrapper"
                               >
-                              <input type="text" v-model="v$.checkoutForm.phone.$model" class="input-text phone-input" id="id_phone" placeholder="+994xxxxxxxxx" autocomplete="tel">
-                              <span class="form-text phone-input-helper"></span>
-                              <span v-if="v$.checkoutForm.phone.$dirty && v$.checkoutForm.phone.required.$invalid" class="text-danger">{{checkoutFormValidationMessages?.phone?.required}}</span>
-                              <span v-if="v$.checkoutForm.phone.$dirty && v$.checkoutForm.phone.phoneValidator.$invalid" class="text-danger">{{checkoutFormValidationMessages?.phone?.regex}}</span>
+                              <input type="text" v-model="v$.checkoutForm.phone.$model"  @blur="v$.checkoutForm.phone.$touch" class="input-text phone-input" id="id_phone" placeholder="+994xxxxxxxxx" autocomplete="tel">
+                              <span class="form-text phone-input-helper"></span>@blur="v$.checkoutForm.phone.$touch"
+                              <span v-if="v$.checkoutForm.phone.$dirty && v$.checkoutForm.phone.required?.$invalid" class="text-danger">{{checkoutFormValidationMessages?.phone?.required}}</span>
+                              <span v-if="v$.checkoutForm.phone.$dirty && v$.checkoutForm.phone.phoneValidator?.$invalid" class="text-danger">{{checkoutFormValidationMessages?.phone?.regex}}</span>
                               </span>
                           </p>
                           <p
@@ -123,14 +123,14 @@
                             id="id_email_field"
                           >
                             <label for="id_email"
-                              :class="{'text-danger':v$.checkoutForm.email.$dirty && v$.checkoutForm.email.$invalid}"
+                              :class="{'text-danger':v$.checkoutForm.email.$dirty && v$.checkoutForm.email?.$invalid}"
                               >{{checkoutFormLabels?.email}} <span class="optional"
                               ></span
                             ></label
                             ><span class="woocommerce-input-wrapper"
                               >
-                              <input type="email" v-model="v$.checkoutForm.email.$model" class="input-text" id="id_email" placeholder="Email" autocomplete="email username">
-                              <span v-if="v$.checkoutForm.email.$dirty && v$.checkoutForm.email.required.$invalid" class="text-danger">{{checkoutFormValidationMessages?.email?.required}}</span>
+                              <input type="email" v-model="v$.checkoutForm.email.$model" @blur="v$.checkoutForm.email.$touch" class="input-text" id="id_email" placeholder="Email" autocomplete="email username">
+                              <span v-if="v$.checkoutForm.email.$dirty && v$.checkoutForm.email.required?.$invalid" class="text-danger">{{checkoutFormValidationMessages?.email?.required}}</span>
                               </span>
                           </p>
                         </div>
@@ -155,8 +155,8 @@
                         </div>
                       </div>
                     </div>
-                    <p v-if="v$.$invalid&&v$.$dirty" class="form-invalid-feedback text-danger"></p>
-                    <button :disabled="v$.$invalid||submitLoading" type="submit" class="btn checkout-btn w-100"></button>
+                    <p v-if="v$.checkoutForm?.$invalid&&v$.$dirty" class="form-invalid-feedback text-danger"></p>
+                    <button :disabled="v$.checkoutForm?.$invalid||submitLoading" type="submit" class="btn checkout-btn w-100"></button>
                     </form>
                     {% endverbatim %}
                   </div>
