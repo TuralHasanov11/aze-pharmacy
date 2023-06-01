@@ -162,7 +162,7 @@ def approvePayment(request):
     try:
         if request.method == 'POST':
             data = json.load(request)["payload"]
-            # cart = CartProcessor(request)
+            
             order = Order.objects.select_related('order_delivery').prefetch_related(
                 Prefetch('items', queryset=OrderItem.objects.select_related(
                     'product__category').all()),
@@ -179,12 +179,14 @@ def approvePayment(request):
                 "type": "order_created",
                 "message": _("New order: ") + f" {order.id}",
             })
-            # cart.clear()
-            # messages.success(request, _('Order was placed successfully'))
+            
             return JsonResponse(data={"message": _("Order placed"), "data": data})
             return redirect(f"{reverse('orders:detail', kwargs={'id': order.id})}?{urlencode({'order_key': order.order_key})}#order-summary")
         else:
             data = request.GET
+            # cart = CartProcessor(request)
+            # cart.clear()
+            # messages.success(request, _('Order was placed successfully'))
             print(data)
             return JsonResponse(data={"message": _("Order placed"), "data": data})
     except Exception as e:
