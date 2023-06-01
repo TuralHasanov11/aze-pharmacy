@@ -16,6 +16,11 @@ ALLOWED_HOSTS = [SITE_URL, '*']
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+if not DEBUG:
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_TRUSTED_ORIGINS = [SITE_URL]
+
 INSTALLED_APPS = [
     'daphne',
     'django.contrib.admin',
@@ -114,7 +119,8 @@ DATABASES = {
 
 DATABASE_URL = os.environ.get("DATABASE_URL", None)
 if DATABASE_URL:
-    db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=1800)
+    db_from_env = dj_database_url.config(
+        default=DATABASE_URL, conn_max_age=1800)
     DATABASES['default'].update(db_from_env)
 
 
@@ -159,9 +165,56 @@ LANGUAGE_CODE = 'az'
 
 
 LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'locale/'),
+    BASE_DIR / 'locale/',
 )
 
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+    "filters": {
+        # "special": {
+        #     "()": "project.logging.SpecialFilter",
+        #     "foo": "bar",
+        # },
+        "require_debug_true": {
+            "()": "django.utils.log.RequireDebugTrue",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": "INFO",
+            "filters": ["require_debug_true"],
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+        "mail_admins": {
+            "level": "ERROR",
+            "class": "django.utils.log.AdminEmailHandler",
+            # "filters": ["special"],
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "propagate": True,
+        },
+        "django.request": {
+            "handlers": ["mail_admins"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+    },
+}
 
 MESSAGE_TAGS = {
     messages.constants.DEBUG: 'alert-secondary',
@@ -179,16 +232,17 @@ if USE_S3:
     AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', None)
     # AWS_S3_SIGNATURE_VERSION = os.environ.get('AWS_S3_SIGNATURE_VERSION', None)
     # AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', None)
-    AWS_S3_FILE_OVERWRITE = str(os.environ.get("AWS_S3_FILE_OVERWRITE")) == "True"
+    AWS_S3_FILE_OVERWRITE = str(os.environ.get(
+        "AWS_S3_FILE_OVERWRITE")) == "True"
     AWS_DEFAULT_ACL = None
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
     AWS_QUERYSTRING_AUTH = False
     DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE",  None)
-    DEFAULT_FILE_STORAGE='core.storages.MediaStore'
+    DEFAULT_FILE_STORAGE = 'core.storages.MediaStore'
     # s3 static settings
     STATIC_LOCATION = 'static'
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
-    STATICFILES_STORAGE='storages.backends.s3boto3.S3Boto3Storage'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     PUBLIC_MEDIA_LOCATION = 'media'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
 else:
