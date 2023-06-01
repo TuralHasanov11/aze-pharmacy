@@ -3,6 +3,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path, re_path
+from main import views as main_views
 
 urlpatterns = [
     path('django-admin/', admin.site.urls),
@@ -11,7 +12,8 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
-    path('', include('main.urls')),
+    re_path('^$', main_views.index, name='index'),
+    re_path(r'^', include('main.urls')),
     path('news/', include('news.urls', namespace="news")),
     path('services/', include('services.urls', namespace="services")),
     path('library/', include('library.urls', namespace="library")),
@@ -31,7 +33,7 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
 
-if 'rosetta' in settings.INSTALLED_APPS:
+if settings.DEBUG and 'rosetta' in settings.INSTALLED_APPS:
     urlpatterns += [
         re_path(r'^languages/', include('rosetta.urls'))
     ]
