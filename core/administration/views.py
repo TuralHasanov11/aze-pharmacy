@@ -300,6 +300,8 @@ def profile(request):
 
 class LoginView(auth_views.LoginView):
     authentication_form = forms.UserLoginForm
+    redirect_field_name = reverse_lazy("administration:index")
+    redirect_authenticated_user = True
     template_name = 'administration/auth/login.html'
 
 

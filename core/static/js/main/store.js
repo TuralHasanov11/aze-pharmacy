@@ -5,7 +5,8 @@ jQuery(document).ready(function ($) {
     const productId = $(e.currentTarget).data('product_id');
     const result = await addToWishlist(productId)
     $(e.currentTarget).hide()
-    $(e.currentTarget).siblings('.remove_from_wishlist_button').css('display', 'flex')
+    $(e.currentTarget).siblings('.remove_from_wishlist_button.wishlist-detail-btn').css('display', 'block')
+    $(e.currentTarget).siblings('.remove_from_wishlist_button.wishlist-list-btn').css('display', 'flex')
     $('#wishlist-quantity').html(result.quantity)
   })
 
@@ -15,7 +16,8 @@ jQuery(document).ready(function ($) {
     const result = await removeFromWishlist(productId)
     $(e.currentTarget).hide()
     $(e.currentTarget).closest('.wishlist_product').hide()
-    $(e.currentTarget).siblings('.add_to_wishlist_button').css('display', 'flex')
+    $(e.currentTarget).siblings('.add_to_wishlist_button.wishlist-detail-btn').css('display', 'block')
+    $(e.currentTarget).siblings('.add_to_wishlist_button.wishlist-list-btn').css('display', 'flex')
     $('#wishlist-quantity').html(result.quantity)
   })
 
