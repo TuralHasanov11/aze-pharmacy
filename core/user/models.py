@@ -91,7 +91,12 @@ class EditorManager(BaseUserManager):
 
 class OperatorManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
-        return super().get_queryset(*args, **kwargs).filter(role=User.Role.ADMIN)
+        return super().get_queryset(*args, **kwargs).filter(role=User.Role.OPERATOR)
+    
+
+class StaffManager(BaseUserManager):
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(role=User.Role.STAFF)
     
 
 class Editor(User):
@@ -101,6 +106,12 @@ class Editor(User):
     class Meta:
         proxy = True
 
+class Staff(User):
+    base_role = User.Role.STAFF
+    editors = StaffManager()
+
+    class Meta:
+        proxy = True
 
 class Admin(User):
     base_role = User.Role.ADMIN
