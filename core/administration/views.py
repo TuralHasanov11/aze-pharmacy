@@ -553,8 +553,11 @@ def siteTexts(request):
 def siteInfo(request):
     siteInfo = SiteInfo.objects.first()
     if request.method == 'POST':
-        form = forms.SiteInfoForm(
-            instance=siteInfo, data=request.POST, files=request.FILES, last_modified_by=request.user)
+        if siteInfo:
+            form = forms.SiteInfoForm(
+                instance=siteInfo, data=request.POST, files=request.FILES, last_modified_by=request.user)
+        else:
+            form = forms.SiteInfoForm(data=request.POST, files=request.FILES, last_modified_by=request.user)
         if form.is_valid():
             form.save()
             messages.success(request, _("Site Info was saved successfully!"))
