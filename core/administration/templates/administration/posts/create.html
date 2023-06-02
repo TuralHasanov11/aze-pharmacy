@@ -45,6 +45,12 @@
             </div>
           </div>
           <div class="card mb-4">
+            <div class="card-header">{{ form.language.label }}</div>
+            <div class="card-body">
+              {{ form.language }} {{ form.language.errors }}
+            </div>
+          </div>
+          <div class="card mb-4">
             <div class="card-header">{{ form.cover_image.label }}</div>
             <div class="card-body">
               {{form.cover_image}} {{ form.cover_image.errors }}

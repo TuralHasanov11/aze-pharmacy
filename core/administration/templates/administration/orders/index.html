@@ -68,8 +68,7 @@
 
 
 {% block scripts %}
-
-<script type='text/javascript'>
+<script>
     const ordersAPIURL = "{% url 'administration:orders' %}"
     const ordersURL = "{% url 'administration:order-list' %}/" 
     const newWord = "{% translate 'New' %}"
@@ -77,14 +76,12 @@
     const currentPage = urlParams.get('page') || 1;
     const search = urlParams.get('search') || '';
     const isFlagged = urlParams.get('is_flagged') || '';
-</script>
-
-<script>
     const ordersContainer = document.getElementById('orders-container')
     const paginationContainer = document.getElementById('pagination-container')
     const toastContainer = document.querySelector('.toast-container')
-    let url = `ws://${window.location.host}/ws/order-socket-server/`
-    const orderSocket = new WebSocket(url)
+    const ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+    const socketURL = `${ws_scheme}://${window.location.host}/ws/order-socket-server/`
+    const orderSocket = new WebSocket(socketURL)
 
     orderSocket.onmessage = function(e){
         const data = JSON.parse(e.data)

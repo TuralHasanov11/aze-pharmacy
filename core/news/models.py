@@ -7,12 +7,23 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.utils.translation import gettext_lazy as _
 
 
 class RichTextEditorField(ckeditorFields.RichTextUploadingField):
     def __init__(self, *args, **kwargs):
         kwargs['null'] = True
         kwargs['blank'] = True
+        super().__init__(*args, **kwargs)
+
+
+class LanguageField(models.CharField):
+    description = _("Language field")
+
+    def __init__(self, *args, **kwargs):
+        kwargs['max_length'] = 2
+        kwargs['choices'] = settings.LANGUAGES
+        kwargs['default'] = settings.LANGUAGE_CODE
         super().__init__(*args, **kwargs)
 
 
@@ -25,7 +36,9 @@ class Post(models.Model):
     slug = models.SlugField(unique=True)
     cover_image = models.ImageField(upload_to=post_cover_image_path)
     description = RichTextEditorField()
-    last_modified_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
+    last_modified_by = models.ForeignKey(
+        get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
+    language = LanguageField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -37,18 +50,22 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return urls.reverse("news:detail", kwargs={"slug": self.slug})
-    
+
     @property
     def created_date(self):
         return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
-    
+
     @property
     def updated_date(self):
         return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
-    
+
     @property
     def last_modified_by_name(self):
         return str(self.last_modified_by)
+    
+    @property
+    def language_display_value(self):
+        return self.get_language_display
 
     def save(self, *args, **kwargs):
         if not self.slug:

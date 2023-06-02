@@ -73,8 +73,8 @@ class ServiceListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Success
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['services'] = self.model.objects.all().only('name',
-                                                            'cover_image')
+        context['services'] = self.model.objects.all().only(
+            'name', 'cover_image', 'language')
         return context
 
     def get_form_kwargs(self):
@@ -226,7 +226,7 @@ class PostListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset().order_by(
-            self.request.GET.get('order_by', '-created_at')).only('title', 'cover_image', 'created_at', 'updated_at')
+            self.request.GET.get('order_by', '-created_at')).only('title', 'cover_image', 'language', 'created_at', 'updated_at')
         if self.request.GET.get('search'):
             queryset = queryset.filter(
                 title__icontains=self.request.GET.get('search'))
@@ -314,6 +314,12 @@ class PasswordChangeView(LoginRequiredMixin, auth_views.PasswordChangeView):
     success_url = reverse_lazy("administration:auth-profile")
     form_class = forms.PasswordChangeForm
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["example_password"] = get_user_model(
+        ).objects.make_random_password(12)
+        return context
+
 
 class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = get_user_model()
@@ -335,6 +341,12 @@ class UserCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
     template_name = 'administration/users/create.html'
     success_message = _("User was created successfully!")
     success_url = reverse_lazy('administration:user-list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["example_password"] = self.model.objects.make_random_password(
+            12)
+        return context
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -366,6 +378,30 @@ class UserDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
     login_url = reverse_lazy('administration:index')
     success_message = _("User was deleted successfully!")
     success_url = reverse_lazy('administration:user-list')
+
+
+class UserPasswordChangeView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = get_user_model()
+    form_class = forms.PasswordResetForm
+    permission_required = ["user.change_user"]
+    login_url = reverse_lazy('administration:index')
+    template_name = 'administration/users/password_change.html'
+    context_object_name = 'user'
+    success_message = _("User's password was changed successfully!")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["example_password"] = self.model.objects.make_random_password(
+            12)
+        return context
+
+    def get_success_url(self):
+        return reverse("administration:user-update", kwargs={"pk": self.object.pk})
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'last_modified_by': self.request.user})
+        return kwargs
 
 
 class CategoryListCreateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
@@ -559,7 +595,8 @@ def siteInfo(request):
             form = forms.SiteInfoForm(
                 instance=siteInfo, data=request.POST, files=request.FILES, last_modified_by=request.user)
         else:
-            form = forms.SiteInfoForm(data=request.POST, files=request.FILES, last_modified_by=request.user)
+            form = forms.SiteInfoForm(
+                data=request.POST, files=request.FILES, last_modified_by=request.user)
         if form.is_valid():
             form.save()
             messages.success(request, _("Site Info was saved successfully!"))
