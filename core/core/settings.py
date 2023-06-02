@@ -133,6 +133,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "OPTIONS": {
+            "min_length": 12,
+        },
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -239,21 +242,17 @@ if USE_S3:
     AWS_DEFAULT_ACL = None
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
     AWS_QUERYSTRING_AUTH = False
-    DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE",  None)
     DEFAULT_FILE_STORAGE = 'core.storages.MediaStore'
     # s3 static settings
-    STATIC_LOCATION = 'static'
-    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     PUBLIC_MEDIA_LOCATION = 'media'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
 else:
-    STATIC_URL = '/static/'
-    STATIC_ROOT = BASE_DIR / 'static_cdn'
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
 
-
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static_cdn'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
@@ -272,7 +271,7 @@ EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", True)
 
 CKEDITOR_CONFIGS = {
     'default': {
-        'height': 1000,
+        'height': 900,
     },
 }
 

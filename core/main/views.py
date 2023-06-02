@@ -20,7 +20,7 @@ from store.models import Category, Product, ProductImage
 
 @require_GET
 def index(request: HttpRequest):
-    posts = Post.objects.all()[:5]
+    posts = Post.objects.all().filter(language=get_language())[:5]
     companies = Company.objects.all()
     discountedProducts = Product.products.filter(discount__gt=0).select_related('category').prefetch_related(
         Prefetch('product_image', queryset=ProductImage.objects.filter(
@@ -141,6 +141,9 @@ class FAQListView(ListView):
     template_name = "main/faq.html"
     context_object_name = "questions"
 
+    def get_queryset(self):
+        return super().get_queryset().filter(language=get_language())
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["breadcrumb"] = [

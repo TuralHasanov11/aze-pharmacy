@@ -46,6 +46,11 @@
                         {{ form.name.errors }}
                     </div>
                     <div class="mb-4">
+                        <label class="mb-1 small" for="{{ form.language.id_for_label }}">{{ form.language.label }}</label>
+                        {{form.language}} 
+                        {{ form.language.errors  }}
+                    </div>
+                    <div class="mb-4">
                         <label class="mb-1 small" for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
                         {{ form.description }} 
                         {{ form.description.errors  }}

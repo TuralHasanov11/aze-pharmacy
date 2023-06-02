@@ -7,7 +7,9 @@ from django.conf import settings
 from django.contrib.auth import forms as auth_forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth import models as auth_models
+from django.contrib.auth import password_validation
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from library.models import Document
 from main.models import Company, Question, SiteInfo, SiteText
@@ -25,10 +27,13 @@ class ServiceForm(forms.ModelForm):
         attrs={'multiple': False, 'class': 'form-control form-control-sm', 'title': _('Please upload image'), }))
     description = forms.CharField(label=_('Description'), widget=forms.Textarea(
         attrs={'class': 'form-control form-control-sm', 'placeholder': _('Description'), 'title': _('Please enter description'), }), required=False)
+    language = forms.ChoiceField(label=_("Language"), widget=forms.Select(
+        attrs={"class": "form-select form-select-sm",
+               'title': _('Please select language')}), choices=settings.LANGUAGES)
 
     class Meta:
         model = Service
-        fields = ('name', 'cover_image', 'description')
+        fields = ('name', 'cover_image', 'description', 'language')
 
     def __init__(self, *args, **kwargs):
         if 'last_modified_by' in kwargs:
@@ -46,7 +51,7 @@ class CategoryForm(forms.ModelForm):
     name = forms.CharField(label=_('Name'), widget=forms.TextInput(
         attrs={'class': 'form-control form-control-sm', 'placeholder': _('Name'), 'title': _('Please enter name')}))
     parent = TreeNodeChoiceField(label=_('Parent'),
-        queryset=Category.objects.all(), required=False)
+                                 queryset=Category.objects.all(), required=False)
 
     class Meta:
         model = Category
@@ -56,7 +61,8 @@ class CategoryForm(forms.ModelForm):
         if 'last_modified_by' in kwargs:
             self.last_modified_by = kwargs.pop('last_modified_by')
         super().__init__(*args, **kwargs)
-        self.fields["parent"].widget.attrs.update({"class": "form-select form-select-sm"})
+        self.fields["parent"].widget.attrs.update(
+            {"class": "form-select form-select-sm"})
 
     def save(self, commit=True):
         instance = super().save(commit)
@@ -118,10 +124,13 @@ class PostForm(forms.ModelForm):
         attrs={'multiple': False, 'class': 'form-control form-control-sm', 'title': _('Please upload cover image')}))
     description = forms.CharField(
         label=_("Description"), widget=ckeditor_widgets.CKEditorUploadingWidget())
+    language = forms.ChoiceField(label=_("Language"), widget=forms.Select(
+        attrs={"class": "form-select form-select-sm",
+               'title': _('Please select language')}), choices=settings.LANGUAGES)
 
     class Meta:
         model = Post
-        fields = ('title', 'cover_image', 'description', 'last_modified_by')
+        fields = ('title', 'cover_image', 'description', 'last_modified_by', 'language')
 
     def __init__(self, *args, **kwargs):
         if 'last_modified_by' in kwargs:
@@ -165,7 +174,7 @@ class UserCreateForm(UserCreationForm):
         model = get_user_model()
         fields = ('username', 'email', 'role', 'first_name',
                   'last_name', 'password1', 'password2')
-    
+
     def __init__(self, *args, **kwargs):
         if 'last_modified_by' in kwargs:
             self.last_modified_by = kwargs.pop('last_modified_by')
@@ -225,10 +234,51 @@ class PasswordChangeForm(auth_forms.PasswordChangeForm):
     old_password = forms.CharField(label=_('Current Password'), widget=forms.PasswordInput(
         attrs={'class': 'form-control form-control-sm', 'placeholder': _('Current Password'), 'title': _('Please enter old password')}))
     new_password1 = forms.CharField(label=_('New Password'), widget=forms.PasswordInput(
-        attrs={'class': 'form-control form-control-sm', 'placeholder': _('New Password'), 'title': _('Please enter new password')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('New Password'), 'title': _('Please enter new password')}),
+        help_text=_("Password should have at least 12 characters"))
     new_password2 = forms.CharField(label=_('Confirm Password'), widget=forms.PasswordInput(
         attrs={'class': 'form-control form-control-sm', 'placeholder': _('Confirm Password'), 'title': _('Please confirm new password')}))
 
+
+class PasswordResetForm(forms.ModelForm):
+    error_messages = {
+        "password_mismatch": _("The two password fields didn’t match."),
+    }
+    new_password1 = forms.CharField(label=_('New Password'), strip=False, widget=forms.PasswordInput(
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('New Password'), 'title': _('Please enter new password')}),
+        help_text=_("Password should have at least 12 characters"))
+    new_password2 = forms.CharField(label=_('Confirm Password'), strip=False, widget=forms.PasswordInput(
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Confirm Password'), 'title': _('Please confirm new password')}))
+    
+    class Meta:
+        model = get_user_model()
+        fields = ('new_password1', 'new_password2')
+    
+    def __init__(self, *args, **kwargs):
+        self.last_modified_by = kwargs.pop('last_modified_by')
+        super().__init__(*args, **kwargs)
+
+    def clean_new_password2(self):
+        password1 = self.cleaned_data.get("new_password1")
+        password2 = self.cleaned_data.get("new_password2")
+        if password1 and password2:
+            if password1 != password2:
+                raise ValidationError(
+                    self.error_messages["password_mismatch"],
+                    code="password_mismatch",
+                )
+        password_validation.validate_password(password2, self.instance)
+        return password2
+
+    def save(self, commit=True):
+        user = super().save(commit)
+        password = self.cleaned_data["new_password1"]
+        user.set_password(password)
+        user.last_modified_by = self.last_modified_by
+        if commit:
+            user.save()
+        return user
+    
 
 class ProductForm(forms.ModelForm):
     name = forms.CharField(label=_('Name'), widget=forms.TextInput(
@@ -356,6 +406,7 @@ class SiteTextForm(forms.ModelForm):
 SiteTextFormSet = forms.modelformset_factory(
     model=SiteText, form=SiteTextForm, max_num=len(settings.LANGUAGES))
 
+
 class FAQForm(forms.ModelForm):
     language = forms.ChoiceField(label=_("Language"), widget=forms.Select(
         attrs={"class": "form-select form-select-sm", 'title': _('Please select language')}), choices=settings.LANGUAGES)
@@ -404,7 +455,6 @@ class OrderDeliveryForm(forms.ModelForm):
         attrs={'class': 'form-control form-control-sm', 'min': datetime.date.today(),
                'title': _('Please enter delivery date')},
         options={"locale": 'az', "format": "DD-MM-YYYY"}), required=False)
-
 
     class Meta:
         model = OrderDelivery

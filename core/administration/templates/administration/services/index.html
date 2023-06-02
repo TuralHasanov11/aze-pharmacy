@@ -28,6 +28,7 @@
                                 <tr>
                                     <th>{% translate "Service" %}</th>
                                     <th>{% translate "Cover Image" %}</th>
+                                    <th>{% translate "Language" %}</th>
                                     <th>{% translate "Actions" %}</th>
                                 </tr>
                             </thead>
@@ -35,6 +36,7 @@
                                 <tr>
                                     <th>{% translate "Service" %}</th>
                                     <th>{% translate "Cover Image" %}</th>
+                                    <th>{% translate "Language" %}</th>
                                     <th>{% translate "Actions" %}</th>
                                 </tr>
                             </tfoot>
@@ -43,6 +45,7 @@
                                 <tr>
                                     <td>{{service.name}}</td>
                                     <td>{% if service.cover_image %}<img width="30" height="30" src="{{service.cover_image.url}}" alt="{{service.name}}">{% endif %}</td>
+                                    <td>{{service.language_display_value}}</td>
                                     <td>
                                         <a href="{% url 'administration:service-update' pk=service.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
                                         <form class="delete-form" action="{% url 'administration:service-delete' pk=service.pk %}" method="POST">
@@ -69,6 +72,11 @@
                                 <label class="small mb-1" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
                                 {{ form.name }} 
                                 {{ form.name.errors  }}
+                            </div>
+                            <div class="mb-3">
+                                <label class="small mb-1" for="{{ form.language.id_for_label }}">{{ form.language.label }}</label>
+                                {{ form.language }} 
+                                {{ form.language.errors  }}
                             </div>
                             <div class="mb-3">
                                 <label class="small mb-1" for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
