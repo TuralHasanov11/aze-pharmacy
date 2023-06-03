@@ -175,6 +175,7 @@ LOCALE_PATHS = (
     BASE_DIR / 'locale/',
 )
 
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -209,7 +210,7 @@ LOGGING = {
             'level': 'WARNING',
             'formatter': 'main',
             'class': 'logging.FileHandler',
-            'filename': 'logs/info.log',
+            'filename': BASE_DIR / 'logs/info.log',
         },
     },
     "loggers": {
