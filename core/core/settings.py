@@ -176,6 +176,18 @@ LOCALE_PATHS = (
 )
 
 
+LOG_DIR = BASE_DIR / 'logs'
+LOG_FILE = '/info.log'
+LOG_PATH = f"{LOG_DIR}/{LOG_FILE}"
+
+if not os.path.exists(LOG_DIR):
+    os.mkdir(LOG_DIR)
+
+if not os.path.exists(LOG_PATH):
+    f = open(LOG_PATH, 'a').close()
+else:
+    f = open(LOG_PATH, "w").close()
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -210,7 +222,7 @@ LOGGING = {
             'level': 'WARNING',
             'formatter': 'main',
             'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'logs/info.log',
+            'filename': LOG_PATH,
         },
     },
     "loggers": {
