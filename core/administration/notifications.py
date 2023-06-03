@@ -91,7 +91,6 @@ class DeliveryEmailNotification(Notification):
         return content
 
     def send(self):
-        print(self.message)
         try:
             msg = EmailMessage(
                 subject=self.subject,

@@ -52,41 +52,53 @@
     {% include 'components/messages.html' with messages=messages %}
     <form method="post" enctype="multipart/form-data">
       <div class="row gx-4">
-        <div class="col-lg-9">
+        <div class="col col-xl-8">
           {% csrf_token %} {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %} 
           {{form.non_form_errors}} 
           {{ form.media }}
-          <div class="card mb-4">
+          <div class="card mb-3">
             <div class="card-header">{{ form.title.label }}</div>
             <div class="card-body">
               {{ form.title }} {{ form.title.errors }}
             </div>
           </div>
-          <div class="card mb-4">
+          <div class="card mb-3">
             <div class="card-header">{{ form.language.label }}</div>
             <div class="card-body">
               {{ form.language }} {{ form.language.errors }}
             </div>
           </div>
-          <div class="card mb-4">
+          <div class="card mb-3">
             <div class="card-header">{{ form.cover_image.label }}</div>
             <div class="card-body">
               {{form.cover_image}} {{ form.cover_image.errors }}
+              <img src="{{post.cover_image.url}}" width="80" height="80" class="mt-3">
             </div>
           </div>
-          <div class="card mb-4">
+          <div class="card mb-3">
             <div class="card-header">{{ form.description.label }}</div>
             <div class="card-body">
               {{ form.description }} {{ form.description.errors }}
             </div>
           </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col col-xl-4">
           <div class="card card-header-actions">
             <div class="card-header">
               {% translate "Publish" %}
             </div>
             <div class="card-body">
+              <div class="mb-3">
+                <div>
+                  <label class="small mb-1">{% translate "Creation Date" %}: </label>
+                  <small><b>{{post.created_date}}</b></small>
+                </div>
+                <div>
+                    <label class="small mb-1">{% translate "Last Modified by" %}: </label>
+                    <small><b>{{post.last_modified_by|default:'-'}}</b></small>,
+                    <small><b>{{post.updated_date}}</b></small>
+                </div>
+              </div>
               <div class="d-grid">
                 <button type="submit" class="fw-500 btn btn-success">
                   {% translate "Save" %}

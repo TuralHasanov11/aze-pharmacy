@@ -46,20 +46,29 @@
                 {% csrf_token %}
                 {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
                 {{form.non_form_errors}}
-                <div class="mb-3">
+                <div class="row g-3 mb-3">
+                  <div class="col-12 col-md-6">
                     <label class="small mb-1" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
                     {{ form.name }} 
                     {{ form.name.errors }}
+                  </div>
+                  <div class="col-12 col-md-6">
+                      <label class="small mb-1" for="{{ form.parent.id_for_label }}">{{ form.parent.label }}</label>
+                      {{ form.parent }} 
+                      {{ form.parent.errors }}
+                  </div>
                 </div>
                 <div class="mb-3">
-                    <label class="small mb-1" for="{{ form.parent.id_for_label }}">{{ form.parent.label }}</label>
-                    {{ form.parent }} 
-                    {{ form.parent.errors }}
-                </div>
-                <div class="mb-3">
-                  <label class="small mb-1">{% translate "Last Modified by" %}: </label>
-                  <small><b>{{category.last_modified_by|default:'-'}}</b></small>
-                </div>
+                  <div>
+                      <label class="small mb-1">{% translate "Creation Date" %}: </label>
+                      <small><b>{{category.created_date}}</b></small>
+                  </div>
+                  <div>
+                      <label class="small mb-1">{% translate "Last Modified by" %}: </label>
+                      <small><b>{{category.last_modified_by|default:'-'}}</b></small>,
+                      <small><b>{{category.updated_date}}</b></small>
+                  </div>
+              </div>
                 <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
             </form>
         </div>

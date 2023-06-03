@@ -29,32 +29,43 @@
                 {% include "components/form/hidden-fields.html" with hidden_fields=formset_item.hidden_fields %}
                 {{formset_item.non_form_errors}}
                 {{ formset_item.media }}
-                <div class="mb-4">
+                <div class="mb-3">
                     <h5 class="text-primary mb-1">{{formset_item.language.label}} - {{formset_item.language.value|upper}}</h5>
                 </div>
-                <div class="mb-4">
+                <div class="mb-3">
                     <label class="mb-1 small" for="{{formset_item.about.id_for_label}}">{{formset_item.about.label}}</label>
                     {{formset_item.about}}
                     {{ formset_item.about.errors  }}
                 </div>
-                <div class="mb-4">
+                <div class="mb-3">
                     <label class="mb-1 small" for="{{formset_item.return_policy.id_for_label}}">{{formset_item.return_policy.label}}</label>
                     {{formset_item.return_policy}}
                     {{ formset_item.return_policy.errors  }}
                 </div>
-                <div class="mb-4">
+                <div class="mb-3">
                     <label class="mb-1 small" for="{{formset_item.privacy_policy.id_for_label}}">{{formset_item.privacy_policy.label}}</label>
                     {{formset_item.privacy_policy}}
                     {{ formset_item.privacy_policy.errors  }}
                 </div>
-                <div class="mb-4">
+                <div class="mb-3">
                     <label class="mb-1 small" for="{{formset_item.terms_and_conditions.id_for_label}}">{{formset_item.terms_and_conditions.label}}</label>
                     {{formset_item.terms_and_conditions}}
                     {{ formset_item.terms_and_conditions.errors  }}
                 </div>
-                <div class="mb-4">
+                <div class="mb-3">
                     {{formset_item.language}}
                     {{formset_item.language.errors}}
+                </div>
+                <div class="mb-3">
+                    <div>
+                        <label class="small mb-1">{% translate "Creation Date" %}: </label>
+                        <small><b>{{formset_item.instance.created_date}}</b></small>
+                    </div>
+                    <div>
+                        <label class="small mb-1">{% translate "Last Modified by" %}: </label>
+                        <small><b>{{formset_item.instance.last_modified_by|default:'-'}}</b></small>,
+                        <small><b>{{formset_item.instance.updated_date}}</b></small>
+                    </div>
                 </div>
                 <hr>
                 {% endfor %}

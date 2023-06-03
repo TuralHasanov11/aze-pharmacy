@@ -75,11 +75,18 @@
                         {% if site_info.about_image %}<img class="mt-3" width="64" height="64" src="{{site_info.about_image.url}}">{% endif %}
                     </div>
                     <div class="mb-3">
-                        <label class="small mb-1">{% translate "Last Modified by" %}: </label>
-                        <small><b>{{site_info.last_modified_by|default:'-'}}</b></small> 
+                        <div>
+                            <label class="small mb-1">{% translate "Creation Date" %}: </label>
+                            <small><b>{{site_info.created_date}}</b></small>
+                        </div>
+                        <div>
+                            <label class="small mb-1">{% translate "Last Modified by" %}: </label>
+                            <small><b>{{site_info.last_modified_by|default:'-'}}</b></small>,
+                            <small><b>{{site_info.updated_date}}</b></small>
+                        </div>
                     </div>
                 </div>
-                <hr class="my-4" />
+                <hr />
                 <div class="d-flex justify-content-between">
                     <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
                 </div>
