@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from ckeditor_uploader import fields as ckeditorFields
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -46,6 +48,14 @@ class Company(models.Model):
     @property
     def last_modified_by_name(self):
         return str(self.last_modified_by)
+    
+    @property
+    def created_date(self):
+        return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
+
+    @property
+    def updated_date(self):
+        return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
 
 
 class SiteInfo(models.Model):
@@ -58,6 +68,7 @@ class SiteInfo(models.Model):
     youtube_link = models.URLField(null=True, blank=True)
     tiktok_link = models.URLField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
     banner_image = models.ImageField(upload_to="site/", null=True, blank=True, default="site/banner_default.jpg")
     breadcrumb_image = models.ImageField(upload_to="site/", null=True, blank=True, default="site/breadcrumb_default.jpg")
     about_image = models.ImageField(upload_to="site/", null=True, blank=True, default="site/about_image_default.jpg")
@@ -72,6 +83,14 @@ class SiteInfo(models.Model):
     @property
     def last_modified_by_name(self):
         return str(self.last_modified_by)
+    
+    @property
+    def created_date(self):
+        return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
+
+    @property
+    def updated_date(self):
+        return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
 
 
 class SiteText(models.Model):
@@ -94,6 +113,14 @@ class SiteText(models.Model):
     def last_modified_by_name(self):
         return str(self.last_modified_by)
     
+    @property
+    def created_date(self):
+        return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
+
+    @property
+    def updated_date(self):
+        return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
+    
 
 class Question(models.Model):
     language = LanguageField()
@@ -109,5 +136,13 @@ class Question(models.Model):
     @property
     def last_modified_by_name(self):
         return str(self.last_modified_by)
+    
+    @property
+    def created_date(self):
+        return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
+
+    @property
+    def updated_date(self):
+        return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
     
 

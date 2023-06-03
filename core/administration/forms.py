@@ -411,7 +411,7 @@ class FAQForm(forms.ModelForm):
     language = forms.ChoiceField(label=_("Language"), widget=forms.Select(
         attrs={"class": "form-select form-select-sm", 'title': _('Please select language')}), choices=settings.LANGUAGES)
     question = forms.CharField(label=_('Question'), widget=forms.Textarea(
-        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Question'), 'rows': 25, 'title': _('Please enter question')}))
+        attrs={'class': 'form-control form-control-sm', 'placeholder': _('Question'), 'rows': 5, 'title': _('Please enter question')}))
     answer = forms.CharField(
         label=_("Answer"), widget=ckeditor_widgets.CKEditorUploadingWidget(), required=False)
 
@@ -484,17 +484,6 @@ class OrderDeliveryForm(forms.ModelForm):
             raise forms.ValidationError(
                 _("Delivery date can be minimum today"))
         return delivery_date
-
-    def __init__(self, *args, **kwargs):
-        if 'last_modified_by' in kwargs:
-            self.last_modified_by = kwargs.pop('last_modified_by')
-        super().__init__(*args, **kwargs)
-
-    def save(self, commit=True):
-        instance = super().save(commit)
-        instance.last_modified_by = self.last_modified_by
-        instance.save()
-        return instance
 
 
 class OrderRefundForm(forms.ModelForm):

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rosetta',
     'bootstrap_datepicker_plus',
     'corsheaders',
+    'simple_history',
 
     'main',
     'news',
@@ -64,6 +65,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -181,16 +183,12 @@ LOGGING = {
             "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
             "style": "{",
         },
-        "simple": {
-            "format": "{levelname} {message}",
-            "style": "{",
-        },
+        'main': {
+            'format': '{levelname} at {asctime} in {module} - {name} - {message}',
+            'style': '{'
+        }
     },
     "filters": {
-        # "special": {
-        #     "()": "project.logging.SpecialFilter",
-        #     "foo": "bar",
-        # },
         "require_debug_true": {
             "()": "django.utils.log.RequireDebugTrue",
         },
@@ -200,24 +198,35 @@ LOGGING = {
             "level": "INFO",
             "filters": ["require_debug_true"],
             "class": "logging.StreamHandler",
-            "formatter": "simple",
+            "formatter": "main",
         },
         "mail_admins": {
             "level": "ERROR",
             "class": "django.utils.log.AdminEmailHandler",
-            # "filters": ["special"],
+            'formatter': 'main',
+        },
+        'file': {
+            'level': 'WARNING',
+            'formatter': 'main',
+            'class': 'logging.FileHandler',
+            'filename': 'logs/info.log',
         },
     },
     "loggers": {
         "django": {
-            "handlers": ["console"],
+            "handlers": ["file", "console"],
             "propagate": True,
         },
         "django.request": {
-            "handlers": ["mail_admins"],
+            "handlers": ["file", "console"],
             "level": "ERROR",
             "propagate": False,
         },
+        "main": {
+            "handlers": ["file", "console"],
+            "propagate": True,
+            "level": "WARNING",
+        }
     },
 }
 
@@ -287,3 +296,6 @@ TWILIO_PHONE = os.environ.get('TWILIO_PHONE', None)
 PAYRIFF_SECRET_KEY = os.environ.get('PAYRIFF_SECRET_KEY', None)
 PAYRIFF_API_ENDPOINT = os.environ.get('PAYRIFF_API_ENDPOINT', None)
 PAYRIFF_MERCHANT = os.environ.get('PAYRIFF_MERCHANT', None)
+
+
+SIMPLE_HISTORY_HISTORY_ID_USE_UUID = True

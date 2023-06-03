@@ -41,24 +41,31 @@
                     {% csrf_token %} {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %} 
                     {{form.non_form_errors}} 
                     {{form.media}}
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="mb-1 small" for="{{ form.question.id_for_label }}">{{ form.question.label }}</label>
                         {{ form.question }} 
                         {{ form.question.errors  }}
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="mb-1 small" for="{{ form.answer.id_for_label }}">{{ form.answer.label }}</label>
                         {{ form.answer }} 
                         {{ form.answer.errors  }}
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="mb-1 small" for="{{ form.language.id_for_label }}">{{ form.language.label }}</label>
                         {{ form.language }} 
                         {{ form.language.errors  }}
                     </div>
-                    <div class="mb-4">
-                        <label class="mb-1 small">{% translate "Last Modified by" %}: </label>
-                        <small><b>{{question.last_modified_by|default:'-'}}</b></small> 
+                    <div class="mb-3">
+                        <div>
+                            <label class="small mb-1">{% translate "Creation Date" %}: </label>
+                            <small><b>{{question.created_date}}</b></small>
+                        </div>
+                        <div>
+                            <label class="small mb-1">{% translate "Last Modified by" %}: </label>
+                            <small><b>{{question.last_modified_by|default:'-'}}</b></small>,
+                            <small><b>{{question.updated_date}}</b></small>
+                        </div>
                     </div>
                     <button class="btn btn-success btn-sm" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
                 </form>

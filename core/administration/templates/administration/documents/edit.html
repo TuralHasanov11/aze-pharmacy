@@ -40,19 +40,26 @@
                     {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
                     {{form.non_form_errors}}
                     {{ form.media }}
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="mb-1 small" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
                         {{ form.name }} 
                         {{ form.name.errors }}
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="mb-1 small" for="{{ form.file.id_for_label }}">{{ form.file.label }}</label>
                         {{form.file}} 
                         {{ form.file.errors }}
                     </div>
-                    <div class="col-12 col-md-6 mb-3">
-                        <label class="mb-1 small">{% translate "Last Modified by" %}: </label>
-                        <small><b>{{document.last_modified_by|default:'-'}} </b></small>
+                    <div class="mb-3">
+                        <div>
+                            <label class="small mb-1">{% translate "Creation Date" %}: </label>
+                            <small><b>{{document.created_date}}</b></small>
+                        </div>
+                        <div>
+                            <label class="small mb-1">{% translate "Last Modified by" %}: </label>
+                            <small><b>{{document.last_modified_by|default:'-'}}</b></small>,
+                            <small><b>{{document.updated_date}}</b></small>
+                        </div>
                     </div>
                     <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
                 </form>

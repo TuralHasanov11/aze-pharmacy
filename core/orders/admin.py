@@ -1,5 +1,6 @@
 from django.contrib import admin
 from orders.models import Order, OrderDelivery, OrderItem
+from simple_history.admin import SimpleHistoryAdmin
 
 
 class OrderItemInline(admin.TabularInline):
@@ -9,7 +10,7 @@ class OrderDeliveryInline(admin.StackedInline):
     model = OrderDelivery
 
 @admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
+class OrderAdmin(SimpleHistoryAdmin):
   list_display = ("full_name", "total_paid", "phone")
   ordering = ("-created_at", )
   inlines = [

@@ -87,24 +87,6 @@
                       <span>{{order.updated_date}}</span>
                     </li>
                   </ul>
-                  <form method="post" id="order-form">
-                  {% include 'components/messages.html' with messages=messages %}
-                  {{ form.media }} 
-                  {% csrf_token %}
-                  <div class="card mb-4">
-                    <div class="card-header">{% translate "Edit Order Details" %}</div>
-                    <div class="card-body">
-                      {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
-                      {{form.non_form_errors}}
-                      <div class="mb-4">
-                          <label class="mb-1" for="{{ form.notes.id_for_label }}">{{ form.notes.label }}</label>
-                          {{ form.notes }} 
-                          {{ form.notes.errors }}
-                      </div>
-                      <button class="btn btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
-                    </div>
-                  </div>
-                  </form>
                 </div>
                 <div class="col-12 col-lg-7">
                   <div class="table-responsive mb-4">
@@ -146,7 +128,38 @@
               </div>
               <hr>
               <div class="row">
-                <div class="col-12">
+                <div class="col-12 col-md-6">
+                  <form method="post" id="order-form">
+                    {% include 'components/messages.html' with messages=messages %}
+                    {{ form.media }} 
+                    {% csrf_token %}
+                    <div class="card mb-4">
+                      <div class="card-header">{% translate "Edit Order Details" %}</div>
+                      <div class="card-body">
+                        {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
+                        {{form.non_form_errors}}
+                        <div class="mb-4">
+                            <label class="mb-1" for="{{ form.notes.id_for_label }}">{{ form.notes.label }}</label>
+                            {{ form.notes }} 
+                            {{ form.notes.errors }}
+                        </div>
+                        <button class="btn btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="card">
+                    <div class="card-header">{% translate "Order Modification History" %}</div>
+                    <div class="card-body">
+                        {% include "components/admin/logs.html" with logs=order_logs %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-12 col-md-6">
                   <form id="delivery-form">
                     <div class="card mb-4">
                       <div class="card-header">{% translate "Edit Order Delivery Information" %}</div>
@@ -181,6 +194,16 @@
                     </div>
                   </form>
                 </div>
+                <div class="col-12 col-md-6">
+                  <div class="card">
+                    <div class="card-header">{% translate "Delivery Modification History" %}</div>
+                    <div class="card-body">
+                        {% include "components/admin/logs.html" with logs=order_delivery_logs %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
                 <div class="col-12 col-md-6">
                   <div class=" card mb-4">
                     <div class="card-header">{% translate "Refunds" %}</div>

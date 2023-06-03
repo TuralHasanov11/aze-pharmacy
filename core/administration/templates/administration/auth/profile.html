@@ -26,35 +26,39 @@
           <div class="card-body">
             <ul class="list-group list-group-flush">
               <li class="list-group-item">
-                <h5>
-                  {% translate "Username" %}
+                <h5 class="fw-400">
+                  {% translate "Username" %}: <span class="fw-bold">{{ request.user.username}}</span>
                 </h5>
-                <h6 class="card-title">{{ request.user.username}}</h6>
               </li>
               <li class="list-group-item">
-                <h5>
-                  {% translate "Email" %}
+                <h5 class="fw-normal">
+                  {% translate "Email" %}: <span class="fw-bold">{{ request.user.email}}</span>
                 </h5>
-                <h6 class="card-title">{{ request.user.email}}</h6>
               </li>
               <li class="list-group-item">
-                <h5>
-                  {% translate "First Name" %}
+                <h5 class="fw-normal">
+                  {% translate "First Name" %}: <span class="fw-bold">{{ request.user.first_name}}</span>
                 </h5>
-                <h6 class="card-title">{{ request.user.first_name}}</h6>
               </li>
               <li class="list-group-item">
-                <h5>
-                  {% translate "Last Name" %}
+                <h5 class="fw-normal">
+                  {% translate "Last Name" %}: <span class="fw-bold">{{ request.user.last_name}}</span>
                 </h5>
-                <h6 class="card-title">{{ request.user.last_name}}</h6>
               </li>
-
               <li class="list-group-item">
-                <h5>
-                  {% translate "Role" %}
+                <h5 class="fw-normal">
+                  {% translate "Role" %}: <span class="fw-bold">{{ request.user.role_name}}</span>
                 </h5>
-                <h6 class="card-title">{{ request.user.role_name}}</h6>
+              </li>
+              <li class="list-group-item">
+                <h5 class="fw-normal">
+                  {% translate "Creation Date" %}: <span class="fw-bold">{{ request.user.created_date}}</span>
+                </h5>
+              </li>
+              <li class="list-group-item">
+                <h5 class="fw-normal">
+                  {% translate "Update Date" %}: <span class="fw-bold">{{ request.user.updated_date}}</span>
+                </h5>
               </li>
             </ul>
           </div>

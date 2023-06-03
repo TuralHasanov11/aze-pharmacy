@@ -670,6 +670,9 @@ def orderDetail(request, id: int):
             'product__category').all()),
         Prefetch('refunds', queryset=OrderRefund.objects.all())
     ).get(id=id)
+    orderLogs = order.history.order_by('-history_date')
+    orderDeliveryLogs = order.order_delivery.history.order_by('-history_date')
+
     delivery_form = forms.OrderDeliveryForm(
         instance=OrderDelivery.objects.get(order=order))
     refund_form = forms.OrderRefundForm()
@@ -687,7 +690,9 @@ def orderDetail(request, id: int):
             order.save()
         form = forms.OrderForm(instance=order)
 
-    return render(request, template_name, {"order": order, "form": form, "delivery_form": delivery_form, "refund_form": refund_form})
+    return render(request, template_name, {"order": order, "form": form, "delivery_form": delivery_form, 
+                                           "refund_form": refund_form, "order_logs": orderLogs, 
+                                           "order_delivery_logs": orderDeliveryLogs})
 
 
 @login_required

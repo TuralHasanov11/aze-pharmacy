@@ -1,11 +1,19 @@
+import uuid
 from datetime import datetime
 
 from django.contrib.auth import get_user_model
 from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from simple_history.models import HistoricalRecords
 from store.models import Product
 
+
+class EntryLog(HistoricalRecords):
+    history_id_field=models.UUIDField(default=uuid.uuid4)
+    excluded_fields=['created_at', 'updated_at']
+    related_name='history'
+    cascade_delete_history=True
 
 class Order(models.Model):
     class PaymentStatus(models.TextChoices):
@@ -31,6 +39,9 @@ class Order(models.Model):
     notes = models.TextField(blank=True, null=True)
     is_flagged = models.BooleanField(default=False)
     seen = models.BooleanField(default=False)
+    history = EntryLog()
+    last_modified_by = models.ForeignKey(
+        get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -68,10 +79,13 @@ class Order(models.Model):
     def created_date(self):
         return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
     
-    # def save(self, *args, **kwargs):
-    #     if not self.uuid:
-    #         self.uuid = uuid.uuid4()
-    #     return super().save(*args, **kwargs)
+    @property
+    def _history_user(self):
+        return self.last_modified_by
+
+    @_history_user.setter
+    def _history_user(self, value):
+        self.last_modified_by = value
 
 
 class OrderRefund(models.Model):
@@ -130,6 +144,7 @@ class OrderDelivery(models.Model):
     courier_name = models.CharField(max_length=255, null=True, blank=True)
     tracking_number = models.CharField(max_length=100, null=True, blank=True)
     last_modified_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
+    history = EntryLog()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -144,3 +159,11 @@ class OrderDelivery(models.Model):
     @property
     def last_modified_by_name(self):
         return str(self.last_modified_by)
+    
+    @property
+    def _history_user(self):
+        return self.last_modified_by
+
+    @_history_user.setter
+    def _history_user(self, value):
+        self.last_modified_by = value

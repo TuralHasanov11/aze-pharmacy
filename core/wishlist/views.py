@@ -1,8 +1,12 @@
+import logging
+
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_GET
 from wishlist.processor import WishlistProcessor
+
+logger = logging.getLogger()
 
 
 @require_GET

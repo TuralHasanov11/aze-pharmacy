@@ -81,8 +81,10 @@
                         </p>
                         <h6 class="card-title">{% translate "Maximum Number of Purchase Units" %}</h6>
                         <p class="card-text">{{product.maximum_purchase_units}}</p>
+                        <h6 class="card-title">{% translate "Creation Date" %}</h6>
+                        <p class="card-text">{{product.created_date}}</p>
                         <h6 class="card-title">{% translate "Last Modified by" %}</h6>
-                        <p class="card-text">{{product.last_modified_by|default:'-'}}</p>
+                        <p class="card-text">{{product.last_modified_by|default:'-'}}, {{product.updated_date}}</p>
                     </div>
                 </div>
             </div>

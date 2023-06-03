@@ -40,29 +40,41 @@
                     {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
                     {{form.non_form_errors}}
                     {{ form.media }}
-                    <div class="mb-4">
-                        <label class="mb-1 small" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
-                        {{ form.name }} 
-                        {{ form.name.errors }}
+                    <div class="row g-3 mb-3">
+                        <div class="col-12 col-md-6">
+                            <label class="mb-1 small" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                            {{ form.name }} 
+                            {{ form.name.errors }}
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="mb-1 small" for="{{ form.language.id_for_label }}">{{ form.language.label }}</label>
+                            {{form.language}} 
+                            {{ form.language.errors  }}
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="mb-1 small" for="{{ form.cover_image.id_for_label }}">{{ form.cover_image.label }}</label>
+                            {{form.cover_image}}
+                            {{ form.cover_image.errors  }}
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <img src="{{service.cover_image.url}}" width="80" height="80" alt="">
+                        </div>
                     </div>
-                    <div class="mb-4">
-                        <label class="mb-1 small" for="{{ form.language.id_for_label }}">{{ form.language.label }}</label>
-                        {{form.language}} 
-                        {{ form.language.errors  }}
-                    </div>
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="mb-1 small" for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
                         {{ form.description }} 
                         {{ form.description.errors  }}
                     </div>
-                    <div class="mb-4">
-                        <label class="mb-1 small" for="{{ form.cover_image.id_for_label }}">{{ form.cover_image.label }}</label>
-                        {{form.cover_image}} 
-                        {{ form.cover_image.errors  }}
-                    </div>
-                    <div class="mb-4">
-                        <label class="mb-1">{% translate "Last Modified by" %}: </label>
-                        <small><b>{{service.last_modified_by|default:'-'}}</b></small>
+                    <div class="mb-3">
+                        <div>
+                            <label class="small mb-1">{% translate "Creation Date" %}: </label>
+                            <small><b>{{service.created_date}}</b></small>
+                        </div>
+                        <div>
+                            <label class="small mb-1">{% translate "Last Modified by" %}: </label>
+                            <small><b>{{service.last_modified_by|default:'-'}}</b></small>,
+                            <small><b>{{service.updated_date}}</b></small>
+                        </div>
                     </div>
                     <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
                 </form>

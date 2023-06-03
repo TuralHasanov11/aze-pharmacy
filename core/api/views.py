@@ -162,14 +162,15 @@ def approvePayment(request):
     try:
         if request.method == 'POST':
             data = json.load(request)["payload"]
-            
+
             order = Order.objects.select_related('order_delivery').prefetch_related(
                 Prefetch('items', queryset=OrderItem.objects.select_related(
                     'product__category').all()),
             ).get(order_key=data["sessionID"], order_id=data["orderID"])
             order.payment_status = Order.PaymentStatus.PAID
             order.save()
-            delivery, created = OrderDelivery.objects.get_or_create(order=order)
+            delivery, created = OrderDelivery.objects.get_or_create(
+                order=order)
 
             # sendDeliveryStatusNotification(
             #     request=request, order=order, delivery=delivery)
@@ -179,7 +180,7 @@ def approvePayment(request):
                 "type": "order_created",
                 "message": _("New order: ") + f" {order.id}",
             })
-            
+
             return JsonResponse(data={"message": _("Order placed"), "data": data})
             return redirect(f"{reverse('orders:detail', kwargs={'id': order.id})}?{urlencode({'order_key': order.order_key})}#order-summary")
         else:
@@ -200,7 +201,8 @@ def cancelPayment(request):
     try:
         data = request.POST.get("payload")
         print(data)
-        Order.objects.get(order_key=data["sessionID"], order_id=data["orderID"]).delete()
+        Order.objects.get(
+            order_key=data["sessionID"], order_id=data["orderID"]).delete()
         return redirect("checkout:index")
     except Exception:
         messages.error(request, _("Order cannot be cancelled"))
@@ -212,7 +214,8 @@ def declinePayment(request):
     try:
         data = request.POST.get("payload")
         print(data)
-        order = Order.objects.get(order_key=data["sessionID"], order_id=data["orderID"])
+        order = Order.objects.get(
+            order_key=data["sessionID"], order_id=data["orderID"])
         order.payment_status = Order.PaymentStatus.CANCELLED
         order.save()
         return redirect("checkout:index")
@@ -267,8 +270,7 @@ def updateOrderDelivery(request, id: int):
     try:
         delivery = OrderDelivery.objects.get(order_id=id)
         order = Order.objects.get(id=id)
-        form = OrderDeliveryForm(
-            instance=delivery, data=request.POST, last_modified_by=request.user)
+        form = OrderDeliveryForm(instance=delivery, data=request.POST)
         if form.is_valid():
             if form.has_changed():
                 with transaction.atomic():
