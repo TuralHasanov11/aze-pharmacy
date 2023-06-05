@@ -113,7 +113,7 @@
                             ><span class="woocommerce-input-wrapper"
                               >
                               <input type="text" v-model="v$.checkoutForm.phone.$model"  @blur="v$.checkoutForm.phone.$touch" class="input-text phone-input" id="id_phone" placeholder="+994xxxxxxxxx" autocomplete="tel">
-                              <span class="form-text phone-input-helper"></span>@blur="v$.checkoutForm.phone.$touch"
+                              <span class="form-text phone-input-helper"></span>
                               <span v-if="v$.checkoutForm.phone.$dirty && v$.checkoutForm.phone.required?.$invalid" class="text-danger">{{checkoutFormValidationMessages?.phone?.required}}</span>
                               <span v-if="v$.checkoutForm.phone.$dirty && v$.checkoutForm.phone.phoneValidator?.$invalid" class="text-danger">{{checkoutFormValidationMessages?.phone?.regex}}</span>
                               </span>

@@ -4,15 +4,19 @@
 <main class="main-area fix">
   {%include "components/breadcrumb.html" with breadcrumb=breadcrumb%}
 
-  <div class="tg-page-area">
+  <div  id="order-declined" class="tg-page-area">
     <div class="container">
       <div class="row">
         <div class="col-xl-12">
           <div class="tg-page-content suxnix-page-content">
             <div class="tp-page-post">
               <div class="woocommerce">
-                {% include 'components/messages.html' with messages=messages %}
-                
+                <div>
+                  <div class="d-flex justify-content-center flex-column align-items-center">
+                    {% include 'components/messages.html' with messages=messages %}
+                    <a href="{% url 'store:products' %}" class="btn">{% translate "Continue Shopping" %}</a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

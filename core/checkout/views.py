@@ -1,4 +1,5 @@
 from cart.processor import CartProcessor
+from django.contrib import messages
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -20,13 +21,12 @@ def index(request):
 
 
 @require_GET
-def failed(request):
-    template_name = 'checkout/failed.html'
+def declined(request):
+    template_name = 'checkout/declined.html'
     breadcrumb = [
-        {"title": _("Order Failed")},
+        {"title": _("Order Declined")},
         {"title": _("Home"), "route": reverse("main:index")},
-        {"title": _("Order Failed")},
-    ]
+        {"title": _("Order Declined")},
+    ]                
+    messages.warning(request, _('Order was declined'))
     return render(request, template_name=template_name, context={"breadcrumb": breadcrumb})
-
-
