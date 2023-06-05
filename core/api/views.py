@@ -13,7 +13,6 @@ from channels.layers import get_channel_layer
 from checkout.payment import PaymentGateway
 from checkout.serializers import CheckoutSerializer
 from checkout.utils import getCities
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db import transaction
 from django.db.models import Prefetch
@@ -196,32 +195,34 @@ def approvePayment(request):
         return JsonResponse(status=400, data={"message": _("Order cannot be placed"), "errors": str(e)})
 
 
-@require_POST
+@csrf_exempt
+@require_http_methods(['GET', 'POST'])
 def cancelPayment(request):
     try:
-        data = request.POST.get("payload")
-        print(data)
-        Order.objects.get(
-            order_key=data["sessionID"], order_id=data["orderID"]).delete()
-        return redirect("checkout:index")
-    except Exception:
-        messages.error(request, _("Order cannot be cancelled"))
-        return redirect("checkout:index")
+        if request.method == 'POST':
+            data = request.POST.get("payload")
+            Order.objects.get(
+                order_key=data["sessionID"], order_id=data["orderID"]).delete()
+            return JsonResponse(data={"message": _("Order was declined"), "data": data})
+        else:
+            return redirect("checkout:index")
+    except Exception as e:
+        return JsonResponse(status=400, data={"message": _("Order cannot be cancelled"), "errors": str(e)})
 
 
-@require_POST
+@csrf_exempt
+@require_http_methods(['GET', 'POST'])
 def declinePayment(request):
     try:
-        data = request.POST.get("payload")
-        print(data)
-        order = Order.objects.get(
-            order_key=data["sessionID"], order_id=data["orderID"])
-        order.payment_status = Order.PaymentStatus.CANCELLED
-        order.save()
-        return redirect("checkout:index")
-    except Exception:
-        messages.error(request, _("Order cannot be declined"))
-        return redirect("checkout:index")
+        if request.method == 'POST':
+            data = request.POST.get("payload")
+            Order.objects.get(
+                order_key=data["sessionID"], order_id=data["orderID"]).delete()
+            return JsonResponse(data={"message": _("Order was declined"), "data": data})
+        else:
+            return redirect(f"{reverse('checkout:declined')}#order-declined")
+    except Exception as e:
+        return JsonResponse(status=400, data={"message": _("Order cannot be declined"), "errors": str(e)})
 
 
 @login_required
