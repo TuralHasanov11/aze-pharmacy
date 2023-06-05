@@ -1,20 +1,16 @@
 {% load i18n %}
-<ol class="list-group list-group-numbered">
+<ol class="list-group list-group-numbered" id="{{logs_id}}">
     {% for log in logs %}
     <li class="list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
-            <small>
-                {% if log.history_type == '~' %}
-                    {% translate "Updated" %} |
-                {% endif %}
+            <small class="d-block text-muted">
                 {{log.history_change_reason|default:''}}
             </small>
-            <br>
-            <small>            
+            <small class="d-block">            
                 {{log.history_user|default:''}}
             </small>
         </div>
         <span class="badge bg-primary rounded-pill">{{log.history_date|date:'d.m.Y H:i'}}</span>
-      </li>
+    </li>
     {% endfor %}
 </ol>

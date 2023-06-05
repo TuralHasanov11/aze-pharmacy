@@ -3,6 +3,7 @@
 from urllib.parse import urlencode
 
 from administration import forms
+from administration.serializers import OrderLogSerializer
 from api import pagination
 from api.serializers import OrderSerializer
 from django.contrib import messages
@@ -670,17 +671,15 @@ def orderDetail(request, id: int):
             'product__category').all()),
         Prefetch('refunds', queryset=OrderRefund.objects.all())
     ).get(id=id)
-    orderLogs = order.history.order_by('-history_date')
-    orderDeliveryLogs = order.order_delivery.history.order_by('-history_date')
-
-    delivery_form = forms.OrderDeliveryForm(
-        instance=OrderDelivery.objects.get(order=order))
-    refund_form = forms.OrderRefundForm()
 
     if request.POST:
         form = forms.OrderForm(data=request.POST, instance=order)
         if form.is_valid():
-            form.save()
+            instance = form.save()
+            logsSerializer = OrderLogSerializer(instance=instance, 
+                                                logs=instance.history.order_by('-history_date'))
+            logsSerializer.save()
+
             messages.success(request, success_message)
             return redirect(reverse("administration:order-detail", kwargs={"id": order.id})+"#order-form")
         messages.error(request, _("Order was not saved!"))
@@ -690,8 +689,15 @@ def orderDetail(request, id: int):
             order.save()
         form = forms.OrderForm(instance=order)
 
-    return render(request, template_name, {"order": order, "form": form, "delivery_form": delivery_form, 
-                                           "refund_form": refund_form, "order_logs": orderLogs, 
+    delivery_form = forms.OrderDeliveryForm(
+        instance=OrderDelivery.objects.get(order=order))
+    refund_form = forms.OrderRefundForm()
+    orderLogs = order.history.order_by('-history_date')
+    orderDeliveryLogs = order.order_delivery.history.order_by(
+        '-history_date')
+
+    return render(request, template_name, {"order": order, "form": form, "delivery_form": delivery_form,
+                                           "refund_form": refund_form, "order_logs": orderLogs,
                                            "order_delivery_logs": orderDeliveryLogs})
 
 

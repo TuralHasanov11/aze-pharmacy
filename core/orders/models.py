@@ -10,10 +10,11 @@ from store.models import Product
 
 
 class EntryLog(HistoricalRecords):
-    history_id_field=models.UUIDField(default=uuid.uuid4)
-    excluded_fields=['created_at', 'updated_at']
-    related_name='history'
-    cascade_delete_history=True
+    history_id_field = models.UUIDField(default=uuid.uuid4)
+    excluded_fields = ['created_at', 'updated_at', 'last_modified_by']
+    related_name = 'history'
+    cascade_delete_history = True
+
 
 class Order(models.Model):
     class PaymentStatus(models.TextChoices):
@@ -31,7 +32,8 @@ class Order(models.Model):
     phone_regex = RegexValidator(regex=r'^\+?1?\d{12}$')
     phone = models.CharField(validators=[phone_regex], max_length=17)
     total_paid = models.DecimalField(max_digits=7, decimal_places=2)
-    total_refund = models.DecimalField(max_digits=7, decimal_places=2, default=0)
+    total_refund = models.DecimalField(
+        max_digits=7, decimal_places=2, default=0)
     order_id = models.CharField(max_length=255, unique=True, null=True)
     order_key = models.CharField(max_length=255, unique=True, null=True)
     payment_status = models.CharField(
@@ -70,15 +72,15 @@ class Order(models.Model):
         elif self.payment_status == self.PaymentStatus.FAILED:
             return "danger"
         return "primary"
-    
+
     @property
     def updated_date(self):
         return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
-    
+
     @property
     def created_date(self):
         return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
-    
+
     @property
     def _history_user(self):
         return self.last_modified_by
@@ -93,7 +95,8 @@ class OrderRefund(models.Model):
         Order, related_name='refunds', on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=6, decimal_places=2)
     reason = models.TextField(null=False, blank=False)
-    created_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
+    created_by = models.ForeignKey(
+        get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -102,15 +105,15 @@ class OrderRefund(models.Model):
 
     def __str__(self):
         return str(self.amount)
-    
+
     @property
     def created_date(self):
         return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
-    
+
     @property
     def created_by_name(self):
         return str(self.created_by) if self.created_by else ""
-    
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(
@@ -143,7 +146,8 @@ class OrderDelivery(models.Model):
     delivery_date = models.DateField(null=True, blank=True)
     courier_name = models.CharField(max_length=255, null=True, blank=True)
     tracking_number = models.CharField(max_length=100, null=True, blank=True)
-    last_modified_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
+    last_modified_by = models.ForeignKey(
+        get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
     history = EntryLog()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -155,11 +159,11 @@ class OrderDelivery(models.Model):
     @property
     def delivery_status_value(self):
         return self.get_delivery_status_display
-    
+
     @property
     def last_modified_by_name(self):
         return str(self.last_modified_by)
-    
+
     @property
     def _history_user(self):
         return self.last_modified_by
