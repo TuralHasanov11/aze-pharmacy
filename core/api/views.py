@@ -4,6 +4,7 @@ from urllib.parse import urlencode
 from administration.forms import OrderDeliveryForm
 from administration.notifications import (sendDeliveryStatusNotification,
                                           sendRefundNotification)
+from administration.serializers import OrderDeliveryLogSerializer
 from api.serializers import (OrderDeliverySerializer,
                              OrderRefundCreateSerializer,
                              OrderRefundSerializer, OrderSerializer)
@@ -200,10 +201,10 @@ def approvePayment(request):
 def cancelPayment(request):
     try:
         if request.method == 'POST':
-            data = request.POST.get("payload")
+            data = json.load(request)["payload"]
             Order.objects.get(
                 order_key=data["sessionID"], order_id=data["orderID"]).delete()
-            return JsonResponse(data={"message": _("Order was declined"), "data": data})
+            return JsonResponse(data={"message": _("Order was cancelled"), "data": data})
         else:
             return redirect("checkout:index")
     except Exception as e:
@@ -215,9 +216,11 @@ def cancelPayment(request):
 def declinePayment(request):
     try:
         if request.method == 'POST':
-            data = request.POST.get("payload")
-            Order.objects.get(
-                order_key=data["sessionID"], order_id=data["orderID"]).delete()
+            data = json.load(request)["payload"]
+            order = Order.objects.get(
+                order_key=data["sessionID"], order_id=data["orderID"])
+            order.payment_status = order.PaymentStatus.FAILED
+            order.save()
             return JsonResponse(data={"message": _("Order was declined"), "data": data})
         else:
             return redirect(f"{reverse('checkout:declined')}#order-declined")
@@ -276,7 +279,10 @@ def updateOrderDelivery(request, id: int):
             if form.has_changed():
                 with transaction.atomic():
                     changedData = form.changed_data
-                    delivery = form.save()
+                    instance = form.save()
+                    logsSerializer = OrderDeliveryLogSerializer(instance=instance, 
+                                                                logs=instance.history.order_by('-history_date'))
+                    latestLog = logsSerializer.save()
                     if "delivery_status" in changedData:
                         try:
                             sendDeliveryStatusNotification(
@@ -284,7 +290,7 @@ def updateOrderDelivery(request, id: int):
                         except Exception as e:
                             return Response(status=400, data={"message": str(e)})
             serializer = OrderDeliverySerializer(instance=delivery)
-            return Response(data={"message": _("Order delivery was updated"), "delivery": serializer.data})
+            return Response(data={"message": _("Order delivery was updated"), "delivery": serializer.data, "delivery_log": latestLog})
         return Response(status=422, data={"message": _("Order delivery cannot be updated"), "errors": form.errors})
     except Order.DoesNotExist:
         return Response(status=404, data={"message": _("Order was not found")})

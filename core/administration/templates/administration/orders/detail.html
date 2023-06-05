@@ -152,7 +152,7 @@
                   <div class="card">
                     <div class="card-header">{% translate "Order Modification History" %}</div>
                     <div class="card-body">
-                        {% include "components/admin/logs.html" with logs=order_logs %}
+                        {% include "components/admin/logs.html" with logs=order_logs logs_id="order_logs" %}
                     </div>
                   </div>
                 </div>
@@ -185,10 +185,6 @@
                           {{ delivery_form.delivery_date }}
                             <div id="{{delivery_form.delivery_date.id_for_label}}_errors" class="invalid-feedback"></div> 
                         </div>
-                        <div class="mb-4">
-                          <label class="mb-1">{% translate "Last Modified by" %}</label>
-                          <input type="text" disabled class="form-control form-control-sm" value="{{ order.order_delivery.last_modified_by|default:'-' }}">
-                        </div>
                         <button id="delivery_submit_btn" class="btn btn-success btn-disabled" type="submit">{% translate "Save" %}</button>
                       </div>
                     </div>
@@ -198,7 +194,7 @@
                   <div class="card">
                     <div class="card-header">{% translate "Delivery Modification History" %}</div>
                     <div class="card-body">
-                        {% include "components/admin/logs.html" with logs=order_delivery_logs %}
+                        {% include "components/admin/logs.html" with logs=order_delivery_logs logs_id="order_delivery_logs" %}
                     </div>
                   </div>
                 </div>
