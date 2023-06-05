@@ -6,6 +6,7 @@ const totalRefundElement = document.getElementById('total_refund')
 const orderRefundListElement = document.getElementById('orderRefundList')
 const deliveryForm = document.getElementById('delivery-form')
 const refundForm = document.getElementById('refund-form')
+const deliveryLogHistoryElement = document.getElementById('order_delivery_logs')
 
 refundForm.addEventListener('submit', async (event) => {
   event.preventDefault()
@@ -57,8 +58,11 @@ deliveryForm.addEventListener('submit', async (event) => {
     }
   } catch (error) {
     refundBtn.disabled = false
-    errorAlert(JSON.parse(error.message)?.message)
-    handleDeliveryErrors(JSON.parse(error.message)?.errors)
+    console.log(error)
+    if(error.message){
+      errorAlert(JSON.parse(error.message)?.message)
+      handleDeliveryErrors(JSON.parse(error.message)?.errors)
+    }
   }
 })
 
@@ -83,8 +87,7 @@ function handleDeliverySuccess(data){
   for (const field in deliveryForm.elements) {
     deliveryForm.elements[field]?.classList?.remove('is-invalid')
   }
-
-  document.getElementById('id_last_modified_by').value = data.delivery.last_modified_by_name
+  deliveryLogHistoryElement.innerHTML = logComponent(data.delivery_log) + deliveryLogHistoryElement.innerHTML
 }
 
 function handleDeliveryErrors(errors){
@@ -92,6 +95,20 @@ function handleDeliveryErrors(errors){
     document.getElementById(`id_${field}`).classList.add('is-invalid')
     document.getElementById(`id_${field}_errors`).innerHTML = errors[field].join('\n')
   }
+}
+
+function logComponent(log){
+  return `<li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+        <small class="d-block text-muted">
+            ${log?.history_change_reason}
+        </small>
+        <small class="d-block">            
+            ${log?.history_user}
+        </small>
+    </div>
+    <span class="badge bg-primary rounded-pill">${log?.history_date}</span>
+  </li>`
 }
 
 fullRefundInput.addEventListener('change', (event) => {
