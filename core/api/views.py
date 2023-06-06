@@ -33,7 +33,7 @@ from wishlist.processor import WishlistProcessor
 
 @api_view(['GET'])
 def cities(request):
-    cities = getCities()
+    cities = sorted(getCities(), key=lambda x: x['city'])
     return Response(data=cities)
 
 

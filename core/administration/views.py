@@ -706,7 +706,6 @@ def orderDetail(request, id: int):
 @permission_required(['orders.view_order', 'orders.change_order'], raise_exception=True)
 def orders(request):
     search = request.GET.get('search', None)
-    isFlagged = bool(request.GET.get('is_flagged', False))
     selectedOrderByValue = request.GET.get('order_by', '-created_at')
 
     if search:
@@ -719,8 +718,19 @@ def orders(request):
     else:
         ordersQueryset = Order.objects.order_by(selectedOrderByValue)
 
+    isFlagged = bool(request.GET.get('is_flagged', False))
     if isFlagged:
         ordersQueryset = ordersQueryset.filter(is_flagged=isFlagged)
+    
+    status = request.GET.get('status', None)
+    if status == 'paid':
+        ordersQueryset = ordersQueryset.filter(payment_status=Order.PaymentStatus.PAID)
+    if status == 'refunded':
+        ordersQueryset = ordersQueryset.filter(payment_status=Order.PaymentStatus.REFUNDED)
+    elif status == 'failed':
+        ordersQueryset = ordersQueryset.filter(payment_status=Order.PaymentStatus.FAILED)
+    elif status == 'pending':
+        ordersQueryset = ordersQueryset.filter(payment_status=Order.PaymentStatus.PENDING)
 
     paginator = pagination.OrderPagination()
     orders = paginator.paginate_queryset(ordersQueryset, request)
