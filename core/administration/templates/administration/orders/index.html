@@ -34,15 +34,54 @@
                                     <button class="btn btn-success btn-sm" type="submit">{% translate "Search" %}</button>
                                 </div>
                             </form>
-                            {% if not request.GET.is_flagged %}
-                            <a href="?is_flagged=1" class="btn btn-sm btn-warning">
-                                {% translate "Flagged Orders Only" %}
-                            </a>
-                            {% else %}
-                            <a href="{% url 'administration:order-list' %}" class="btn btn-sm btn-primary">
-                                {% translate "All Orders" %}
-                            </a>
-                            {% endif %}
+                            <div>
+                                <a href="?is_flagged=1" class="btn btn-sm btn-warning">
+                                    {% translate "Flagged Orders Only" %}
+                                </a>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                                      {% if request.GET.status == "paid" %}
+                                      {% translate "Paid Orders Only" %}
+                                      {% elif request.GET.status == "failed" %}
+                                      {% translate "Failed Orders Only" %}
+                                      {% elif request.GET.status == "pending" %}
+                                      {% translate "Pending Orders Only" %}
+                                      {% elif request.GET.status == "refunded" %}
+                                      {% translate "Refunded Orders Only" %}
+                                      {% else %}
+                                      {% translate "All Orders" %}
+                                      {% endif %}
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                      <li>
+                                        <a href="?status=paid" class="dropdown-item text-success">
+                                            {% translate "Paid Orders Only" %}
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="?status=failed" class="dropdown-item text-danger">
+                                            {% translate "Failed Orders Only" %}
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="?status=pending" class="dropdown-item text-dark">
+                                            {% translate "Pending Orders Only" %}
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="?status=refunded" class="dropdown-item text-warning">
+                                            {% translate "Refunded Orders Only" %}
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="{% url 'administration:order-list' %}" class="dropdown-item text-primary">
+                                            {% translate "All Orders" %}
+                                        </a>
+                                      </li>
+                                    </ul>
+                                </div>
+                                
+                            </div>
                         </div>
                     </div>
                     <div class="col-12">
@@ -76,6 +115,7 @@
     const currentPage = urlParams.get('page') || 1;
     const search = urlParams.get('search') || '';
     const isFlagged = urlParams.get('is_flagged') || '';
+    const paymentStatus = urlParams.get('status') || '';
     const ordersContainer = document.getElementById('orders-container')
     const paginationContainer = document.getElementById('pagination-container')
     const toastContainer = document.querySelector('.toast-container')
@@ -99,7 +139,8 @@
         const response = await fetch(`${ordersAPIURL}?` + new URLSearchParams({
             page: currentPage,
             search: search,
-            is_flagged: isFlagged
+            is_flagged: isFlagged,
+            status: paymentStatus
         }), {
             method: 'GET',
             headers: { "X-CSRFToken": csrftoken },
@@ -163,6 +204,8 @@
     }
 
     function paginationComponent(pagination){
+        if(pagination.total_pages <= 1) return ""
+
         let result = ""
         if(pagination.links.previous){
             let previousPage = "{% query_transform page='page_number' %}"

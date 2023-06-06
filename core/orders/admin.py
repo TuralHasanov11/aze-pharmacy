@@ -11,6 +11,7 @@ class OrderItemInline(admin.TabularInline):
 class OrderDeliveryInline(admin.StackedInline):
     model = OrderDelivery
 
+
 @admin.register(OrderDelivery)
 class OrderDeliveryAdmin(SimpleHistoryAdmin):
     list_display = ('order', 'delivery_status', 'delivery_date', 'created_at')
@@ -36,7 +37,7 @@ class OrderDeliveryAdmin(SimpleHistoryAdmin):
 
 @admin.register(Order)
 class OrderAdmin(SimpleHistoryAdmin):
-    list_display = ("full_name", "total_paid", "phone")
+    list_display = ("full_name", "total_paid", "phone", "created_at")
     ordering = ("-created_at", )
     inlines = [
         OrderDeliveryInline,

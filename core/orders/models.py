@@ -20,7 +20,6 @@ class Order(models.Model):
     class PaymentStatus(models.TextChoices):
         PENDING = "PENDING", _("Pending")
         PAID = "PAID", _("Paid")
-        CANCELLED = "CANCELLED", _("Cancelled")
         FAILED = "FAILED", _("Failed")
         REFUNDED = "REFUNDED", _("Refunded")
 
@@ -65,13 +64,11 @@ class Order(models.Model):
     def payment_status_color(self):
         if self.payment_status == self.PaymentStatus.PAID:
             return "success"
-        elif self.payment_status == self.PaymentStatus.CANCELLED:
-            return "dark"
         elif self.payment_status == self.PaymentStatus.REFUNDED:
-            return "warning"
+            return "info"
         elif self.payment_status == self.PaymentStatus.FAILED:
             return "danger"
-        return "primary"
+        return "dark"
 
     @property
     def updated_date(self):
