@@ -90,7 +90,7 @@
                               <h5 class="title">{% translate "Social Media" %}</h5>
                               <p class="contact-desc">
                                 {% for item in site_info.social_links %}
-                                <a target="_blank" class="mx-2 fs-3" href="{{item.link}}"><i class="{{item.icon}}"></i></a>
+                                <a target="_blank" rel="noopener noreferrer" class="mx-2 fs-3" href="{{item.link}}"><i class="{{item.icon}}"></i></a>
                                 {% endfor %}
                               </p>
                             </div>

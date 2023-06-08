@@ -9,7 +9,11 @@
 <body>
     <div class="container bg-light p-3">
         <main class="mb-5">
-            <h2 class="text-center mb-4"><a href="{{config.app.site_url}}" target="_blank" class="text-decoration-none text-dark fw-bold">{{config.app.name}}</a></h2>
+            <h2 class="text-center mb-4">
+                <a href="{{config.app.site_url}}" target="_blank" rel="noopener noreferrer" 
+                    class="text-decoration-none text-dark fw-bold">{{config.app.name}}
+                </a>
+            </h2>
             {% block content %}{% endblock content %}            
         </main>
         <footer class="text-center">

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'corsheaders',
     'simple_history',
+    'axes',
 
     'main',
     'news',
@@ -69,7 +70,19 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'axes.middleware.AxesMiddleware',
+    
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesStandaloneBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+AXES_COOLOFF_TIME = 0.25
+AXES_FAILURE_LIMIT = 6
+AXES_RESET_ON_SUCCESS = True
+
 
 ROOT_URLCONF = 'core.urls'
 
@@ -312,3 +325,16 @@ PAYRIFF_MERCHANT = os.environ.get('PAYRIFF_MERCHANT', None)
 
 
 SIMPLE_HISTORY_HISTORY_ID_USE_UUID = True
+
+if not DEBUG:
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+
+    sentry_sdk.init(
+        dsn=f"{os.environ.get('SENTRY_DSN')}",
+        integrations=[
+            DjangoIntegration(),
+        ],
+        traces_sample_rate=1.0,
+        send_default_pii=True
+    )
