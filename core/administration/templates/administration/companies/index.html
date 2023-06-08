@@ -41,7 +41,7 @@
                             <tbody>
                                 {% for company in companies %}
                                 <tr>
-                                    <td><a target="_blank" href="{{company.link}}">{{company.name}}</a></td>
+                                    <td><a target="_blank" rel="noopener noreferrer" href="{{company.link}}">{{company.name}}</a></td>
                                     <td>{% if company.cover_image %}<img width="30" height="30" src="{{company.cover_image.url}}" alt="{{company.name}}">{% endif %}</td>
                                     <td>
                                         <a href="{% url 'administration:company-update' pk=company.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>

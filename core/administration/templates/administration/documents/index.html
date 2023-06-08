@@ -60,7 +60,7 @@
                                         <tbody>
                                             {% for document in documents %}
                                             <tr>
-                                                <td><a target="_blank" href="{{document.file.url}}">{{document.name}}</a></td>
+                                                <td><a target="_blank" rel="noopener noreferrer" href="{{document.file.url}}">{{document.name}}</a></td>
                                                 <td>{{document.updated_date}}</td>
                                                 <td>
                                                     <a href="{% url 'administration:document-update' pk=document.pk %}?prev_page={{documents.number}}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>

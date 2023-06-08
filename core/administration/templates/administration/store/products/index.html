@@ -116,7 +116,7 @@
                                 <tbody>
                                     {% for product in products %}
                                     <tr>
-                                        <td><a target="_blank" href="{% url 'store:product-detail' product_slug=product.slug category_slug=product.category.slug %}">{{product.name}}</a></td>
+                                        <td><a target="_blank" rel="noopener noreferrer" href="{% url 'store:product-detail' product_slug=product.slug category_slug=product.category.slug %}">{{product.name}}</a></td>
                                         <td>{{product.sku|default:""}}</td>
                                         <td>{{product.regular_price}}</td>
                                         <td>{{product.discount}}%</td>
