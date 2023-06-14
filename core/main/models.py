@@ -99,6 +99,7 @@ class SiteText(models.Model):
     return_policy = RichTextEditorField()
     privacy_policy = RichTextEditorField()
     terms_and_conditions = RichTextEditorField()
+    order_success = RichTextEditorField()
     last_modified_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

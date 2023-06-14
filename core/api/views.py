@@ -156,7 +156,8 @@ def checkout(request):
                 order.order_key = paymentData["payload"]["sessionId"]
                 order.save()
                 orderProcessor = OrderProcessor(request=request)
-                orderProcessor.create(orderId=order.order_id, orderKey=order.order_key)
+                orderProcessor.create(
+                    orderId=order.order_id, orderKey=order.order_key)
                 return JsonResponse(data=paymentData["payload"])
     except Exception as e:
         return JsonResponse(status=400, data={"message": _("Order cannot be placed"), "errors": str(e)})
@@ -169,17 +170,12 @@ def approvePayment(request):
         if request.method == 'POST':
             data = json.load(request)["payload"]
             logger.error(json.dumps(data))
-            order = Order.objects.select_related('order_delivery').prefetch_related(
-                Prefetch('items', queryset=OrderItem.objects.select_related(
-                    'product__category').all()),
-            ).get(order_key=data["sessionId"], order_id=data["orderID"], payment_status=Order.PaymentStatus.PENDING)
+            order = Order.objects.get(order_key=data["sessionId"], order_id=data["orderID"],
+                                      payment_status=Order.PaymentStatus.PENDING)
             order.payment_status = Order.PaymentStatus.PAID
             order.save()
             delivery, created = OrderDelivery.objects.get_or_create(
                 order=order)
-
-            sendDeliveryStatusNotification(
-                request=request, order=order, delivery=delivery)
 
             channel_layer = get_channel_layer()
             async_to_sync(channel_layer.group_send)("orders", {
@@ -188,7 +184,18 @@ def approvePayment(request):
             })
             return JsonResponse(data)
         else:
-            data = request.GET
+            orderProcessor = OrderProcessor(request=request)
+            order = Order.objects.select_related('order_delivery').prefetch_related(
+                Prefetch('items', queryset=OrderItem.objects.select_related(
+                    'product__category').all()),
+            ).get(order_id=orderProcessor.order.get("order_id", None),
+                  order_key=orderProcessor.order.get(
+                "order_key", None))
+            delivery = OrderDelivery.objects.get(
+                order=order)
+            sendDeliveryStatusNotification(
+                request=request, order=order, delivery=delivery)
+
             cart = CartProcessor(request)
             cart.clear()
             messages.success(request, _('Order was placed successfully'))
@@ -287,7 +294,7 @@ def updateOrderDelivery(request, id: int):
                 with transaction.atomic():
                     changedData = form.changed_data
                     instance = form.save()
-                    logsSerializer = OrderDeliveryLogSerializer(instance=instance, 
+                    logsSerializer = OrderDeliveryLogSerializer(instance=instance,
                                                                 logs=instance.history.order_by('-history_date'))
                     latestLog = logsSerializer.save()
                     if "delivery_status" in changedData:
