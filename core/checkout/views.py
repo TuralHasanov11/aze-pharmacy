@@ -1,8 +1,10 @@
 from cart.processor import CartProcessor
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_GET
+from main.models import SiteText
 from orders.models import Order
 from orders.processor import OrderProcessor
 
@@ -48,11 +50,13 @@ def success(request):
                                   order_key=orderProcessor.order.get(
                                       "order_key", None),
                                   )
+        siteText = SiteText.objects.filter(language=get_language()).first()
         breadcrumb = [
             {"title": _("Order succeeded")},
             {"title": _("Home"), "route": reverse("main:index")},
             {"title": _("Order succeeded")},
         ]
-        return render(request, template_name='checkout/success.html', context={"breadcrumb": breadcrumb, "order": order})
+        return render(request, template_name='checkout/success.html', 
+                      context={"breadcrumb": breadcrumb, "order": order, "site_text": siteText})
     except Order.DoesNotExist:
         return redirect("main:index")

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-03 23:49+0200\n"
+"POT-Creation-Date: 2023-06-14 19:57+0200\n"
 "PO-Revision-Date: 2023-05-19 18:50+0400\n"
 "Last-Translator: Tural Hasanov <hasanovtural11@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
-#: .\administration\context_processors.py:12 .\administration\views.py:38
+#: .\administration\context_processors.py:12 .\administration\views.py:39
 #: .\main\context_processors.py:14 .\main\context_processors.py:29
 #: .\services\templates\services\index.html:2 .\services\views.py:22
 #: .\services\views.py:24 .\templates\components\default\footer.html:31
@@ -37,7 +37,7 @@ msgstr ""
 msgid "Service List"
 msgstr ""
 
-#: .\administration\context_processors.py:21 .\administration\views.py:40
+#: .\administration\context_processors.py:21 .\administration\views.py:41
 #: .\library\templates\library\index.html:2 .\library\views.py:17
 #: .\library\views.py:19 .\main\context_processors.py:12
 #: .\main\context_processors.py:34
@@ -48,7 +48,7 @@ msgstr ""
 msgid "Documents"
 msgstr ""
 
-#: .\administration\context_processors.py:30 .\administration\views.py:42
+#: .\administration\context_processors.py:30 .\administration\views.py:43
 #: .\main\context_processors.py:13 .\main\context_processors.py:35
 #: .\news\templates\news\index.html:2 .\news\templates\news\index.html:14
 #: .\news\views.py:23 .\news\views.py:25 .\news\views.py:37 .\news\views.py:39
@@ -66,7 +66,7 @@ msgstr ""
 msgid "Add Post"
 msgstr ""
 
-#: .\administration\context_processors.py:41 .\administration\views.py:44
+#: .\administration\context_processors.py:41 .\administration\views.py:45
 #: .\main\context_processors.py:19 .\main\context_processors.py:31
 #: .\main\templates\main\career.html:2 .\main\views.py:95 .\main\views.py:97
 msgid "Career"
@@ -78,7 +78,7 @@ msgstr ""
 msgid "Company List"
 msgstr ""
 
-#: .\administration\context_processors.py:50 .\administration\views.py:46
+#: .\administration\context_processors.py:50 .\administration\views.py:47
 msgid "Authentication"
 msgstr ""
 
@@ -94,7 +94,7 @@ msgstr ""
 msgid "Add User"
 msgstr ""
 
-#: .\administration\context_processors.py:61 .\administration\views.py:48
+#: .\administration\context_processors.py:61 .\administration\views.py:49
 msgid "Store"
 msgstr ""
 
@@ -115,11 +115,11 @@ msgid "Add Product"
 msgstr ""
 
 #: .\administration\context_processors.py:74
-#: .\administration\context_processors.py:78 .\administration\views.py:50
+#: .\administration\context_processors.py:78 .\administration\views.py:51
 msgid "Orders"
 msgstr ""
 
-#: .\administration\context_processors.py:82 .\administration\views.py:52
+#: .\administration\context_processors.py:82 .\administration\views.py:53
 msgid "Site Data Management"
 msgstr ""
 
@@ -563,7 +563,7 @@ msgid "Answer"
 msgstr ""
 
 #: .\administration\forms.py:435 .\administration\forms.py:436
-#: .\checkout\serializers.py:17
+#: .\administration\serializers.py:53 .\checkout\serializers.py:17
 msgid "Notes"
 msgstr ""
 
@@ -572,7 +572,7 @@ msgid "Please enter notes"
 msgstr ""
 
 #: .\administration\forms.py:444 .\administration\forms.py:445
-#: .\orders\templates\orders\detail.html:82
+#: .\administration\serializers.py:61 .\orders\templates\orders\detail.html:82
 msgid "Courier Name"
 msgstr ""
 
@@ -581,7 +581,7 @@ msgid "Please enter courier name"
 msgstr ""
 
 #: .\administration\forms.py:447 .\administration\forms.py:448
-#: .\orders\templates\orders\detail.html:76
+#: .\administration\serializers.py:62 .\orders\templates\orders\detail.html:76
 msgid "Tracking Number"
 msgstr ""
 
@@ -590,6 +590,7 @@ msgid "Please enter tracking number"
 msgstr ""
 
 #: .\administration\forms.py:450 .\administration\forms.py:452
+#: .\administration\serializers.py:59
 msgid "Delivery Status"
 msgstr ""
 
@@ -597,7 +598,8 @@ msgstr ""
 msgid "Please select delivery status"
 msgstr ""
 
-#: .\administration\forms.py:454 .\orders\templates\orders\detail.html:68
+#: .\administration\forms.py:454 .\administration\serializers.py:60
+#: .\orders\templates\orders\detail.html:68
 msgid "Delivery Date"
 msgstr ""
 
@@ -637,11 +639,11 @@ msgstr ""
 msgid "Full Refund"
 msgstr ""
 
-#: .\administration\notifications.py:60 .\administration\notifications.py:153
+#: .\administration\notifications.py:60 .\administration\notifications.py:152
 msgid "SMS cannot be sent"
 msgstr ""
 
-#: .\administration\notifications.py:105 .\administration\notifications.py:130
+#: .\administration\notifications.py:104 .\administration\notifications.py:129
 msgid "Email cannot be sent"
 msgstr ""
 
@@ -675,24 +677,24 @@ msgid "Example Password"
 msgstr ""
 
 #: .\administration\templates\administration\auth\password-change.html:60
-#: .\administration\templates\administration\companies\edit.html:71
+#: .\administration\templates\administration\companies\edit.html:74
 #: .\administration\templates\administration\companies\index.html:83
 #: .\administration\templates\administration\documents\edit.html:64
 #: .\administration\templates\administration\documents\index.html:101
 #: .\administration\templates\administration\orders\detail.html:146
-#: .\administration\templates\administration\orders\detail.html:192
+#: .\administration\templates\administration\orders\detail.html:188
 #: .\administration\templates\administration\posts\create.html:81
-#: .\administration\templates\administration\posts\edit.html:103
-#: .\administration\templates\administration\services\edit.html:76
+#: .\administration\templates\administration\posts\edit.html:104
+#: .\administration\templates\administration\services\edit.html:79
 #: .\administration\templates\administration\services\index.html:91
 #: .\administration\templates\administration\site\faq-create.html:51
 #: .\administration\templates\administration\site\faq-edit.html:70
 #: .\administration\templates\administration\site\info.html:91
-#: .\administration\templates\administration\site\texts.html:62
+#: .\administration\templates\administration\site\texts.html:73
 #: .\administration\templates\administration\store\categories\edit.html:72
 #: .\administration\templates\administration\store\categories\index.html:78
 #: .\administration\templates\administration\store\products\create.html:114
-#: .\administration\templates\administration\store\products\edit.html:149
+#: .\administration\templates\administration\store\products\edit.html:152
 #: .\administration\templates\administration\users\create.html:81
 #: .\administration\templates\administration\users\edit.html:89
 #: .\administration\templates\administration\users\password_change.html:84
@@ -712,14 +714,15 @@ msgid "Account Details"
 msgstr ""
 
 #: .\administration\templates\administration\auth\profile.html:55
-#: .\administration\templates\administration\companies\edit.html:62
+#: .\administration\templates\administration\companies\edit.html:65
 #: .\administration\templates\administration\documents\edit.html:55
-#: .\administration\templates\administration\posts\edit.html:92
+#: .\administration\templates\administration\posts\edit.html:93
 #: .\administration\templates\administration\posts\index.html:53
 #: .\administration\templates\administration\posts\index.html:71
-#: .\administration\templates\administration\services\edit.html:67
+#: .\administration\templates\administration\services\edit.html:70
 #: .\administration\templates\administration\site\faq-edit.html:61
 #: .\administration\templates\administration\site\info.html:79
+#: .\administration\templates\administration\site\texts.html:61
 #: .\administration\templates\administration\store\categories\edit.html:63
 #: .\administration\templates\administration\store\products\detail.html:84
 #: .\administration\templates\administration\store\products\edit.html:105
@@ -749,13 +752,13 @@ msgstr ""
 msgid "Edit Company"
 msgstr ""
 
-#: .\administration\templates\administration\companies\edit.html:66
+#: .\administration\templates\administration\companies\edit.html:69
 #: .\administration\templates\administration\documents\edit.html:59
-#: .\administration\templates\administration\orders\detail.html:189
-#: .\administration\templates\administration\posts\edit.html:96
-#: .\administration\templates\administration\services\edit.html:71
+#: .\administration\templates\administration\posts\edit.html:97
+#: .\administration\templates\administration\services\edit.html:74
 #: .\administration\templates\administration\site\faq-edit.html:65
 #: .\administration\templates\administration\site\info.html:83
+#: .\administration\templates\administration\site\texts.html:65
 #: .\administration\templates\administration\store\categories\edit.html:67
 #: .\administration\templates\administration\store\products\detail.html:86
 #: .\administration\templates\administration\store\products\edit.html:109
@@ -924,23 +927,23 @@ msgstr ""
 msgid "Edit Order Delivery Information"
 msgstr ""
 
-#: .\administration\templates\administration\orders\detail.html:199
+#: .\administration\templates\administration\orders\detail.html:195
 msgid "Delivery Modification History"
 msgstr ""
 
-#: .\administration\templates\administration\orders\detail.html:209
+#: .\administration\templates\administration\orders\detail.html:205
 msgid "Refunds"
 msgstr ""
 
-#: .\administration\templates\administration\orders\detail.html:229
+#: .\administration\templates\administration\orders\detail.html:225
 msgid "Refund Order"
 msgstr ""
 
-#: .\administration\templates\administration\orders\detail.html:253
+#: .\administration\templates\administration\orders\detail.html:249
 msgid "Make Refund"
 msgstr ""
 
-#: .\administration\templates\administration\orders\detail.html:271
+#: .\administration\templates\administration\orders\detail.html:267
 #: .\templates\components\default\imports\scripts.html:62
 msgid "Ok"
 msgstr ""
@@ -954,11 +957,32 @@ msgstr ""
 msgid "Flagged Orders Only"
 msgstr ""
 
-#: .\administration\templates\administration\orders\index.html:43
+#: .\administration\templates\administration\orders\index.html:44
+#: .\administration\templates\administration\orders\index.html:58
+msgid "Paid Orders Only"
+msgstr ""
+
+#: .\administration\templates\administration\orders\index.html:46
+#: .\administration\templates\administration\orders\index.html:63
+msgid "Failed Orders Only"
+msgstr ""
+
+#: .\administration\templates\administration\orders\index.html:48
+#: .\administration\templates\administration\orders\index.html:68
+msgid "Pending Orders Only"
+msgstr ""
+
+#: .\administration\templates\administration\orders\index.html:50
+#: .\administration\templates\administration\orders\index.html:73
+msgid "Refunded Orders Only"
+msgstr ""
+
+#: .\administration\templates\administration\orders\index.html:52
+#: .\administration\templates\administration\orders\index.html:78
 msgid "All Orders"
 msgstr ""
 
-#: .\administration\templates\administration\orders\index.html:74
+#: .\administration\templates\administration\orders\index.html:113
 msgid "New"
 msgstr ""
 
@@ -975,7 +999,7 @@ msgid "Back to Post List"
 msgstr ""
 
 #: .\administration\templates\administration\posts\create.html:69
-#: .\administration\templates\administration\posts\edit.html:87
+#: .\administration\templates\administration\posts\edit.html:88
 msgid "Publish"
 msgstr ""
 
@@ -1199,175 +1223,193 @@ msgstr ""
 msgid "Reset User's Password"
 msgstr ""
 
-#: .\administration\views.py:72
+#: .\administration\views.py:73
 msgid "Service was created successfully!"
 msgstr ""
 
-#: .\administration\views.py:93
+#: .\administration\views.py:94
 msgid "Service was updated successfully!"
 msgstr ""
 
-#: .\administration\views.py:108
+#: .\administration\views.py:109
 msgid "Service was deleted successfully!"
 msgstr ""
 
-#: .\administration\views.py:120
+#: .\administration\views.py:121
 msgid "Document was created successfully!"
 msgstr ""
 
-#: .\administration\views.py:151
+#: .\administration\views.py:152
 msgid "Document was updated successfully!"
 msgstr ""
 
-#: .\administration\views.py:166
+#: .\administration\views.py:167
 msgid "Document was deleted successfully!"
 msgstr ""
 
-#: .\administration\views.py:180
+#: .\administration\views.py:181
 msgid "Company was created successfully!"
 msgstr ""
 
-#: .\administration\views.py:200
+#: .\administration\views.py:201
 msgid "Company was updated successfully!"
 msgstr ""
 
-#: .\administration\views.py:215
+#: .\administration\views.py:216
 msgid "Company was deleted successfully!"
 msgstr ""
 
-#: .\administration\views.py:258
+#: .\administration\views.py:259
 msgid "Post was created successfully!"
 msgstr ""
 
-#: .\administration\views.py:274
+#: .\administration\views.py:275
 msgid "Post was updated successfully!"
 msgstr ""
 
-#: .\administration\views.py:289
+#: .\administration\views.py:290
 msgid "Post was deleted successfully!"
 msgstr ""
 
-#: .\administration\views.py:342
+#: .\administration\views.py:343
 msgid "User was created successfully!"
 msgstr ""
 
-#: .\administration\views.py:364
+#: .\administration\views.py:365
 msgid "User was updated successfully!"
 msgstr ""
 
-#: .\administration\views.py:379
+#: .\administration\views.py:380
 msgid "User was deleted successfully!"
 msgstr ""
 
-#: .\administration\views.py:390
+#: .\administration\views.py:391
 msgid "User's password was changed successfully!"
 msgstr ""
 
-#: .\administration\views.py:413
+#: .\administration\views.py:414
 msgid "Category was created successfully!"
 msgstr ""
 
-#: .\administration\views.py:434
+#: .\administration\views.py:435
 msgid "Category was updated successfully!"
 msgstr ""
 
-#: .\administration\views.py:449
+#: .\administration\views.py:450
 msgid "Category was deleted successfully!"
 msgstr ""
 
-#: .\administration\views.py:512 .\administration\views.py:541
+#: .\administration\views.py:513 .\administration\views.py:542
 msgid "Product was saved successfully!"
 msgstr ""
 
-#: .\administration\views.py:514 .\administration\views.py:543
+#: .\administration\views.py:515 .\administration\views.py:544
 msgid "Product cannot be saved!"
 msgstr ""
 
-#: .\administration\views.py:559
+#: .\administration\views.py:560
 msgid "Product was deleted successfully!"
 msgstr ""
 
-#: .\administration\views.py:580
+#: .\administration\views.py:581
 msgid "Texts were saved successfully!"
 msgstr ""
 
-#: .\administration\views.py:582
+#: .\administration\views.py:583
 msgid "Texts cannot be saved!"
 msgstr ""
 
-#: .\administration\views.py:602
+#: .\administration\views.py:603
 msgid "Site Info was saved successfully!"
 msgstr ""
 
-#: .\administration\views.py:604
+#: .\administration\views.py:605
 msgid "Site Info cannot be saved!"
 msgstr ""
 
-#: .\administration\views.py:627
+#: .\administration\views.py:628
 msgid "Question was created successfully!"
 msgstr ""
 
-#: .\administration\views.py:643
+#: .\administration\views.py:644
 msgid "Question was updated successfully!"
 msgstr ""
 
-#: .\administration\views.py:658
+#: .\administration\views.py:659
 msgid "Question was deleted successfully!"
 msgstr ""
 
-#: .\administration\views.py:667
+#: .\administration\views.py:668
 msgid "Order was updated successfully!"
 msgstr ""
 
-#: .\administration\views.py:686
+#: .\administration\views.py:685
 msgid "Order was not saved!"
 msgstr ""
 
-#: .\api\views.py:100
+#: .\api\views.py:104
 msgid "Product was not found"
 msgstr ""
 
-#: .\api\views.py:156 .\api\views.py:196
+#: .\api\views.py:163 .\api\views.py:205
 msgid "Order cannot be placed"
 msgstr ""
 
-#: .\api\views.py:181
+#: .\api\views.py:183
 msgid "New order: "
 msgstr ""
 
-#: .\api\views.py:184 .\api\views.py:192
-msgid "Order placed"
+#: .\api\views.py:201
+msgid "Order was placed successfully"
 msgstr ""
 
-#: .\api\views.py:208
+#: .\api\views.py:224
 msgid "Order cannot be cancelled"
 msgstr ""
 
-#: .\api\views.py:223
-msgid "Order cannot be declined"
+#: .\api\views.py:239
+#, fuzzy
+#| msgid "Order Details Description"
+msgid "Your order has failed!"
 msgstr ""
+"View the detailed information of your specific order on our online pharmacy. "
+"The Order Details page provides you with a comprehensive overview of your "
+"purchase, including itemized products, quantities, prices, and shipping "
+"details. Stay informed about your specific order and review all the relevant "
+"information at a glance."
 
-#: .\api\views.py:255
+#: .\api\views.py:242
+#, fuzzy
+#| msgid "Order Details Description"
+msgid "Order cannot be failed"
+msgstr ""
+"View the detailed information of your specific order on our online pharmacy. "
+"The Order Details page provides you with a comprehensive overview of your "
+"purchase, including itemized products, quantities, prices, and shipping "
+"details. Stay informed about your specific order and review all the relevant "
+"information at a glance."
+
+#: .\api\views.py:273
 msgid "Order was refunded"
 msgstr ""
 
-#: .\api\views.py:259
+#: .\api\views.py:277
 msgid "Order cannot be refunded"
 msgstr ""
 
-#: .\api\views.py:261 .\api\views.py:289
+#: .\api\views.py:279 .\api\views.py:310
 msgid "Order was not found"
 msgstr ""
 
-#: .\api\views.py:263 .\checkout\payment.py:78
+#: .\api\views.py:281 .\checkout\payment.py:75
 msgid "Refund failed"
 msgstr ""
 
-#: .\api\views.py:286
+#: .\api\views.py:307
 msgid "Order delivery was updated"
 msgstr ""
 
-#: .\api\views.py:287
+#: .\api\views.py:308
 msgid "Order delivery cannot be updated"
 msgstr ""
 
@@ -1401,13 +1443,15 @@ msgid "Your shopping cart is currently empty."
 msgstr ""
 
 #: .\cart\templates\cart\summary.html:143
+#: .\checkout\templates\checkout\failed.html:46
 #: .\checkout\templates\checkout\index.html:265
+#: .\checkout\templates\checkout\success.html:35
 #: .\store\templates\store\products\index.html:68
 msgid "Continue Shopping"
 msgstr ""
 
-#: .\cart\views.py:18 .\checkout\views.py:13 .\checkout\views.py:27
-#: .\library\views.py:18 .\main\context_processors.py:11
+#: .\cart\views.py:18 .\checkout\views.py:17 .\checkout\views.py:37
+#: .\checkout\views.py:56 .\library\views.py:18 .\main\context_processors.py:11
 #: .\main\templates\main\index.html:2 .\main\views.py:39 .\main\views.py:81
 #: .\main\views.py:96 .\main\views.py:108 .\main\views.py:121
 #: .\main\views.py:133 .\main\views.py:151 .\news\views.py:24
@@ -1417,7 +1461,7 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: .\checkout\payment.py:45
+#: .\checkout\payment.py:43 .\checkout\views.py:36 .\checkout\views.py:38
 #, fuzzy
 #| msgid "Order Details Description"
 msgid "Order failed"
@@ -1464,13 +1508,60 @@ msgstr ""
 msgid "Invalid city"
 msgstr ""
 
-#: .\checkout\templates\checkout\failed.html:2 .\checkout\views.py:26
-#: .\checkout\views.py:28
+#: .\checkout\templates\checkout\failed.html:2
+#: .\checkout\templates\checkout\success.html:2
 msgid "Order Failed"
 msgstr ""
 
-#: .\checkout\templates\checkout\index.html:2 .\checkout\views.py:12
-#: .\checkout\views.py:14 .\templates\components\default\header.html:93
+#: .\checkout\templates\checkout\failed.html:18
+msgid ""
+"\n"
+"                      We regret to inform you that there was an issue "
+"processing your recent order on our website. \n"
+"                      We apologize for any inconvenience "
+"caused.                                       \n"
+"                      "
+msgstr ""
+
+#: .\checkout\templates\checkout\failed.html:24
+msgid ""
+"\n"
+"                      Unfortunately, the payment for your order could not be "
+"completed successfully. \n"
+"                      This may be due to an issue with your payment method "
+"or an authorization problem. \n"
+"                      Please ensure that the payment details provided are "
+"accurate and try again.   \n"
+"                      "
+msgstr ""
+
+#: .\checkout\templates\checkout\failed.html:31
+#: .\checkout\templates\checkout\success.html:29
+msgid "Your order number"
+msgstr ""
+
+#: .\checkout\templates\checkout\failed.html:34
+#: .\checkout\templates\checkout\success.html:39
+msgid "Customer Contact"
+msgstr ""
+
+#: .\checkout\templates\checkout\failed.html:37
+#, python-format
+msgid ""
+"\n"
+"                      If you believe there was an error or need assistance "
+"with the payment process, \n"
+"                      please don't hesitate to contact our customer support "
+"team at \n"
+"                      <a href=\"%(contact_link)s\" class=\"d-inline-block\" "
+"rel=\"noopener noreferrer\" target=\"_blank\">%(contact_text)s</a>. \n"
+"                      We will be happy to assist you and resolve any payment-"
+"related issues.\n"
+"                      "
+msgstr ""
+
+#: .\checkout\templates\checkout\index.html:2 .\checkout\views.py:16
+#: .\checkout\views.py:18 .\templates\components\default\header.html:93
 msgid "Checkout"
 msgstr ""
 
@@ -1503,7 +1594,8 @@ msgid ""
 "checkout experience. \n"
 "                                    To view our Privacy Policy, please click "
 "<a href=\"%(privacy_policy_link)s\" class=\"woocommerce-privacy-policy-link"
-"\" target=\"_blank\">%(privacy_policy_text)s</a>. \n"
+"\" rel=\"noopener noreferrer\" target=\"_blank\">%(privacy_policy_text)s</"
+"a>. \n"
 "                                    Once you have familiarized yourself with "
 "our policy, you can proceed with confidence to complete your "
 "checkout.                                  \n"
@@ -1540,15 +1632,69 @@ msgid ""
 "allowed"
 msgstr ""
 
-#: .\core\settings.py:166
+#: .\checkout\templates\checkout\success.html:17
+msgid ""
+"\n"
+"                        Thank you for your recent purchase from our "
+"website. \n"
+"                        We are pleased to inform you that your payment has "
+"been successfully processed, and your order is now confirmed. \n"
+"                        "
+msgstr ""
+
+#: .\checkout\templates\checkout\success.html:23
+msgid ""
+"\n"
+"                        You will receive a mobile notification and an e-mail "
+"notification \n"
+"                        (if you included an e-mail address during payment) "
+"regarding your order information soon.\n"
+"                        "
+msgstr ""
+
+#: .\checkout\templates\checkout\success.html:31
+#: .\orders\templates\orders\detail.html:27
+msgid "Order Date"
+msgstr ""
+
+#: .\checkout\templates\checkout\success.html:32
+msgid "Payment Amount"
+msgstr ""
+
+#: .\checkout\templates\checkout\success.html:33
+msgid "Shipping Address"
+msgstr ""
+
+#: .\checkout\templates\checkout\success.html:37
+msgid "Information about your order"
+msgstr ""
+
+#: .\checkout\templates\checkout\success.html:42
+#, python-format
+msgid ""
+"\n"
+"                        If you have any questions or need further assistance "
+"regarding your order, please feel free to contact our customer support team "
+"at \n"
+"                        <a href=\"%(contact_link)s\" class=\"d-inline-block"
+"\" rel=\"noopener noreferrer\" target=\"_blank\">%(contact_text)s</"
+"a>.                                                     \n"
+"                        "
+msgstr ""
+
+#: .\checkout\views.py:55 .\checkout\views.py:57
+msgid "Order succeeded"
+msgstr ""
+
+#: .\core\settings.py:180
 msgid "Azerbaijani"
 msgstr ""
 
-#: .\core\settings.py:167
+#: .\core\settings.py:181
 msgid "Russian"
 msgstr ""
 
-#: .\core\settings.py:168
+#: .\core\settings.py:182
 msgid "English"
 msgstr ""
 
@@ -1771,16 +1917,12 @@ msgstr ""
 "discoveries, medical breakthroughs, and health-related news. Read more and "
 "be informed!"
 
-#: .\orders\models.py:20
+#: .\orders\models.py:21
 msgid "Pending"
 msgstr ""
 
-#: .\orders\models.py:21
+#: .\orders\models.py:22
 msgid "Paid"
-msgstr ""
-
-#: .\orders\models.py:22 .\orders\models.py:137
-msgid "Cancelled"
 msgstr ""
 
 #: .\orders\models.py:23
@@ -1811,6 +1953,10 @@ msgstr ""
 msgid "Returned"
 msgstr ""
 
+#: .\orders\models.py:137
+msgid "Cancelled"
+msgstr ""
+
 #: .\orders\templates\orders\detail.html:3
 msgid "Order Details Description"
 msgstr ""
@@ -1819,10 +1965,6 @@ msgstr ""
 "purchase, including itemized products, quantities, prices, and shipping "
 "details. Stay informed about your specific order and review all the relevant "
 "information at a glance."
-
-#: .\orders\templates\orders\detail.html:27
-msgid "Order Date"
-msgstr ""
 
 #: .\orders\templates\orders\detail.html:45
 msgid "Order Number"
@@ -1928,10 +2070,6 @@ msgstr ""
 
 #: .\templates\components\admin\imports\scripts.html:12
 msgid "entries"
-msgstr ""
-
-#: .\templates\components\admin\logs.html:8
-msgid "Updated"
 msgstr ""
 
 #: .\templates\components\admin\navbar.html:14
