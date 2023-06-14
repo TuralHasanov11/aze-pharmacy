@@ -37,7 +37,7 @@ class OrderDeliveryAdmin(SimpleHistoryAdmin):
 
 @admin.register(Order)
 class OrderAdmin(SimpleHistoryAdmin):
-    list_display = ("full_name", "total_paid", "phone", "created_at")
+    list_display = ("full_name", "payment_status", "total_paid", "phone", "created_at")
     ordering = ("-created_at", )
     inlines = [
         OrderDeliveryInline,

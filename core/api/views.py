@@ -1,5 +1,5 @@
 import json
-from urllib.parse import urlencode
+import logging
 
 from administration.forms import OrderDeliveryForm
 from administration.notifications import (sendDeliveryStatusNotification,
@@ -14,6 +14,7 @@ from channels.layers import get_channel_layer
 from checkout.payment import PaymentGateway
 from checkout.serializers import CheckoutSerializer
 from checkout.utils import getCities
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db import transaction
 from django.db.models import Prefetch
@@ -24,11 +25,14 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods, require_POST
 from orders.models import Order, OrderDelivery, OrderItem, OrderRefund
+from orders.processor import OrderProcessor
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from store.models import Product, ProductImage
 from wishlist.processor import WishlistProcessor
+
+logger = logging.getLogger('main')
 
 
 @api_view(['GET'])
@@ -151,53 +155,48 @@ def checkout(request):
                 order.order_id = paymentData["payload"]["orderId"]
                 order.order_key = paymentData["payload"]["sessionId"]
                 order.save()
+                orderProcessor = OrderProcessor(request=request)
+                orderProcessor.create(orderId=order.order_id, orderKey=order.order_key)
                 return JsonResponse(data=paymentData["payload"])
     except Exception as e:
         return JsonResponse(status=400, data={"message": _("Order cannot be placed"), "errors": str(e)})
 
-import logging
-
-logger = logging.getLogger('main')
 
 @csrf_exempt
 @require_http_methods(['GET', 'POST'])
 def approvePayment(request):
     try:
         if request.method == 'POST':
-            logger.error("POST accepted")
             data = json.load(request)["payload"]
             order = Order.objects.select_related('order_delivery').prefetch_related(
                 Prefetch('items', queryset=OrderItem.objects.select_related(
                     'product__category').all()),
-            ).get(order_key=data["sessionID"], order_id=data["orderID"])
+            ).get(order_key=data["sessionId"], order_id=data["orderId"], payment_status=Order.PaymentStatus.PENDING)
             order.payment_status = Order.PaymentStatus.PAID
             order.save()
             delivery, created = OrderDelivery.objects.get_or_create(
                 order=order)
 
-            # sendDeliveryStatusNotification(
-            #     request=request, order=order, delivery=delivery)
+            sendDeliveryStatusNotification(
+                request=request, order=order, delivery=delivery)
 
             channel_layer = get_channel_layer()
             async_to_sync(channel_layer.group_send)("orders", {
                 "type": "order_created",
                 "message": _("New order: ") + f" {order.id}",
             })
-
-            return JsonResponse(data={"message": _("Order placed"), "data": data})
-            return redirect(f"{reverse('orders:detail', kwargs={'id': order.id})}?{urlencode({'order_key': order.order_key})}#order-summary")
+            return JsonResponse(data)
         else:
             data = request.GET
-            # cart = CartProcessor(request)
-            # cart.clear()
-            # messages.success(request, _('Order was placed successfully'))
-            print(data)
-            return JsonResponse(data={"message": _("Order placed"), "data": data})
+            cart = CartProcessor(request)
+            cart.clear()
+            messages.success(request, _('Order was placed successfully'))
+            return redirect('checkout:success')
     except Exception as e:
         logger.error(str(e))
-        # messages.error(request, _("Order cannot be placed"))
+        messages.error(request, _("Order cannot be placed"))
         print(str(e))
-        return JsonResponse(status=400, data={"message": _("Order cannot be placed"), "errors": str(e)})
+        return redirect(f"{reverse('checkout:failed')}#order-failed")
 
 
 @csrf_exempt
@@ -207,9 +206,11 @@ def cancelPayment(request):
         if request.method == 'POST':
             data = json.load(request)["payload"]
             Order.objects.get(
-                order_key=data["sessionID"], order_id=data["orderID"]).delete()
-            return JsonResponse(data={"message": _("Order was cancelled"), "data": data})
+                order_key=data["sessionId"], order_id=data["orderId"]).delete()
+            return JsonResponse(data)
         else:
+            orderProcessor = OrderProcessor(request=request)
+            orderProcessor.clear()
             return redirect("checkout:index")
     except Exception as e:
         return JsonResponse(status=400, data={"message": _("Order cannot be cancelled"), "errors": str(e)})
@@ -222,14 +223,15 @@ def declinePayment(request):
         if request.method == 'POST':
             data = json.load(request)["payload"]
             order = Order.objects.get(
-                order_key=data["sessionID"], order_id=data["orderID"])
+                order_key=data["sessionId"], order_id=data["orderId"])
             order.payment_status = order.PaymentStatus.FAILED
             order.save()
-            return JsonResponse(data={"message": _("Order was declined"), "data": data})
+            return JsonResponse(data)
         else:
-            return redirect(f"{reverse('checkout:declined')}#order-declined")
+            messages.error(request, _('Your order has failed!'))
+            return redirect(f"{reverse('checkout:failed')}#order-failed")
     except Exception as e:
-        return JsonResponse(status=400, data={"message": _("Order cannot be declined"), "errors": str(e)})
+        return JsonResponse(status=400, data={"message": _("Order cannot be failed"), "errors": str(e)})
 
 
 @login_required

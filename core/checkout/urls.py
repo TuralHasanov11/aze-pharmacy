@@ -5,5 +5,6 @@ app_name = "checkout"
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("declined", views.declined, name="declined"),
+    path("failed", views.failed, name="failed"),
+    path("success", views.success, name="success"),
 ]
