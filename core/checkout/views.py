@@ -1,5 +1,4 @@
 from cart.processor import CartProcessor
-from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -48,7 +47,6 @@ def success(request):
         order = Order.objects.get(order_id=orderProcessor.order.get("order_id", None),
                                   order_key=orderProcessor.order.get(
                                       "order_key", None),
-                                  payment_status=Order.PaymentStatus.PAID
                                   )
         breadcrumb = [
             {"title": _("Order succeeded")},
