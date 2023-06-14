@@ -168,10 +168,11 @@ def approvePayment(request):
     try:
         if request.method == 'POST':
             data = json.load(request)["payload"]
+            logger.error(json.dumps(data))
             order = Order.objects.select_related('order_delivery').prefetch_related(
                 Prefetch('items', queryset=OrderItem.objects.select_related(
                     'product__category').all()),
-            ).get(order_key=data["sessionId"], order_id=data["orderId"], payment_status=Order.PaymentStatus.PENDING)
+            ).get(order_key=data["sessionId"], order_id=data["orderID"], payment_status=Order.PaymentStatus.PENDING)
             order.payment_status = Order.PaymentStatus.PAID
             order.save()
             delivery, created = OrderDelivery.objects.get_or_create(
@@ -206,7 +207,7 @@ def cancelPayment(request):
         if request.method == 'POST':
             data = json.load(request)["payload"]
             Order.objects.get(
-                order_key=data["sessionId"], order_id=data["orderId"]).delete()
+                order_key=data["sessionId"], order_id=data["orderID"]).delete()
             return JsonResponse(data)
         else:
             orderProcessor = OrderProcessor(request=request)
@@ -223,7 +224,7 @@ def declinePayment(request):
         if request.method == 'POST':
             data = json.load(request)["payload"]
             order = Order.objects.get(
-                order_key=data["sessionId"], order_id=data["orderId"])
+                order_key=data["sessionId"], order_id=data["orderID"])
             order.payment_status = order.PaymentStatus.FAILED
             order.save()
             return JsonResponse(data)

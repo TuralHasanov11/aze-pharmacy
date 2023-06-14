@@ -152,8 +152,3 @@ class FAQListView(ListView):
             {"title": _("FAQ")},
         ]
         return context
-
-
-@require_GET
-def notFound(request, exception):
-    return redirect('main:index')
