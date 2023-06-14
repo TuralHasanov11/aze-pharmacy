@@ -155,14 +155,17 @@ def checkout(request):
     except Exception as e:
         return JsonResponse(status=400, data={"message": _("Order cannot be placed"), "errors": str(e)})
 
+import logging
+
+logger = logging.getLogger('main')
 
 @csrf_exempt
 @require_http_methods(['GET', 'POST'])
 def approvePayment(request):
     try:
         if request.method == 'POST':
+            logger.error("POST accepted")
             data = json.load(request)["payload"]
-
             order = Order.objects.select_related('order_delivery').prefetch_related(
                 Prefetch('items', queryset=OrderItem.objects.select_related(
                     'product__category').all()),
@@ -191,6 +194,7 @@ def approvePayment(request):
             print(data)
             return JsonResponse(data={"message": _("Order placed"), "data": data})
     except Exception as e:
+        logger.error(str(e))
         # messages.error(request, _("Order cannot be placed"))
         print(str(e))
         return JsonResponse(status=400, data={"message": _("Order cannot be placed"), "errors": str(e)})
