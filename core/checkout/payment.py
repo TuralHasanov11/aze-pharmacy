@@ -1,6 +1,4 @@
-import http.client
 import json
-from decimal import Decimal
 
 import requests
 from django.conf import settings
@@ -74,7 +72,6 @@ class PaymentGateway:
             if response.status_code == 200:
                 return response.json()
             else:
-                # return response.json()
                 raise Exception(_("Refund failed"))
         except Exception as e:
             raise Exception(str(e))

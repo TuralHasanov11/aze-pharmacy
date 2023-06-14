@@ -1,0 +1,54 @@
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Order Failed" %}{% endblock title %} 
+{% block content %}
+<main class="main-area fix">
+  {%include "components/breadcrumb.html" with breadcrumb=breadcrumb%}
+
+  <div  id="order-declined" class="tg-page-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="tg-page-content suxnix-page-content">
+            <div class="tp-page-post">
+              <div class="woocommerce">
+                <div>
+                    {% include 'components/messages.html' with messages=messages %}
+                    <h5>
+                        {% blocktranslate %}
+                        Thank you for your recent purchase from our website. 
+                        We are pleased to inform you that your payment has been successfully processed, and your order is now confirmed. 
+                        {% endblocktranslate %}
+                    </h5>
+                    <p>
+                        {% blocktranslate %}
+                        You will receive a mobile notification and an e-mail notification 
+                        (if you included an e-mail address during payment) regarding your order information soon.
+                        {% endblocktranslate %}
+                    </p>
+                    <div class="d-flex justify-content-center align-items-center flex-column my-5">
+                        <h5 class="fw-bold">{% translate "Your order number" %}: {{order.id}}</h5>
+                        <div class="list-group mb-4">
+                            <li class="list-group-item">{% translate "Order Date" %}: <b>{{order.created_date}}</b></li>
+                            <li class="list-group-item">{% translate "Payment Amount" %}: <b>{{order.total_paid}} &#8380;</b></li>
+                            <li class="list-group-item">{% translate "Shipping Address" %}: <b>{{order.address}}</b></li>
+                        </div>
+                        <a href="{% url 'store:products' %}" class="btn">{% translate "Continue Shopping" %}</a>
+                    </div>
+                    {% translate "Customer Contact" as contact_text %}
+                    {% url 'main:contact' as contact_link %}
+                    <p>
+                        {% blocktranslate %}
+                        If you have any questions or need further assistance regarding your order, please feel free to contact our customer support team at 
+                        <a href="{{contact_link}}" class="d-inline-block" rel="noopener noreferrer" target="_blank">{{contact_text}}</a>.                                                     
+                        {% endblocktranslate %}
+                    </p>  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

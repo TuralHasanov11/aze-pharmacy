@@ -1,0 +1,58 @@
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Order Failed" %}{% endblock title %} 
+{% block content %}
+<main class="main-area fix">
+  {%include "components/breadcrumb.html" with breadcrumb=breadcrumb%}
+
+  <div  id="order-declined" class="tg-page-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="tg-page-content suxnix-page-content">
+            <div class="tp-page-post">
+              <div class="woocommerce">
+                <div>
+                  <div>
+                    {% include 'components/messages.html' with messages=messages %}
+                    <h5>
+                      {% blocktranslate %}
+                      We regret to inform you that there was an issue processing your recent order on our website. 
+                      We apologize for any inconvenience caused.                                       
+                      {% endblocktranslate %}
+                    </h5> 
+                    <p>
+                      {% blocktranslate %}
+                      Unfortunately, the payment for your order could not be completed successfully. 
+                      This may be due to an issue with your payment method or an authorization problem. 
+                      Please ensure that the payment details provided are accurate and try again.   
+                      {% endblocktranslate %}
+                    </p>
+                      
+                    <h5 class="fw-bold text-center my-5">{% translate "Your order number" %}: {{order.id}}</h5>
+                    
+                    <p>
+                      {% translate "Customer Contact" as contact_text %}
+                      {% url 'main:contact' as contact_link %}
+
+                      {% blocktranslate %}
+                      If you believe there was an error or need assistance with the payment process, 
+                      please don't hesitate to contact our customer support team at 
+                      <a href="{{contact_link}}" class="d-inline-block" rel="noopener noreferrer" target="_blank">{{contact_text}}</a>. 
+                      We will be happy to assist you and resolve any payment-related issues.
+                      {% endblocktranslate %}
+                    </p>
+
+                    <div class="d-flex justify-content-center align-items-center flex-column my-3">
+                      <a href="{% url 'store:products' %}" class="btn">{% translate "Continue Shopping" %}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
