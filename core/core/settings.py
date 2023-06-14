@@ -15,12 +15,13 @@ SITE_HOST = os.environ.get("SITE_HOST")
 
 ALLOWED_HOSTS = [SITE_HOST, '*']
 
-CORS_ALLOW_ALL_ORIGINS = True
-
 if not DEBUG:
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
-    CSRF_TRUSTED_ORIGINS = [SITE_URL]
+    CORS_ALLOW_ALL_ORIGINS = True
+    # CSRF_TRUSTED_ORIGINS = [SITE_URL, '*']
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
 
 INSTALLED_APPS = [
     'daphne',
@@ -71,7 +72,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'axes.middleware.AxesMiddleware',
-    
 ]
 
 AUTHENTICATION_BACKENDS = [
