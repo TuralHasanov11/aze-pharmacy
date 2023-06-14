@@ -6,6 +6,7 @@ from django.urls import include, path, re_path
 
 urlpatterns = [
     path('django-admin/', admin.site.urls),
+    path('logs/', include('log_viewer.urls')),
     path('api/', include('api.urls', namespace='api')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
