@@ -277,6 +277,7 @@
 
 {% block scripts %}
 <script>
+  const language = "{{CURRENT_LANGUAGE}}"
   document.querySelectorAll('.optional').forEach(element => {
     element.innerHTML = '({% translate "optional" %})'
   })

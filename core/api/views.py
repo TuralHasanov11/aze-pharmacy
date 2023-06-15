@@ -56,6 +56,8 @@ def orderFlag(request, id: int):
 
 @api_view(['GET'])
 def checkoutFormDetails(request):
+    lang = request.GET.get('lang', 'az')
+    translation.activate(lang)
     serializer = CheckoutSerializer()
     messages: dict = {}
     for field in serializer.fields.keys():
