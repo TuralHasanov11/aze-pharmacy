@@ -177,6 +177,7 @@ def approvePayment(request):
             order.save()
             delivery, created = OrderDelivery.objects.get_or_create(
                 order=order)
+            sendPaymentNotification(request=request, order=order)
 
             channel_layer = get_channel_layer()
             async_to_sync(channel_layer.group_send)("orders", {
@@ -185,29 +186,31 @@ def approvePayment(request):
             })
             return JsonResponse(data)
         else:
-            orderProcessor = OrderProcessor(request=request)
-            order = Order.objects.select_related('order_delivery').prefetch_related(
-                Prefetch('items', queryset=OrderItem.objects.select_related(
-                    'product__category').all()),
-            ).get(order_id=orderProcessor.order.get("order_id", None),
-                  order_key=orderProcessor.order.get(
-                "order_key", None))
-            delivery = OrderDelivery.objects.get(
-                order=order)
-            sendDeliveryStatusNotification(
-                request=request, order=order, delivery=delivery)
-            sendPaymentNotification(request=request, order=order)
+            try:
+                orderProcessor = OrderProcessor(request=request)
+                order = Order.objects.select_related('order_delivery').prefetch_related(
+                    Prefetch('items', queryset=OrderItem.objects.select_related(
+                        'product__category').all()),
+                ).get(order_id=orderProcessor.order.get("order_id", None),
+                      order_key=orderProcessor.order.get(
+                    "order_key", None))
+                delivery = OrderDelivery.objects.get(
+                    order=order)
+                sendDeliveryStatusNotification(
+                    request=request, order=order, delivery=delivery)
 
-            cart = CartProcessor(request)
-            cart.clear()
-            translation.activate("az")
-            messages.success(request, _('Order was placed successfully'))
-            return redirect('checkout:success')
+                cart = CartProcessor(request)
+                cart.clear()
+                messages.success(request, _('Order was placed successfully'))
+                return redirect('checkout:success')
+            except Exception as e:
+                logger.error(str(e))
+                messages.error(request, _("Order cannot be placed"))
+                return redirect(f"{reverse('checkout:failed')}#order-failed")
     except Exception as e:
         logger.error(str(e))
         messages.error(request, _("Order cannot be placed"))
-        print(str(e))
-        return redirect(f"{reverse('checkout:failed')}#order-failed")
+        return JsonResponse(status=400, data={"message": _("Order cannot be placed"), "errors": str(e)})
 
 
 @csrf_exempt
