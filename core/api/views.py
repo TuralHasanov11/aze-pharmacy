@@ -22,6 +22,7 @@ from django.db.models import Prefetch
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.utils import translation
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods, require_POST
@@ -170,7 +171,6 @@ def approvePayment(request):
     try:
         if request.method == 'POST':
             data = json.load(request)["payload"]
-            logger.error(json.dumps(data))
             order = Order.objects.get(order_key=data["sessionId"], order_id=data["orderID"],
                                       payment_status=Order.PaymentStatus.PENDING)
             order.payment_status = Order.PaymentStatus.PAID
@@ -196,9 +196,11 @@ def approvePayment(request):
                 order=order)
             sendDeliveryStatusNotification(
                 request=request, order=order, delivery=delivery)
+            sendPaymentNotification(request=request, order=order)
 
             cart = CartProcessor(request)
             cart.clear()
+            translation.activate("az")
             messages.success(request, _('Order was placed successfully'))
             return redirect('checkout:success')
     except Exception as e:
@@ -220,6 +222,7 @@ def cancelPayment(request):
         else:
             orderProcessor = OrderProcessor(request=request)
             orderProcessor.clear()
+            translation.activate("az")
             return redirect("checkout:index")
     except Exception as e:
         return JsonResponse(status=400, data={"message": _("Order cannot be cancelled"), "errors": str(e)})
@@ -237,6 +240,7 @@ def declinePayment(request):
             order.save()
             return JsonResponse(data)
         else:
+            translation.activate("az")
             messages.error(request, _('Your order has failed!'))
             return redirect(f"{reverse('checkout:failed')}#order-failed")
     except Exception as e:
@@ -267,7 +271,6 @@ def orderRefund(request, id: int):
 
                 sendRefundNotification(
                     request=request, order=order, refund=orderRefund)
-                sendPaymentNotification(request=request, order=order)
 
                 orderRefundSerializer = OrderRefundSerializer(
                     instance=orderRefund)
