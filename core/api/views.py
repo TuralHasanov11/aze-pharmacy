@@ -239,7 +239,7 @@ def declinePayment(request):
             messages.error(request, _('Your order has failed!'))
             return redirect(f"{reverse('checkout:failed')}#order-failed")
     except Exception as e:
-        return JsonResponse(status=400, data={"message": _("Order cannot be failed"), "errors": str(e)})
+        return JsonResponse(status=400, data={"errors": str(e)})
 
 
 @login_required

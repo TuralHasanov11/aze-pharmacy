@@ -575,7 +575,7 @@ class OrdersView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
 def siteTexts(request):
     if request.method == 'POST':
         formset = forms.SiteTextFormSet(
-            initial=SiteText.objects.all(), data=request.POST)
+            initial=SiteText.objects.all().order_by('language'), data=request.POST)
         if formset.is_valid():
             formset.save()
             messages.success(request, _("Texts were saved successfully!"))

@@ -178,8 +178,8 @@ USE_TZ = True
 
 LANGUAGES = (
     ('az', _('Azerbaijani')),
-    ('ru', _('Russian')),
     ('en', _('English')),
+    ('ru', _('Russian')),
 )
 
 LANGUAGE_CODE = 'az'

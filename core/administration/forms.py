@@ -396,10 +396,12 @@ class SiteTextForm(forms.ModelForm):
         label=_("Privacy Policy"), widget=ckeditor_widgets.CKEditorUploadingWidget(), required=False)
     terms_and_conditions = forms.CharField(
         label=_("Terms and Conditions"), widget=ckeditor_widgets.CKEditorUploadingWidget(), required=False)
+    order_success = forms.CharField(
+        label=_("Order Success Text"), widget=ckeditor_widgets.CKEditorUploadingWidget(), required=False)
 
     class Meta:
         model = SiteText
-        fields = ['about', 'language', 'return_policy',
+        fields = ['about', 'language', 'return_policy', 'order_success',
                   'privacy_policy', 'terms_and_conditions']
 
 
