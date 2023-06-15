@@ -5,10 +5,10 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 
 urlpatterns = [
-    path('django-admin/', admin.site.urls),
-    path('logs/', include('log_viewer.urls')),
     path('api/', include('api.urls', namespace='api')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('django-admin/', admin.site.urls),
+    path('logs/', include('log_viewer.urls')),
 ]
 
 urlpatterns += i18n_patterns(
@@ -29,8 +29,6 @@ if settings.DEBUG:
                           document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
-
-if settings.DEBUG and 'rosetta' in settings.INSTALLED_APPS:
     urlpatterns += [
-        re_path(r'^languages/', include('rosetta.urls'))
+        re_path(r'^languages/', include('rosetta.urls')),
     ]
