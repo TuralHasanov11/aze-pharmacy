@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from enum import Enum
 
 from django.conf import settings
-from django.core.mail import BadHeaderError, EmailMessage
+from django.core.mail import EmailMessage
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
@@ -103,8 +103,8 @@ class DeliveryMessageNotification(Notification):
                 )
             except TwilioRestException:
                 return
-            
-    
+
+
 @dataclass
 class DeliveryWhatsappNotification(Notification):
     order: Order
