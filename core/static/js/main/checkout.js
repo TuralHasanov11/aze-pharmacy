@@ -43,7 +43,9 @@ createApp({
     },
 
     async getCheckoutFormDetails(){
-        const response = await fetch("/api/checkout-form-details");
+        const response = await fetch(`/api/checkout-form-details?lang=${language}`, {
+            headers: { "X-CSRFToken": csrftoken },
+        });
         const data = await response.json() 
         for (const field in data) {
             this.checkoutFormValidationMessages[field] = data[field].error_messages
