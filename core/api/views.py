@@ -196,6 +196,7 @@ def approvePayment(request):
                 order=order)
             sendDeliveryStatusNotification(
                 request=request, order=order, delivery=delivery)
+            sendPaymentNotification(request=request, order=order)
 
             cart = CartProcessor(request)
             cart.clear()
@@ -267,7 +268,6 @@ def orderRefund(request, id: int):
 
                 sendRefundNotification(
                     request=request, order=order, refund=orderRefund)
-                sendPaymentNotification(request=request, order=order)
 
                 orderRefundSerializer = OrderRefundSerializer(
                     instance=orderRefund)

@@ -28,7 +28,7 @@ class Notification(ABC):
 
 MessageClient = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
 
-            
+
 @dataclass
 class DeliveryEmailNotification(Notification):
     order: Order
@@ -72,6 +72,68 @@ class DeliveryEmailNotification(Notification):
             msg.send(fail_silently=True)
         except BadHeaderError:
             raise Exception(_("Email cannot be sent"))
+
+
+@dataclass
+class DeliveryMessageNotification(Notification):
+    order: Order
+    delivery: OrderDelivery
+
+    class Template(Enum):
+        FAILED_DELIVERY = "delivery-failed-delivery.html"
+        CANCELLED = "delivery-cancelled.html"
+
+    @property
+    def message(self):
+        if self.delivery.delivery_status in self.Template:
+            content = render_to_string("administration/notifications/mobile/" +
+                                       self.Template[self.delivery.delivery_status].value, {
+                                           'order': self.order, 'delivery': self.delivery},
+                                       request=self.request)
+            return content
+        return None
+
+    def send(self):
+        if self.message is not None:
+            try:
+                MessageClient.messages.create(
+                    body=self.message,
+                    from_=settings.TWILIO_PHONE,
+                    to=self.order.phone
+                )
+            except TwilioRestException:
+                raise Exception(_("SMS cannot be sent"))
+            
+    
+@dataclass
+class DeliveryWhatsappNotification(Notification):
+    order: Order
+    delivery: OrderDelivery
+
+    class Template(Enum):
+        FAILED_DELIVERY = "delivery-failed-delivery.html"
+        CANCELLED = "delivery-cancelled.html"
+
+    @property
+    def message(self):
+        if self.delivery.delivery_status in self.Template:
+            content = render_to_string("administration/notifications/mobile/" +
+                                       self.Template[self.delivery.delivery_status].value, {
+                                           'order': self.order, 'delivery': self.delivery},
+                                       request=self.request)
+            return content
+        return None
+
+    def send(self):
+        if self.message is not None:
+            try:
+                MessageClient.messages.create(
+                    body=self.message,
+                    from_=f"whatsapp:{settings.TWILIO_WHATSAPP}",
+                    to=f"whatsapp:{self.order.phone}",
+                )
+            except TwilioRestException:
+                raise Exception(_("SMS cannot be sent"))
 
 
 @dataclass
@@ -121,8 +183,8 @@ class RefundMessageNotification(Notification):
                 )
             except TwilioRestException:
                 raise Exception(_("SMS cannot be sent"))
-            
-    
+
+
 @dataclass
 class RefundWhatsappNotification(Notification):
     order: Order
@@ -145,7 +207,7 @@ class RefundWhatsappNotification(Notification):
                 )
             except TwilioRestException:
                 raise Exception(_("SMS cannot be sent"))
-            
+
 
 @dataclass
 class PaymentMessageNotification(Notification):
@@ -167,7 +229,7 @@ class PaymentMessageNotification(Notification):
                 )
             except TwilioRestException:
                 raise Exception(_("SMS cannot be sent"))
-            
+
 
 @dataclass
 class PaymentWhatsappNotification(Notification):
@@ -205,6 +267,12 @@ def sendDeliveryStatusNotification(request: HttpRequest, order: Order, delivery:
         emailNotification = DeliveryEmailNotification(
             request=request, order=order, delivery=delivery)
         emailNotification.send()
+    messageNotification = DeliveryMessageNotification(
+        request=request, order=order, delivery=delivery)
+    whatsappNotification = DeliveryWhatsappNotification(
+        request=request, order=order, delivery=delivery)
+    messageNotification.send()
+    whatsappNotification.send()
 
 
 def sendRefundNotification(request: HttpRequest, order: Order, refund: OrderRefund):
