@@ -45,7 +45,7 @@
                         >
                     </div>
                     <h4>{% translate "Information about your order" %}</h4>
-                    {{site_text.order_success|safe}}
+                    {{site_text.order_success|safe|default:''}}
                     {% translate "Customer Contact" as contact_text %}
                     {% url 'main:contact' as contact_link %}
                     <p class="mb-4">
