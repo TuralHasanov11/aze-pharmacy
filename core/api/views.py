@@ -3,6 +3,7 @@ import logging
 
 from administration.forms import OrderDeliveryForm
 from administration.notifications import (sendDeliveryStatusNotification,
+                                          sendPaymentNotification,
                                           sendRefundNotification)
 from administration.serializers import OrderDeliveryLogSerializer
 from api.serializers import (OrderDeliverySerializer,
@@ -266,6 +267,7 @@ def orderRefund(request, id: int):
 
                 sendRefundNotification(
                     request=request, order=order, refund=orderRefund)
+                sendPaymentNotification(request=request, order=order)
 
                 orderRefundSerializer = OrderRefundSerializer(
                     instance=orderRefund)
