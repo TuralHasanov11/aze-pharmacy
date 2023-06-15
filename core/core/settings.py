@@ -271,15 +271,12 @@ if USE_S3:
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', None)
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', None)
     AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', None)
-    # AWS_S3_SIGNATURE_VERSION = os.environ.get('AWS_S3_SIGNATURE_VERSION', None)
-    # AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', None)
     AWS_S3_FILE_OVERWRITE = str(os.environ.get(
         "AWS_S3_FILE_OVERWRITE")) == "True"
     AWS_DEFAULT_ACL = None
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
     AWS_QUERYSTRING_AUTH = False
     DEFAULT_FILE_STORAGE = 'core.storages.MediaStore'
-    # s3 static settings
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     PUBLIC_MEDIA_LOCATION = 'media'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
@@ -294,6 +291,7 @@ STATICFILES_DIRS = [
 ]
 
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
+CKEDITOR_IMAGE_BACKEND = "ckeditor_uploader.backends.PillowBackend"
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
 
