@@ -27,9 +27,8 @@ def index(request):
 def failed(request):
     try:
         orderProcessor = OrderProcessor(request=request)
-        order = Order.objects.get(order_id=orderProcessor.order.get("order_id", None),
-                                  order_key=orderProcessor.order.get(
-                                      "order_key", None),
+        order = Order.objects.get(order_id=orderProcessor.orderId,
+                                  order_key=orderProcessor.orderKey,
                                   payment_status=Order.PaymentStatus.FAILED
                                   )
         breadcrumb = [
@@ -46,9 +45,8 @@ def failed(request):
 def success(request):
     try:
         orderProcessor = OrderProcessor(request=request)
-        order = Order.objects.get(order_id=orderProcessor.order.get("order_id", None),
-                                  order_key=orderProcessor.order.get(
-                                      "order_key", None),
+        order = Order.objects.get(order_id=orderProcessor.orderId,
+                                  order_key=orderProcessor.orderKey,
                                   )
         siteText = SiteText.objects.filter(language=get_language()).first()
         breadcrumb = [
@@ -56,7 +54,7 @@ def success(request):
             {"title": _("Home"), "route": reverse("main:index")},
             {"title": _("Order succeeded")},
         ]
-        return render(request, template_name='checkout/success.html', 
+        return render(request, template_name='checkout/success.html',
                       context={"breadcrumb": breadcrumb, "order": order, "site_text": siteText})
     except Order.DoesNotExist:
         return redirect("main:index")

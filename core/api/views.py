@@ -203,6 +203,7 @@ def approvePayment(request):
 
                 cart = CartProcessor(request)
                 cart.clear()
+                translation.activate("az")
                 messages.success(request, _('Order was placed successfully'))
                 return redirect('checkout:success')
             except Exception as e:
