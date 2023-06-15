@@ -180,12 +180,6 @@ def approvePayment(request):
             delivery, created = OrderDelivery.objects.get_or_create(
                 order=order)
             sendPaymentNotification(request=request, order=order)
-
-            channel_layer = get_channel_layer()
-            async_to_sync(channel_layer.group_send)("orders", {
-                "type": "order_created",
-                "message": _("New order: ") + f" {order.id}",
-            })
             return JsonResponse(data)
         else:
             try:
@@ -200,6 +194,12 @@ def approvePayment(request):
                     order=order)
                 sendDeliveryStatusNotification(
                     request=request, order=order, delivery=delivery)
+                
+                channel_layer = get_channel_layer()
+                async_to_sync(channel_layer.group_send)("orders", {
+                    "type": "order_created",
+                    "message": _("New order: ") + f" {order.id}",
+                })
 
                 cart = CartProcessor(request)
                 cart.clear()
