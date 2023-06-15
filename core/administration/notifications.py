@@ -85,7 +85,7 @@ class DeliveryMessageNotification(Notification):
 
     @property
     def message(self):
-        if self.delivery.delivery_status in self.Template:
+        if self.delivery.delivery_status in self.Template.__members__:
             content = render_to_string("administration/notifications/mobile/" +
                                        self.Template[self.delivery.delivery_status].value, {
                                            'order': self.order, 'delivery': self.delivery},
@@ -116,7 +116,7 @@ class DeliveryWhatsappNotification(Notification):
 
     @property
     def message(self):
-        if self.delivery.delivery_status in self.Template:
+        if self.delivery.delivery_status in self.Template.__members__:
             content = render_to_string("administration/notifications/mobile/" +
                                        self.Template[self.delivery.delivery_status].value, {
                                            'order': self.order, 'delivery': self.delivery},

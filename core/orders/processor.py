@@ -3,6 +3,14 @@ class OrderProcessor:
         self.session = request.session
         self.order = self.session.get("order", {})
 
+    @property
+    def orderId(self):
+        return int(self.order.get("order_id", 0))
+    
+    @property
+    def orderKey(self):
+        return self.order.get("order_key", "")
+
     def create(self, orderId, orderKey):
         self.order = {
             "order_id": orderId,
