@@ -38,7 +38,7 @@
                               ></label
                             ><span class="woocommerce-input-wrapper"
                               >
-                              <input type="text" v-model="v$.checkoutForm.firstName.$model" @blur="v$.checkoutForm.firstName.$touch" class="input-text" id="id_first_name" :placeholder="checkoutFormLabels?.first_name" autocomplete="given-name">
+                              <input type="text" v-model="v$.checkoutForm.firstName.$model" @blur="v$.checkoutForm.firstName.$touch" class="input-text" id="id_first_name" autocomplete="given-name">
                               <span v-if="v$.checkoutForm.firstName.$dirty && v$.checkoutForm.firstName.required?.$invalid" class="text-danger">{{checkoutFormValidationMessages?.first_name?.required}}</span>
                               </span>
                           </p>
@@ -55,7 +55,7 @@
                               ></label
                             ><span class="woocommerce-input-wrapper"
                               >                                
-                              <input type="text" v-model="v$.checkoutForm.lastName.$model" @blur="v$.checkoutForm.lastName.$touch" class="input-text" id="id_last_name" :placeholder="checkoutFormLabels?.last_name" autocomplete="family-name">
+                              <input type="text" v-model="v$.checkoutForm.lastName.$model" @blur="v$.checkoutForm.lastName.$touch" class="input-text" id="id_last_name" autocomplete="family-name">
                               <span v-if="v$.checkoutForm.lastName.$dirty && v$.checkoutForm.lastName.required?.$invalid" class="text-danger">{{checkoutFormValidationMessages?.last_name?.required}}</span>
                               </span>
                           </p>
@@ -72,7 +72,7 @@
                               ></label
                             ><span class="woocommerce-input-wrapper"
                               >
-                              <input type="text" v-model="v$.checkoutForm.address.$model" @blur="v$.checkoutForm.address.$touch" class="input-text" id="id_address" :placeholder="checkoutFormLabels?.address" autocomplete="address-line1">
+                              <input type="text" v-model="v$.checkoutForm.address.$model" @blur="v$.checkoutForm.address.$touch" class="input-text" id="id_address" autocomplete="address-line1">
                               <span v-if="v$.checkoutForm.address.$dirty && v$.checkoutForm.address.required?.$invalid" class="text-danger">{{checkoutFormValidationMessages?.address?.required}}</span>
                               </span>
                           </p>
@@ -112,7 +112,7 @@
                               ></label
                             ><span class="woocommerce-input-wrapper"
                               >
-                              <input type="text" v-model="v$.checkoutForm.phone.$model"  @blur="v$.checkoutForm.phone.$touch" class="input-text phone-input" id="id_phone" :placeholder="+994xxxxxxxxx" autocomplete="tel">
+                              <input type="text" v-model="v$.checkoutForm.phone.$model"  @blur="v$.checkoutForm.phone.$touch" class="input-text phone-input" id="id_phone" :placeholder="+994510000000">
                               <span class="form-text phone-input-helper"></span>
                               <span v-if="v$.checkoutForm.phone.$dirty && v$.checkoutForm.phone.required?.$invalid" class="text-danger">{{checkoutFormValidationMessages?.phone?.required}}</span>
                               <span v-if="v$.checkoutForm.phone.$dirty && v$.checkoutForm.phone.phoneValidator?.$invalid" class="text-danger">{{checkoutFormValidationMessages?.phone?.regex}}</span>
@@ -129,7 +129,7 @@
                             ></label
                             ><span class="woocommerce-input-wrapper"
                               >
-                              <input type="email" v-model="v$.checkoutForm.email.$model" @blur="v$.checkoutForm.email.$touch" class="input-text" id="id_email" :placeholder="checkoutFormLabels?.email" autocomplete="email username">
+                              <input type="email" v-model="v$.checkoutForm.email.$model" @blur="v$.checkoutForm.email.$touch" class="input-text" id="id_email" autocomplete="email username">
                               <span v-if="v$.checkoutForm.email.$dirty && v$.checkoutForm.email.required?.$invalid" class="text-danger">{{checkoutFormValidationMessages?.email?.required}}</span>
                               </span>
                           </p>
@@ -149,7 +149,7 @@
                                 ></span
                               ></label
                             ><span class="woocommerce-input-wrapper">
-                              <textarea v-model="checkoutForm.notes" class="input-text" :placeholder="checkoutFormLabels?.notes" id="id_notes" cols="30" rows="10"></textarea>
+                              <textarea v-model="checkoutForm.notes" class="input-text" id="id_notes" cols="30" rows="10"></textarea>
                             </span>
                           </p>
                         </div>
