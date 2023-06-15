@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-15 16:04+0200\n"
-"PO-Revision-Date: 2023-06-15 16:05+0400\n"
+"POT-Creation-Date: 2023-06-15 22:41+0200\n"
+"PO-Revision-Date: 2023-06-15 22:43+0400\n"
 "Last-Translator: Tural Hasanov <tural.hasanov.std@bhos.edu.az>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -549,7 +549,6 @@ msgid "Terms and Conditions"
 msgstr "İstifadə Şərtləri"
 
 #: .\administration\forms.py:400
-#| msgid "Order succeeded"
 msgid "Order Success Text"
 msgstr "Uğurlu Sifariş Mətni"
 
@@ -643,14 +642,6 @@ msgstr "Səbəbi daxil edin"
 #: .\administration\forms.py:499 .\administration\forms.py:500
 msgid "Full Refund"
 msgstr "Tam Geri Ödəmə"
-
-#: .\administration\notifications.py:60 .\administration\notifications.py:152
-msgid "SMS cannot be sent"
-msgstr "SMS göndərilmədi"
-
-#: .\administration\notifications.py:104 .\administration\notifications.py:129
-msgid "Email cannot be sent"
-msgstr "E-mail göndərilmədi"
 
 #: .\administration\templates\administration\auth\login.html:2
 #: .\administration\templates\administration\auth\login.html:9
@@ -1352,51 +1343,51 @@ msgstr "Sifariş uğurla yeniləndi!"
 msgid "Order was not saved!"
 msgstr "Sifariş saxlanmadı!"
 
-#: .\api\views.py:104
+#: .\api\views.py:108
 msgid "Product was not found"
 msgstr "Məhsul tapılmadı"
 
-#: .\api\views.py:163 .\api\views.py:205
+#: .\api\views.py:167 .\api\views.py:211 .\api\views.py:215 .\api\views.py:216
 msgid "Order cannot be placed"
 msgstr "Sifariş yerləşdirilmədi"
 
-#: .\api\views.py:183
+#: .\api\views.py:187
 msgid "New order: "
 msgstr "Yeni sifariş: "
 
-#: .\api\views.py:201
+#: .\api\views.py:207
 msgid "Order was placed successfully"
 msgstr "Sifariş uğurla yerləşdirildi"
 
-#: .\api\views.py:224
+#: .\api\views.py:234
 msgid "Order cannot be cancelled"
 msgstr "Sifariş ləğv edilmədi"
 
-#: .\api\views.py:239
+#: .\api\views.py:250
 msgid "Your order has failed!"
 msgstr "Sifarişiniz Uğursuz oldu"
 
-#: .\api\views.py:273
+#: .\api\views.py:284
 msgid "Order was refunded"
 msgstr "Sifariş geri ödənildi"
 
-#: .\api\views.py:277
+#: .\api\views.py:288
 msgid "Order cannot be refunded"
 msgstr "Sifariş geri ödənilmədi"
 
-#: .\api\views.py:279 .\api\views.py:310
+#: .\api\views.py:290 .\api\views.py:321
 msgid "Order was not found"
 msgstr "Sifariş tapılmadı"
 
-#: .\api\views.py:281 .\checkout\payment.py:75
+#: .\api\views.py:292 .\checkout\payment.py:75
 msgid "Refund failed"
 msgstr "Geri ödəniş uğursuz oldu"
 
-#: .\api\views.py:307
+#: .\api\views.py:318
 msgid "Order delivery was updated"
 msgstr "Çatdırılma məlumatları yeniləndi"
 
-#: .\api\views.py:308
+#: .\api\views.py:319
 msgid "Order delivery cannot be updated"
 msgstr "Çatdırılma məlumatları yenilənmədi"
 
@@ -1432,13 +1423,13 @@ msgstr "Alış-veriş səbətiniz hazırda boşdur."
 #: .\cart\templates\cart\summary.html:143
 #: .\checkout\templates\checkout\failed.html:46
 #: .\checkout\templates\checkout\index.html:265
-#: .\checkout\templates\checkout\success.html:35
+#: .\checkout\templates\checkout\success.html:58
 #: .\store\templates\store\products\index.html:68
 msgid "Continue Shopping"
 msgstr "Alış-verişə davam edin"
 
-#: .\cart\views.py:18 .\checkout\views.py:17 .\checkout\views.py:37
-#: .\checkout\views.py:56 .\library\views.py:18
+#: .\cart\views.py:18 .\checkout\views.py:17 .\checkout\views.py:36
+#: .\checkout\views.py:54 .\library\views.py:18
 #: .\main\context_processors.py:11 .\main\templates\main\index.html:2
 #: .\main\views.py:39 .\main\views.py:81 .\main\views.py:96
 #: .\main\views.py:108 .\main\views.py:121 .\main\views.py:133
@@ -1448,7 +1439,7 @@ msgstr "Alış-verişə davam edin"
 msgid "Home"
 msgstr "Ana Səhifə"
 
-#: .\checkout\payment.py:43 .\checkout\views.py:36 .\checkout\views.py:38
+#: .\checkout\payment.py:43 .\checkout\views.py:35 .\checkout\views.py:37
 msgid "Order failed"
 msgstr "Sifariş uğursuz oldu"
 
@@ -1489,7 +1480,6 @@ msgid "Invalid city"
 msgstr "Şəhər düzgün deyil"
 
 #: .\checkout\templates\checkout\failed.html:2
-#: .\checkout\templates\checkout\success.html:2
 msgid "Order Failed"
 msgstr "Sifariş Uğursuz oldu"
 
@@ -1520,7 +1510,7 @@ msgid "Your order number"
 msgstr "Sizin sifariş nömrəniz"
 
 #: .\checkout\templates\checkout\failed.html:34
-#: .\checkout\templates\checkout\success.html:39
+#: .\checkout\templates\checkout\success.html:49
 msgid "Customer Contact"
 msgstr "Müştəri Xidmətləri"
 
@@ -1572,37 +1562,42 @@ msgstr ""
 "\n"
 "Ödənişinizi tamamlamağa davam etməzdən əvvəl, Məxfilik Siyasətimizi nəzərdən keçirməyinizi xahiş edirik. Məxfilik Siyasətimiz şəxsi məlumatlarınızı necə topladığımızı, istifadə etdiyimizi və qoruduğumuzu təsvir edir. Məxfilik təcrübələrimizi başa düşməklə, problemsiz yoxlama təcrübəsi üçün təfərrüatlarınızı təmin etməkdə tam əmin ola bilərsiniz. Məxfilik Siyasətimizə baxmaq üçün <a href=\"%(privacy_policy_link)s\" class=\"woocommerce-privacy-policy-link\" target=\"_blank\">%(privacy_policy_text)s</a>nə klikləyin. Siyasətimizlə tanış olduqdan sonra ödənişinizi tamamlamaq üçün əminliklə davam edə bilərsiniz."
 
-#: .\checkout\templates\checkout\index.html:281
+#: .\checkout\templates\checkout\index.html:282
 msgid "optional"
 msgstr "istəyə bağlı"
 
-#: .\checkout\templates\checkout\index.html:283
+#: .\checkout\templates\checkout\index.html:284
 msgid "Please fill the required fields"
 msgstr "Zəhmət olmasa tələb olunan sahələri doldurun"
 
-#: .\checkout\templates\checkout\index.html:284
+#: .\checkout\templates\checkout\index.html:285
 msgid "Place order"
 msgstr "Sifariş et"
 
-#: .\checkout\templates\checkout\index.html:285
+#: .\checkout\templates\checkout\index.html:286
 msgid "Additional information"
 msgstr "Əlavə informasiya"
 
-#: .\checkout\templates\checkout\index.html:286
+#: .\checkout\templates\checkout\index.html:287
 msgid "Select a city"
 msgstr "Şəhərinizi seçin"
 
-#: .\checkout\templates\checkout\index.html:287
+#: .\checkout\templates\checkout\index.html:288
 msgid "Billing Details"
 msgstr "Ödəniş Məlumatları"
 
-#: .\checkout\templates\checkout\index.html:288
+#: .\checkout\templates\checkout\index.html:289
 msgid ""
 "Phone number must be entered in the format: '+994xxxxxxxxx'. Up to 12 digits"
 " allowed"
 msgstr ""
 "Telefon nömrəsi aşağıdakı formatda daxil edilməlidir: '+994xxxxxxxxx'. 12 "
 "rəqəmə qədər icazə verilir"
+
+#: .\checkout\templates\checkout\success.html:2
+#| msgid "Order succeeded"
+msgid "Order Succeeded"
+msgstr "Sifariş uğurlu oldu"
 
 #: .\checkout\templates\checkout\success.html:17
 msgid ""
@@ -1639,11 +1634,31 @@ msgstr "Ödənişin Məbləği"
 msgid "Shipping Address"
 msgstr "Çatdırılma Ünvanə"
 
-#: .\checkout\templates\checkout\success.html:37
+#: .\checkout\templates\checkout\success.html:36
+#| msgid ""
+#| "\n"
+#| "                        Thank you for your recent purchase from our website. \n"
+#| "                        We are pleased to inform you that your payment has been successfully processed, and your order is now confirmed. \n"
+#| "                        "
+msgid ""
+"\n"
+"                          By using the link below, you can get information about your order. \n"
+"                          Please save the link to track your order whenever you would like.\n"
+"                          "
+msgstr ""
+"\n"
+"Aşağıdakı linkdən istifadə etməklə sifarişiniz haqqında məlumat əldə edə bilərsiniz. İstədiyiniz zaman sifarişinizi izləmək üçün linki özünüzdə saxlayın."
+
+#: .\checkout\templates\checkout\success.html:44
+#| msgid "Back to Order List"
+msgid "Track you Order"
+msgstr "Sifarişinizi izləyin"
+
+#: .\checkout\templates\checkout\success.html:47
 msgid "Information about your order"
 msgstr "Sifarişiniz haqqında məlumat"
 
-#: .\checkout\templates\checkout\success.html:42
+#: .\checkout\templates\checkout\success.html:52
 #, python-format
 msgid ""
 "\n"
@@ -1654,7 +1669,7 @@ msgstr ""
 "\n"
 "Sifarişinizlə bağlı hər hansı sualınız varsa və ya əlavə yardıma ehtiyacınız varsa, lütfən, <a href=\"%(contact_link)s\" class=\"d-inline-block\" rel=\"noopener noreferrer\" target=\"_blank\">%(contact_text)s</a>lə əlaqə saxlayın."
 
-#: .\checkout\views.py:55 .\checkout\views.py:57
+#: .\checkout\views.py:53 .\checkout\views.py:55
 msgid "Order succeeded"
 msgstr "Sifariş uğurlu oldu"
 
@@ -2165,6 +2180,12 @@ msgstr ""
 "dərmanlarınızı izləyin. İstək siyahısı xüsusiyyətimiz gələcəkdə almaq "
 "istədiyiniz məhsulları izləməyi asanlaşdırır. Məhsullarımızı nəzərdən "
 "keçirin və onları bu gün arzu siyahınıza əlavə edin!"
+
+#~ msgid "SMS cannot be sent"
+#~ msgstr "SMS göndərilmədi"
+
+#~ msgid "Email cannot be sent"
+#~ msgstr "E-mail göndərilmədi"
 
 #, fuzzy
 #~ msgid "Order cannot be failed"

@@ -32,18 +32,31 @@
                             <li class="list-group-item">{% translate "Payment Amount" %}: <b>{{order.total_paid}} &#8380;</b></li>
                             <li class="list-group-item">{% translate "Shipping Address" %}: <b>{{order.address}}</b></li>
                         </div>
-                        <a href="{% url 'store:products' %}" class="btn">{% translate "Continue Shopping" %}</a>
+                        <p>
+                          {% blocktranslate %}
+                          By using the link below, you can get information about your order. 
+                          Please save the link to track your order whenever you would like.
+                          {% endblocktranslate %}
+                        </p>
+                        <a
+                          href="{% url 'orders:detail' id=order.id %}?order_key={{order.order_key}}"
+                          class="bg-primary btn-lg btn"
+                          >{% translate "Track you Order" %}</a
+                        >
                     </div>
                     <h4>{% translate "Information about your order" %}</h4>
                     {{site_text.order_success|safe}}
                     {% translate "Customer Contact" as contact_text %}
                     {% url 'main:contact' as contact_link %}
-                    <p>
+                    <p class="mb-4">
                         {% blocktranslate %}
                         If you have any questions or need further assistance regarding your order, please feel free to contact our customer support team at 
                         <a href="{{contact_link}}" class="d-inline-block" rel="noopener noreferrer" target="_blank">{{contact_text}}</a>.                                                     
                         {% endblocktranslate %}
                     </p>  
+                    <p class="text-center">
+                      <a href="{% url 'store:products' %}" class="btn">{% translate "Continue Shopping" %}</a>
+                    </p>
                 </div>
               </div>
             </div>
