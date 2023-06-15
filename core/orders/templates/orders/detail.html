@@ -115,19 +115,19 @@
                                 class="woocommerce-cart-form__cart-item cart_item"
                               >
                                 <td class="product-thumbnail">
-                                  {% if item.product.image_feature %}
+                                  {% if item.product.get_image_feature %}
                                   <a
                                     href="{% url 'store:product-detail' category_slug=item.product.category.slug product_slug=item.product.slug %}"
                                     ><img
                                       width="350"
                                       height="350"
-                                      src="{{item.product.image_feature}}"
+                                      src="{{item.product.get_image_feature}}"
                                       class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
                                       decoding="async"
                                       loading="lazy"
                                       srcset="
-                                        {{item.product.image_feature}} 350w,
-                                        {{item.product.image_feature}} 150w
+                                        {{item.product.get_image_feature}} 350w,
+                                        {{item.product.get_image_feature}} 150w
                                       "
                                       sizes="(max-width: 350px) 100vw, 350px"
                                   /></a>
