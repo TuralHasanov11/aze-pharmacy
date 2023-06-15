@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from enum import Enum
 
 from django.conf import settings
-from django.core.mail import BadHeaderError, EmailMessage
+from django.core.mail import EmailMessage
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
@@ -70,8 +70,8 @@ class DeliveryEmailNotification(Notification):
             )
             msg.content_subtype = "html"
             msg.send(fail_silently=True)
-        except BadHeaderError:
-            raise Exception(_("Email cannot be sent"))
+        except Exception:
+            return
 
 
 @dataclass
@@ -102,9 +102,9 @@ class DeliveryMessageNotification(Notification):
                     to=self.order.phone
                 )
             except TwilioRestException:
-                raise Exception(_("SMS cannot be sent"))
-            
-    
+                return
+
+
 @dataclass
 class DeliveryWhatsappNotification(Notification):
     order: Order
@@ -133,7 +133,7 @@ class DeliveryWhatsappNotification(Notification):
                     to=f"whatsapp:{self.order.phone}",
                 )
             except TwilioRestException:
-                raise Exception(_("SMS cannot be sent"))
+                return
 
 
 @dataclass
@@ -157,8 +157,8 @@ class RefundEmailNotification(Notification):
             )
             msg.content_subtype = "html"
             msg.send(fail_silently=True)
-        except BadHeaderError:
-            raise Exception(_("Email cannot be sent"))
+        except Exception:
+            return
 
 
 @dataclass
@@ -182,7 +182,7 @@ class RefundMessageNotification(Notification):
                     to=self.order.phone
                 )
             except TwilioRestException:
-                raise Exception(_("SMS cannot be sent"))
+                return
 
 
 @dataclass
@@ -206,7 +206,7 @@ class RefundWhatsappNotification(Notification):
                     to=f"whatsapp:{self.order.phone}",
                 )
             except TwilioRestException:
-                raise Exception(_("SMS cannot be sent"))
+                return
 
 
 @dataclass
@@ -228,7 +228,7 @@ class PaymentMessageNotification(Notification):
                     to=self.order.phone
                 )
             except TwilioRestException:
-                raise Exception(_("SMS cannot be sent"))
+                return
 
 
 @dataclass
@@ -250,7 +250,7 @@ class PaymentWhatsappNotification(Notification):
                     to=f"whatsapp:{self.order.phone}",
                 )
             except TwilioRestException:
-                raise Exception(_("SMS cannot be sent"))
+                return
 
 
 def sendPaymentNotification(request: HttpRequest, order: Order):
