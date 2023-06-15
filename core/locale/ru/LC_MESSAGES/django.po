@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-15 16:04+0200\n"
-"PO-Revision-Date: 2023-06-15 16:11+0400\n"
+"POT-Creation-Date: 2023-06-15 22:41+0200\n"
+"PO-Revision-Date: 2023-06-15 22:44+0400\n"
 "Last-Translator: Tural Hasanov <tural.hasanov.std@bhos.edu.az>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -549,7 +549,6 @@ msgid "Terms and Conditions"
 msgstr "Условия и Положения"
 
 #: .\administration\forms.py:400
-#| msgid "Order Failed"
 msgid "Order Success Text"
 msgstr "Текст успешного заказа"
 
@@ -643,14 +642,6 @@ msgstr "Пожалуйста, введите причину"
 #: .\administration\forms.py:499 .\administration\forms.py:500
 msgid "Full Refund"
 msgstr "Полное Bозмещение"
-
-#: .\administration\notifications.py:60 .\administration\notifications.py:152
-msgid "SMS cannot be sent"
-msgstr "SMS не может быть отправлено"
-
-#: .\administration\notifications.py:104 .\administration\notifications.py:129
-msgid "Email cannot be sent"
-msgstr "Электронная почта не может быть отправлена"
 
 #: .\administration\templates\administration\auth\login.html:2
 #: .\administration\templates\administration\auth\login.html:9
@@ -964,25 +955,21 @@ msgstr "Только Помеченные Заказы"
 
 #: .\administration\templates\administration\orders\index.html:44
 #: .\administration\templates\administration\orders\index.html:58
-#| msgid "Flagged Orders Only"
 msgid "Paid Orders Only"
 msgstr "Oплаченные заказы"
 
 #: .\administration\templates\administration\orders\index.html:46
 #: .\administration\templates\administration\orders\index.html:63
-#| msgid "Flagged Orders Only"
 msgid "Failed Orders Only"
 msgstr "Hевыполненные заказы"
 
 #: .\administration\templates\administration\orders\index.html:48
 #: .\administration\templates\administration\orders\index.html:68
-#| msgid "Flagged Orders Only"
 msgid "Pending Orders Only"
 msgstr "Oтложенные ордера"
 
 #: .\administration\templates\administration\orders\index.html:50
 #: .\administration\templates\administration\orders\index.html:73
-#| msgid "Refund Order"
 msgid "Refunded Orders Only"
 msgstr "Bозвращенные заказы"
 
@@ -1356,53 +1343,51 @@ msgstr "Заказ успешно обновлен!"
 msgid "Order was not saved!"
 msgstr "Заказ не сохранился!"
 
-#: .\api\views.py:104
+#: .\api\views.py:108
 msgid "Product was not found"
 msgstr "Продукт не найден"
 
-#: .\api\views.py:163 .\api\views.py:205
+#: .\api\views.py:167 .\api\views.py:211 .\api\views.py:215 .\api\views.py:216
 msgid "Order cannot be placed"
 msgstr "Заказ не может быть размещен"
 
-#: .\api\views.py:183
+#: .\api\views.py:187
 msgid "New order: "
 msgstr "Новый заказ:"
 
-#: .\api\views.py:201
+#: .\api\views.py:207
 msgid "Order was placed successfully"
 msgstr "Заказ был успешно размещен"
 
-#: .\api\views.py:224
+#: .\api\views.py:234
 msgid "Order cannot be cancelled"
 msgstr "Заказ не может быть отменен"
 
-#: .\api\views.py:239
-#| msgid "Order Failed"
+#: .\api\views.py:250
 msgid "Your order has failed!"
 msgstr "Ваш заказ не выполнен!"
 
-#: .\api\views.py:273
+#: .\api\views.py:284
 msgid "Order was refunded"
 msgstr "Заказ был возвращен"
 
-#: .\api\views.py:277
+#: .\api\views.py:288
 msgid "Order cannot be refunded"
 msgstr "Заказ не может быть возвращен"
 
-#: .\api\views.py:279 .\api\views.py:310
+#: .\api\views.py:290 .\api\views.py:321
 msgid "Order was not found"
 msgstr "Заказ не найден"
 
-#: .\api\views.py:281 .\checkout\payment.py:75
-#| msgid "Refunded"
+#: .\api\views.py:292 .\checkout\payment.py:75
 msgid "Refund failed"
 msgstr "Не удалось вернуть деньги"
 
-#: .\api\views.py:307
+#: .\api\views.py:318
 msgid "Order delivery was updated"
 msgstr "Доставка заказа обновлена"
 
-#: .\api\views.py:308
+#: .\api\views.py:319
 msgid "Order delivery cannot be updated"
 msgstr "Доставка заказа не может быть обновлена"
 
@@ -1438,13 +1423,13 @@ msgstr "Ваша корзина пуста."
 #: .\cart\templates\cart\summary.html:143
 #: .\checkout\templates\checkout\failed.html:46
 #: .\checkout\templates\checkout\index.html:265
-#: .\checkout\templates\checkout\success.html:35
+#: .\checkout\templates\checkout\success.html:58
 #: .\store\templates\store\products\index.html:68
 msgid "Continue Shopping"
 msgstr "Продолжить покупки"
 
-#: .\cart\views.py:18 .\checkout\views.py:17 .\checkout\views.py:37
-#: .\checkout\views.py:56 .\library\views.py:18
+#: .\cart\views.py:18 .\checkout\views.py:17 .\checkout\views.py:36
+#: .\checkout\views.py:54 .\library\views.py:18
 #: .\main\context_processors.py:11 .\main\templates\main\index.html:2
 #: .\main\views.py:39 .\main\views.py:81 .\main\views.py:96
 #: .\main\views.py:108 .\main\views.py:121 .\main\views.py:133
@@ -1454,8 +1439,7 @@ msgstr "Продолжить покупки"
 msgid "Home"
 msgstr "Дом"
 
-#: .\checkout\payment.py:43 .\checkout\views.py:36 .\checkout\views.py:38
-#| msgid "Order Failed"
+#: .\checkout\payment.py:43 .\checkout\views.py:35 .\checkout\views.py:37
 msgid "Order failed"
 msgstr "Заказ не выполнен"
 
@@ -1496,7 +1480,6 @@ msgid "Invalid city"
 msgstr "Неверный город"
 
 #: .\checkout\templates\checkout\failed.html:2
-#: .\checkout\templates\checkout\success.html:2
 msgid "Order Failed"
 msgstr "Заказ не выполнен"
 
@@ -1523,13 +1506,11 @@ msgstr ""
 
 #: .\checkout\templates\checkout\failed.html:31
 #: .\checkout\templates\checkout\success.html:29
-#| msgid "Order Number"
 msgid "Your order number"
 msgstr "Ваш номер заказа"
 
 #: .\checkout\templates\checkout\failed.html:34
-#: .\checkout\templates\checkout\success.html:39
-#| msgid "Customer Notes"
+#: .\checkout\templates\checkout\success.html:49
 msgid "Customer Contact"
 msgstr "Служба поддержки"
 
@@ -1572,14 +1553,6 @@ msgstr "политика конфиденциальности"
 
 #: .\checkout\templates\checkout\index.html:243
 #, python-format
-#| msgid ""
-#| "\n"
-#| "                                    Before you proceed to complete your checkout, we kindly request that you take a moment to review our Privacy Policy. \n"
-#| "                                    Our Privacy Policy outlines how we collect, use, and protect your personal information.\n"
-#| "                                    By understanding our privacy practices, you can have full confidence in providing your details for a seamless checkout experience. \n"
-#| "                                    To view our Privacy Policy, please click <a href=\"%(privacy_policy_link)s\" class=\"woocommerce-privacy-policy-link\" target=\"_blank\">%(privacy_policy_text)s</a>. \n"
-#| "                                    Once you have familiarized yourself with our policy, you can proceed with confidence to complete your checkout.                                  \n"
-#| "                                    "
 msgid ""
 "\n"
 "                                    Before you proceed to complete your checkout, we kindly request that you take a moment to review our Privacy Policy. \n"
@@ -1596,37 +1569,42 @@ msgstr ""
 "Чтобы ознакомиться с нашей Политикой конфиденциальности, нажмите <a href=\"%(privacy_policy_link)s\" class=\"woocommerce-privacy-policy-link\" rel=\"noopener noreferrer\" target=\"_blank\">%(privacy_policy_text)s</a >.\n"
 "После того, как вы ознакомились с нашей политикой, вы можете с уверенностью приступить к оформлению заказа."
 
-#: .\checkout\templates\checkout\index.html:281
+#: .\checkout\templates\checkout\index.html:282
 msgid "optional"
 msgstr "необязательный"
 
-#: .\checkout\templates\checkout\index.html:283
+#: .\checkout\templates\checkout\index.html:284
 msgid "Please fill the required fields"
 msgstr "Пожалуйста, заполните обязательные поля"
 
-#: .\checkout\templates\checkout\index.html:284
+#: .\checkout\templates\checkout\index.html:285
 msgid "Place order"
 msgstr "Разместить заказ"
 
-#: .\checkout\templates\checkout\index.html:285
+#: .\checkout\templates\checkout\index.html:286
 msgid "Additional information"
 msgstr "Дополнительная информация"
 
-#: .\checkout\templates\checkout\index.html:286
+#: .\checkout\templates\checkout\index.html:287
 msgid "Select a city"
 msgstr "Выберите город"
 
-#: .\checkout\templates\checkout\index.html:287
+#: .\checkout\templates\checkout\index.html:288
 msgid "Billing Details"
 msgstr "Платежные Pеквизиты"
 
-#: .\checkout\templates\checkout\index.html:288
+#: .\checkout\templates\checkout\index.html:289
 msgid ""
 "Phone number must be entered in the format: '+994xxxxxxxxx'. Up to 12 digits"
 " allowed"
 msgstr ""
 "Номер телефона необходимо вводить в формате: '+994xxxxxxxxx'. Допускается до"
 " 12 цифр"
+
+#: .\checkout\templates\checkout\success.html:2
+#| msgid "Order succeeded"
+msgid "Order Succeeded"
+msgstr "Заказ выполнен"
 
 #: .\checkout\templates\checkout\success.html:17
 msgid ""
@@ -1656,20 +1634,38 @@ msgid "Order Date"
 msgstr "Дата Заказа"
 
 #: .\checkout\templates\checkout\success.html:32
-#| msgid "Refund Amount"
 msgid "Payment Amount"
 msgstr "К оплате"
 
 #: .\checkout\templates\checkout\success.html:33
-#| msgid "Email Address"
 msgid "Shipping Address"
 msgstr "Адрес доставки"
 
-#: .\checkout\templates\checkout\success.html:37
+#: .\checkout\templates\checkout\success.html:36
+#| msgid ""
+#| "\n"
+#| "                        Thank you for your recent purchase from our website. \n"
+#| "                        We are pleased to inform you that your payment has been successfully processed, and your order is now confirmed. \n"
+#| "                        "
+msgid ""
+"\n"
+"                          By using the link below, you can get information about your order. \n"
+"                          Please save the link to track your order whenever you would like.\n"
+"                          "
+msgstr ""
+"\n"
+"По ссылке ниже вы можете получить информацию о вашем заказе. Пожалуйста, сохраните ссылку, чтобы отслеживать свой заказ в любое время."
+
+#: .\checkout\templates\checkout\success.html:44
+#| msgid "Back to Order List"
+msgid "Track you Order"
+msgstr "Отследить ваш заказ"
+
+#: .\checkout\templates\checkout\success.html:47
 msgid "Information about your order"
 msgstr "Информация о вашем заказе"
 
-#: .\checkout\templates\checkout\success.html:42
+#: .\checkout\templates\checkout\success.html:52
 #, python-format
 msgid ""
 "\n"
@@ -1681,8 +1677,7 @@ msgstr ""
 "Если у вас есть какие-либо вопросы или вам нужна дополнительная помощь относительно вашего заказа, пожалуйста, не стесняйтесь обращаться в нашу службу поддержки клиентов по адресу\n"
 "<a href=\"%(contact_link)s\" class=\"d-inline-block\" rel=\"noopener noreferrer\" target=\"_blank\">%(contact_text)s</a>."
 
-#: .\checkout\views.py:55 .\checkout\views.py:57
-#| msgid "Order Failed"
+#: .\checkout\views.py:53 .\checkout\views.py:55
 msgid "Order succeeded"
 msgstr "Заказ выполнен"
 
@@ -2196,6 +2191,12 @@ msgstr ""
 "свой список желаний. Наша функция списка желаний позволяет легко отслеживать"
 " продукты, которые вы хотите приобрести в будущем. Просмотрите наши продукты"
 " и добавьте их в свой список желаний сегодня!"
+
+#~ msgid "SMS cannot be sent"
+#~ msgstr "SMS не может быть отправлено"
+
+#~ msgid "Email cannot be sent"
+#~ msgstr "Электронная почта не может быть отправлена"
 
 #, fuzzy
 #~ msgid "Order cannot be failed"

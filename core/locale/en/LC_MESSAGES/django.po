@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-15 16:04+0200\n"
+"POT-Creation-Date: 2023-06-15 22:41+0200\n"
 "PO-Revision-Date: 2023-06-15 16:12+0400\n"
 "Last-Translator: Tural Hasanov <tural.hasanov.std@bhos.edu.az>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -641,14 +641,6 @@ msgstr ""
 
 #: .\administration\forms.py:499 .\administration\forms.py:500
 msgid "Full Refund"
-msgstr ""
-
-#: .\administration\notifications.py:60 .\administration\notifications.py:152
-msgid "SMS cannot be sent"
-msgstr ""
-
-#: .\administration\notifications.py:104 .\administration\notifications.py:129
-msgid "Email cannot be sent"
 msgstr ""
 
 #: .\administration\templates\administration\auth\login.html:2
@@ -1351,52 +1343,51 @@ msgstr ""
 msgid "Order was not saved!"
 msgstr ""
 
-#: .\api\views.py:104
+#: .\api\views.py:108
 msgid "Product was not found"
 msgstr ""
 
-#: .\api\views.py:163 .\api\views.py:205
+#: .\api\views.py:167 .\api\views.py:211 .\api\views.py:215 .\api\views.py:216
 msgid "Order cannot be placed"
 msgstr ""
 
-#: .\api\views.py:183
+#: .\api\views.py:187
 msgid "New order: "
 msgstr ""
 
-#: .\api\views.py:201
+#: .\api\views.py:207
 msgid "Order was placed successfully"
 msgstr ""
 
-#: .\api\views.py:224
+#: .\api\views.py:234
 msgid "Order cannot be cancelled"
 msgstr ""
 
-#: .\api\views.py:239
-#| msgid "Order Details Description"
+#: .\api\views.py:250
 msgid "Your order has failed!"
 msgstr ""
 
-#: .\api\views.py:273
+#: .\api\views.py:284
 msgid "Order was refunded"
 msgstr ""
 
-#: .\api\views.py:277
+#: .\api\views.py:288
 msgid "Order cannot be refunded"
 msgstr ""
 
-#: .\api\views.py:279 .\api\views.py:310
+#: .\api\views.py:290 .\api\views.py:321
 msgid "Order was not found"
 msgstr ""
 
-#: .\api\views.py:281 .\checkout\payment.py:75
+#: .\api\views.py:292 .\checkout\payment.py:75
 msgid "Refund failed"
 msgstr ""
 
-#: .\api\views.py:307
+#: .\api\views.py:318
 msgid "Order delivery was updated"
 msgstr ""
 
-#: .\api\views.py:308
+#: .\api\views.py:319
 msgid "Order delivery cannot be updated"
 msgstr ""
 
@@ -1413,8 +1404,8 @@ msgid "Shopping Cart Description"
 msgstr ""
 "Review and edit the items in your shopping cart before completing your "
 "purchase. Our shopping cart page makes it easy to add or remove items from "
-"your cart and adjust quantities. Review your cart and complete your purchase"
-" now."
+"your cart and adjust quantities. Review your cart and complete your purchase "
+"now."
 
 #: .\cart\templates\cart\summary.html:113
 msgid "Cart totals"
@@ -1432,24 +1423,23 @@ msgstr ""
 #: .\cart\templates\cart\summary.html:143
 #: .\checkout\templates\checkout\failed.html:46
 #: .\checkout\templates\checkout\index.html:265
-#: .\checkout\templates\checkout\success.html:35
+#: .\checkout\templates\checkout\success.html:58
 #: .\store\templates\store\products\index.html:68
 msgid "Continue Shopping"
 msgstr ""
 
-#: .\cart\views.py:18 .\checkout\views.py:17 .\checkout\views.py:37
-#: .\checkout\views.py:56 .\library\views.py:18
-#: .\main\context_processors.py:11 .\main\templates\main\index.html:2
-#: .\main\views.py:39 .\main\views.py:81 .\main\views.py:96
-#: .\main\views.py:108 .\main\views.py:121 .\main\views.py:133
-#: .\main\views.py:151 .\news\views.py:24 .\news\views.py:38
-#: .\orders\views.py:23 .\services\views.py:23 .\store\views.py:41
-#: .\store\views.py:66 .\store\views.py:90 .\wishlist\views.py:17
+#: .\cart\views.py:18 .\checkout\views.py:17 .\checkout\views.py:36
+#: .\checkout\views.py:54 .\library\views.py:18 .\main\context_processors.py:11
+#: .\main\templates\main\index.html:2 .\main\views.py:39 .\main\views.py:81
+#: .\main\views.py:96 .\main\views.py:108 .\main\views.py:121
+#: .\main\views.py:133 .\main\views.py:151 .\news\views.py:24
+#: .\news\views.py:38 .\orders\views.py:23 .\services\views.py:23
+#: .\store\views.py:41 .\store\views.py:66 .\store\views.py:90
+#: .\wishlist\views.py:17
 msgid "Home"
 msgstr ""
 
-#: .\checkout\payment.py:43 .\checkout\views.py:36 .\checkout\views.py:38
-#| msgid "Order Details Description"
+#: .\checkout\payment.py:43 .\checkout\views.py:35 .\checkout\views.py:37
 msgid "Order failed"
 msgstr ""
 
@@ -1490,24 +1480,28 @@ msgid "Invalid city"
 msgstr ""
 
 #: .\checkout\templates\checkout\failed.html:2
-#: .\checkout\templates\checkout\success.html:2
 msgid "Order Failed"
 msgstr ""
 
 #: .\checkout\templates\checkout\failed.html:18
 msgid ""
 "\n"
-"                      We regret to inform you that there was an issue processing your recent order on our website. \n"
-"                      We apologize for any inconvenience caused.                                       \n"
+"                      We regret to inform you that there was an issue "
+"processing your recent order on our website. \n"
+"                      We apologize for any inconvenience "
+"caused.                                       \n"
 "                      "
 msgstr ""
 
 #: .\checkout\templates\checkout\failed.html:24
 msgid ""
 "\n"
-"                      Unfortunately, the payment for your order could not be completed successfully. \n"
-"                      This may be due to an issue with your payment method or an authorization problem. \n"
-"                      Please ensure that the payment details provided are accurate and try again.   \n"
+"                      Unfortunately, the payment for your order could not be "
+"completed successfully. \n"
+"                      This may be due to an issue with your payment method "
+"or an authorization problem. \n"
+"                      Please ensure that the payment details provided are "
+"accurate and try again.   \n"
 "                      "
 msgstr ""
 
@@ -1517,7 +1511,7 @@ msgid "Your order number"
 msgstr ""
 
 #: .\checkout\templates\checkout\failed.html:34
-#: .\checkout\templates\checkout\success.html:39
+#: .\checkout\templates\checkout\success.html:49
 msgid "Customer Contact"
 msgstr ""
 
@@ -1525,10 +1519,14 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                      If you believe there was an error or need assistance with the payment process, \n"
-"                      please don't hesitate to contact our customer support team at \n"
-"                      <a href=\"%(contact_link)s\" class=\"d-inline-block\" rel=\"noopener noreferrer\" target=\"_blank\">%(contact_text)s</a>. \n"
-"                      We will be happy to assist you and resolve any payment-related issues.\n"
+"                      If you believe there was an error or need assistance "
+"with the payment process, \n"
+"                      please don't hesitate to contact our customer support "
+"team at \n"
+"                      <a href=\"%(contact_link)s\" class=\"d-inline-block\" "
+"rel=\"noopener noreferrer\" target=\"_blank\">%(contact_text)s</a>. \n"
+"                      We will be happy to assist you and resolve any payment-"
+"related issues.\n"
 "                      "
 msgstr ""
 
@@ -1540,9 +1538,9 @@ msgstr ""
 #: .\checkout\templates\checkout\index.html:3
 msgid "Checkout Description"
 msgstr ""
-"Securely checkout and complete your purchase with ease. Our checkout process"
-" is easy to use and we offer a variety of payment options to suit your "
-"needs. Review your order and complete your purchase now."
+"Securely checkout and complete your purchase with ease. Our checkout process "
+"is easy to use and we offer a variety of payment options to suit your needs. "
+"Review your order and complete your purchase now."
 
 #: .\checkout\templates\checkout\index.html:167
 msgid "Your Order"
@@ -1556,57 +1554,75 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                                    Before you proceed to complete your checkout, we kindly request that you take a moment to review our Privacy Policy. \n"
-"                                    Our Privacy Policy outlines how we collect, use, and protect your personal information.\n"
-"                                    By understanding our privacy practices, you can have full confidence in providing your details for a seamless checkout experience. \n"
-"                                    To view our Privacy Policy, please click <a href=\"%(privacy_policy_link)s\" class=\"woocommerce-privacy-policy-link\" rel=\"noopener noreferrer\" target=\"_blank\">%(privacy_policy_text)s</a>. \n"
-"                                    Once you have familiarized yourself with our policy, you can proceed with confidence to complete your checkout.                                  \n"
+"                                    Before you proceed to complete your "
+"checkout, we kindly request that you take a moment to review our Privacy "
+"Policy. \n"
+"                                    Our Privacy Policy outlines how we "
+"collect, use, and protect your personal information.\n"
+"                                    By understanding our privacy practices, "
+"you can have full confidence in providing your details for a seamless "
+"checkout experience. \n"
+"                                    To view our Privacy Policy, please click "
+"<a href=\"%(privacy_policy_link)s\" class=\"woocommerce-privacy-policy-link"
+"\" rel=\"noopener noreferrer\" target=\"_blank\">%(privacy_policy_text)s</"
+"a>. \n"
+"                                    Once you have familiarized yourself with "
+"our policy, you can proceed with confidence to complete your "
+"checkout.                                  \n"
 "                                    "
 msgstr ""
 
-#: .\checkout\templates\checkout\index.html:281
+#: .\checkout\templates\checkout\index.html:282
 msgid "optional"
 msgstr ""
 
-#: .\checkout\templates\checkout\index.html:283
+#: .\checkout\templates\checkout\index.html:284
 msgid "Please fill the required fields"
 msgstr ""
 
-#: .\checkout\templates\checkout\index.html:284
+#: .\checkout\templates\checkout\index.html:285
 msgid "Place order"
 msgstr ""
 
-#: .\checkout\templates\checkout\index.html:285
+#: .\checkout\templates\checkout\index.html:286
 msgid "Additional information"
 msgstr ""
 
-#: .\checkout\templates\checkout\index.html:286
+#: .\checkout\templates\checkout\index.html:287
 msgid "Select a city"
 msgstr ""
 
-#: .\checkout\templates\checkout\index.html:287
+#: .\checkout\templates\checkout\index.html:288
 msgid "Billing Details"
 msgstr ""
 
-#: .\checkout\templates\checkout\index.html:288
+#: .\checkout\templates\checkout\index.html:289
 msgid ""
-"Phone number must be entered in the format: '+994xxxxxxxxx'. Up to 12 digits"
-" allowed"
+"Phone number must be entered in the format: '+994xxxxxxxxx'. Up to 12 digits "
+"allowed"
+msgstr ""
+
+#: .\checkout\templates\checkout\success.html:2
+msgid "Order Succeeded"
 msgstr ""
 
 #: .\checkout\templates\checkout\success.html:17
 msgid ""
 "\n"
-"                        Thank you for your recent purchase from our website. \n"
-"                        We are pleased to inform you that your payment has been successfully processed, and your order is now confirmed. \n"
+"                        Thank you for your recent purchase from our "
+"website. \n"
+"                        We are pleased to inform you that your payment has "
+"been successfully processed, and your order is now confirmed. \n"
 "                        "
 msgstr ""
 
 #: .\checkout\templates\checkout\success.html:23
 msgid ""
 "\n"
-"                        You will receive a mobile notification and an e-mail notification \n"
-"                        (if you included an e-mail address during payment) regarding your order information soon.\n"
+"                        You will receive a mobile notification and an e-mail "
+"notification \n"
+"                        (if you included an e-mail address during payment) "
+"regarding your order information soon.\n"
 "                        "
 msgstr ""
 
@@ -1623,20 +1639,38 @@ msgstr ""
 msgid "Shipping Address"
 msgstr ""
 
-#: .\checkout\templates\checkout\success.html:37
+#: .\checkout\templates\checkout\success.html:36
+msgid ""
+"\n"
+"                          By using the link below, you can get information "
+"about your order. \n"
+"                          Please save the link to track your order whenever "
+"you would like.\n"
+"                          "
+msgstr ""
+
+#: .\checkout\templates\checkout\success.html:44
+msgid "Track you Order"
+msgstr ""
+
+#: .\checkout\templates\checkout\success.html:47
 msgid "Information about your order"
 msgstr ""
 
-#: .\checkout\templates\checkout\success.html:42
+#: .\checkout\templates\checkout\success.html:52
 #, python-format
 msgid ""
 "\n"
-"                        If you have any questions or need further assistance regarding your order, please feel free to contact our customer support team at \n"
-"                        <a href=\"%(contact_link)s\" class=\"d-inline-block\" rel=\"noopener noreferrer\" target=\"_blank\">%(contact_text)s</a>.                                                     \n"
+"                        If you have any questions or need further assistance "
+"regarding your order, please feel free to contact our customer support team "
+"at \n"
+"                        <a href=\"%(contact_link)s\" class=\"d-inline-block"
+"\" rel=\"noopener noreferrer\" target=\"_blank\">%(contact_text)s</"
+"a>.                                                     \n"
 "                        "
 msgstr ""
 
-#: .\checkout\views.py:55 .\checkout\views.py:57
+#: .\checkout\views.py:53 .\checkout\views.py:55
 msgid "Order succeeded"
 msgstr ""
 
@@ -1778,8 +1812,8 @@ msgstr ""
 #: .\main\templates\main\career.html:3
 msgid "Career Description"
 msgstr ""
-"Explore the companies we collaborate with in the healthcare sector. Discover"
-" our strategic partnerships and alliances with leading organizations "
+"Explore the companies we collaborate with in the healthcare sector. Discover "
+"our strategic partnerships and alliances with leading organizations "
 "dedicated to advancing medical research, technology, and innovation. Learn "
 "more about our network of industry partners and our commitment to fostering "
 "collaborations that shape the future of healthcare."
@@ -1794,8 +1828,8 @@ msgid "Contact Description"
 msgstr ""
 "Contact us for any questions or inquiries about our products and services. "
 "Our customer support team is available 24/7 to assist you with any queries "
-"you may have. Reach out to us today and let us help you with your healthcare"
-" needs."
+"you may have. Reach out to us today and let us help you with your healthcare "
+"needs."
 
 #: .\main\templates\main\contact.html:41
 msgid "Office Address"
@@ -1825,22 +1859,22 @@ msgid "Home Description"
 msgstr ""
 "Welcome to our online pharmacy where you can find a wide range of medicines "
 "and healthcare products. We provide high-quality medicines that are "
-"reliable, affordable, and delivered to your doorstep. Shop now and enjoy our"
-" exclusive discounts!"
+"reliable, affordable, and delivered to your doorstep. Shop now and enjoy our "
+"exclusive discounts!"
 
 #: .\main\templates\main\privacy-policy.html:3
 msgid "Privacy Policy Description"
 msgstr ""
 "Our privacy policy outlines our commitment to protecting your personal "
-"information and data. Learn about our data collection and storage practices,"
-" and how we use your information to provide you with a better shopping "
+"information and data. Learn about our data collection and storage practices, "
+"and how we use your information to provide you with a better shopping "
 "experience. Read our privacy policy now and shop with confidence."
 
 #: .\main\templates\main\return-policy.html:3
 msgid "Return Policy Description"
 msgstr ""
-"Our return policy outlines the steps you need to take if you are unsatisfied"
-" with your purchase. Learn about our return process, eligibility criteria, "
+"Our return policy outlines the steps you need to take if you are unsatisfied "
+"with your purchase. Learn about our return process, eligibility criteria, "
 "and exceptions. Read our return policy now and shop with confidence."
 
 #: .\main\templates\main\terms-and-conditions.html:3
@@ -1914,11 +1948,11 @@ msgstr ""
 #: .\orders\templates\orders\detail.html:3
 msgid "Order Details Description"
 msgstr ""
-"View the detailed information of your specific order on our online pharmacy."
-" The Order Details page provides you with a comprehensive overview of your "
+"View the detailed information of your specific order on our online pharmacy. "
+"The Order Details page provides you with a comprehensive overview of your "
 "purchase, including itemized products, quantities, prices, and shipping "
-"details. Stay informed about your specific order and review all the relevant"
-" information at a glance."
+"details. Stay informed about your specific order and review all the relevant "
+"information at a glance."
 
 #: .\orders\templates\orders\detail.html:45
 msgid "Order Number"
@@ -1948,8 +1982,7 @@ msgstr ""
 "Our company offers a wide range of services to meet all your healthcare "
 "needs. From prescription refills to online consultations, we have got you "
 "covered. Our team of professionals is dedicated to providing you with the "
-"best healthcare services. Explore our services and book an appointment "
-"today!"
+"best healthcare services. Explore our services and book an appointment today!"
 
 #: .\store\models.py:34
 msgid "categories"
@@ -1988,8 +2021,8 @@ msgid "Shop Description"
 msgstr ""
 "Shop our wide selection of medicines and healthcare products at competitive "
 "prices. We offer a user-friendly interface, secure payment options, and "
-"reliable delivery services. Browse our product categories and find the right"
-" products for your healthcare needs."
+"reliable delivery services. Browse our product categories and find the right "
+"products for your healthcare needs."
 
 #: .\store\templates\store\products\index.html:16
 msgid "Order by"
@@ -2028,8 +2061,8 @@ msgid "entries"
 msgstr ""
 
 #: .\templates\components\admin\navbar.html:14
-#: .\templates\layouts\admin.html:19
-#: .\templates\layouts\authentication.html:24 .\user\models.py:39
+#: .\templates\layouts\admin.html:19 .\templates\layouts\authentication.html:24
+#: .\user\models.py:39
 msgid "Admin"
 msgstr ""
 
@@ -2139,23 +2172,23 @@ msgstr ""
 #: .\wishlist\templates\wishlist\index.html:4
 msgid "Wishlist Description"
 msgstr ""
-"Keep track of your favorite healthcare products and medicines by adding them"
-" to your wishlist. Our wishlist feature makes it easy to keep track of "
+"Keep track of your favorite healthcare products and medicines by adding them "
+"to your wishlist. Our wishlist feature makes it easy to keep track of "
 "products you want to purchase in the future. Browse our products and add "
 "them to your wishlist today!"
 
 #, fuzzy
 #~ msgid "Order cannot be failed"
 #~ msgstr ""
-#~ "View the detailed information of your specific order on our online pharmacy."
-#~ " The Order Details page provides you with a comprehensive overview of your "
-#~ "purchase, including itemized products, quantities, prices, and shipping "
-#~ "details. Stay informed about your specific order and review all the relevant"
-#~ " information at a glance."
+#~ "View the detailed information of your specific order on our online "
+#~ "pharmacy. The Order Details page provides you with a comprehensive "
+#~ "overview of your purchase, including itemized products, quantities, "
+#~ "prices, and shipping details. Stay informed about your specific order and "
+#~ "review all the relevant information at a glance."
 
 #~ msgid "Orders Description"
 #~ msgstr ""
-#~ "View your order history and track your purchases from our online pharmacy. "
-#~ "Our shopping orders page allows you to view your order status, shipment "
-#~ "details, and track your package. Stay informed about your purchases and "
-#~ "track them with ease."
+#~ "View your order history and track your purchases from our online "
+#~ "pharmacy. Our shopping orders page allows you to view your order status, "
+#~ "shipment details, and track your package. Stay informed about your "
+#~ "purchases and track them with ease."
