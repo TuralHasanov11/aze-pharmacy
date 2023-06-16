@@ -65,13 +65,11 @@ class PaymentGateway:
                                      headers={
                                          "Authorization": settings.PAYRIFF_SECRET_KEY,
                                          "Content-Type": "application/json"}
-                                     )
-            print(response.headers)
-            print(response.text)
-            
+                                     )            
             if response.status_code == 200:
                 return response.json()
             else:
+                return response.json()
                 raise Exception(_("Refund failed"))
         except Exception as e:
             raise Exception(str(e))

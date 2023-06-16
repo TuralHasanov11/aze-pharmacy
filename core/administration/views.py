@@ -692,10 +692,9 @@ def orderDetail(request, id: int):
     delivery_form = forms.OrderDeliveryForm(
         instance=OrderDelivery.objects.get(order=order))
     refund_form = forms.OrderRefundForm()
-    orderLogs = order.history.order_by('-history_date')
-    orderDeliveryLogs = order.order_delivery.history.order_by(
+    orderLogs = order.history.exclude(history_change_reason=None).order_by('-history_date')
+    orderDeliveryLogs = order.order_delivery.history.exclude(history_change_reason=None).order_by(
         '-history_date')
-
     return render(request, template_name, {"order": order, "form": form, "delivery_form": delivery_form,
                                            "refund_form": refund_form, "order_logs": orderLogs,
                                            "order_delivery_logs": orderDeliveryLogs})

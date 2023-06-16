@@ -43,6 +43,7 @@ class OrderAdmin(SimpleHistoryAdmin):
         OrderDeliveryInline,
         OrderItemInline,
     ]
+    readonly_fields = ["seen"]
     history_list_display = ["changed_fields", "list_changes"]
 
     def changed_fields(self, obj):
