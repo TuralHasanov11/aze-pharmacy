@@ -52,7 +52,9 @@ deliveryForm.addEventListener('submit', async (event) => {
 
     if (response.ok) {
       successAlert(data.message)
-      handleDeliverySuccess(data)
+      if(data?.delivery_log?.history_change_reason){
+        handleDeliverySuccess(data)
+      }
     } else{
       throw new Error(JSON.stringify(data))
     }

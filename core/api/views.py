@@ -299,8 +299,9 @@ def updateOrderDelivery(request, id: int):
     try:
         delivery = OrderDelivery.objects.get(order_id=id)
         order = Order.objects.get(id=id)
-        form = OrderDeliveryForm(instance=delivery, data=request.POST)
+        form = OrderDeliveryForm(data=request.POST, instance=delivery)
         if form.is_valid():
+            context = {}
             if form.has_changed():
                 with transaction.atomic():
                     changedData = form.changed_data
@@ -308,14 +309,18 @@ def updateOrderDelivery(request, id: int):
                     logsSerializer = OrderDeliveryLogSerializer(instance=instance,
                                                                 logs=instance.history.order_by('-history_date'))
                     latestLog = logsSerializer.save()
+                    context["delivery_log"] = latestLog
                     if "delivery_status" in changedData:
                         try:
                             sendDeliveryStatusNotification(
                                 request=request, order=order, delivery=delivery)
                         except Exception as e:
-                            return Response(status=400, data={"message": str(e)})
+                            return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": str(e)})
             serializer = OrderDeliverySerializer(instance=delivery)
-            return Response(data={"message": _("Order delivery was updated"), "delivery": serializer.data, "delivery_log": latestLog})
-        return Response(status=422, data={"message": _("Order delivery cannot be updated"), "errors": form.errors})
+            context["delivery"] = serializer.data
+            context["message"] = _("Order delivery was updated")
+            return Response(data=context)
+        return Response(status=status.HTTP_422_UNPROCESSABLE_ENTITY, 
+                        data={"message": _("Order delivery cannot be updated"), "errors": form.errors})
     except Order.DoesNotExist:
-        return Response(status=404, data={"message": _("Order was not found")})
+        return Response(status=status.HTTP_404_NOT_FOUND, data={"message": _("Order was not found")})

@@ -145,7 +145,7 @@ class OrderDelivery(models.Model):
     tracking_number = models.CharField(max_length=100, null=True, blank=True)
     last_modified_by = models.ForeignKey(
         get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
-    history = EntryLog()
+    history = EntryLog(history_change_reason_field=models.TextField(null=True))
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

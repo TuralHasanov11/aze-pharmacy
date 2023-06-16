@@ -27,17 +27,22 @@ class LogSerializer(ABC):
     def save(self):
         translation.activate("az")
         log = self.logs[0]
+        print(log.history_user)
         result = ""
-        if hasattr(log, 'changes'):
-            log.history_change_reason = ""
-            for change in log.changes:
-                if change.field in self.fields:
-                    result += f"{self.fields[change.field]} dəyişdirildi.\n"
-            log.history_change_reason = result
-            update_change_reason(self.instance, result)
-        log.history_date = datetime.fromisoformat(str(log.history_date)).strftime("%d.%m.%Y %H:%M")
-        return self.serialize(log)
-    
+        try:
+            if hasattr(log, 'changes'):
+                log.history_change_reason = ""
+                for change in log.changes:
+                    if change.field in self.fields:
+                        result += f"{self.fields[change.field]} dəyişdirildi.\n"
+                log.history_change_reason = result
+                update_change_reason(self.instance, result)
+            log.history_date = datetime.fromisoformat(
+                str(log.history_date)).strftime("%d.%m.%Y %H:%M")
+            return self.serialize(log)
+        except Exception:
+            return self.serialize(log)
+
     def serialize(self, log):
         return {
             "history_user": str(log.history_user),
