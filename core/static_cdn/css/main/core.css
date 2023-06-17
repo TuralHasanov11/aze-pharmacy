@@ -992,6 +992,7 @@ body.search-visible {
 .breadcrumb-bg {
 	background-position: center;
 	background-size: cover;
+	background-attachment: fixed;
 	position: relative;
 	padding: 230px 0 150px;
 	z-index: 1;
@@ -1100,6 +1101,10 @@ body.search-visible {
 
 .banner-images img.bg-shape {
 	max-height: 560px;
+}
+
+.banner-images div.bg-shape {
+	height: 200px;
 }
 
 .banner-content {
