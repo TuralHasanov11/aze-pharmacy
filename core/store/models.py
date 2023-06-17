@@ -13,21 +13,15 @@ from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from mptt.models import MPTTModel, TreeForeignKey
 
 
-class Category(MPTTModel):
+class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, unique=True)
-    parent = TreeForeignKey("self", on_delete=models.PROTECT,
-                            related_name="children", null=True, blank=True)
     last_modified_by = models.ForeignKey(
         get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    class MPTTMeta:
-        order_insertion_by = ["name"]
 
     class Meta:
         ordering = ["name"]
@@ -47,7 +41,7 @@ class Category(MPTTModel):
     @property
     def last_modified_by_name(self):
         return str(self.last_modified_by)
-    
+
     @property
     def created_date(self):
         return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
@@ -55,6 +49,7 @@ class Category(MPTTModel):
     @property
     def updated_date(self):
         return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
+
 
 class ProductQuerySet(models.QuerySet):
     def list_queryset(self):
@@ -142,7 +137,7 @@ class Product(models.Model):
     @property
     def updated_date(self):
         return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
-    
+
     @property
     def last_modified_by_name(self):
         return str(self.last_modified_by)
