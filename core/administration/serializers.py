@@ -1,7 +1,6 @@
 from abc import ABC
 from datetime import datetime, timezone
 
-import dateutil.parser
 from django.utils import translation
 from django.utils.translation import gettext_lazy as _
 from simple_history.utils import update_change_reason
