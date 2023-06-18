@@ -1,12 +1,10 @@
-import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
-from simple_history.models import HistoricalRecords
 
 
 def service_cover_image_path(instance, filename):
@@ -49,8 +47,8 @@ class Service(models.Model):
 
     @property
     def created_date(self):
-        return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
+        return datetime.fromisoformat(str(self.created_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
 
     @property
     def updated_date(self):
-        return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
+        return datetime.fromisoformat(str(self.updated_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")

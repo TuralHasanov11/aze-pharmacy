@@ -35,9 +35,15 @@
                                 </div>
                             </form>
                             <div>
+                                {% if request.GET.is_flagged %}
+                                <a href="{% url 'administration:order-list' %}" class="btn btn-sm btn-warning">
+                                    {% translate "All Orders" %}
+                                </a>
+                                {% else %}
                                 <a href="?is_flagged=1" class="btn btn-sm btn-warning">
                                     {% translate "Flagged Orders Only" %}
                                 </a>
+                                {% endif %}
                                 <div class="btn-group">
                                     <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
                                       {% if request.GET.status == "paid" %}
@@ -152,7 +158,7 @@
     }
 
     async function flagOrder(element, orderId){
-        const response = await fetch(`${ordersAPIURL}/${orderId}/flag`, {
+        const response = await fetch(`/api/orders/${orderId}/flag`, {
             method: 'POST',
             headers: { "X-CSRFToken": csrftoken },
         });

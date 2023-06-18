@@ -1,5 +1,5 @@
 from abc import ABC
-from datetime import datetime
+from datetime import datetime, timezone
 
 from django.utils import translation
 from django.utils.translation import gettext_lazy as _
@@ -27,7 +27,6 @@ class LogSerializer(ABC):
     def save(self):
         translation.activate("az")
         log = self.logs[0]
-        print(log.history_user)
         result = ""
         try:
             if hasattr(log, 'changes'):
@@ -38,7 +37,7 @@ class LogSerializer(ABC):
                 log.history_change_reason = result
                 update_change_reason(self.instance, result)
             log.history_date = datetime.fromisoformat(
-                str(log.history_date)).strftime("%d.%m.%Y %H:%M")
+                f"{str(log.history_date)}").replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
             return self.serialize(log)
         except Exception:
             return self.serialize(log)
