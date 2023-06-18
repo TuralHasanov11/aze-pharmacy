@@ -17,7 +17,7 @@ class RichTextEditorField(ckeditorFields.RichTextUploadingField):
 
 class LanguageField(models.CharField):
     description = _("Language field")
-    
+
     def __init__(self, *args, **kwargs):
         kwargs['max_length'] = 2
         kwargs['choices'] = settings.LANGUAGES
@@ -44,11 +44,11 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     @property
     def last_modified_by_name(self):
         return str(self.last_modified_by)
-    
+
     @property
     def created_date(self):
         return datetime.fromisoformat(str(self.created_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
@@ -69,21 +69,25 @@ class SiteInfo(models.Model):
     tiktok_link = models.URLField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
-    banner_image = models.ImageField(upload_to="site/", null=True, blank=True, default="site/banner_default.jpg")
-    breadcrumb_image = models.ImageField(upload_to="site/", null=True, blank=True, default="site/breadcrumb_default.jpg")
-    about_image = models.ImageField(upload_to="site/", null=True, blank=True, default="site/about_image_default.jpg")
-    last_modified_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
+    banner_image = models.ImageField(
+        upload_to="site/", null=True, blank=True, default="site/banner_default.jpg")
+    breadcrumb_image = models.ImageField(
+        upload_to="site/", null=True, blank=True, default="site/breadcrumb_default.jpg")
+    about_image = models.ImageField(
+        upload_to="site/", null=True, blank=True, default="site/about_image_default.jpg")
+    last_modified_by = models.ForeignKey(
+        get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Site Infos"
 
     def __str__(self):
         return f'Site Info - {self.created_at}'
-    
+
     @property
     def last_modified_by_name(self):
         return str(self.last_modified_by)
-    
+
     @property
     def created_date(self):
         return datetime.fromisoformat(str(self.created_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
@@ -100,7 +104,8 @@ class SiteText(models.Model):
     privacy_policy = RichTextEditorField()
     terms_and_conditions = RichTextEditorField()
     order_success = RichTextEditorField()
-    last_modified_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
+    last_modified_by = models.ForeignKey(
+        get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -109,11 +114,11 @@ class SiteText(models.Model):
 
     def __str__(self):
         return f'Site Text - {self.language}'
-    
+
     @property
     def last_modified_by_name(self):
         return str(self.last_modified_by)
-    
+
     @property
     def created_date(self):
         return datetime.fromisoformat(str(self.created_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
@@ -121,23 +126,24 @@ class SiteText(models.Model):
     @property
     def updated_date(self):
         return datetime.fromisoformat(str(self.updated_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
-    
+
 
 class Question(models.Model):
     language = LanguageField()
     question = models.TextField()
     answer = RichTextEditorField()
-    last_modified_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
+    last_modified_by = models.ForeignKey(
+        get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.question
-    
+
     @property
     def last_modified_by_name(self):
         return str(self.last_modified_by)
-    
+
     @property
     def created_date(self):
         return datetime.fromisoformat(str(self.created_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
@@ -145,5 +151,3 @@ class Question(models.Model):
     @property
     def updated_date(self):
         return datetime.fromisoformat(str(self.updated_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
-    
-

@@ -61,7 +61,7 @@ class PaymentGateway:
                                      headers={
                                          "Authorization": settings.PAYRIFF_SECRET_KEY,
                                          "Content-Type": "application/json"}
-                                     )            
+                                     )
             if response.status_code == 200:
                 return response.json()
             else:

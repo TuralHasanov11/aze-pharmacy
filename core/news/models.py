@@ -62,7 +62,7 @@ class Post(models.Model):
     @property
     def last_modified_by_name(self):
         return str(self.last_modified_by)
-    
+
     @property
     def language_display_value(self):
         return self.get_language_display
