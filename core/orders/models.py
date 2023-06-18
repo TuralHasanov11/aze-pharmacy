@@ -1,6 +1,7 @@
 import uuid
 from datetime import datetime, timezone
 
+from dateutil import tz
 from django.contrib.auth import get_user_model
 from django.core.validators import RegexValidator
 from django.db import models
@@ -55,6 +56,10 @@ class Order(models.Model):
     @property
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
+    
+    @property
+    def total_paid_reminder(self):
+        return self.total_paid - self.total_refund
 
     @property
     def payment_status_value(self):
@@ -105,7 +110,7 @@ class OrderRefund(models.Model):
 
     @property
     def created_date(self):
-        return datetime.fromisoformat(str(self.created_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
+        return datetime.fromisoformat(str(self.created_at)).replace(tzinfo=tz.gettz('Asia/Baku')).astimezone().strftime("%d.%m.%Y %H:%M")
 
     @property
     def created_by_name(self):
@@ -151,7 +156,11 @@ class OrderDelivery(models.Model):
 
     @property
     def updated_date(self):
-        return datetime.fromisoformat(str(self.updated_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
+        return datetime.fromisoformat(str(self.updated_at)).replace(tzinfo=tz.gettz('Asia/Baku')).astimezone().strftime("%d.%m.%Y %H:%M")
+
+    @property
+    def created_date(self):
+        return datetime.fromisoformat(str(self.created_at)).replace(tzinfo=tz.gettz('Asia/Baku')).astimezone().strftime("%d.%m.%Y %H:%M")
 
     @property
     def delivery_status_value(self):
