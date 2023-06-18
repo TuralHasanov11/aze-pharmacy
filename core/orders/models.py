@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 
 from django.contrib.auth import get_user_model
 from django.core.validators import RegexValidator
@@ -72,11 +72,11 @@ class Order(models.Model):
 
     @property
     def updated_date(self):
-        return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
+        return datetime.fromisoformat(str(self.updated_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
 
     @property
     def created_date(self):
-        return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
+        return datetime.fromisoformat(str(self.created_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
 
     @property
     def _history_user(self):
@@ -105,7 +105,7 @@ class OrderRefund(models.Model):
 
     @property
     def created_date(self):
-        return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
+        return datetime.fromisoformat(str(self.created_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
 
     @property
     def created_by_name(self):
@@ -151,7 +151,7 @@ class OrderDelivery(models.Model):
 
     @property
     def updated_date(self):
-        return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
+        return datetime.fromisoformat(str(self.updated_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
 
     @property
     def delivery_status_value(self):

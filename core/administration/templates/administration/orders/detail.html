@@ -199,26 +199,8 @@
                   </div>
                 </div>
               </div>
+              <hr>
               <div class="row">
-                <div class="col-12 col-md-6">
-                  <div class=" card mb-4">
-                    <div class="card-header">{% translate "Refunds" %}</div>
-                    <div class="card-body">
-                      <ul id="orderRefundList" class="list-group">
-                        {% for refund in order.refunds.all %}
-                        <li class="list-group-item list-group-item-action">
-                          <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1">{{refund.amount}} &#8380;</h6>
-                            <small>{{refund.created_date}}</small>
-                          </div>
-                          <p class="mb-1">{{refund.created_by_name}}</p>
-                          <small>{{refund.reason}}</small>
-                        </li>
-                        {% endfor %}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
                 <div class="col-12 col-md-6">
                   <form method="post" id="refund-form">
                     <div class=" card mb-4">
@@ -250,6 +232,25 @@
                       </div>
                     </div>
                   </form>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class=" card mb-4">
+                    <div class="card-header">{% translate "Refunds" %}</div>
+                    <div class="card-body">
+                      <ul id="orderRefundList" class="list-group">
+                        {% for refund in order.refunds.all %}
+                        <li class="list-group-item list-group-item-action">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">{{refund.amount}} &#8380;</h6>
+                            <span class="badge bg-primary rounded-pill">{{refund.created_date}}</span>
+                          </div>
+                          <p class="mb-1">{{refund.created_by_name}}</p>
+                          <small>{{refund.reason}}</small>
+                        </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

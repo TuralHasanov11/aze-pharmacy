@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from ckeditor_uploader import fields as ckeditorFields
 from django.conf import settings
@@ -51,11 +51,11 @@ class Company(models.Model):
     
     @property
     def created_date(self):
-        return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
+        return datetime.fromisoformat(str(self.created_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
 
     @property
     def updated_date(self):
-        return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
+        return datetime.fromisoformat(str(self.updated_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
 
 
 class SiteInfo(models.Model):
@@ -86,11 +86,11 @@ class SiteInfo(models.Model):
     
     @property
     def created_date(self):
-        return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
+        return datetime.fromisoformat(str(self.created_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
 
     @property
     def updated_date(self):
-        return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
+        return datetime.fromisoformat(str(self.updated_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
 
 
 class SiteText(models.Model):
@@ -116,11 +116,11 @@ class SiteText(models.Model):
     
     @property
     def created_date(self):
-        return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
+        return datetime.fromisoformat(str(self.created_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
 
     @property
     def updated_date(self):
-        return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
+        return datetime.fromisoformat(str(self.updated_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
     
 
 class Question(models.Model):
@@ -140,10 +140,10 @@ class Question(models.Model):
     
     @property
     def created_date(self):
-        return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
+        return datetime.fromisoformat(str(self.created_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
 
     @property
     def updated_date(self):
-        return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
+        return datetime.fromisoformat(str(self.updated_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
     
 

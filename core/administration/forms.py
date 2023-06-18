@@ -462,7 +462,7 @@ class OrderDeliveryForm(forms.ModelForm):
         "PROCESSING": [OrderDelivery.DeliveryStatus.SHIPPED.name, OrderDelivery.DeliveryStatus.CANCELLED.name],
         "SHIPPED": [OrderDelivery.DeliveryStatus.DELIVERED.name, OrderDelivery.DeliveryStatus.FAILED_DELIVERY.name],
         "DELIVERED": [OrderDelivery.DeliveryStatus.RETURNED.name],
-        "FAILED_DELIVERY": [OrderDelivery.DeliveryStatus.PROCESSING.name],
+        "FAILED_DELIVERY": [OrderDelivery.DeliveryStatus.PROCESSING.name, OrderDelivery.DeliveryStatus.PROCESSING.name],
         "RETURNED": [OrderDelivery.DeliveryStatus.PROCESSING.name],
         "CANCELLED": [],
     }

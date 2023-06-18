@@ -1,6 +1,6 @@
 import os
 import shutil
-from datetime import datetime
+from datetime import datetime, timezone
 
 from ckeditor_uploader import fields as ckeditorFields
 from django.conf import settings
@@ -44,11 +44,11 @@ class Category(models.Model):
 
     @property
     def created_date(self):
-        return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
+        return datetime.fromisoformat(str(self.created_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
 
     @property
     def updated_date(self):
-        return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
+        return datetime.fromisoformat(str(self.updated_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
 
 
 class ProductQuerySet(models.QuerySet):
@@ -132,11 +132,11 @@ class Product(models.Model):
 
     @property
     def created_date(self):
-        return datetime.fromisoformat(str(self.created_at)).strftime("%d.%m.%Y %H:%M")
+        return datetime.fromisoformat(str(self.created_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
 
     @property
     def updated_date(self):
-        return datetime.fromisoformat(str(self.updated_at)).strftime("%d.%m.%Y %H:%M")
+        return datetime.fromisoformat(str(self.updated_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
 
     @property
     def last_modified_by_name(self):
