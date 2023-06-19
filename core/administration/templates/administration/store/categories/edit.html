@@ -45,7 +45,6 @@
             <form method="post" enctype="multipart/form-data"> 
                 {% csrf_token %}
                 {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
-                {{form.non_form_errors}}
                 <div class="row g-3 mb-3">
                   <div class="col-12 col-md-6">
                     <label class="small mb-1" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
@@ -63,7 +62,9 @@
                       <small><b>{{category.last_modified_by|default:'-'}}</b></small>,
                       <small><b>{{category.updated_date}}</b></small>
                   </div>
-              </div>
+                </div>
+                {{form.non_field_errors}} 
+                {{form.non_form_errors}} 
                 <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
             </form>
         </div>

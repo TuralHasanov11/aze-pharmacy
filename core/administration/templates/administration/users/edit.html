@@ -86,6 +86,8 @@
                                     <small><b>{{user.updated_date}}</b></small>
                                 </div>
                             </div>
+                            {{form.non_field_errors}} 
+                            {{form.non_form_errors}}
                             <button class="btn btn-primary" type="submit">{% translate "Save" %}</button>
                         </form>
                     </div>

@@ -38,7 +38,8 @@
             <div class="card-body">
                 {% csrf_token %}
                 {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
-                {{form.non_form_errors}}
+                {{form.non_field_errors}} 
+                {{form.non_form_errors}}                
                 {{ form.media }}
               <div class="row g-3 align-items-center">
                 <div class="col-12 col-md-6 col-xl-4">
@@ -98,6 +99,7 @@
                 {{ product_image_formset.management_form }} 
                 {% for formset_item in product_image_formset %}
                 {% include "components/form/hidden-fields.html" with hidden_fields=formset_item.hidden_fields %}
+                {{formset_item.non_field_errors}} 
                 {{formset_item.non_form_errors}}
                 <div class="mb-4">
                     <label class="mb-1 small" for="{{ formset_item.image.id_for_label }}">{{ formset_item.image.label }}</label>

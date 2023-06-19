@@ -46,6 +46,7 @@
             <div class="card-body">
                 {% csrf_token %}
                 {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
+                {{form.non_field_errors}} 
                 {{form.non_form_errors}}
                 {{ form.media }}
                 <div class="row g-3 mb-3">
