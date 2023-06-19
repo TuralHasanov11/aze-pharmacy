@@ -167,8 +167,7 @@ def checkout(request):
         return JsonResponse(status=400, data={"message": _("Order cannot be placed"), "errors": str(e)})
 
 
-@csrf_exempt
-@require_http_methods(['GET', 'POST'])
+@api_view(['GET', 'POST'])
 def approvePayment(request):
     try:
         if request.method == 'POST':
@@ -217,8 +216,7 @@ def approvePayment(request):
         return JsonResponse(status=400, data={"message": _("Order cannot be placed"), "errors": str(e)})
 
 
-@csrf_exempt
-@require_http_methods(['GET', 'POST'])
+@api_view(['GET', 'POST'])
 def cancelPayment(request):
     try:
         if request.method == 'POST':
@@ -235,8 +233,7 @@ def cancelPayment(request):
         return JsonResponse(status=400, data={"message": _("Order cannot be cancelled"), "errors": str(e)})
 
 
-@csrf_exempt
-@require_http_methods(['GET', 'POST'])
+@api_view(['GET', 'POST'])
 def declinePayment(request):
     try:
         if request.method == 'POST':
