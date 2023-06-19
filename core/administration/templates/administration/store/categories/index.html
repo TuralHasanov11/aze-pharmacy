@@ -61,12 +61,13 @@
                         <form method="post" enctype="multipart/form-data"> 
                             {% csrf_token %}
                             {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
-                            {{form.non_form_errors}}
                             <div class="mb-3">
                                 <label class="small mb-1" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
                                 {{ form.name }} 
                                 {{ form.name.errors }}
                             </div>
+                            {{form.non_field_errors}} 
+                            {{form.non_form_errors}}
                             <button class="btn btn-success btn-sm" type="submit"><i class="me-1" data-feather="plus"></i> {% translate "Save" %}</button>
                         </form>
                     </div>

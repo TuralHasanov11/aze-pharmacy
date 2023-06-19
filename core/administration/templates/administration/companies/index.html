@@ -80,6 +80,8 @@
                                 {{form.cover_image}} 
                                 {{ form.cover_image.errors }}
                             </div>
+                            {{form.non_field_errors}} 
+                            {{form.non_form_errors}} 
                             <button class="btn btn-success btn-sm" type="submit"><i class="me-1" data-feather="plus"></i> {% translate "Save" %}</button>
                         </form>
                     </div>

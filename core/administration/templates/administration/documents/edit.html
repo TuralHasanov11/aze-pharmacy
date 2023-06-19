@@ -38,7 +38,6 @@
                 <form method="post" enctype="multipart/form-data"> 
                     {% csrf_token %}
                     {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
-                    {{form.non_form_errors}}
                     {{ form.media }}
                     <div class="mb-3">
                         <label class="mb-1 small" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
@@ -61,6 +60,8 @@
                             <small><b>{{document.updated_date}}</b></small>
                         </div>
                     </div>
+                    {{form.non_field_errors}} 
+                    {{form.non_form_errors}} 
                     <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
                 </form>
             </div>

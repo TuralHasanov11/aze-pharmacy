@@ -23,7 +23,8 @@
             <form method="POST" action="{% url 'administration:site-info' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %} 
-                {{form.non_form_errors}} 
+                {{form.non_field_errors}} 
+                {{form.non_form_errors}}                 
                 {{ form.media }}
                 <h5 class="card-title mb-4">{% translate "Contact details" %}, {% translate "Social media links" %}</h5>
                 <div class="row g-3 align-items-center">

@@ -44,7 +44,8 @@
                         role="tabpanel" aria-labelledby="pills-{{forloop.counter}}-tab" tabindex="0"
                     >
                     {% include "components/form/hidden-fields.html" with hidden_fields=formset_item.hidden_fields %}
-                    {{formset_item.non_form_errors}}
+                    {{formset_item.non_field_errors}} 
+                    {{formset_item.non_form_errors}} 
                     {{ formset_item.media }}
                     <div class="mb-3 d-none">
                         <h5 class="text-primary mb-1">{{formset_item.language.label}} - {{formset_item.language.value|upper}}</h5>
