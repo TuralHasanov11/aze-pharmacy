@@ -1,0 +1,60 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en" class="h-100" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% translate "Maintenance" %} | {{config.app.name}}</title>
+
+    <link href="{% static 'css/main/bootstrap.css' %}" rel="stylesheet" />
+
+    <style>
+      body {
+        text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
+        box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
+      }
+
+      .cover-container {
+        max-width: 50em;
+      }
+
+    </style>
+
+    <link href="cover.css" rel="stylesheet" />
+  </head>
+  <body class="d-flex h-100 text-center text-bg-dark">
+    <div class="cover-container d-flex align-items-center flex-column w-100 h-100 p-3 mx-auto flex-column">
+      <main class="px-3 my-5">
+        <h1 class="mb-5 text-secondary">{% translate "The website is under maintenance!" %}</h1>
+        <p class="lead">
+        {% with contact_email=site_info.email contact_phone=site_info.phone%}
+            {% blocktranslate %}
+            We're currently performing some scheduled maintenance.
+            We apologize for any inconvenience caused. 
+            During this time, the website will be temporarily unavailable. We expect the maintenance to be completed soon.
+            If you have any urgent inquiries or require immediate assistance, 
+            please reach out to our customer support team at
+            <a href="mailto:{{contact_email}}" class="mail">
+                <i class="fas fa-envelope"></i> {{contact_email}}
+            </a> email address or <a href="tel:{{contact_phone}}" class="mail">
+                <i class="fas fa-envelope"></i> {{contact_phone}}
+            </a>phone number.
+            Thank you for your patience and understanding.
+            {% endblocktranslate %}
+        {% endwith %}        
+        </p>
+      </main>
+
+      <footer class="text-center">
+        <img src="{% static 'images/logo.png' %}" style="width: 30px; height:30px">
+        <p class="lead">
+            <span href="#" class="fw-bold border-white bg-white"
+              >{{config.app.name}}</span>
+        </p>
+        </footer>
+    </div>
+    
+    <script src="{% static 'js/main/bootstrap.js' %}"></script>
+  </body>
+</html>

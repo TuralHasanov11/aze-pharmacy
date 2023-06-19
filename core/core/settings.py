@@ -73,6 +73,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'axes.middleware.AxesMiddleware',
+    'core.middleware.MaintenanceModeMiddleware',
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -377,3 +378,7 @@ LOG_VIEWER_PATTERNS = ['[INFO]', '[DEBUG]',
                        '[WARNING]', '[ERROR]', '[CRITICAL]']
 # String regex expression to exclude the log from line
 LOG_VIEWER_EXCLUDE_TEXT_PATTERN = None
+
+
+MAINTENANCE_MODE = int(os.environ.get("MAINTENANCE_MODE", 0))
+MAINTENANCE_BYPASS_QUERY = os.environ.get("MAINTENANCE_BYPASS_QUERY")

@@ -58,7 +58,7 @@ class Order(models.Model):
         return f"{self.first_name} {self.last_name}"
     
     @property
-    def total_paid_reminder(self):
+    def total_paid_remainder(self):
         return self.total_paid - self.total_refund
 
     @property
