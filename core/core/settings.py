@@ -15,11 +15,11 @@ SITE_HOST = os.environ.get("SITE_HOST")
 
 ALLOWED_HOSTS = [SITE_HOST, os.environ.get("PAYRIFF_HOST"), '*']
 
-if not DEBUG:
+if DEBUG:
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
     # CORS_ALLOW_ALL_ORIGINS = True
-    CSRF_TRUSTED_ORIGINS = [SITE_URL, os.environ.get("PAYRIFF_URL"), '*']
+    CSRF_TRUSTED_ORIGINS = [SITE_URL, os.environ.get("PAYRIFF_URL")]
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
