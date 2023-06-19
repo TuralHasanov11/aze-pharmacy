@@ -172,6 +172,7 @@ def checkout(request):
 def approvePayment(request):
     try:
         if request.method == 'POST':
+            logger.info(request.META)
             data = json.load(request)["payload"]
             order = Order.objects.get(order_key=data["sessionId"], order_id=data["orderID"],
                                       payment_status=Order.PaymentStatus.PENDING)

@@ -20,10 +20,6 @@ class Migration(migrations.Migration):
         ),
         migrations.RemoveField(
             model_name='category',
-            name='parent',
-        ),
-        migrations.RemoveField(
-            model_name='category',
             name='rght',
         ),
         migrations.RemoveField(
