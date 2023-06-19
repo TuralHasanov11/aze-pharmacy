@@ -13,13 +13,13 @@ DEBUG = str(os.environ.get("DEBUG")) == "True"
 SITE_URL = os.environ.get("SITE_URL")
 SITE_HOST = os.environ.get("SITE_HOST")
 
-ALLOWED_HOSTS = [SITE_HOST, '*']
+ALLOWED_HOSTS = [SITE_HOST, os.environ.get("PAYRIFF_HOST"), '*']
 
 if not DEBUG:
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
-    CORS_ALLOW_ALL_ORIGINS = True
-    # CSRF_TRUSTED_ORIGINS = [SITE_URL, '*']
+    # CORS_ALLOW_ALL_ORIGINS = True
+    CSRF_TRUSTED_ORIGINS = [SITE_URL, os.environ.get("PAYRIFF_URL"), '*']
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'storages',
-    "mptt",
     'rest_framework',
     'rosetta',
     'bootstrap_datepicker_plus',
@@ -45,6 +44,7 @@ INSTALLED_APPS = [
     'simple_history',
     'axes',
     "log_viewer",
+    'django_crontab',
 
     'main',
     'news',
@@ -141,6 +141,12 @@ if DATABASE_URL:
     DATABASES['default'].update(db_from_env)
 
 
+if not DEBUG:
+    CRONJOBS = [
+        ('0 0 * * 0', 'orders.cron.delete_expired_orders')
+    ]
+
+
 AUTH_USER_MODEL = 'user.User'
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -193,6 +199,8 @@ LOCALE_PATHS = (
 LOG_DIR = BASE_DIR / 'logs'
 LOG_FILE = '/info.log'
 LOG_PATH = f"{LOG_DIR}/{LOG_FILE}"
+CRON_LOG_FILE = '/cron.log'
+CRON_LOG_PATH = f"{LOG_DIR}/{CRON_LOG_FILE}"
 
 if not os.path.exists(LOG_DIR):
     os.mkdir(LOG_DIR)
@@ -201,6 +209,12 @@ if not os.path.exists(LOG_PATH):
     f = open(LOG_PATH, 'w').close()
 else:
     f = open(LOG_PATH, "a").close()
+
+
+if not os.path.exists(CRON_LOG_PATH):
+    f = open(CRON_LOG_PATH, 'w').close()
+else:
+    f = open(CRON_LOG_PATH, "a").close()
 
 LOGGING = {
     "version": 1,
@@ -211,6 +225,10 @@ LOGGING = {
             "style": "{",
         },
         'main': {
+            'format': '{levelname} at {asctime} in {module} - {name} - {message}',
+            'style': '{'
+        },
+        'cron': {
             'format': '{levelname} at {asctime} in {module} - {name} - {message}',
             'style': '{'
         }
@@ -238,6 +256,12 @@ LOGGING = {
             'class': 'logging.FileHandler',
             'filename': LOG_PATH,
         },
+        'cron': {
+            'level': 'INFO',
+            'formatter': 'cron',
+            'class': 'logging.FileHandler',
+            'filename': CRON_LOG_PATH,
+        },
     },
     "loggers": {
         "django": {
@@ -253,6 +277,11 @@ LOGGING = {
             "handlers": ["file", "console"],
             "propagate": True,
             "level": "WARNING",
+        },
+        "cron": {
+            "handlers": ["cron", "console"],
+            "propagate": True,
+            "level": "INFO",
         }
     },
 }
