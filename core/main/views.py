@@ -152,3 +152,8 @@ class FAQListView(ListView):
             {"title": _("FAQ")},
         ]
         return context
+
+
+@require_GET
+def maintenance(request):
+    return render(request, 'main/maintenance.html')
