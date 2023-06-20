@@ -13,7 +13,7 @@ DEBUG = str(os.environ.get("DEBUG")) == "True"
 SITE_URL = os.environ.get("SITE_URL")
 SITE_HOST = os.environ.get("SITE_HOST")
 
-ALLOWED_HOSTS = [SITE_HOST, os.environ.get("PAYRIFF_HOST"), '*']
+ALLOWED_HOSTS = [SITE_HOST, os.environ.get("PAYRIFF_HOST"), os.environ.get("SITE_HOST2"), '*']
 
 if not DEBUG:
     CSRF_COOKIE_SECURE = True
