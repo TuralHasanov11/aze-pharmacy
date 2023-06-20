@@ -65,7 +65,6 @@ class PaymentGateway:
             if response.status_code == 200:
                 return response.json()
             else:
-                return response.json()
                 raise Exception(_("Refund failed"))
         except Exception as e:
             raise Exception(str(e))
