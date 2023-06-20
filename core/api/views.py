@@ -3,7 +3,6 @@ import logging
 
 from administration.forms import OrderDeliveryForm
 from administration.notifications import (sendDeliveryStatusNotification,
-                                          sendPaymentNotification,
                                           sendRefundNotification)
 from administration.serializers import OrderDeliveryLogSerializer
 from api.serializers import (OrderDeliverySerializer,
@@ -24,8 +23,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils import translation
 from django.utils.translation import gettext_lazy as _
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods, require_POST
+from django.views.decorators.http import require_POST
 from orders.models import Order, OrderDelivery, OrderItem, OrderRefund
 from orders.processor import OrderProcessor
 from rest_framework import status
@@ -179,7 +177,6 @@ def approvePayment(request):
             order.save()
             delivery, created = OrderDelivery.objects.get_or_create(
                 order=order)
-            sendPaymentNotification(request=request, order=order)
             return JsonResponse(data)
         else:
             try:
