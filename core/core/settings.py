@@ -23,7 +23,6 @@ if not DEBUG:
 
 
 INSTALLED_APPS = [
-    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -114,13 +113,6 @@ TEMPLATES = [
 
 ASGI_APPLICATION = 'core.asgi.application'
 WSGI_APPLICATION = 'core.wsgi.application'
-
-
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer'
-    }
-}
 
 
 DATABASES = {
@@ -366,3 +358,9 @@ LOG_VIEWER_EXCLUDE_TEXT_PATTERN = None
 
 MAINTENANCE_MODE = int(os.environ.get("MAINTENANCE_MODE", 0))
 MAINTENANCE_BYPASS_QUERY = os.environ.get("MAINTENANCE_BYPASS_QUERY")
+
+PUSHER_APP_ID = os.environ.get("PUSHER_APP_ID")
+PUSHER_APP_KEY = os.environ.get("PUSHER_APP_KEY")
+PUSHER_APP_SECRET = os.environ.get("PUSHER_APP_SECRET")
+PUSHER_APP_CLUSTER = os.environ.get("PUSHER_APP_CLUSTER")
+PUSHER_SSL = str(os.environ.get("PUSHER_SSL")) == "True"
