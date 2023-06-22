@@ -384,7 +384,7 @@ class SiteTextForm(forms.ModelForm):
                'title': _('Please select language')}), choices=settings.LANGUAGES, disabled=True)
     about = forms.CharField(label=_('About'), widget=forms.Textarea(
         attrs={'class': 'form-control form-control-sm', 'placeholder': _('About'), 'rows': 25,
-               'title': _('Please enter about text')}))
+               'title': _('Please enter about text')}), required=False)
     return_policy = forms.CharField(
         label=_("Return Policy"), widget=ckeditor_widgets.CKEditorUploadingWidget(), required=False)
     privacy_policy = forms.CharField(

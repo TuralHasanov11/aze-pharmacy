@@ -51,7 +51,7 @@ creator_dashboard_list = [
     {"name": _("Orders"), "route": "administration:order-list",
         "permission": "orders.view_order", "image": "images/admin/dashboards/orders.png"},
     {"name": _("Site Data Management"), "route": "administration:site-info",
-        "permission": "main.view_site_info", "image": "images/admin/dashboards/site.png"},
+        "permission": "main.view_siteinfo", "image": "images/admin/dashboards/site.png"},
 ]
 
 
@@ -571,7 +571,7 @@ class OrdersView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
 
 @login_required
 @require_http_methods(['GET', 'POST'])
-@permission_required(['main.change_site_text', 'main.view_site_text',], login_url=reverse_lazy('administration:index'))
+@permission_required(['main.change_sitetext', 'main.view_sitetext'], login_url=reverse_lazy('administration:index'))
 def siteTexts(request):
     if request.method == 'POST':
         formset = forms.SiteTextFormSet(
@@ -588,7 +588,7 @@ def siteTexts(request):
 
 @login_required
 @require_http_methods(['GET', 'POST'])
-@permission_required(['main.change_site_info', 'main.view_site_info',], login_url=reverse_lazy('administration:index'))
+@permission_required(['main.change_siteinfo', 'main.view_siteinfo',], login_url=reverse_lazy('administration:index'))
 def siteInfo(request):
     siteInfo = SiteInfo.objects.first()
     if request.method == 'POST':
