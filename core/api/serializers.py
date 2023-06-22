@@ -11,6 +11,13 @@ class OrderSerializer(serializers.ModelSerializer):
                   'phone', 'total_paid', 'total_refund', 'order_id', 'order_key',
                   'payment_status', 'notes', 'is_flagged', 'seen', 'created_at', 'updated_at',
                   'payment_status_value', 'payment_status_color')
+        
+
+class OrderNotificationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Order
+        fields = ('id', 'created_at', 'created_date')
 
 
 class OrderRefundCreateSerializer(serializers.ModelSerializer):

@@ -588,7 +588,7 @@ def siteTexts(request):
 
 @login_required
 @require_http_methods(['GET', 'POST'])
-@permission_required(['main.change_siteinfo', 'main.view_siteinfo',], login_url=reverse_lazy('administration:index'))
+@permission_required(['main.change_siteinfo', 'main.view_siteinfo'], login_url=reverse_lazy('administration:index'))
 def siteInfo(request):
     siteInfo = SiteInfo.objects.first()
     if request.method == 'POST':
@@ -676,7 +676,7 @@ def orderDetail(request, id: int):
         form = forms.OrderForm(data=request.POST, instance=order)
         if form.is_valid():
             instance = form.save()
-            logsSerializer = OrderLogSerializer(instance=instance, 
+            logsSerializer = OrderLogSerializer(instance=instance,
                                                 logs=instance.history.order_by('-history_date'))
             logsSerializer.save()
 
@@ -688,16 +688,26 @@ def orderDetail(request, id: int):
             order.seen = True
             order.save()
         form = forms.OrderForm(instance=order)
+    
+    orderLogs = order.history.exclude(
+        history_change_reason=None).order_by('-history_date')
+    
+    context = {
+        "order": order, 
+        "form": form, 
+        "order_logs": orderLogs,
+    }
 
-    delivery_form = forms.OrderDeliveryForm(
-        instance=OrderDelivery.objects.get(order=order))
-    refund_form = forms.OrderRefundForm()
-    orderLogs = order.history.exclude(history_change_reason=None).order_by('-history_date')
-    orderDeliveryLogs = order.order_delivery.history.exclude(history_change_reason=None).order_by(
-        '-history_date')
-    return render(request, template_name, {"order": order, "form": form, "delivery_form": delivery_form,
-                                           "refund_form": refund_form, "order_logs": orderLogs,
-                                           "order_delivery_logs": orderDeliveryLogs})
+    if hasattr(order, "order_delivery"):
+        context["delivery_form"] = forms.OrderDeliveryForm(
+            instance=OrderDelivery.objects.get(order=order))
+        context["order_delivery_logs"] = order.order_delivery.history.exclude(history_change_reason=None).order_by(
+            '-history_date')
+        
+    if order.payment_status == Order.PaymentStatus.PAID:
+        context["refund_form"] = forms.OrderRefundForm()
+
+    return render(request, template_name, context)
 
 
 @login_required
@@ -720,16 +730,20 @@ def orders(request):
     isFlagged = bool(request.GET.get('is_flagged', False))
     if isFlagged:
         ordersQueryset = ordersQueryset.filter(is_flagged=isFlagged)
-    
+
     status = request.GET.get('status', None)
     if status == 'paid':
-        ordersQueryset = ordersQueryset.filter(payment_status=Order.PaymentStatus.PAID)
+        ordersQueryset = ordersQueryset.filter(
+            payment_status=Order.PaymentStatus.PAID)
     if status == 'refunded':
-        ordersQueryset = ordersQueryset.filter(payment_status=Order.PaymentStatus.REFUNDED)
+        ordersQueryset = ordersQueryset.filter(
+            payment_status=Order.PaymentStatus.REFUNDED)
     elif status == 'failed':
-        ordersQueryset = ordersQueryset.filter(payment_status=Order.PaymentStatus.FAILED)
+        ordersQueryset = ordersQueryset.filter(
+            payment_status=Order.PaymentStatus.FAILED)
     elif status == 'pending':
-        ordersQueryset = ordersQueryset.filter(payment_status=Order.PaymentStatus.PENDING)
+        ordersQueryset = ordersQueryset.filter(
+            payment_status=Order.PaymentStatus.PENDING)
 
     paginator = pagination.OrderPagination()
     orders = paginator.paginate_queryset(ordersQueryset, request)

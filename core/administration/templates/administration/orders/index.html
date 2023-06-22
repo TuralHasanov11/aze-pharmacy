@@ -45,7 +45,14 @@
                                 </a>
                                 {% endif %}
                                 <div class="btn-group">
-                                    <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                                    <button class="btn btn-sm dropdown-toggle 
+                                                text-{% if request.GET.status == "paid" %}success
+                                                {% elif request.GET.status == "failed" %}danger
+                                                {% elif request.GET.status == "pending" %}dark
+                                                {% elif request.GET.status == "refunded" %}warning
+                                                {% else %}primary{% endif %}" 
+                                        type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false"
+                                    >
                                       {% if request.GET.status == "paid" %}
                                       {% translate "Paid Orders Only" %}
                                       {% elif request.GET.status == "failed" %}
@@ -125,18 +132,7 @@
     const ordersContainer = document.getElementById('orders-container')
     const paginationContainer = document.getElementById('pagination-container')
     const toastContainer = document.querySelector('.toast-container')
-    const ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
-    const socketURL = `${ws_scheme}://${window.location.host}/ws/order-socket-server/`
-    const orderSocket = new WebSocket(socketURL)
-
-    orderSocket.onmessage = function(e){
-        const data = JSON.parse(e.data)
-        if(data.type === 'order_created'){
-            getOrders()
-            toastContainer.innerHTML += toastComponent(data.message)
-        }
-    }
-
+    
     getOrders()
 
     var orders = {}
@@ -186,7 +182,7 @@
                 <span class="flag-btn"onclick="flagOrder(this, ${order.id})"><i class="${flag}"></i></span>
                 <a href="${ordersURL + order.id}?prev_page=${currentPage}" class="d-flex w-100 justify-content-between p-1 text-decoration-none">
                     <span class="m-0 text-dark">
-                        <span class='order-customer-name'>${order.full_name}</span> 
+                        <span class='order-customer-name'>${order.id} - ${order.full_name}</span> 
                         ${!order.seen?`<span class="badge text-bg-success order-seen">${newWord}</span>`:''}
                         <span class="badge text-bg-${order.payment_status_color} order-payment-status">${order.payment_status_value}</span>
                     </span>
@@ -205,6 +201,16 @@
                   ${message}
                 </div>
                 <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>`
+    }
+
+    function orderNotificationComponent(data){
+        return `<div class="dropdown-item dropdown-notifications-item">
+            <div class="dropdown-notifications-item-icon bg-success"><i data-feather="dollar-sign"></i></div>
+            <div class="dropdown-notifications-item-content">
+                <div class="dropdown-notifications-item-content-details">${data?.data?.created_date}</div>
+                <div class="dropdown-notifications-item-content-text">${data?.message}</div>
             </div>
         </div>`
     }

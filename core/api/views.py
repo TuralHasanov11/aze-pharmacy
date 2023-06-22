@@ -26,6 +26,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
 from orders.confirm import confirmOrder
 from orders.models import Order, OrderDelivery, OrderItem, OrderRefund
+from orders.notifications import OrderCreatedEvent
 from orders.processor import OrderProcessor
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -185,11 +186,8 @@ def approvePayment(request):
             sendDeliveryStatusNotification(
                 request=request, order=order, delivery=delivery)
 
-            channel_layer = get_channel_layer()
-            async_to_sync(channel_layer.group_send)("orders", {
-                "type": "order_created",
-                "message": _("New order: ") + f" {order.id}",
-            })
+            translation.activate("az")
+            OrderCreatedEvent(order).dispatch()
 
             return JsonResponse(data)
         else:

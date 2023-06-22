@@ -164,6 +164,7 @@
                 </div>
               </div>
               <hr>
+              {% if delivery_form %}
               <div class="row">
                 <div class="col-12 col-md-6">
                   <form id="delivery-form">
@@ -205,7 +206,9 @@
                   </div>
                 </div>
               </div>
+              {% endif %}
               <hr>
+              {% if refund_form %}
               <div class="row">
                 <div class="col-12 col-md-6">
                   <form method="post" id="refund-form">
@@ -259,6 +262,7 @@
                   </div>
                 </div>
               </div>
+              {% endif %}
             </div>
         </div>
   </div>
