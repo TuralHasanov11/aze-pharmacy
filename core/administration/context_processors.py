@@ -80,7 +80,7 @@ def admin_menu(request):
         },
         {
             "title": _("Site Data Management"),
-            "module_permission": "site_info",
+            "module_permission": "main",
             "icon": "globe",
             "children": [
                 {"title": _("Info"), "route": "administration:site-info"},

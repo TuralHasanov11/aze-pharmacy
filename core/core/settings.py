@@ -13,12 +13,11 @@ DEBUG = str(os.environ.get("DEBUG")) == "True"
 SITE_URL = os.environ.get("SITE_URL")
 SITE_HOST = os.environ.get("SITE_HOST")
 
-ALLOWED_HOSTS = [SITE_HOST, os.environ.get("PAYRIFF_HOST"), '*']
+ALLOWED_HOSTS = [SITE_HOST, os.environ.get("PAYRIFF_HOST")]
 
 if not DEBUG:
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
-    # CORS_ALLOW_ALL_ORIGINS = True
     CSRF_TRUSTED_ORIGINS = [SITE_URL, os.environ.get("PAYRIFF_URL")]
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
@@ -353,30 +352,15 @@ PAYRIFF_MERCHANT = os.environ.get('PAYRIFF_MERCHANT', None)
 
 SIMPLE_HISTORY_HISTORY_ID_USE_UUID = True
 
-if not DEBUG:
-    import sentry_sdk
-    from sentry_sdk.integrations.django import DjangoIntegration
-
-    sentry_sdk.init(
-        dsn=f"{os.environ.get('SENTRY_DSN')}",
-        integrations=[
-            DjangoIntegration(),
-        ],
-        traces_sample_rate=1.0,
-        send_default_pii=True
-    )
-
 
 LOG_VIEWER_FILES = ['info']
 LOG_VIEWER_FILES_PATTERN = '*.log*'
 LOG_VIEWER_FILES_DIR = 'logs/'
-LOG_VIEWER_PAGE_LENGTH = 25       # total log lines per-page
-LOG_VIEWER_MAX_READ_LINES = 1000  # total log lines will be read
-# Max log files loaded in Datatable per page
+LOG_VIEWER_PAGE_LENGTH = 25
+LOG_VIEWER_MAX_READ_LINES = 1000
 LOG_VIEWER_FILE_LIST_MAX_ITEMS_PER_PAGE = 25
 LOG_VIEWER_PATTERNS = ['[INFO]', '[DEBUG]',
                        '[WARNING]', '[ERROR]', '[CRITICAL]']
-# String regex expression to exclude the log from line
 LOG_VIEWER_EXCLUDE_TEXT_PATTERN = None
 
 

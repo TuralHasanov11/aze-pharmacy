@@ -1,4 +1,5 @@
 import json
+from enum import Enum
 
 import requests
 from django.conf import settings
@@ -8,6 +9,10 @@ from django.utils.translation import gettext_lazy as _
 
 
 class PaymentGateway:
+    class PaymentStatus(Enum):
+        PAID = "APPROVED"
+        PENDING = "CREATED"
+        FAILED = "DECLINED"
 
     @staticmethod
     def charge(request: HttpRequest, description: str, amount: float):
@@ -42,17 +47,45 @@ class PaymentGateway:
             raise e
 
     @staticmethod
-    def getOrder(request):
-        pass
+    def isPaid(request: HttpRequest, orderId: int, orderKey: str):
+        order = PaymentGateway.getOrderDetails(request, orderId, orderKey)
+        if order["orderstatus"] == PaymentGateway.PaymentStatus.PAID.value:
+            return True
+        return False
 
     @staticmethod
-    def refund(request: HttpRequest, amount: float, orderId: int, sessionId: str):
+    def getOrderDetails(request: HttpRequest, orderId: int, orderKey: str):
+        try:
+            data = {
+                "body": {
+                    "orderId": orderId,
+                    "sessionId": orderKey,
+                    "languageType": "AZ"
+                },
+                "merchant": settings.PAYRIFF_MERCHANT
+            }
+
+            response = requests.post(f"{settings.PAYRIFF_API_ENDPOINT}getOrderInformation",
+                                     data=json.dumps(data),
+                                     headers={
+                                         "Authorization": settings.PAYRIFF_SECRET_KEY,
+                                         "Content-Type": "application/json"}
+                                     )
+            if response.status_code == 200:
+                return response.json()["payload"]["row"]
+            else:
+                raise Exception(_("Order not found"))
+        except Exception as e:
+            raise e
+
+    @staticmethod
+    def refund(request: HttpRequest, amount: float, orderId: int, orderKey: str):
         try:
             data = {
                 "body": {
                     "refundAmount": amount,
                     "orderId": orderId,
-                    "sessionId": sessionId
+                    "sessionId": orderKey
                 },
                 "merchant": settings.PAYRIFF_MERCHANT
             }
@@ -65,7 +98,6 @@ class PaymentGateway:
             if response.status_code == 200:
                 return response.json()
             else:
-                return response.json()
                 raise Exception(_("Refund failed"))
         except Exception as e:
             raise Exception(str(e))

@@ -3,7 +3,6 @@ import logging
 
 from administration.forms import OrderDeliveryForm
 from administration.notifications import (sendDeliveryStatusNotification,
-                                          sendPaymentNotification,
                                           sendRefundNotification)
 from administration.serializers import OrderDeliveryLogSerializer
 from api.serializers import (OrderDeliverySerializer,
@@ -24,8 +23,8 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils import translation
 from django.utils.translation import gettext_lazy as _
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods, require_POST
+from django.views.decorators.http import require_POST
+from orders.confirm import confirmOrder
 from orders.models import Order, OrderDelivery, OrderItem, OrderRefund
 from orders.processor import OrderProcessor
 from rest_framework import status
@@ -171,38 +170,45 @@ def checkout(request):
 def approvePayment(request):
     try:
         if request.method == 'POST':
-            logger.info(request.META)
             data = json.load(request)["payload"]
-            order = Order.objects.get(order_key=data["sessionId"], order_id=data["orderID"],
-                                      payment_status=Order.PaymentStatus.PENDING)
-            order.payment_status = Order.PaymentStatus.PAID
-            order.save()
+            orderProcessor = OrderProcessor(request=request)
+            order = Order.objects.select_related('order_delivery').prefetch_related(
+                Prefetch('items', queryset=OrderItem.objects.select_related(
+                    'product__category').all()),
+            ).get(order_key=data["sessionId"], order_id=data["orderID"],
+                  payment_status=Order.PaymentStatus.PENDING)
+
+            confirmOrder(order)
+
             delivery, created = OrderDelivery.objects.get_or_create(
                 order=order)
-            sendPaymentNotification(request=request, order=order)
+            sendDeliveryStatusNotification(
+                request=request, order=order, delivery=delivery)
+
+            channel_layer = get_channel_layer()
+            async_to_sync(channel_layer.group_send)("orders", {
+                "type": "order_created",
+                "message": _("New order: ") + f" {order.id}",
+            })
+
             return JsonResponse(data)
         else:
             try:
                 orderProcessor = OrderProcessor(request=request)
-                order = Order.objects.select_related('order_delivery').prefetch_related(
-                    Prefetch('items', queryset=OrderItem.objects.select_related(
-                        'product__category').all()),
-                ).get(order_id=orderProcessor.order.get("order_id", None),
-                      order_key=orderProcessor.order.get(
-                    "order_key", None))
-                delivery = OrderDelivery.objects.get(
-                    order=order)
-                sendDeliveryStatusNotification(
-                    request=request, order=order, delivery=delivery)
-                
-                channel_layer = get_channel_layer()
-                async_to_sync(channel_layer.group_send)("orders", {
-                    "type": "order_created",
-                    "message": _("New order: ") + f" {order.id}",
-                })
+                order = Order.objects.get(order_id=orderProcessor.order.get("order_id", None),
+                                          order_key=orderProcessor.order.get("order_key", None))
 
+                isOrderPaid = PaymentGateway.isPaid(
+                    request=request, orderId=order.order_id, orderKey=order.order_key)
+                
+                if isOrderPaid and order.payment_status == Order.PaymentStatus.PENDING:
+                    confirmOrder(order)
+                elif not isOrderPaid:
+                    raise Exception(_('Order is pending'))
+                
                 cart = CartProcessor(request)
                 cart.clear()
+
                 translation.activate("az")
                 messages.success(request, _('Order was placed successfully'))
                 return redirect('checkout:success')
@@ -266,7 +272,7 @@ def orderRefund(request, id: int):
                     data["amount"] = order.total_paid
 
                 PaymentGateway.refund(request=request, amount=float(data["amount"]),
-                                      orderId=order.order_id, sessionId=order.order_key)
+                                      orderId=order.order_id, orderKey=order.order_key)
                 orderRefund = OrderRefund.objects.create(
                     order=order, amount=data["amount"], reason=data["reason"], created_by=request.user)
                 order.payment_status = Order.PaymentStatus.REFUNDED
@@ -318,7 +324,7 @@ def updateOrderDelivery(request, id: int):
             context["delivery"] = serializer.data
             context["message"] = _("Order delivery was updated")
             return Response(data=context)
-        return Response(status=status.HTTP_422_UNPROCESSABLE_ENTITY, 
+        return Response(status=status.HTTP_422_UNPROCESSABLE_ENTITY,
                         data={"message": _("Order delivery cannot be updated"), "errors": form.errors})
     except Order.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND, data={"message": _("Order was not found")})

@@ -382,7 +382,9 @@ h1.entry-title {
 .elementor:not(.elementor-bc-flex-widget) .elementor-widget-wrap {
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .elementor-widget-wrap>.elementor-element {
@@ -834,7 +836,7 @@ h1.entry-title {
     transition: background .3s, border .3s, border-radius .3s, -webkit-box-shadow .3s;
     -o-transition: background .3s, border .3s, border-radius .3s, box-shadow .3s;
     transition: background .3s, border .3s, border-radius .3s, box-shadow .3s;
-    transition: background .3s, border .3s, border-radius .3s, box-shadow .3s, -webkit-box-shadow .3s
+    transition: background .3s, border .3s, border-radius .3s, box-shadow .3s, -webkit-box-shadow .3s;
 }
 
 .elementor-tab-title a {
