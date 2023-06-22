@@ -156,7 +156,20 @@
                       </div>
                     </div>
                     <p v-if="v$.checkoutForm?.$invalid&&v$.$dirty" class="form-invalid-feedback text-danger"></p>
-                    <button :disabled="v$.checkoutForm?.$invalid||submitLoading" type="submit" class="btn checkout-btn w-100"></button>
+                    <button :disabled="v$.checkoutForm?.$invalid||submitLoading" type="submit" class="btn checkout-btn w-100">
+                      <div v-if="submitLoading">
+                        <div class="spinner-grow text-light spinner-grow-sm me-2" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-light spinner-grow-sm me-2" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-light spinner-grow-sm me-2" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                        </div>
+                      </div>
+                      <span class="checkout-btn-text" v-else></span>
+                    </button>
                     </form>
                     {% endverbatim %}
                   </div>
@@ -281,8 +294,9 @@
   document.querySelectorAll('.optional').forEach(element => {
     element.innerHTML = '({% translate "optional" %})'
   })
+  const placeOrderText = '{% translate "Place order" %}'
   document.querySelector('.form-invalid-feedback').innerHTML = '{% translate "Please fill the required fields" %}'
-  document.querySelector('.checkout-btn').innerHTML = '{% translate "Place order" %}'
+  document.querySelector('.checkout-btn-text').innerHTML = placeOrderText
   document.querySelector('.woocommerce-additional-fields h3').innerHTML = '{% translate "Additional information" %}'
   document.querySelector('.empty-city-option').innerHTML = '{% translate "Select a city" %}'
   document.querySelector('.woocommerce-billing-fields>h3').innerHTML = '{% translate "Billing Details" %}'
