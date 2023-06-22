@@ -8,9 +8,7 @@ from administration.serializers import OrderDeliveryLogSerializer
 from api.serializers import (OrderDeliverySerializer,
                              OrderRefundCreateSerializer,
                              OrderRefundSerializer, OrderSerializer)
-from asgiref.sync import async_to_sync
 from cart.processor import CartProcessor
-from channels.layers import get_channel_layer
 from checkout.payment import PaymentGateway
 from checkout.serializers import CheckoutSerializer
 from checkout.utils import getCities
