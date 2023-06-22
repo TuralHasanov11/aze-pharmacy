@@ -9,7 +9,7 @@
     class="elementor elementor-container"
   >
     <section
-      style="background-image: url('{{site_info.banner_image}}'); height:70vh; background-position: center;"
+      style="background-image: url('{{site_info.banner_image}}'); height:70vh; background-position: center; background-repeat: no-repeat; background-size: cover;"
       class="elementor-section elementor-top-section elementor-element elementor-section-full_width elementor-section-height-default elementor-section-height-default"
       data-element_type="section"
     >
@@ -20,11 +20,12 @@
         >
           <div class="elementor-widget-wrap elementor-element-populated">
             <div
+              style="height:100%"
               class="elementor-element elementor-widget"
               data-element_type="widget"
               data-widget_type="hero-banner.default"
             >
-              <div class="elementor-widget-container">
+              <div style="height:100%" class="elementor-widget-container d-flex align-items-center justify-content-center">
                 {% include "components/main/banner.html" %}
               </div>
             </div>
