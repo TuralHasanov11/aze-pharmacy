@@ -49,6 +49,7 @@ def orderFlag(request, id: int):
     order.is_flagged = not order.is_flagged
     order.save()
     serializer = OrderSerializer(order)
+    OrderCreatedEvent(order).dispatch()
     return Response(data=serializer.data)
 
 
