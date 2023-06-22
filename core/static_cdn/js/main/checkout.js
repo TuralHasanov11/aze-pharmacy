@@ -83,8 +83,8 @@ createApp({
                 throw new Error(JSON.stringify(data))
             }
         } catch (e) {
+            document.querySelector('.checkout-btn').innerHTML = placeOrderText
             this.submitLoading = false
-            console.log(e)
         }
     }
   },
