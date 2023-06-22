@@ -186,7 +186,7 @@ jQuery(document).ready(function ($) {
           <div class="min-cart-content">
             <h3 class="mini-cart-title"><a href="${url}">${data.item.product.name}</a></h3>
             <div class="min-cart-price">
-            <span class="quantity"><span class="product-quantity">${data.item.quantity}</span> &times; <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>${data.item.price}</bdi></span></span>
+            <span class="quantity"><span class="product-quantity">${data.item.quantity}</span> &times; <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#8380;</span>${data.item.price}</bdi></span></span>
           </div>
           </div>
         </div>`
