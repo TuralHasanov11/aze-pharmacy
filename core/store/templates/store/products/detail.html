@@ -27,19 +27,19 @@
               {% if product.discount %}
               <del aria-hidden="true">
                 <span class="woocommerce-Price-amount amount"
-                  ><span class="woocommerce-Price-currencySymbol">&#036;</span
+                  ><span class="woocommerce-Price-currencySymbol">&#8380;</span
                   >{{product.regular_price}}</span
                 >
               </del>
               <ins>
                 <span class="woocommerce-Price-amount amount"
-                  ><span class="woocommerce-Price-currencySymbol">&#036;</span
+                  ><span class="woocommerce-Price-currencySymbol">&#8380;</span
                   >{{product.discount_price}}</span
                 >
               </ins>
               {% else %}
               <span class="woocommerce-Price-amount amount"
-                ><span class="woocommerce-Price-currencySymbol">&#036;</span
+                ><span class="woocommerce-Price-currencySymbol">&#8380;</span
                 >{{product.regular_price}}</span
               >
               {% endif %}

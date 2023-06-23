@@ -303,7 +303,7 @@ if USE_S3:
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
 else:
     MEDIA_URL = '/media/'
-    MEDIA_ROOT = BASE_DIR / 'media'
+    MEDIA_ROOT = '/home/vetagroa/public_html/media/'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static_cdn'
