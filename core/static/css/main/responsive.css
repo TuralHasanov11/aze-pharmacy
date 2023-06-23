@@ -145,10 +145,10 @@
 	padding: 115px 0 120px;
 }
 .blog-post-area {
-	padding: 115px 0 120px;
+	padding: 80px 0 80px;
 }
 .breadcrumb-bg {
-	padding: 200px 0 120px !important;
+	padding: 50px 0 50px !important;
 }
 .blog-sidebar.pl-20 {
 	padding-left: 15px;
@@ -206,7 +206,7 @@
 }
 .tg-page-area,
 .blog-post-area {
-	padding: 115px 0 120px;
+	padding: 80px 0 80px;
 }
 .error-content .error-text {
 	font-size: 220px;
@@ -369,7 +369,7 @@
 	max-width: 440px;
 }
 .breadcrumb-bg {
-	padding: 150px 0 120px !important;
+	padding: 50px 0 50px !important;
 }
 .blog-sidebar.pl-20 {
 	padding-left: 0;

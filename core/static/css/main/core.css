@@ -992,9 +992,8 @@ body.search-visible {
 .breadcrumb-bg {
 	background-position: center;
 	background-size: cover;
-	background-attachment: fixed;
 	position: relative;
-	padding: 230px 0 150px;
+	padding: 50px 0 50px !important;
 	z-index: 1;
 }
 
@@ -1005,7 +1004,7 @@ body.search-visible {
 	top: 0;
 	height: 100%;
 	width: 100%;
-	background: #090909;
+	background: #090909af;
 	opacity: .85;
 	z-index: -1;
 }
@@ -2703,7 +2702,7 @@ div.testi-avatar-img img {
 .tg-page-area,
 .blog-post-area {
 	position: relative;
-	padding: 145px 0 150px;
+	padding: 100px 0 100px;
 	z-index: 3;
 }
 
@@ -3574,7 +3573,7 @@ blockquote::before,
 
 /* 20. Contact */
 .contact-area {
-	padding: 120px 0 90px;
+	padding: 40px 0 40px;
 }
 
 .contact-box {
