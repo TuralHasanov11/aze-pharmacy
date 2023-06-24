@@ -13,15 +13,21 @@ from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from mptt.models import MPTTModel, TreeForeignKey
 
 
-class Category(models.Model):
+class Category(MPTTModel):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, unique=True)
     last_modified_by = models.ForeignKey(
         get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
+    parent = TreeForeignKey("self", on_delete=models.PROTECT,
+                            related_name="children", null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class MPTTMeta:
+        order_insertion_by = ["name"]
 
     class Meta:
         ordering = ["name"]

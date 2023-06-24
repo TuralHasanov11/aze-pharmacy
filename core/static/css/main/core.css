@@ -2112,22 +2112,38 @@ body.search-visible {
 }
 
 .product-widgets .product-categories li {
-	position: relative;
-	margin-bottom: 12px;
 	list-style: none;
+	position: relative;
+
 }
 
-.product-widgets .product-categories li::before {
+.product-widgets .product-categories > li {
+	margin-bottom: 20px;
+}
+
+.product-widgets .product-categories a {
+	margin-bottom: 10px;
+}
+
+.product-widgets > .product-categories > li {
+	border-bottom: 0.1em solid #eee ;
+}
+
+.product-widgets .product-categories a {
+	position: relative;
+}
+
+.product-widgets .product-categories > li > a::before {
 	content: "";
 	position: absolute;
-	left: 0;
+	left: -10px;
 	top: 50%;
 	transform: translateY(-50%);
 	width: 6px;
 	height: 6px;
 	border-radius: 50%;
 	background: #0D9B4D;
-}
+} 
 
 .product-widgets .product-categories li:last-child {
 	margin-bottom: 0;

@@ -1,23 +1,43 @@
+from django.db.models import F
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from main.models import SiteInfo
 from store.models import Category
 
 
+def build_tree(objects):
+    container = [{"route": obj.get_absolute_url, "title": obj.name, "parent_id": obj.parent_id, "id": obj.id} for obj in objects]
+    id_map = {obj["id"]: obj for obj in container}
+    roots = []
+
+    for obj in container:
+        parent_id = obj["parent_id"]
+        if parent_id is None:
+            roots.append(obj)
+        else:
+            parent = id_map.get(parent_id)
+            if 'children' not in parent:
+                parent['children'] = []
+            parent['children'].append(obj)
+    return roots
+
+
 def default_menu(request):
-    categories = Category.objects.all().order_by("name")
+    categories = Category.objects.all().only('id', 'parent_id', 'name').order_by(
+        'level', F('parent_id').desc(nulls_last=False))
 
     return {
         "default_menu": [
-            {"title": _("Home"), "route": "main:index"},
-            {"title": _("Library"), "route": "library:index"},
-            {"title": _("News"), "route": "news:index"},
-            {"title": _("Services"), "route": "services:index"},
-            {"title": _("Shop"), "route": "store:products",
-                "children": [{"route": category.get_absolute_url, "title": category.name} for category in categories]
+            {"title": _("Home"), "route": reverse("main:index")},
+            {"title": _("Library"), "route": reverse("library:index")},
+            {"title": _("News"), "route": reverse("news:index")},
+            {"title": _("Services"), "route": reverse("services:index")},
+            {"title": _("Shop"), "route": reverse("store:products"),
+                "children": build_tree(categories)
              },
-            {"title": _("About Us"), "route": "main:about"},
-            {"title": _("Career"), "route": "main:career"},
-            {"title": _("Contact Us"), "route": "main:contact"},
+            {"title": _("About Us"), "route": reverse("main:about")},
+            {"title": _("Career"), "route": reverse("main:career")},
+            {"title": _("Contact Us"), "route": reverse("main:contact")},
         ]
     }
 

@@ -17,7 +17,7 @@ from django.contrib.postgres.search import (SearchQuery, SearchRank,
                                             SearchVector)
 from django.core import paginator
 from django.db import transaction
-from django.db.models import Prefetch
+from django.db.models import Count, Prefetch
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
@@ -416,7 +416,9 @@ class CategoryListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = self.model.objects.all()
+        context['categories'] = self.model.objects.add_related_count(Category.objects.all(), Product,
+                                                                     'category', 'products_count',
+                                                                     cumulative=True).all()
         return context
 
     def get_form_kwargs(self):
@@ -688,13 +690,13 @@ def orderDetail(request, id: int):
             order.seen = True
             order.save()
         form = forms.OrderForm(instance=order)
-    
+
     orderLogs = order.history.exclude(
         history_change_reason=None).order_by('-history_date')
-    
+
     context = {
-        "order": order, 
-        "form": form, 
+        "order": order,
+        "form": form,
         "order_logs": orderLogs,
     }
 
@@ -703,7 +705,7 @@ def orderDetail(request, id: int):
             instance=OrderDelivery.objects.get(order=order))
         context["order_delivery_logs"] = order.order_delivery.history.exclude(history_change_reason=None).order_by(
             '-history_date')
-        
+
     if order.payment_status == Order.PaymentStatus.PAID:
         context["refund_form"] = forms.OrderRefundForm()
 

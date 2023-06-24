@@ -13,6 +13,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from library.models import Document
 from main.models import Company, Question, SiteInfo, SiteText
+from mptt.forms import TreeNodeChoiceField
 from news.models import Post
 from orders.models import Order, OrderDelivery
 from services.models import Service
@@ -49,15 +50,19 @@ class ServiceForm(forms.ModelForm):
 class CategoryForm(forms.ModelForm):
     name = forms.CharField(label=_('Name'), widget=forms.TextInput(
         attrs={'class': 'form-control form-control-sm', 'placeholder': _('Name'), 'title': _('Please enter name')}))
+    parent = TreeNodeChoiceField(label=_('Parent'),
+                                 queryset=Category.objects.all(), required=False)
 
     class Meta:
         model = Category
-        fields = ('name',)
+        fields = ('name', 'parent')
 
     def __init__(self, *args, **kwargs):
         if 'last_modified_by' in kwargs:
             self.last_modified_by = kwargs.pop('last_modified_by')
         super().__init__(*args, **kwargs)
+        self.fields["parent"].widget.attrs.update(
+            {"class": "form-select form-select-sm"})
 
     def save(self, commit=True):
         instance = super().save(commit)

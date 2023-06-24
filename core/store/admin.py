@@ -1,11 +1,13 @@
 from django.contrib import admin
+from mptt.admin import DraggableMPTTAdmin
 from store.models import Category, Product, ProductImage
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-    list_display_links = ('name',)
+class CategoryAdmin(DraggableMPTTAdmin):
+    mptt_indent_field = "name"
+    list_display = ('tree_actions', 'indented_title')
+    list_display_links = ('indented_title',)
     prepopulated_fields = {'slug': ('name',)}
 
 

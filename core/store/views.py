@@ -1,7 +1,6 @@
 from django.contrib.postgres.search import (SearchQuery, SearchRank,
                                             SearchVector)
 from django.core import paginator
-from django.db.models import Count
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -19,20 +18,22 @@ orderingContainer = [
 
 @require_GET
 def products(request: HttpRequest):
-    categories = Category.objects.annotate(
-        products_count=Count("product_category")).all().order_by("name")
+    categories = Category.objects.add_related_count(Category.objects.all(), Product,
+                                                    'category', 'products_count',
+                                                    cumulative=True).all()
     selectedOrderByValue = request.GET.get('order_by', 'name')
     search = request.GET.get('search', None)
-    
+
     if search:
         searchQuery = SearchQuery(search)
-        searchVector = SearchVector("name", "description", "category__name", "regular_price", "discount", "discount_price")
+        searchVector = SearchVector(
+            "name", "description", "category__name", "regular_price", "discount", "discount_price")
         productsQueryset = Product.products.list_queryset().annotate(
             search=searchVector, rank=SearchRank(searchVector, searchQuery)
         ).filter(search=searchQuery).order_by("rank", selectedOrderByValue)
     else:
         productsQueryset = Product.products.list_queryset().order_by(selectedOrderByValue)
-    
+
     pagination = paginator.Paginator(productsQueryset, 20)
     pageNumber = request.GET.get('page')
     products = pagination.get_page(pageNumber)
@@ -54,10 +55,13 @@ def products(request: HttpRequest):
 @require_GET
 def categoryProducts(request: HttpRequest, category_slug: str):
     selectedOrderByValue = request.GET.get('order_by', 'name')
-    categories = Category.objects.annotate(
-        products_count=Count("product_category")).all().order_by("name")
-    category = Category.objects.get(slug=category_slug)
-    productsQueryset = Product.products.list_queryset().filter(category__slug=category_slug).order_by(request.GET.get('sort_by', 'name'))
+    categories = Category.objects.add_related_count(Category.objects.all(), Product,
+                                                    'category', 'products_count',
+                                                    cumulative=True).all()
+    category = next(cat for cat in categories if cat.slug == category_slug)
+    categoryFamily = category.get_family()
+    productsQueryset = Product.products.list_queryset().filter(
+        category__in=[cat.id for cat in categoryFamily]).order_by(request.GET.get('sort_by', 'name'))
     pagination = paginator.Paginator(productsQueryset, 20)
     pageNumber = request.GET.get('page')
     products = pagination.get_page(pageNumber)
@@ -66,7 +70,7 @@ def categoryProducts(request: HttpRequest, category_slug: str):
         {"title": _("Home"), "route": reverse("main:index")},
         {"route": reverse("store:products"), "title": _("Products")},
         {"route": reverse("store:category-products", kwargs={
-                              "category_slug": category.slug}), "title": category.name},
+            "category_slug": category.slug}), "title": category.name},
         {"title": _("Products")},
     ]
     return render(request, 'store/products/index.html', context={
@@ -82,8 +86,11 @@ def categoryProducts(request: HttpRequest, category_slug: str):
 @require_GET
 def productDetail(request: HttpRequest, category_slug: str, product_slug: str):
     try:
-        product = Product.products.detail_queryset().get(slug=product_slug, category__slug=category_slug)
-        relatedProducts = Product.products.list_queryset().filter(category__slug=product.category.slug).order_by(request.GET.get('sort_by', 'name'))[:4]
+        product = Product.products.detail_queryset().get(
+            slug=product_slug, category__slug=category_slug)
+        categoryFamily = product.category.get_family()
+        relatedProducts = Product.products.list_queryset().filter(
+            category__in=[cat.id for cat in categoryFamily]).order_by(request.GET.get('sort_by', 'name'))[:4]
 
         breadcrumb = [
             {"title": _("Shop")},
