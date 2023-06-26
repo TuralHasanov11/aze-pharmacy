@@ -58,7 +58,7 @@ class Category(MPTTModel):
     
     @property
     def has_products(self):
-        return True
+        return hasattr(self, "products_count") and self.products_count > 0
 
 
 class ProductQuerySet(models.QuerySet):
@@ -181,3 +181,4 @@ class ProductImage(models.Model):
 
     class Meta:
         ordering = ('-is_feature', )
+

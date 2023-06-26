@@ -58,8 +58,8 @@ def categoryProducts(request: HttpRequest, category_slug: str):
     categories = Category.objects.add_related_count(Category.objects.all(), Product,
                                                     'category', 'products_count',
                                                     cumulative=True).all()
-    category = next(cat for cat in categories if cat.slug == category_slug)
-    categoryFamily = category.get_family()
+    category = Category.objects.get(slug=category_slug)
+    categoryFamily = category.get_descendants(include_self=True)
     productsQueryset = Product.products.list_queryset().filter(
         category__in=[cat.id for cat in categoryFamily]).order_by(request.GET.get('sort_by', 'name'))
     pagination = paginator.Paginator(productsQueryset, 20)
@@ -88,7 +88,7 @@ def productDetail(request: HttpRequest, category_slug: str, product_slug: str):
     try:
         product = Product.products.detail_queryset().get(
             slug=product_slug, category__slug=category_slug)
-        categoryFamily = product.category.get_family()
+        categoryFamily = product.category.get_descendants(include_self=True)
         relatedProducts = Product.products.list_queryset().filter(
             category__in=[cat.id for cat in categoryFamily]).order_by(request.GET.get('sort_by', 'name'))[:4]
 

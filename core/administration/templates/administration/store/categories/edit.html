@@ -26,10 +26,12 @@
             </a>
             <form class="delete-form" action="{% url 'administration:store-category-delete' pk=category.pk %}" method="POST">
               {% csrf_token %}
-              <button type="submit" class="btn btn-sm btn-danger">
+              <div class="d-inline-block" tabindex="0" {% if category.has_products %}data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{% translate "Category has products" %}"{% endif %}>
+                <button type="submit" {% if category.has_products %}disabled{% endif %} class="btn btn-sm btn-danger">
                   <i class="me-1" data-feather="trash-2"></i>
                   {% translate "Delete Category" %}
-              </button>
+                </button>
+              </div>
             </form>
           </div>
         </div>

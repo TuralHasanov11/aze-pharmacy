@@ -1,9 +1,8 @@
 
 
-from enum import StrEnum
 from urllib.parse import urlencode
 
-from administration import forms
+from administration import filters, forms
 from administration.serializers import OrderLogSerializer
 from api import pagination
 from api.serializers import OrderSerializer
@@ -14,13 +13,10 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.postgres.search import (SearchQuery, SearchRank,
-                                            SearchVector)
 from django.core import paginator
 from django.db import transaction
-from django.db.models import Prefetch, Q
-from django.db.models.query import QuerySet
-from django.http import HttpRequest
+from django.db.models import Prefetch
+from django.http import HttpRequest, HttpResponseForbidden
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -418,9 +414,9 @@ class CategoryListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = self.model.objects.add_related_count(Category.objects.all(), Product,
+        context["categories"] = self.model.objects.add_related_count(self.model.objects.all(), Product,
                                                                      'category', 'products_count',
-                                                                     cumulative=True).all()
+                                                                     cumulative=True)
         return context
 
     def get_form_kwargs(self):
@@ -438,11 +434,11 @@ class CategoryUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
     context_object_name = 'category'
     success_message = _("Category was updated successfully!")
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        print(context["category"].has_products) 
-        return context
-    
+    def get_queryset(self, **kwargs):
+        return self.model.objects.add_related_count(self.model.objects.all(), Product,
+                                                    'category', 'products_count',
+                                                    cumulative=True)
+
     def get_success_url(self):
         return reverse("administration:store-category-update", kwargs={"pk": self.object.pk})
 
@@ -459,6 +455,16 @@ class CategoryDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
     success_message = _("Category was deleted successfully!")
     success_url = reverse_lazy('administration:store-category-list')
 
+    def get_queryset(self):
+        return self.model.objects.add_related_count(self.model.objects.all(), Product,
+                                                    'category', 'products_count',
+                                                    cumulative=True)
+
+    def post(self, request, *args, **kwargs):
+        if self.get_object().has_products:
+            return HttpResponseForbidden(_("Category has products"))
+        return super().post(request, *args, **kwargs)
+
 
 class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Product
@@ -469,10 +475,16 @@ class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     context_object_name = "products"
 
     def get_queryset(self):
+        filterForm = forms.ProductFilterForm(data=self.request.GET)
         queryset = super().get_queryset().select_related('category').prefetch_related(
             Prefetch('product_image', queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature')).only(
                 'name', 'sku', 'regular_price', 'discount', 'discount_price', 'category', 'is_active', 'updated_at').order_by(self.request.GET.get(
                     'order_by', '-created_at'))
+
+        if filterForm.is_valid():
+            queryset = filters.ProductFilterQuery(
+                queryset, filterForm.cleaned_data).queryset
+
         if self.request.GET.get('search'):
             queryset = queryset.filter(
                 name__icontains=self.request.GET.get('search'))
@@ -720,53 +732,12 @@ def orderDetail(request, id: int):
     return render(request, template_name, context)
 
 
-class OrderPaymentStatusFilterQuery:
-    class Values(StrEnum):
-        PENDING: str = "PENDING"
-        PAID: str = "PAID"
-        FAILED: str = "FAILED"
-        REFUNDED: str = "REFUNDED"
-
-    queryset: QuerySet
-
-    def __init__(self, queryset, status: str = None) -> None:
-        self.queryset = queryset
-        if status is not None and status.upper() in self.values:
-            self.queryset = self.queryset.filter(payment_status=status.upper())
-
-    @property
-    def values(self):
-        return [item.value for item in self.Values]
-
-
-class OrderFlaggedFilterQuery:
-    queryset: QuerySet
-
-    def __init__(self, queryset, value=False) -> None:
-        self.queryset = queryset
-        if value is not False:
-            self.queryset = self.queryset.filter(is_flagged=bool(value))
-
-
-class OrderSearchFilterQuery:
-    queryset: QuerySet
-
-    def __init__(self, queryset, value: str) -> None:
-        self.queryset = queryset
-        if value:
-            self.queryset = self.queryset.filter(Q(id__icontains=value) | Q(first_name__icontains=value) |
-                                                 Q(last_name__icontains=value) | Q(email__icontains=value) |
-                                                 Q(address__icontains=value) | Q(city__icontains=value) |
-                                                 Q(phone__icontains=value) | Q(total_paid__icontains=value) |
-                                                 Q(order_id__icontains=value) | Q(notes__icontains=value))
-
-
 @login_required
 @api_view(['GET'])
 @permission_required(['orders.view_order', 'orders.change_order'], raise_exception=True)
 def orders(request):
-    ordersQueryset = OrderPaymentStatusFilterQuery(
-        OrderFlaggedFilterQuery(OrderSearchFilterQuery(Order.objects.all(), request.GET.get(
+    ordersQueryset = filters.OrderPaymentStatusFilterQuery(
+        filters.OrderFlaggedFilterQuery(filters.OrderSearchFilterQuery(Order.objects.all(), request.GET.get(
             'search', None)).queryset, request.GET.get('is_flagged', False)).queryset,
         request.GET.get('status', None)).queryset.order_by(request.GET.get('order_by', '-created_at'))
 

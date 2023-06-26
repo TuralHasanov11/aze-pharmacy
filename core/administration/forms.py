@@ -285,7 +285,7 @@ class ProductForm(forms.ModelForm):
         attrs={'class': 'form-control form-control-sm', 'placeholder': _('Name'), 'title': _('Please enter name')}))
     sku = forms.IntegerField(label=_('SKU'), widget=forms.NumberInput(
         attrs={'class': 'form-control form-control-sm', 'placeholder': _('SKU'), 'title': _('Please enter SKU')}))
-    category = forms.ModelChoiceField(label=_('category'), widget=forms.Select(
+    category = forms.ModelChoiceField(label=_('Category'), widget=forms.Select(
         attrs={'class': 'form-select form-select-sm', 'title': _('Please select category')}), queryset=Category.objects.all())
     regular_price = forms.DecimalField(label=_('Regular Price'), widget=forms.NumberInput(
         attrs={'class': 'form-control form-control-sm', 'placeholder': _('Regular Price'), 'title': _('Please enter regular price')}))
