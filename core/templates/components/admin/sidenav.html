@@ -32,18 +32,18 @@
           </div>
         </a>
         <div
-          class="collapse {% if item.children|route_list_contains:request.resolver_match.url_name %}show{% endif %}"
+          class="collapse {% if item.children|route_list_contains:request.path %}show{% endif %}"
           id="collapse{{forloop.counter}}"
           data-bs-parent="#accordionSidenav"
         >
           <nav class="sidenav-menu-nested nav">
             {% for routeItem in item.children %}
-            <a class="nav-link {% if request.resolver_match.url_name in routeItem.route %}active{% endif %}" href="{% url routeItem.route %}">{{routeItem.title}}</a>
+            <a class="nav-link {% if request.path == routeItem.route %}active{% endif %}" href="{{routeItem.route}}">{{routeItem.title}}</a>
             {% endfor %}
           </nav>
         </div>
       {% else %}
-      <a class="nav-link" href="{% url item.route %}">
+      <a class="nav-link" href="{{item.route}}">
         <div class="nav-link-icon"><i data-feather="{{item.icon}}"></i></div>
         {{item.title}}
       </a>

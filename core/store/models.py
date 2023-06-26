@@ -55,6 +55,10 @@ class Category(MPTTModel):
     @property
     def updated_date(self):
         return datetime.fromisoformat(str(self.updated_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
+    
+    @property
+    def has_products(self):
+        return True
 
 
 class ProductQuerySet(models.QuerySet):
@@ -99,7 +103,7 @@ class Product(models.Model):
     sku = models.CharField(max_length=10, unique=True, null=True)
     description = RichTextEditorField()
     category = models.ForeignKey(
-        Category, related_name="product_category", on_delete=models.SET_NULL, null=True, blank=True)
+        Category, related_name="product_category", on_delete=models.PROTECT, null=True, blank=True)
     is_active = models.BooleanField(default=False)
     regular_price = models.DecimalField(max_digits=6, decimal_places=2)
     discount = models.IntegerField(

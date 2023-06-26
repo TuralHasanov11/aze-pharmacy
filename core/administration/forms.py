@@ -502,3 +502,12 @@ class OrderRefundForm(forms.ModelForm):
     class Meta:
         model = OrderDelivery
         fields = ('amount', 'reason', 'full_refund')
+
+
+class ProductFilterForm(forms.Form):
+    category = TreeNodeChoiceField(label=_('category'), widget=forms.Select(
+        attrs={'class': 'form-select form-select-sm'}), queryset=Category.objects.all(), required=False)
+    is_active = forms.BooleanField(label=_('Is Active'), widget=forms.CheckboxInput(
+        attrs={'class': 'form-check-input'}), required=False, initial=True)
+    in_stock = forms.BooleanField(label=_('In Stock'), widget=forms.CheckboxInput(
+        attrs={'class': 'form-check-input'}), required=False, initial=True)

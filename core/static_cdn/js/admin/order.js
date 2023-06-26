@@ -136,7 +136,6 @@ refundAmountInput.addEventListener('input', (event) => {
 })
 
 function validateRefundAmount(amount) {
-  console.log(orderTotalPaid, Number(orderTotalPaid))
   if (amount && amount !== '' && amount !== 'NaN' && amount <= Number(orderTotalPaid) - Number(orderTotalRefund)) {
     refundBtn.disabled = false
     refundBtn.classList.remove('btn-disabled')

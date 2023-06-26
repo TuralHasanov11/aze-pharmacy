@@ -4,8 +4,6 @@ const isPaidPage = new URLSearchParams(window.location.search).get('status') ===
 const pusherAppKey = document.getElementById("PUSHER_APP_KEY")?.value
 const pusherAppCluster = document.getElementById("PUSHER_APP_CLUSTER")?.value
 
-console.log(pusherAppKey, pusherAppCluster)
-
 
 var pusher = new Pusher(pusherAppKey, {
     cluster: pusherAppCluster

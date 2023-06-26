@@ -39,6 +39,27 @@
                         </form>
                     </div>
                     <div class="col-12">
+                        <form method="GET"> 
+                            <div class="row g-3 align-items-center mb-3">
+                                <div class="col-12 col-lg-6">
+                                    <label class="mb-1 small" for="{{ filter_form.category.id_for_label }}">{{ filter_form.category.label }}</label>
+                                    {{filter_form.category}}
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <label class="mb-1 small" for="{{ filter_form.is_active.id_for_label }}">{{ filter_form.is_active.label }}</label>
+                                    {{filter_form.is_active}}
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <label class="mb-1 small" for="{{ filter_form.in_stock.id_for_label }}">{{ filter_form.in_stock.label }}</label>
+                                    {{filter_form.in_stock}}
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary btn-sm">{% translate "Filter" %}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-12">
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover entry-table ">
                                 <thead>

@@ -1,5 +1,6 @@
 
 
+from enum import StrEnum
 from urllib.parse import urlencode
 
 from administration import forms
@@ -17,7 +18,8 @@ from django.contrib.postgres.search import (SearchQuery, SearchRank,
                                             SearchVector)
 from django.core import paginator
 from django.db import transaction
-from django.db.models import Count, Prefetch
+from django.db.models import Prefetch, Q
+from django.db.models.query import QuerySet
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
@@ -436,6 +438,11 @@ class CategoryUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
     context_object_name = 'category'
     success_message = _("Category was updated successfully!")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(context["category"].has_products) 
+        return context
+    
     def get_success_url(self):
         return reverse("administration:store-category-update", kwargs={"pk": self.object.pk})
 
@@ -477,6 +484,7 @@ class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         pageNumber = self.request.GET.get('page')
         products = pagination.get_page(pageNumber)
         context['products'] = products
+        context["filter_form"] = forms.ProductFilterForm(data=self.request.GET)
         return context
 
 
@@ -712,40 +720,55 @@ def orderDetail(request, id: int):
     return render(request, template_name, context)
 
 
+class OrderPaymentStatusFilterQuery:
+    class Values(StrEnum):
+        PENDING: str = "PENDING"
+        PAID: str = "PAID"
+        FAILED: str = "FAILED"
+        REFUNDED: str = "REFUNDED"
+
+    queryset: QuerySet
+
+    def __init__(self, queryset, status: str = None) -> None:
+        self.queryset = queryset
+        if status is not None and status.upper() in self.values:
+            self.queryset = self.queryset.filter(payment_status=status.upper())
+
+    @property
+    def values(self):
+        return [item.value for item in self.Values]
+
+
+class OrderFlaggedFilterQuery:
+    queryset: QuerySet
+
+    def __init__(self, queryset, value=False) -> None:
+        self.queryset = queryset
+        if value is not False:
+            self.queryset = self.queryset.filter(is_flagged=bool(value))
+
+
+class OrderSearchFilterQuery:
+    queryset: QuerySet
+
+    def __init__(self, queryset, value: str) -> None:
+        self.queryset = queryset
+        if value:
+            self.queryset = self.queryset.filter(Q(id__icontains=value) | Q(first_name__icontains=value) |
+                                                 Q(last_name__icontains=value) | Q(email__icontains=value) |
+                                                 Q(address__icontains=value) | Q(city__icontains=value) |
+                                                 Q(phone__icontains=value) | Q(total_paid__icontains=value) |
+                                                 Q(order_id__icontains=value) | Q(notes__icontains=value))
+
+
 @login_required
 @api_view(['GET'])
 @permission_required(['orders.view_order', 'orders.change_order'], raise_exception=True)
 def orders(request):
-    search = request.GET.get('search', None)
-    selectedOrderByValue = request.GET.get('order_by', '-created_at')
-
-    if search:
-        searchQuery = SearchQuery(search)
-        searchVector = SearchVector("first_name", "last_name", "email", "address", "city", "phone",
-                                    "total_paid", "order_id", "payment_status", "notes",)
-        ordersQueryset = Order.objects.annotate(
-            search=searchVector, rank=SearchRank(searchVector, searchQuery)
-        ).filter(search=searchQuery).order_by("rank", selectedOrderByValue)
-    else:
-        ordersQueryset = Order.objects.order_by(selectedOrderByValue)
-
-    isFlagged = bool(request.GET.get('is_flagged', False))
-    if isFlagged:
-        ordersQueryset = ordersQueryset.filter(is_flagged=isFlagged)
-
-    status = request.GET.get('status', None)
-    if status == 'paid':
-        ordersQueryset = ordersQueryset.filter(
-            payment_status=Order.PaymentStatus.PAID)
-    if status == 'refunded':
-        ordersQueryset = ordersQueryset.filter(
-            payment_status=Order.PaymentStatus.REFUNDED)
-    elif status == 'failed':
-        ordersQueryset = ordersQueryset.filter(
-            payment_status=Order.PaymentStatus.FAILED)
-    elif status == 'pending':
-        ordersQueryset = ordersQueryset.filter(
-            payment_status=Order.PaymentStatus.PENDING)
+    ordersQueryset = OrderPaymentStatusFilterQuery(
+        OrderFlaggedFilterQuery(OrderSearchFilterQuery(Order.objects.all(), request.GET.get(
+            'search', None)).queryset, request.GET.get('is_flagged', False)).queryset,
+        request.GET.get('status', None)).queryset.order_by(request.GET.get('order_by', '-created_at'))
 
     paginator = pagination.OrderPagination()
     orders = paginator.paginate_queryset(ordersQueryset, request)

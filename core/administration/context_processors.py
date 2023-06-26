@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 
@@ -5,7 +6,7 @@ def admin_menu(request):
     menu = [
         {
             "title": _("Dashboard"),
-            "route": "administration:index",
+            "route": reverse("administration:index"),
             "icon": "activity",
         },
         {
@@ -14,7 +15,7 @@ def admin_menu(request):
             "icon": "check-circle",
             "children": [
                 {"title": _("Service List"),
-                 "route": "administration:service-list"},
+                 "route": reverse("administration:service-list")},
             ]
         },
         {
@@ -23,7 +24,7 @@ def admin_menu(request):
             "icon": "book",
             "children": [
                 {"title": _("Documents"),
-                 "route": "administration:document-list"},
+                 "route": reverse("administration:document-list")},
             ]
         },
         {
@@ -32,9 +33,9 @@ def admin_menu(request):
             "icon": "file-text",
             "children": [
                 {"title": _("Post List"),
-                 "route": "administration:post-list"},
+                 "route": reverse("administration:post-list")},
                 {"title": _("Add Post"),
-                 "route": "administration:post-create"},
+                 "route": reverse("administration:post-create")},
             ]
         },
         {
@@ -43,7 +44,7 @@ def admin_menu(request):
             "icon": "home",
             "children": [
                 {"title": _("Company List"),
-                 "route": "administration:company-list"},
+                 "route": reverse("administration:company-list")},
             ]
         },
         {
@@ -52,9 +53,9 @@ def admin_menu(request):
             "icon": "user",
             "children": [
                 {"title": _("User List"),
-                 "route": "administration:user-list"},
+                 "route": reverse("administration:user-list")},
                 {"title": _("Add User"),
-                 "route": "administration:user-create"},
+                 "route": reverse("administration:user-create")},
             ]
         },
         {
@@ -63,11 +64,11 @@ def admin_menu(request):
             "icon": "shopping-cart",
             "children": [
                 {"title": _("Categories"),
-                 "route": "administration:store-category-list"},
+                 "route": reverse("administration:store-category-list")},
                 {"title": _("Products"),
-                 "route": "administration:store-product-list"},
+                 "route": reverse("administration:store-product-list")},
                 {"title": _("Add Product"),
-                 "route": "administration:store-product-create"},
+                 "route": reverse("administration:store-product-create")},
             ]
         },
         {
@@ -75,7 +76,7 @@ def admin_menu(request):
             "module_permission": "orders",
             "icon": "list",
             "children": [
-                {"title": _("Orders"), "route": "administration:order-list"},
+                {"title": _("Orders"), "route": reverse("administration:order-list")},
             ]
         },
         {
@@ -83,9 +84,9 @@ def admin_menu(request):
             "module_permission": "main",
             "icon": "globe",
             "children": [
-                {"title": _("Info"), "route": "administration:site-info"},
-                {"title": _("Texts"), "route": "administration:site-texts"},
-                {"title": _("FAQ"), "route": "administration:site-faq-list"},
+                {"title": _("Info"), "route": reverse("administration:site-info")},
+                {"title": _("Texts"), "route": reverse("administration:site-texts")},
+                {"title": _("FAQ"), "route": reverse("administration:site-faq-list")},
             ]
         },
     ]
