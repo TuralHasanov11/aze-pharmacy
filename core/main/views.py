@@ -1,6 +1,7 @@
 
 import os
 
+from django.conf import settings
 from django.contrib import messages
 from django.core.mail import BadHeaderError, EmailMessage
 from django.db.models import Count, Prefetch
@@ -54,9 +55,8 @@ def contact(request: HttpRequest):
                 msg = EmailMessage(
                     subject=data["subject"],
                     body=content,
-                    from_email=os.environ.get(
-                        "COMPANY_EMAIL_NO_REPLY", "test@test.com"),
-                    to=[os.environ.get("COMPANY_EMAIL", "")],
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    to=[settings.SUPPORT_EMAIL_ADDRESS],
                 )
                 msg.content_subtype = "html"
                 msg.send(fail_silently=True)
