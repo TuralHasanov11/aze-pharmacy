@@ -13,12 +13,14 @@ DEBUG = str(os.environ.get("DEBUG")) == "True"
 SITE_URL = os.environ.get("SITE_URL")
 SITE_HOST = os.environ.get("SITE_HOST")
 
-ALLOWED_HOSTS = [SITE_HOST, os.environ.get("SITE_HOST2", None), os.environ.get("PAYRIFF_HOST")]
+ALLOWED_HOSTS = [SITE_HOST, os.environ.get("SITE_HOST2", None)]
 
 if not DEBUG:
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
-    CSRF_TRUSTED_ORIGINS = [SITE_URL, os.environ.get("SITE_URL2", None), os.environ.get("PAYRIFF_URL")]
+    CSRF_TRUSTED_ORIGINS = [SITE_URL, os.environ.get(
+        "SITE_URL2", None), os.environ.get("PAYRIFF_DOMAIN"), 
+        os.environ.get("PAYRIFF_URL")]
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
     'axes',
     "log_viewer",
     'django_crontab',
+    'mptt',
 
     'main',
     'news',
@@ -78,6 +81,15 @@ AUTHENTICATION_BACKENDS = [
     'axes.backends.AxesStandaloneBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    SITE_URL, 
+    os.environ.get("SITE_URL2", None), 
+    os.environ.get("PAYRIFF_URL"),
+    r"^https://\w+\.payriff\.com$",
+]
+
 
 AXES_COOLOFF_TIME = 0.25
 AXES_FAILURE_LIMIT = 6
@@ -303,7 +315,7 @@ if USE_S3:
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
 else:
     MEDIA_URL = '/media/'
-    MEDIA_ROOT = BASE_DIR / 'media'
+    MEDIA_ROOT = '/home/vetagroa/public_html/media/'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static_cdn'
@@ -321,8 +333,8 @@ EMAIL_HOST = os.environ.get("EMAIL_HOST", "")
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
 EMAIL_PORT = os.environ.get("EMAIL_PORT", "")
-EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", True)
-
+EMAIL_USE_TLS = str(os.environ.get("EMAIL_USE_TLS")) == "True"
+EMAIL_USE_LOCALTIME = True
 
 CKEDITOR_CONFIGS = {
     'default': {

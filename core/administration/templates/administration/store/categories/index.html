@@ -27,12 +27,16 @@
                             <thead>
                                 <tr>
                                     <th>{% translate "Name" %}</th>
+                                    <th>{% translate "Parent" %}</th>
+                                    <th>{% translate "Products Count" %}</th>
                                     <th>{% translate "Actions" %}</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                     <th>{% translate "Name" %}</th>
+                                    <th>{% translate "Parent" %}</th>
+                                    <th>{% translate "Products Count" %}</th>
                                     <th>{% translate "Actions" %}</th>
                                 </tr>
                             </tfoot>
@@ -40,11 +44,19 @@
                                 {% for category in categories %}
                                 <tr>
                                     <td>{{category.name}}</td>
+                                    <td>{{category.parent|default:""}}</td>
+                                    <td>{{category.products_count}}</td>
                                     <td>
                                         <a href="{% url 'administration:store-category-update' pk=category.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
                                         <form class="delete-form" action="{% url 'administration:store-category-delete' pk=category.pk %}" method="POST">
                                             {% csrf_token %}
+                                            {% if category.has_products %}
+                                            <span class="d-inline-block" tabindex="0" data-bs-placement="right" data-bs-toggle="tooltip" data-bs-title="{% translate 'Category has products' %}">
+                                                <button disabled type="submit" class="btn btn-datatable btn-icon btn-transparent-dark"><i data-feather="trash-2"></i></button>
+                                            </span>
+                                            {% else %}
                                             <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark"><i data-feather="trash-2"></i></button>
+                                            {% endif %}
                                         </form>
                                     </td>
                                 </tr>
@@ -66,10 +78,23 @@
                                 {{ form.name }} 
                                 {{ form.name.errors }}
                             </div>
+                            <div class="mb-3">
+                                <label class="small mb-1" for="{{ form.parent.id_for_label }}">{{ form.parent.label }}</label>
+                                {{ form.parent }} 
+                                {{ form.parent.errors }}
+                            </div>
                             {{form.non_field_errors}} 
                             {{form.non_form_errors}}
                             <button class="btn btn-success btn-sm" type="submit"><i class="me-1" data-feather="plus"></i> {% translate "Save" %}</button>
                         </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">{% translate "Category Structure" %}</div>
+                    <div class="card-body">
+                        {% include "components/admin/category-structure.html" with categories=categories %}
                     </div>
                 </div>
             </div>

@@ -1,0 +1,19 @@
+{% load i18n %} {% load mptt_tags %}
+<div class="product-widgets side-cat woocommerce widget_product_categories">
+    <ul class="product-categories">
+        {% recursetree categories %}
+            <li class="cat-item cat-item-{{node.pk}}" >
+                <a
+                    href="{% url 'store:category-products' category_slug=node.slug %}"
+                >{{node.name}}</a>
+                <span class="float-right">{{node.products_count}}</span>
+                {% if not node.is_leaf_node %}
+                    <ul class="children">
+                        {{ children }}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endrecursetree %}
+    </ul>
+</div>
+

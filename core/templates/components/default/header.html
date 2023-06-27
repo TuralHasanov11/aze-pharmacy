@@ -21,22 +21,7 @@
               <div class="navbar-wrap main-menu d-none d-xl-flex">
                 <ul id="menu-main-menu" class="navigation">
                   {% for item in default_menu %}
-                  {% if item.children %}
-                  <li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-has-children">
-                    <a href="{% url item.route %}" aria-current="page">{{item.title}}</a>
-                    <ul class="sub-menu">
-                      {% for subItem in item.children %}
-                      <li class="menu-item menu-item-type-post_type menu-item-object-page">
-                        <a href="{{subItem.route}}">{{subItem.title}}</a>
-                      </li>
-                      {% endfor %}
-                    </ul>
-                  </li>
-                  {% else %}
-                  <li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item current_page_item menu-item-home">
-                    <a href="{% url item.route %}" aria-current="page">{{item.title}}</a>
-                  </li>
-                  {% endif %}
+                  {%include "components/navbar/navbar-item.html" with item=item %}
                   {% endfor %}
                   <li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-has-children">
                     <a href="/{{ CURRENT_LANGUAGE }}{{ request.get_full_path|slice:'3:' }}" aria-current="page">{{CURRENT_LANGUAGE|upper}}</a>
@@ -128,28 +113,7 @@
               <div class="menu-outer">
                 <ul id="menu-main-menu-1" class="navigation">
                   {% for item in default_menu %}
-                  {% if item.children %}
-                  <li
-                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children has-children"
-                  >
-                    <a href="{% url item.route %}">{{item.title}}</a>
-                    <ul class="sub-menu">
-                      {% for subItem in item.children %}
-                      <li
-                        class="menu-item menu-item-type-post_type menu-item-object-page"
-                      >
-                        <a href="{{subItem.route}}">{{subItem.title}}</a>
-                      </li>
-                      {% endfor %}
-                    </ul>
-                  </li>
-                  {% else %}
-                  <li
-                    class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home"
-                  >
-                    <a href="{% url item.route %}">{{item.title}}</a>
-                  </li>
-                  {% endif %}
+                  {%include "components/navbar/navbar-mobile-item.html" with item=item %}
                   {% endfor %}
                   <li
                   class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children has-children"

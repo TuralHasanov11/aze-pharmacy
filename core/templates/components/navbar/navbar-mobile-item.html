@@ -1,0 +1,18 @@
+{% if item.children %}
+<li
+  class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children has-children"
+>
+  <a href="{{item.route}}">{{item.title}}</a>
+  <ul class="sub-menu">
+    {% for subItem in item.children %}
+    {%include "components/navbar/navbar-mobile-item.html" with item=subItem %}
+    {% endfor %}
+  </ul>
+</li>
+{% else %}
+<li
+  class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home"
+>
+  <a href="{{item.route}}">{{item.title}}</a>
+</li>
+{% endif %}

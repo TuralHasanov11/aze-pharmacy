@@ -13,15 +13,21 @@ from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from mptt.models import MPTTModel, TreeForeignKey
 
 
-class Category(models.Model):
+class Category(MPTTModel):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, unique=True)
     last_modified_by = models.ForeignKey(
         get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
+    parent = TreeForeignKey("self", on_delete=models.PROTECT,
+                            related_name="children", null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class MPTTMeta:
+        order_insertion_by = ["name"]
 
     class Meta:
         ordering = ["name"]
@@ -49,6 +55,10 @@ class Category(models.Model):
     @property
     def updated_date(self):
         return datetime.fromisoformat(str(self.updated_at)).replace(tzinfo=timezone.utc).astimezone().strftime("%d.%m.%Y %H:%M")
+    
+    @property
+    def has_products(self):
+        return hasattr(self, "products_count") and self.products_count > 0
 
 
 class ProductQuerySet(models.QuerySet):
@@ -93,7 +103,7 @@ class Product(models.Model):
     sku = models.CharField(max_length=10, unique=True, null=True)
     description = RichTextEditorField()
     category = models.ForeignKey(
-        Category, related_name="product_category", on_delete=models.SET_NULL, null=True, blank=True)
+        Category, related_name="product_category", on_delete=models.PROTECT, null=True, blank=True)
     is_active = models.BooleanField(default=False)
     regular_price = models.DecimalField(max_digits=6, decimal_places=2)
     discount = models.IntegerField(
@@ -171,3 +181,4 @@ class ProductImage(models.Model):
 
     class Meta:
         ordering = ('-is_feature', )
+

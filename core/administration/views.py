@@ -2,7 +2,7 @@
 
 from urllib.parse import urlencode
 
-from administration import forms
+from administration import filters, forms
 from administration.serializers import OrderLogSerializer
 from api import pagination
 from api.serializers import OrderSerializer
@@ -13,12 +13,10 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.postgres.search import (SearchQuery, SearchRank,
-                                            SearchVector)
 from django.core import paginator
 from django.db import transaction
 from django.db.models import Prefetch
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponseForbidden
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -416,7 +414,9 @@ class CategoryListCreateView(LoginRequiredMixin, PermissionRequiredMixin, Succes
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = self.model.objects.all()
+        context["categories"] = self.model.objects.add_related_count(self.model.objects.all(), Product,
+                                                                     'category', 'products_count',
+                                                                     cumulative=True)
         return context
 
     def get_form_kwargs(self):
@@ -434,6 +434,11 @@ class CategoryUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
     context_object_name = 'category'
     success_message = _("Category was updated successfully!")
 
+    def get_queryset(self, **kwargs):
+        return self.model.objects.add_related_count(self.model.objects.all(), Product,
+                                                    'category', 'products_count',
+                                                    cumulative=True)
+
     def get_success_url(self):
         return reverse("administration:store-category-update", kwargs={"pk": self.object.pk})
 
@@ -450,6 +455,16 @@ class CategoryDeleteView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMes
     success_message = _("Category was deleted successfully!")
     success_url = reverse_lazy('administration:store-category-list')
 
+    def get_queryset(self):
+        return self.model.objects.add_related_count(self.model.objects.all(), Product,
+                                                    'category', 'products_count',
+                                                    cumulative=True)
+
+    def post(self, request, *args, **kwargs):
+        if self.get_object().has_products:
+            return HttpResponseForbidden(_("Category has products"))
+        return super().post(request, *args, **kwargs)
+
 
 class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Product
@@ -460,10 +475,16 @@ class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     context_object_name = "products"
 
     def get_queryset(self):
+        filterForm = forms.ProductFilterForm(data=self.request.GET)
         queryset = super().get_queryset().select_related('category').prefetch_related(
             Prefetch('product_image', queryset=ProductImage.objects.filter(is_feature=True), to_attr='image_feature')).only(
                 'name', 'sku', 'regular_price', 'discount', 'discount_price', 'category', 'is_active', 'updated_at').order_by(self.request.GET.get(
                     'order_by', '-created_at'))
+
+        if filterForm.is_valid():
+            queryset = filters.ProductFilterQuery(
+                queryset, filterForm.cleaned_data).queryset
+
         if self.request.GET.get('search'):
             queryset = queryset.filter(
                 name__icontains=self.request.GET.get('search'))
@@ -475,6 +496,7 @@ class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         pageNumber = self.request.GET.get('page')
         products = pagination.get_page(pageNumber)
         context['products'] = products
+        context["filter_form"] = forms.ProductFilterForm(data=self.request.GET)
         return context
 
 
@@ -688,13 +710,13 @@ def orderDetail(request, id: int):
             order.seen = True
             order.save()
         form = forms.OrderForm(instance=order)
-    
+
     orderLogs = order.history.exclude(
         history_change_reason=None).order_by('-history_date')
-    
+
     context = {
-        "order": order, 
-        "form": form, 
+        "order": order,
+        "form": form,
         "order_logs": orderLogs,
     }
 
@@ -703,7 +725,7 @@ def orderDetail(request, id: int):
             instance=OrderDelivery.objects.get(order=order))
         context["order_delivery_logs"] = order.order_delivery.history.exclude(history_change_reason=None).order_by(
             '-history_date')
-        
+
     if order.payment_status == Order.PaymentStatus.PAID:
         context["refund_form"] = forms.OrderRefundForm()
 
@@ -714,36 +736,10 @@ def orderDetail(request, id: int):
 @api_view(['GET'])
 @permission_required(['orders.view_order', 'orders.change_order'], raise_exception=True)
 def orders(request):
-    search = request.GET.get('search', None)
-    selectedOrderByValue = request.GET.get('order_by', '-created_at')
-
-    if search:
-        searchQuery = SearchQuery(search)
-        searchVector = SearchVector("first_name", "last_name", "email", "address", "city", "phone",
-                                    "total_paid", "order_id", "payment_status", "notes",)
-        ordersQueryset = Order.objects.annotate(
-            search=searchVector, rank=SearchRank(searchVector, searchQuery)
-        ).filter(search=searchQuery).order_by("rank", selectedOrderByValue)
-    else:
-        ordersQueryset = Order.objects.order_by(selectedOrderByValue)
-
-    isFlagged = bool(request.GET.get('is_flagged', False))
-    if isFlagged:
-        ordersQueryset = ordersQueryset.filter(is_flagged=isFlagged)
-
-    status = request.GET.get('status', None)
-    if status == 'paid':
-        ordersQueryset = ordersQueryset.filter(
-            payment_status=Order.PaymentStatus.PAID)
-    if status == 'refunded':
-        ordersQueryset = ordersQueryset.filter(
-            payment_status=Order.PaymentStatus.REFUNDED)
-    elif status == 'failed':
-        ordersQueryset = ordersQueryset.filter(
-            payment_status=Order.PaymentStatus.FAILED)
-    elif status == 'pending':
-        ordersQueryset = ordersQueryset.filter(
-            payment_status=Order.PaymentStatus.PENDING)
+    ordersQueryset = filters.OrderPaymentStatusFilterQuery(
+        filters.OrderFlaggedFilterQuery(filters.OrderSearchFilterQuery(Order.objects.all(), request.GET.get(
+            'search', None)).queryset, request.GET.get('is_flagged', False)).queryset,
+        request.GET.get('status', None)).queryset.order_by(request.GET.get('order_by', '-created_at'))
 
     paginator = pagination.OrderPagination()
     orders = paginator.paginate_queryset(ordersQueryset, request)

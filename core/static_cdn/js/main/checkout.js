@@ -1,14 +1,6 @@
 const { createApp } = Vue;
 const { required, minLength, email, helpers  } = VuelidateValidators
 
-// let url = `ws://${window.location.host}/ws/order-socket-server/`
-
-// const orderSocket = new WebSocket(url)
-
-// orderSocket.onclose = function (e) {
-//     console.log("Socket closed")
-// }
-
 const phoneValidator = helpers.regex(/^\+?1?\d{12}$/)
 
 createApp({

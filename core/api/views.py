@@ -16,7 +16,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db import transaction
 from django.db.models import Prefetch
-from django.http import HttpResponseBadRequest, JsonResponse
+from django.http import (HttpResponseBadRequest, HttpResponseNotFound,
+                         JsonResponse)
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils import translation
@@ -45,23 +46,33 @@ def cities(request):
 @api_view(['POST'])
 @permission_required(['orders.view_order', 'orders.change_order'], raise_exception=True)
 def orderFlag(request, id: int):
-    order = Order.objects.get(id=id)
-    order.is_flagged = not order.is_flagged
-    order.save()
-    serializer = OrderSerializer(order)
-    return Response(data=serializer.data)
+    try:
+        order = Order.objects.get(id=id)
+        order.is_flagged = not order.is_flagged
+        order.save()
+        serializer = OrderSerializer(order)
+        return Response(data=serializer.data)
+    except Order.DoesNotExist:
+        return HttpResponseNotFound(_("Order not found"))
+    except Exception as err:
+        logger.error(str(err))
+        return HttpResponseBadRequest(str(err))
 
 
 @api_view(['GET'])
 def checkoutFormDetails(request):
     lang = request.GET.get('lang', 'az')
     translation.activate(lang)
-    serializer = CheckoutSerializer()
-    messages: dict = {}
-    for field in serializer.fields.keys():
-        messages[field] = {"error_messages": serializer.fields[field].error_messages,
-                           "label": serializer.fields[field].label}
-    return Response(data=messages)
+    try:
+        serializer = CheckoutSerializer()
+        messages: dict = {}
+        for field in serializer.fields.keys():
+            messages[field] = {"error_messages": serializer.fields[field].error_messages,
+                               "label": serializer.fields[field].label}
+        return Response(data=messages)
+    except Exception as err:
+        logger.error(str(err))
+        return HttpResponseBadRequest(str(err))
 
 
 @require_POST
@@ -105,6 +116,7 @@ def cartAdd(request):
         return JsonResponse(status=status.HTTP_404_NOT_FOUND,
                             data={"message": _("Product was not found")})
     except Exception as err:
+        logger.error(str(err))
         return JsonResponse(status=status.HTTP_422_UNPROCESSABLE_ENTITY,
                             data={"message": str(err)})
 
@@ -162,6 +174,7 @@ def checkout(request):
                     orderId=order.order_id, orderKey=order.order_key)
                 return JsonResponse(data=paymentData["payload"])
     except Exception as e:
+        logger.error(str(e))
         return JsonResponse(status=400, data={"message": _("Order cannot be placed"), "errors": str(e)})
 
 
@@ -196,12 +209,12 @@ def approvePayment(request):
 
                 isOrderPaid = PaymentGateway.isPaid(
                     request=request, orderId=order.order_id, orderKey=order.order_key)
-                
+
                 if isOrderPaid and order.payment_status == Order.PaymentStatus.PENDING:
                     confirmOrder(order)
                 elif not isOrderPaid:
                     raise Exception(_('Order is pending'))
-                
+
                 cart = CartProcessor(request)
                 cart.clear()
 
@@ -232,6 +245,7 @@ def cancelPayment(request):
             translation.activate("az")
             return redirect("checkout:index")
     except Exception as e:
+        logger.error(str(e))
         return JsonResponse(status=400, data={"message": _("Order cannot be cancelled"), "errors": str(e)})
 
 
@@ -250,6 +264,7 @@ def declinePayment(request):
             messages.error(request, _('Your order has failed!'))
             return redirect(f"{reverse('checkout:failed')}#order-failed")
     except Exception as e:
+        logger.error(str(e))
         return JsonResponse(status=400, data={"errors": str(e)})
 
 
@@ -286,9 +301,11 @@ def orderRefund(request, id: int):
                                       "order_refund": orderRefundSerializer.data})
         return Response(status=status.HTTP_422_UNPROCESSABLE_ENTITY,
                         data={"message": _("Order cannot be refunded"), "errors": serializer.errors})
-    except Order.DoesNotExist:
+    except Order.DoesNotExist as e:
+        logger.error(str(e))
         return Response(status=status.HTTP_404_NOT_FOUND, data={"message": _("Order was not found")})
-    except Exception:
+    except Exception as e:
+        logger.error(str(e))
         return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": _("Refund failed")})
 
 
@@ -322,5 +339,6 @@ def updateOrderDelivery(request, id: int):
             return Response(data=context)
         return Response(status=status.HTTP_422_UNPROCESSABLE_ENTITY,
                         data={"message": _("Order delivery cannot be updated"), "errors": form.errors})
-    except Order.DoesNotExist:
+    except Order.DoesNotExist as e:
+        logger.error(str(e))
         return Response(status=status.HTTP_404_NOT_FOUND, data={"message": _("Order was not found")})

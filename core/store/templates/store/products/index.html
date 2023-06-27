@@ -43,23 +43,7 @@
         </div>
 
         <div class="col-xl-3 col-lg-4 col-md-8 col-sm-8">
-          <aside class="shop-sidebar">
-            <div class="product-widgets side-cat woocommerce widget_product_categories"
-            >
-              <h4 class="sidebar-title">{% translate "Product Categories" %}</h4>
-              <ul class="product-categories">
-                {% for category in categories %}
-                <li class="cat-item cat-item-{{category.pk}}">
-                  <a
-                    href="{% url 'store:category-products' category_slug=category.slug %}"
-                    >{{category.name}}</a
-                  >
-                  <span class="float-right">{{category.products_count}}</span>
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
-          </aside>
+          {% include "components/products/categories-list.html" with categories=categories %}
         </div>
       </div>
       {% else %}
