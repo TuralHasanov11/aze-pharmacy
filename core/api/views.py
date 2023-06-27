@@ -170,6 +170,7 @@ def approvePayment(request):
     try:
         if request.method == 'POST':
             data = json.load(request)["payload"]
+            logger.error(json.dumps(data))
             orderProcessor = OrderProcessor(request=request)
             order = Order.objects.select_related('order_delivery').prefetch_related(
                 Prefetch('items', queryset=OrderItem.objects.select_related(

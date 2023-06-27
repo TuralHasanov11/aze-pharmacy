@@ -76,7 +76,7 @@ def admin_menu(request):
             "module_permission": "orders",
             "icon": "list",
             "children": [
-                {"title": _("Orders"), "route": reverse("administration:order-list")},
+                {"title": _("Orders"), "route": reverse("administration:order-list")+"?status=paid"},
             ]
         },
         {

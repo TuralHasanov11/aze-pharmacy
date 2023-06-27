@@ -20,7 +20,7 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
     CSRF_TRUSTED_ORIGINS = [SITE_URL, os.environ.get(
-        "SITE_URL2", None), os.environ.get("PAYRIFF_URL")]
+        "SITE_URL2", None), os.environ.get("PAYRIFF_DOMAIN")]
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
@@ -324,8 +324,8 @@ EMAIL_HOST = os.environ.get("EMAIL_HOST", "")
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
 EMAIL_PORT = os.environ.get("EMAIL_PORT", "")
-EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", True)
-
+EMAIL_USE_TLS = str(os.environ.get("EMAIL_USE_TLS")) == "True"
+EMAIL_USE_LOCALTIME = True
 
 CKEDITOR_CONFIGS = {
     'default': {

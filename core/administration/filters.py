@@ -39,8 +39,8 @@ class OrderFlaggedFilterQuery:
 
     def __init__(self, queryset, value=False) -> None:
         self.queryset = queryset
-        if value is not False:
-            self.queryset = self.queryset.filter(is_flagged=bool(value))
+        if value:
+            self.queryset = self.queryset.filter(is_flagged=True)
 
 
 class OrderSearchFilterQuery:

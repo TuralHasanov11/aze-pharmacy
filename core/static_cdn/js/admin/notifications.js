@@ -12,9 +12,7 @@ var pusher = new Pusher(pusherAppKey, {
 var ordersChannel = pusher.subscribe('orders');
 
 ordersChannel.bind('created', function(response) {
-    if(isPaidPage) {
-        getOrders()
-    }
+    getOrders()
     toastContainer.innerHTML += toastComponent(response.message)
     notificationContainer.innerHTML += orderNotificationComponent(response)
     navbarDropdownAlertsToggle.classList.replace('btn-transparent-dark', 'btn-danger')

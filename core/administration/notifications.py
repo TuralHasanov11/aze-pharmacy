@@ -66,7 +66,7 @@ class DeliveryEmailNotification(Notification):
             msg = EmailMessage(
                 subject=self.subject,
                 body=self.message,
-                from_email=os.environ.get("COMPANY_EMAIL"),
+                from_email=os.environ.get("DEFAULT_FROM_EMAIL"),
                 to=[self.order.email],
             )
             msg.content_subtype = "html"
@@ -153,7 +153,7 @@ class RefundEmailNotification(Notification):
             msg = EmailMessage(
                 subject="Sifarişinizin ödənişi geri qaytarıldı",
                 body=self.message,
-                from_email=os.environ.get("COMPANY_EMAIL"),
+                from_email=os.environ.get("DEFAULT_FROM_EMAIL"),
                 to=[self.order.email],
             )
             msg.content_subtype = "html"
