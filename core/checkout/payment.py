@@ -43,7 +43,6 @@ class PaymentGateway:
             else:
                 raise Exception(_("Order failed"))
         except Exception as e:
-            print(str(e))
             raise e
 
     @staticmethod
