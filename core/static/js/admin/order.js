@@ -7,6 +7,7 @@ const orderRefundListElement = document.getElementById('orderRefundList')
 const deliveryForm = document.getElementById('delivery-form')
 const refundForm = document.getElementById('refund-form')
 const deliveryLogHistoryElement = document.getElementById('order_delivery_logs')
+const deliverySubmitBtn = document.getElementById('delivery_submit_btn')
 
 refundForm.addEventListener('submit', async (event) => {
   event.preventDefault()
@@ -40,7 +41,7 @@ refundForm.addEventListener('submit', async (event) => {
 deliveryForm.addEventListener('submit', async (event) => {
   event.preventDefault()
   const formData = new FormData(event.currentTarget);
-
+  deliverySubmitBtn.disabled = true
   try {
     const response = await fetch(`/api/orders/${orderId}/update-delivery`, {
       method: 'POST',
@@ -65,6 +66,8 @@ deliveryForm.addEventListener('submit', async (event) => {
       errorAlert(JSON.parse(error.message)?.message)
       handleDeliveryErrors(JSON.parse(error.message)?.errors)
     }
+  } finally{
+    deliverySubmitBtn.disabled = false
   }
 })
 

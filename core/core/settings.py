@@ -82,6 +82,15 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    SITE_URL, 
+    os.environ.get("SITE_URL2", None), 
+    os.environ.get("PAYRIFF_URL"),
+    r"^https://\w+\.payriff\.com$",
+]
+
+
 AXES_COOLOFF_TIME = 0.25
 AXES_FAILURE_LIMIT = 6
 AXES_RESET_ON_SUCCESS = True
