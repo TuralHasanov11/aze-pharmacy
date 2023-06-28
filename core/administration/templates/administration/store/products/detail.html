@@ -3,6 +3,7 @@
 {% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
 {% block title %}{{product.name}}{% endblock title %}
 {% block content %}
+{% load product_extras %}
 
 <main>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -72,7 +73,7 @@
                         <h6 class="card-title">{% translate "Discount Price" %}</h6>
                         <p class="card-text">{{product.discount_price}}</p>
                         <h6 class="card-title">{% translate "Weight" %}</h6>
-                        <p class="card-text">{{product.weight|default:'-'}}</p>
+                        <p class="card-text">{{product.weight|default:'-'|convert_weight}}</p>
                         <p class="card-text">                                            
                             <span class="badge {% if product.in_stock %}bg-success{% else %}bg-danger{% endif %} rounded-pill">{{product.in_stock_display_value}}</span>
                         </p>
