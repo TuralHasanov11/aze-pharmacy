@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-26 22:54+0200\n"
-"PO-Revision-Date: 2023-06-26 22:55+0400\n"
+"POT-Creation-Date: 2023-06-28 22:02+0200\n"
+"PO-Revision-Date: 2023-06-28 22:02+0400\n"
 "Last-Translator: Tural Hasanov <tural.hasanov.std@bhos.edu.az>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -177,7 +177,7 @@ msgstr "Şəkil yükləyin"
 
 #: .\administration\forms.py:28 .\administration\forms.py:29
 #: .\administration\forms.py:126 .\administration\forms.py:307
-#: .\store\templates\store\products\detail.html:128
+#: .\store\templates\store\products\detail.html:129
 msgid "Description"
 msgstr "Məzmun"
 
@@ -373,7 +373,7 @@ msgstr "SKU nömrəsini daxil edin"
 #: .\administration\forms.py:288
 #: .\administration\templates\administration\store\products\index.html:84
 #: .\administration\templates\administration\store\products\index.html:120
-#: .\store\templates\store\products\detail.html:116
+#: .\store\templates\store\products\detail.html:117
 msgid "Category"
 msgstr "Kateqoriya"
 
@@ -382,7 +382,7 @@ msgid "Please select category"
 msgstr "Kateqoriya seçin"
 
 #: .\administration\forms.py:290 .\administration\forms.py:291
-#: .\administration\templates\administration\store\products\detail.html:68
+#: .\administration\templates\administration\store\products\detail.html:69
 msgid "Regular Price"
 msgstr "Qiymət"
 
@@ -391,7 +391,7 @@ msgid "Please enter regular price"
 msgstr "Standard qiyməti daxil edin"
 
 #: .\administration\forms.py:292 .\administration\forms.py:293
-#: .\administration\templates\administration\store\products\detail.html:70
+#: .\administration\templates\administration\store\products\detail.html:71
 #: .\administration\templates\administration\store\products\index.html:80
 #: .\administration\templates\administration\store\products\index.html:116
 msgid "Discount"
@@ -402,8 +402,8 @@ msgid "Please enter discount"
 msgstr "Endirimi daxil edin"
 
 #: .\administration\forms.py:295 .\administration\forms.py:296
-#: .\administration\templates\administration\store\products\detail.html:74
-#: .\store\templates\store\products\detail.html:112
+#: .\administration\templates\administration\store\products\detail.html:75
+#: .\store\templates\store\products\detail.html:113
 msgid "Weight"
 msgstr "Çəki"
 
@@ -422,7 +422,7 @@ msgid "In Stock"
 msgstr "Stokdadır"
 
 #: .\administration\forms.py:302 .\administration\forms.py:303
-#: .\administration\templates\administration\store\products\detail.html:82
+#: .\administration\templates\administration\store\products\detail.html:83
 msgid "Maximum Number of Purchase Units"
 msgstr "Satıla Biləcək Maksimum Say"
 
@@ -728,7 +728,7 @@ msgstr "Hesab Məlumatları"
 #: .\administration\templates\administration\site\info.html:80
 #: .\administration\templates\administration\site\texts.html:84
 #: .\administration\templates\administration\store\categories\edit.html:64
-#: .\administration\templates\administration\store\products\detail.html:84
+#: .\administration\templates\administration\store\products\detail.html:85
 #: .\administration\templates\administration\store\products\edit.html:106
 #: .\administration\templates\administration\users\edit.html:80
 msgid "Creation Date"
@@ -764,7 +764,7 @@ msgstr "Şirkəti Yenilə"
 #: .\administration\templates\administration\site\info.html:84
 #: .\administration\templates\administration\site\texts.html:88
 #: .\administration\templates\administration\store\categories\edit.html:68
-#: .\administration\templates\administration\store\products\detail.html:86
+#: .\administration\templates\administration\store\products\detail.html:87
 #: .\administration\templates\administration\store\products\edit.html:110
 #: .\administration\templates\administration\users\edit.html:84
 msgid "Last Modified by"
@@ -901,7 +901,7 @@ msgstr "Qiymət"
 #: .\cart\templates\cart\summary.html:31
 #: .\orders\templates\orders\detail.html:39
 #: .\orders\templates\orders\detail.html:105
-#: .\store\templates\store\products\detail.html:67
+#: .\store\templates\store\products\detail.html:68
 msgid "Quantity"
 msgstr "Say"
 
@@ -1014,7 +1014,7 @@ msgstr "Dərc et"
 
 #: .\administration\templates\administration\posts\detail.html:22
 #: .\administration\templates\administration\posts\edit.html:25
-#: .\administration\templates\administration\store\products\detail.html:21
+#: .\administration\templates\administration\store\products\detail.html:22
 msgid "View on website"
 msgstr "Saytda görüntülə"
 
@@ -1123,7 +1123,6 @@ msgstr "Kateqoriya Siyahısına get"
 #: .\administration\templates\administration\store\categories\edit.html:29
 #: .\administration\templates\administration\store\categories\index.html:54
 #: .\administration\views.py:465
-#| msgid "Category Structure"
 msgid "Category has products"
 msgstr "Kateqoriyada məhsullar var"
 
@@ -1138,7 +1137,6 @@ msgstr "Kateqoriya Siyahısı"
 
 #: .\administration\templates\administration\store\categories\index.html:31
 #: .\administration\templates\administration\store\categories\index.html:39
-#| msgid "Products"
 msgid "Products Count"
 msgstr "Məhsulların Sayı"
 
@@ -1151,7 +1149,7 @@ msgid "Category Structure"
 msgstr "Kateqoriya Strukturu"
 
 #: .\administration\templates\administration\store\products\create.html:25
-#: .\administration\templates\administration\store\products\detail.html:32
+#: .\administration\templates\administration\store\products\detail.html:33
 #: .\administration\templates\administration\store\products\edit.html:29
 msgid "Back to Product List"
 msgstr "Məhsul Siyahısına get"
@@ -1161,27 +1159,33 @@ msgstr "Məhsul Siyahısına get"
 msgid "Product Details"
 msgstr "Məhsul Məlumatları"
 
+#: .\administration\templates\administration\store\products\create.html:71
+#: .\administration\templates\administration\store\products\edit.html:79
+#: .\store\templatetags\product_extras.py:11
+msgid "grams"
+msgstr "qram"
+
 #: .\administration\templates\administration\store\products\create.html:97
 #: .\administration\templates\administration\store\products\edit.html:116
 msgid "Images"
 msgstr "Şəkillər"
 
-#: .\administration\templates\administration\store\products\detail.html:25
+#: .\administration\templates\administration\store\products\detail.html:26
 #: .\administration\templates\administration\store\products\edit.html:2
 #: .\administration\templates\administration\store\products\edit.html:16
 msgid "Edit Product"
 msgstr "Məhsulu Yenilə"
 
-#: .\administration\templates\administration\store\products\detail.html:36
+#: .\administration\templates\administration\store\products\detail.html:37
 #: .\administration\templates\administration\store\products\edit.html:33
 msgid "Delete Product"
 msgstr "Məhsulu Sil"
 
-#: .\administration\templates\administration\store\products\detail.html:66
+#: .\administration\templates\administration\store\products\detail.html:67
 msgid "Pricing"
 msgstr "Qiymətlər"
 
-#: .\administration\templates\administration\store\products\detail.html:72
+#: .\administration\templates\administration\store\products\detail.html:73
 msgid "Discount Price"
 msgstr "Endirimli Qiymət"
 
@@ -1367,51 +1371,55 @@ msgstr "Sifariş uğurla yeniləndi!"
 msgid "Order was not saved!"
 msgstr "Sifariş saxlanmadı!"
 
-#: .\api\views.py:106
+#: .\api\views.py:56 .\checkout\payment.py:76
+msgid "Order not found"
+msgstr "Sifariş tapılmadı"
+
+#: .\api\views.py:117
 msgid "Product was not found"
 msgstr "Məhsul tapılmadı"
 
-#: .\api\views.py:165 .\api\views.py:213 .\api\views.py:217 .\api\views.py:218
+#: .\api\views.py:178 .\api\views.py:226 .\api\views.py:230 .\api\views.py:231
 msgid "Order cannot be placed"
 msgstr "Sifariş yerləşdirilmədi"
 
-#: .\api\views.py:203
+#: .\api\views.py:216
 msgid "Order is pending"
 msgstr "Sifariş gözləyir"
 
-#: .\api\views.py:209
+#: .\api\views.py:222
 msgid "Order was placed successfully"
 msgstr "Sifariş uğurla yerləşdirildi"
 
-#: .\api\views.py:235
+#: .\api\views.py:249
 msgid "Order cannot be cancelled"
 msgstr "Sifariş ləğv edilmədi"
 
-#: .\api\views.py:250
+#: .\api\views.py:264
 msgid "Your order has failed!"
 msgstr "Sifarişiniz Uğursuz oldu"
 
-#: .\api\views.py:284
+#: .\api\views.py:299
 msgid "Order was refunded"
 msgstr "Sifariş geri ödənildi"
 
-#: .\api\views.py:288
+#: .\api\views.py:303
 msgid "Order cannot be refunded"
 msgstr "Sifariş geri ödənilmədi"
 
-#: .\api\views.py:290 .\api\views.py:326
+#: .\api\views.py:306 .\api\views.py:344
 msgid "Order was not found"
 msgstr "Sifariş tapılmadı"
 
-#: .\api\views.py:292 .\checkout\payment.py:101
+#: .\api\views.py:309 .\checkout\payment.py:100
 msgid "Refund failed"
 msgstr "Geri ödəniş uğursuz oldu"
 
-#: .\api\views.py:321
+#: .\api\views.py:338
 msgid "Order delivery was updated"
 msgstr "Çatdırılma məlumatları yeniləndi"
 
-#: .\api\views.py:324
+#: .\api\views.py:341
 msgid "Order delivery cannot be updated"
 msgstr "Çatdırılma məlumatları yenilənmədi"
 
@@ -1466,10 +1474,6 @@ msgstr "Ana Səhifə"
 #: .\checkout\payment.py:44 .\checkout\views.py:35 .\checkout\views.py:37
 msgid "Order failed"
 msgstr "Sifariş uğursuz oldu"
-
-#: .\checkout\payment.py:77
-msgid "Order not found"
-msgstr "Sifariş tapılmadı"
 
 #: .\checkout\serializers.py:9
 msgid "Please enter your first name"
@@ -1694,15 +1698,15 @@ msgstr ""
 msgid "Order succeeded"
 msgstr "Sifariş uğurlu oldu"
 
-#: .\core\settings.py:181
+#: .\core\settings.py:190
 msgid "Azerbaijani"
 msgstr "Azərbaycanca"
 
-#: .\core\settings.py:182
+#: .\core\settings.py:191
 msgid "English"
 msgstr "İngiliscə"
 
-#: .\core\settings.py:183
+#: .\core\settings.py:192
 msgid "Russian"
 msgstr "Rusca"
 
@@ -2065,19 +2069,19 @@ msgstr "Aktiv"
 msgid "Not Active"
 msgstr "Aktiv deyil"
 
-#: .\store\templates\store\products\detail.html:8
+#: .\store\templates\store\products\detail.html:9
 msgid "Add to Wishlist"
 msgstr "Seçilmişlərə əlavə et"
 
-#: .\store\templates\store\products\detail.html:9
+#: .\store\templates\store\products\detail.html:10
 msgid "Remove from Wishlist"
 msgstr "Seçilmişlərdən Sil"
 
-#: .\store\templates\store\products\detail.html:83
+#: .\store\templates\store\products\detail.html:84
 msgid "Add to Cart"
 msgstr "Səbətə At"
 
-#: .\store\templates\store\products\detail.html:135
+#: .\store\templates\store\products\detail.html:136
 msgid "Related Products"
 msgstr "Əlaqəli Məhsullar"
 
@@ -2096,6 +2100,10 @@ msgstr "Sırala"
 #: .\store\templates\store\products\index.html:51
 msgid "The products you searched for do not exist"
 msgstr "Axtardığınız məhsullar mövcud deyil"
+
+#: .\store\templatetags\product_extras.py:10
+msgid "kilograms"
+msgstr "kiloqram"
 
 #: .\store\views.py:13 .\templates\components\main\blog-area.html:9
 msgid "Latest"

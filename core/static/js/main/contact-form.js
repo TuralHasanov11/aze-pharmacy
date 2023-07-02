@@ -41,4 +41,10 @@ jQuery(document).ready(function ($) {
             event.currentTarget.setCustomValidity("");
         })
     })
+
+    document.querySelector('#contact-form form').addEventListener('submit', (e)=>{
+        e.preventDefault()
+        document.getElementById('contact-form-btn').disabled = true
+        e.currentTarget.submit()
+    })
 });

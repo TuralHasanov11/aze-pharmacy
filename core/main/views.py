@@ -55,11 +55,12 @@ def contact(request: HttpRequest):
                 msg = EmailMessage(
                     subject=data["subject"],
                     body=content,
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    to=[settings.SUPPORT_EMAIL_ADDRESS],
+                    from_email=os.environ.get("DEFAULT_FROM_EMAIL"),
+                    to=[os.environ.get("SUPPORT_EMAIL_ADDRESS")],
+                    reply_to={os.environ.get("SUPPORT_EMAIL_ADDRESS")}
                 )
                 msg.content_subtype = "html"
-                msg.send(fail_silently=True)
+                msg.send()
 
                 messages.success(request, _('Email was sent successfully!'))
                 return redirect(reverse("main:contact")+"#contact-form")

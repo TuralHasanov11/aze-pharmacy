@@ -90,7 +90,7 @@ def productDetail(request: HttpRequest, category_slug: str, product_slug: str):
             slug=product_slug, category__slug=category_slug)
         categoryFamily = product.category.get_descendants(include_self=True)
         relatedProducts = Product.products.list_queryset().filter(
-            category__in=[cat.id for cat in categoryFamily]).order_by(request.GET.get('sort_by', 'name'))[:4]
+            category__in=[cat.id for cat in categoryFamily]).exclude(slug=product_slug).order_by(request.GET.get('sort_by', 'name'))[:4]
 
         breadcrumb = [
             {"title": _("Shop")},
