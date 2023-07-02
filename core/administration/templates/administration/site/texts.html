@@ -23,6 +23,7 @@
             <form method="POST" action="{% url 'administration:site-texts' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ formset.management_form }}
+                {{formset.errors}}
                 <h3 class="text-primary">{% translate "Texts" %}</h3>
                 <h5 class="card-title mb-4">{% translate "About text" %}, {% translate "Terms and Privacy text" %}</h5>
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
