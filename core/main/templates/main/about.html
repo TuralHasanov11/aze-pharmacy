@@ -1,0 +1,70 @@
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "About Us" %}{% endblock title %} {% block description %}
+{% translate "About Description" %}{% endblock description %} 
+{% block content %}
+<main class="main-area fix">
+  {%include "components/breadcrumb.html" with breadcrumb=breadcrumb %}
+
+  <div
+    data-elementor-type="wp-page"
+    data-elementor-id="65"
+    class="elementor elementor-container"
+  >
+    <section
+      class="elementor-section elementor-top-section elementor-element elementor-section-full_width elementor-section-height-default elementor-section-height-default"
+      data-element_type="section"
+    >
+      <div class="elementor-container elementor-column-gap-no">
+        <div
+          class="elementor-column elementor-col-100 elementor-top-column elementor-element"
+          data-element_type="column"
+        >
+          <div class="elementor-widget-wrap elementor-element-populated">
+            <div
+              class="elementor-element elementor-widget elementor-widget-formula"
+              data-element_type="widget"
+              data-widget_type="formula.default"
+            >
+              <div class="elementor-widget-container">
+                <section
+                  class="formula-area formula-bg"
+                  data-background="{% static 'images/main/about_bg.jpg' %}"
+                >
+                  <div class="container">
+                    <div class="row align-items-center">
+                      <div class="col-lg-6 order-0 order-lg-2">
+                        <div class="formula-img">
+                          <img
+                            decoding="async"
+                            src="{% if site_info_about.about_image %}{{site_info_about.about_image.url}}{% endif %}"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="formula-content">
+                          <div class="section-title white-title mb-50">
+                            <h2 class="title">{% translate "About Us" %}</h2>
+                          </div>
+                          <p>{% if site_text %}{{site_text.about|default:''}}{% endif %}</p>
+                          <a
+                            href="{% url 'main:about' %}"
+                            target="_self"
+                            rel="nofollow"
+                            class="btn btn-two"
+                          >
+                            {% translate "More" %}
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+{% endblock content %}

@@ -1,0 +1,73 @@
+{% extends 'components/notifications/email-layout.html' %} 
+
+{% block content %}
+<p class="mb-4">Hörmətli {{order.full_name}},</p>
+<p class="mb-4">
+  Bildirmək istərdik ki, sifarişiniz göndərildi və tezliklə sizə çatdırılacaq!.
+</p>
+<div class="mb-4">
+  <p><b>Çatdırılma tarixi:</b></p>
+  <h4 class="text-success fw-bold text-center">
+    {{delivery.delivery_date|date:'d.m.Y'}}
+  </h4>
+</div>
+<p class="mb-4"><b>İzləmə nömrəsi:</b> {{delivery.tracking_number}}</p>
+<p class="mb-4"><b>Kuryer:</b> {{delivery.courier_name}}</p>
+<p class="mb-4"><b>Ünvan:</b> {{order.address}}, {{order.city}}</p>
+<p class="text-center mb-4">
+  <a
+    href="{{config.app.site_url}}{% url 'orders:detail' id=order.id %}?order_key={{order.order_key}}"
+    class="btn-success btn-lg btn"
+    >Sifarişi İzlə</a
+  >
+</p>
+<div class="list-group mb-4">
+  <li class="list-group-item list-group-item-action active text-center">
+    Sifarişiniz
+  </li>
+  {% for item in order.items.all %}
+  <a
+    href="{{config.app.site_url}}{% url 'store:product-detail' category_slug=item.product.category.slug product_slug=item.product.slug %}"
+    class="list-group-item d-flex justify-content-between align-items-center"
+  >
+    <h6>{{item.product.name}}</h6>
+    <span class="badge bg-success rounded-pill">{{item.quantity}}</span>
+  </a>
+  {% endfor %}
+</div>
+<div class="list-group mb-4">
+  <li class="list-group-item list-group-item-action active text-center">
+    Sifarişiniz
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <h6>Sifariş tarixi</h6>
+    <span>{{order.created_date}}</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <h6>Sifariş nömrəsi</h6>
+    <span>{{order.id}}</span>
+  </li>
+</div>
+<p class="mb-4">
+  Zəhmət olmasa bu e-poçtu alış-verişinizin sübutu kimi saxlayın. İstəyirik ki,
+  hər dəfə bizdən alış-veriş etdikdə məmnun qalasınız. Sizi qane etməyən hal baş
+  verdikdə, lütfən,
+  <a
+    class="text-success"
+    href="{{config.app.site_url}}{% url 'main:return-policy' %}"
+    rel="noopener noreferrer"
+    target="_blank"
+    >Qaytarılma Siyasətini</a
+  >
+  oxuyun. Ümid edirik ki, sizi tezliklə saytımıza yenidən salamlayacağıq.
+  Sualiniz var?
+  <a
+    class="text-success"
+    href="{{config.app.site_url}}{% url 'main:contact' %}"
+    rel="noopener noreferrer"
+    target="_blank"
+    >Əlaqə</a
+  >
+  bölməmizə daxil olun
+</p>
+{% endblock content %}

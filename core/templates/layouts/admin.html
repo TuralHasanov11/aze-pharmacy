@@ -1,0 +1,37 @@
+{% load static %}
+{% load i18n %}
+{% load query_transform %}
+{% get_current_language as CURRENT_LANGUAGE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages%}
+<!DOCTYPE html>
+<html lang="{{CURRENT_LANGUAGE}}">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    {% include "components/admin/imports/links.html" %}
+
+    <title>{% block title %}{% endblock title %} | {% translate "Admin" %}</title>
+  </head>
+  <body class="nav-fixed">
+    {% include "components/admin/navbar.html" %}
+
+    <div id="layoutSidenav">
+      <div id="layoutSidenav_nav">
+        {% include "components/admin/sidenav.html" %}
+      </div>
+      <div id="layoutSidenav_content">
+        <main>{% block content %}{% endblock content %}</main>
+      </div>
+    </div>
+
+    {% include "components/admin/imports/scripts.html" %}
+
+    {% block scripts %}{% endblock scripts %}
+  </body>
+</html>

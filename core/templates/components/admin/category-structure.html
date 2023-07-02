@@ -1,0 +1,14 @@
+{% load mptt_tags %}
+<nav class="tree-nav category-structure">
+  {% recursetree categories %}
+  <details class="tree-nav__item is-expandable" open>
+    <summary class="tree-nav__item-title my-1">{{ node.name }} ({{node.products_count}})</summary>
+    {% if not node.is_leaf_node %}
+    <div class="tree-nav__item">
+      {{children}}
+    </div>
+    <ul class="children"></ul>
+    {% endif %}
+  </details>
+  {% endrecursetree %}
+</nav>

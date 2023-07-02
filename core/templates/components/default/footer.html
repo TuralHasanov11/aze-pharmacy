@@ -1,0 +1,120 @@
+{% load static %}
+{% load i18n %}
+
+<footer class="footer-area not-show-instagram">
+  <div class="footer-top-wrap">
+    <div class="container">
+      <div class="footer-widgets-wrap">
+        <div class="row">
+          <div class="col-lg-4 col-md-7">
+            <div
+              class="footer-widget column-1"
+            >
+              <div class="footer-about">
+                <div class="footer-logo logo">
+                  <a href="{% url 'main:index' %}"
+                    ><img
+                      src="{% static 'images/logo.jpg' %}"
+                      alt="{{config.app.name}}"
+                  /></a>
+                </div>
+                <div class="footer-social">
+                  {% for item in site_info.social_links %}
+                  <a target="_blank" rel="noopener noreferrer" href="{{item.link}}"><i class="{{item.icon}}"></i></a>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-5 col-sm-6">
+            <div id="nav_menu-2" class="footer-widget column-2 widget_nav_menu">
+              <h4 class="fw-title">{% translate "Services" %}</h4>
+              <div class="menu-services-container">
+                <ul id="menu-services" class="menu">
+                  {% for item in default_footer_menu.services %}
+                  <li
+                    id="menu-item-{{forloop.counter}}"
+                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-{{forloop.counter}}"
+                  >
+                    <a href="{% url item.route %}">{{item.title}}</a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-5 col-sm-6">
+            <div id="nav_menu-2" class="footer-widget column-2 widget_nav_menu">
+              <h4 class="fw-title">{% translate "Company Information" %}</h4>
+              <div class="menu-company-information-container">
+                <ul id="menu-company-information" class="menu">
+                  {% for item in default_footer_menu.company_information %}
+                  <li
+                    id="menu-item-{{forloop.counter}}"
+                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-{{forloop.counter}}"
+                  >
+                    <a href="{% url item.route %}">{{item.title}}</a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-5 col-sm-6">
+            <div id="nav_menu-3" class="footer-widget column-3 widget_nav_menu">
+              <h4 class="fw-title">{% translate "Support" %}</h4>
+              <div class="menu-support-menu-container">
+                <ul id="menu-support-menu" class="menu">
+                  {% for item in default_footer_menu.support %}
+                  <li
+                    id="menu-item-{{forloop.counter}}"
+                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-{{forloop.counter}}"
+                  >
+                    <a href="{% url item.route %}">{{item.title}}</a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-5">
+            <div
+              id="custom_html-2"
+              class="widget_text footer-widget column-4 widget_custom_html"
+            >
+              <h4 class="fw-title">{% translate "Contact Us" %}</h4>
+              <div class="textwidget custom-html-widget">
+                <div class="footer-contact-wrap">
+                  <p>{{site_info.address}}</p>
+                  <ul class="list-wrap">
+                    <li class="phone">
+                      <i class="fas fa-phone"></i> {{site_info.phone}}
+                    </li>
+                    <li class="mail">
+                      <i class="fas fa-envelope"></i> {{site_info.email}}
+                    </li>
+                    <li class="website">
+                      <i class="fas fa-globe"></i> {{config.app.site_url}}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="copyright-wrap">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-12">
+          <div class="copyright-text">
+            <p>{% translate "Copyright" %} &#169; {% now "Y" %} {{config.app.name}} {% translate "All Rights Reserved" %}.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

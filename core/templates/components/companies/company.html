@@ -1,0 +1,32 @@
+<div
+  class="elementor-column col-12 col-md-6 col-xl-3 elementor-inner-column elementor-element elementor-element-company-column"
+  data-id="company-column"
+  data-element_type="column"
+>
+  <div class="elementor-widget-wrap elementor-element-populated">
+    <div
+      class="elementor-element elementor-element-company-widget elementor-widget elementor-widget-tp-pricing"
+      data-id="company-widget"
+      data-element_type="widget"
+      data-widget_type="tp-pricing.default"
+    >
+      <div class="elementor-widget-container">
+        <a
+          class="pricing-item wow fadeInUp regular"
+          data-wow-delay=".2s"
+          target="_blank" rel="noopener noreferrer"
+          href="{{company.link}}"
+        >
+          <div class="company__box text-center">
+            <div class="company-img">
+              <img decoding="async" src="{{company.cover_image.url}}" alt="" />
+            </div>
+            <div class="pricing-price">
+              <h4 class="price">{{company.name}}</h4>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="blog-post-item">
+  <a
+    href="{{post.get_absolute_url}}"
+    ><div class="blog-post-thumb" data-background="{{post.cover_image.url}}"></div
+  ></a>
+
+  <div class="blog-post-content">
+    <div class="content-top">
+      <span class="date"
+        ><i class="far fa-clock"></i> {{post.created_at|date:"j F Y"}}</span
+      >
+    </div>
+    <h3 class="title">
+      <a href="{{post.get_absolute_url}}">{{post.title}}</a>
+    </h3>
+  </div>
+</div>

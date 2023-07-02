@@ -1,0 +1,154 @@
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Shopping Cart" %}{% endblock title %}
+{% block description %}{% translate "Shopping Cart Description" %}{% endblock description %}
+
+{% block content %}
+<main class="main-area fix">
+  {%include "components/breadcrumb.html" with breadcrumb=breadcrumb%}
+
+  <div class="tg-page-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="tg-page-content suxnix-page-content">
+            <div class="tp-page-post">
+              {% if cart %}
+              <div class="woocommerce">
+                <div class="row shoppong-car-wrap">
+                  <div class="col-lg-8">
+                    <div
+                      class="woocommerce-cart-form"
+                    >
+                      <table
+                        class="shop_table shop_table_responsive cart woocommerce-cart-form__contents"
+                        cellspacing="0"
+                      >
+                        <thead>
+                          <tr>
+                            <th class="product-thumbnail">&nbsp;</th>
+                            <th class="product-name">{% translate "Product" %}</th>
+                            <th class="product-price">{% translate "Price" %}</th>
+                            <th class="product-quantity">{% translate "Quantity" %}</th>
+                            <th class="product-subtotal">{% translate "Subtotal" %}</th>
+                            <th class="product-remove">&nbsp;</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% if cart %}
+                            {% for item in cart %}
+                            {% with cartProduct=item.product %}
+                            <tr
+                                class="woocommerce-cart-form__cart-item cart_item" data-product_id="{{cartProduct.id}}"
+                            >
+                                <td class="product-thumbnail">
+                                <a
+                                    href="{% url 'store:product-detail' category_slug=cartProduct.category_slug product_slug=cartProduct.slug %}"
+                                    ><img
+                                    width="350"
+                                    height="350"
+                                    src="{{cartProduct.image_feature}}"
+                                    class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
+                                    alt=""
+                                    decoding="async"
+                                    loading="lazy"
+                                    srcset="{{cartProduct.image_feature}} 350w, {{cartProduct.image_feature}} 150w"
+                                    sizes="(max-width: 350px) 100vw, 350px"
+                                /></a>
+                                </td>
+                                <td class="product-name" data-title="Product">
+                                <a
+                                    href="{% url 'store:product-detail' category_slug=cartProduct.category_slug product_slug=cartProduct.slug %}"
+                                    >{{cartProduct.name}}</a
+                                >
+                                </td>
+                                <td class="product-price" data-title="Price">
+                                <span class="woocommerce-Price-amount amount">
+                                    {{item.price}}</span> 
+                                    &#8380;
+                                </td>
+                                <td class="product-quantity" data-title="Quantity">
+                                <div class="quantity">
+                                    <label
+                                    class="screen-reader-text"
+                                    for="quantity_{{cartProduct.id}}"
+                                    >{{cartProduct.name}}</label
+                                    >
+                                    <span class="update_qty qty_button minus">-</span>
+                                    <input
+                                      type="text"
+                                      id="quantity_{{cartProduct.id}}"
+                                      class="input-text qty text"
+                                      step="1"
+                                      min="0"
+                                      max=""
+                                      data-product_id="{{cartProduct.id}}"
+                                      value="{{item.quantity}}"
+                                      title="Qty"
+                                      size="4"
+                                      inputmode="numeric"
+                                      autocomplete="off"
+                                      disabled
+                                    />
+                                    <span class="update_qty qty_button plus">+</span>
+                                </div>
+                                </td>
+                                <td class="product-subtotal" data-title="Subtotal">
+                                <span class="amount product-subtotal-price">{{item.total_price}}</span> &#8380;
+                                </td>
+                                <td class="product-remove">
+                                  <button class="remove remove_from_cart_button" data-product_id="{{cartProduct.id}}">&times;</button>
+                                </td>
+                            </tr>
+                            {% endwith %}
+                            {% endfor %}
+                            {% endif %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4">
+                    <div class="cart-collaterals">
+                      <div class="cart_totals">
+                        <h2>{% translate "Cart totals" %}</h2>
+
+                        <table
+                          cellspacing="0"
+                          class="shop_table shop_table_responsive"
+                        >
+                          <tr class="cart-subtotal">
+                            <th>{% translate "Total" %}</th>
+                            <td>
+                              <span id="cart-summary-total-price" class="price">{{cart.get_total_price}}</span> &#8380;
+                            </td>
+                          </tr>
+                        </table>
+
+                        <div class="wc-proceed-to-checkout">
+                          <a
+                            href="{% url 'checkout:index' %}"
+                            class="checkout-button btn w-100"
+                          >
+                            {% translate "Proceed to checkout" %}</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% else %}
+              <div class="d-flex justify-content-center flex-column align-items-center">
+                <h4>{% translate "Your shopping cart is currently empty." %}</h4>
+                <a href="{% url 'store:products' %}" class="btn">{% translate "Continue Shopping" %}</a>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
+

@@ -1,0 +1,41 @@
+{% load static %}
+{% load i18n %}
+{% load env_extras %}
+
+<script
+  type="text/javascript"
+  src="{% static 'js/vue.global.min.js' %}"
+></script>
+<script>
+  const csrftoken = "{{csrf_token}}"
+  const entriesPerPageText = "{% translate 'entries per page' %}"
+  const searchText = "{% translate 'Search' %}"
+  const showingText = "{% translate 'Showing' %}"
+  const entriesText = "{% translate 'entries' %}"
+  const totalText = "{% translate 'Total' %}"
+</script>
+<script
+  data-search-pseudo-elements=""
+  defer=""
+  src="{% static 'fonts/font-awesome.min.js' %}"
+  crossorigin="anonymous"
+></script>
+<script
+  src="{% static 'icons/feather.min.js' %}"
+  crossorigin="anonymous"
+></script>
+<script
+  src="{% static 'js/admin/bootstrap.bundle.min.js' %}"
+  crossorigin="anonymous"
+></script>
+<script src="{% static 'js/admin/admin.js' %}"></script>
+<script
+  src="{% static 'js/admin/simple-datatables.min.js' %}"
+  crossorigin="anonymous"
+></script>
+<script src="{% static 'js/admin/datatables-simple-demo.js' %}"></script>
+
+<script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+<input id="PUSHER_APP_KEY" value="{% get_env_var 'PUSHER_APP_KEY' %}" type="hidden" />
+<input id="PUSHER_APP_CLUSTER" value="{% get_env_var 'PUSHER_APP_CLUSTER' %}" type="hidden" />
+<script src="{% static 'js/admin/notifications.js' %}"></script>

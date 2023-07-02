@@ -1,0 +1,109 @@
+
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Site Info" %}{% endblock title %}
+{% block content %}
+<header class="page-header page-header-dark bg-gradient-success-to-secondary pb-10">
+    <div class="container-xl px-4">
+        <div class="page-header-content pt-4">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-auto mt-4">
+                    <h1 class="page-header-title">
+                        <div class="page-header-icon"><i data-feather="arrow-right-circle"></i></div>
+                        {% translate "Site Info" %}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container-xl px-4 mt-n10">
+    <div class="card">
+        <div class="card-body">
+            {% include 'components/messages.html' with messages=messages %}
+            <form method="POST" action="{% url 'administration:site-info' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %} 
+                {{form.non_field_errors}} 
+                {{form.non_form_errors}}                 
+                {{ form.media }}
+                <h5 class="card-title mb-4">{% translate "Contact details" %}, {% translate "Social media links" %}</h5>
+                <div class="row g-3 align-items-center">
+                    <div class="col-12 col-md-4 mb-3">
+                        <label class="small mb-1" for="{{form.phone.id_for_label}}">{{form.phone.label}}</label>
+                        {{form.phone}}
+                    </div>
+                    <div class="col-12 col-md-8 mb-3">
+                        <label class="small mb-1" for="{{form.address.id_for_label}}">{{form.address.label}}</label>
+                        {{form.address}}
+                    </div>
+                    <div class="mb-3 col-12 col-md-6">
+                        <label class="small mb-1" for="{{form.email.id_for_label}}">{{form.email.label}}</label>
+                        {{form.email}}
+                    </div>
+                    <div class="mb-3 col-12 col-md-6">
+                        <label class="small mb-1" for="{{form.facebook_link.id_for_label}}">{{form.facebook_link.label}}</label>
+                        {{form.facebook_link}}
+                    </div>
+                    <div class="mb-3 col-12 col-md-6">
+                        <label class="small mb-1" for="{{form.instagram_link.id_for_label}}">{{form.instagram_link.label}}</label>
+                        {{form.instagram_link}}
+                    </div>
+                    <div class="mb-3 col-12 col-md-6">
+                        <label class="small mb-1" for="{{form.twitter_link.id_for_label}}">{{form.twitter_link.label}}</label>
+                        {{form.twitter_link}}
+                    </div>
+                    <div class="mb-3 col-12 col-md-6">
+                        <label class="small mb-1" for="{{form.youtube_link.id_for_label}}">{{form.youtube_link.label}}</label>
+                        {{form.youtube_link}}
+                    </div>
+                    <div class="mb-3 col-12 col-md-6">
+                        <label class="small mb-1" for="{{form.tiktok_link.id_for_label}}">{{form.tiktok_link.label}}</label>
+                        {{form.tiktok_link}}
+                    </div>
+                    <div class="mb-3">
+                        <label class="small mb-1" for="{{form.banner_image.id_for_label}}">{{form.banner_image.label}}</label>
+                        {{form.banner_image}}
+                        {% if site_info.banner_image %}<img class="mt-3" width="64" height="64" src="{{site_info.banner_image.url}}">{% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <label class="small mb-1" for="{{form.breadcrumb_image.id_for_label}}">{{form.breadcrumb_image.label}}</label>
+                        {{form.breadcrumb_image}}
+                        {% if site_info.breadcrumb_image %}<img class="mt-3" width="64" height="64" src="{{site_info.breadcrumb_image.url}}">{% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <label class="small mb-1" for="{{form.about_image.id_for_label}}">{{form.about_image.label}}</label>
+                        {{form.about_image}}
+                        {% if site_info.about_image %}<img class="mt-3" width="64" height="64" src="{{site_info.about_image.url}}">{% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <div>
+                            <label class="small mb-1">{% translate "Creation Date" %}: </label>
+                            <small><b>{{site_info.created_date}}</b></small>
+                        </div>
+                        <div>
+                            <label class="small mb-1">{% translate "Last Modified by" %}: </label>
+                            <small><b>{{site_info.last_modified_by|default:'-'}}</b></small>,
+                            <small><b>{{site_info.updated_date}}</b></small>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
+                </div>
+            </form>       
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+

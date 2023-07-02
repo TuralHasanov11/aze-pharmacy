@@ -1,0 +1,7 @@
+<a class="text-dark" href="{% url route %}?order_by={% if request.GET.order_by == orderBy %}-{% endif %}{{orderBy}}">
+    {% if request.GET.order_by == orderBy %}
+    <i data-feather="chevron-up"></i>
+    {% else %}
+    <i data-feather="chevron-down"></i>
+    {% endif %}                                                     
+</a> 

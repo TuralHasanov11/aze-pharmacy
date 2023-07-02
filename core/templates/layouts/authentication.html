@@ -1,0 +1,49 @@
+{% load static %}
+{% load i18n %}
+{% load query_transform %}
+{% get_current_language as CURRENT_LANGUAGE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages%}
+<!DOCTYPE html>
+<html lang="{{CURRENT_LANGUAGE}}">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link href="{% static 'css/admin/admin.css' %}" rel="stylesheet" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{% static 'images/logo.jpg' %}"
+    />
+
+    <title>{% block title %}{% endblock title %} | {% translate "Admin" %}</title>
+  </head>
+  <body class="bg-light">
+    <div id="layoutAuthentication">
+      <div id="layoutAuthentication_content">
+        {% block content %} {% endblock content %}
+      </div>
+    </div>
+
+    <script
+      data-search-pseudo-elements=""
+      defer=""
+      src="{% static 'fonts/font-awesome.min.js' %}"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="{% static 'icons/feather.min.js' %}"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="{% static 'js/admin/bootstrap.bundle.min.js' %}"
+      crossorigin="anonymous"
+    ></script>
+    <script src="{% static 'js/admin/admin.js' %}"></script>
+  </body>
+</html>

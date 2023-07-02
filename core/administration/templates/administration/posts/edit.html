@@ -1,0 +1,115 @@
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Edit Post" %}{% endblock title %}
+{% block content %}
+<main>
+  <header
+    class="page-header page-header-compact page-header-light border-bottom bg-white mb-4"
+  >
+    <div class="container-fluid px-4">
+      <div class="page-header-content">
+        <div class="row align-items-center justify-content-between pt-3">
+          <div class="col-auto mb-3">
+            <h1 class="page-header-title">
+              <div class="page-header-icon">
+                <i data-feather="file-plus"></i>
+              </div>
+              {% translate "Edit Post" %}
+            </h1>
+          </div>
+          <div class="col-12 col-xl-auto mb-3">
+            <a
+              class="btn btn-sm btn-primary text-light"
+              href="{{post.get_absolute_url}}"
+            >
+              <i class="me-1" data-feather="eye"></i>
+              {% translate "View on website" %}
+            </a>
+            <form class="delete-form" action="{% url 'administration:post-delete' pk=post.pk %}?page={{request.GET.prev_page|default:1}}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-sm btn-danger"><i class="me-1" data-feather="trash-2"></i> {% translate "Delete Post" %}</button>
+            </form>
+            <a
+              class="btn btn-sm btn-primary text-light"
+              href="{% url 'administration:post-detail' pk=post.pk %}?prev_page={{request.GET.prev_page|default:1}}"
+            >
+              <i class="me-1" data-feather="eye"></i>
+              {% translate "View Post" %}
+            </a>
+            <a
+              class="btn btn-sm btn-light text-primary"
+              href="{% url 'administration:post-list' %}?page={{request.GET.prev_page|default:1}}"
+            >
+              <i class="me-1" data-feather="arrow-left"></i>
+              {% translate "Back to Post List" %}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container-fluid px-4">
+    {% include 'components/messages.html' with messages=messages %}
+    <form method="post" enctype="multipart/form-data">
+      <div class="row gx-4">
+        <div class="col col-xl-8">
+          {% csrf_token %} {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %} 
+          {{form.non_field_errors}} 
+          {{form.non_form_errors}} 
+          {{ form.media }}
+          <div class="card mb-3">
+            <div class="card-header">{{ form.title.label }}</div>
+            <div class="card-body">
+              {{ form.title }} {{ form.title.errors }}
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-header">{{ form.language.label }}</div>
+            <div class="card-body">
+              {{ form.language }} {{ form.language.errors }}
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-header">{{ form.cover_image.label }}</div>
+            <div class="card-body">
+              {{form.cover_image}} {{ form.cover_image.errors }}
+              <img src="{{post.cover_image.url}}" width="80" height="80" class="mt-3">
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-header">{{ form.description.label }}</div>
+            <div class="card-body">
+              {{ form.description }} {{ form.description.errors }}
+            </div>
+          </div>
+        </div>
+        <div class="col col-xl-4">
+          <div class="card card-header-actions">
+            <div class="card-header">
+              {% translate "Publish" %}
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                <div>
+                  <label class="small mb-1">{% translate "Creation Date" %}: </label>
+                  <small><b>{{post.created_date}}</b></small>
+                </div>
+                <div>
+                    <label class="small mb-1">{% translate "Last Modified by" %}: </label>
+                    <small><b>{{post.last_modified_by|default:'-'}}</b></small>,
+                    <small><b>{{post.updated_date}}</b></small>
+                </div>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="fw-500 btn btn-success">
+                  {% translate "Save" %}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>
+{% endblock content %}

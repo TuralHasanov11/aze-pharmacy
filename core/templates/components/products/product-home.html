@@ -1,0 +1,55 @@
+{% load static %}
+{% load i18n %}
+<div class="col-xl-3">
+  <div class="home-shop-item">
+    <div class="home-shop-thumb">
+      <a decoding="async" href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}">
+        <img src="{{product.get_image_feature}}" alt="{{product.name}}">
+        {% if product.discount %}<div class="discount">-{{product.discount}}%</div>{% endif %}
+        {% if not product.in_stock %}<div class="not_in_stock bg-secondary">{{product.in_stock_display_value}}</div>{% endif %}
+      </a>
+    </div>
+    <div class="home-shop-content">
+      <h4 class="title">
+        <a href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}">{{product.name}}</a>
+      </h4>
+
+      <span class="home-shop-price price">
+        {% if product.discount %}
+        <del aria-hidden="true">
+            <span class="woocommerce-Price-amount amount">
+                <bdi>
+                    <span class="woocommerce-Price-currencySymbol">&#8380;</span>{{product.regular_price}}
+                </bdi>
+            </span>
+        </del>
+        <ins>
+            <span class="woocommerce-Price-amount amount">
+                <bdi>
+                    <span class="woocommerce-Price-currencySymbol">&#8380;</span>{{product.discount_price}}
+                </bdi>
+            </span>
+        </ins>
+        {% else %}
+        <span class="woocommerce-Price-amount amount">
+          <span class="woocommerce-Price-currencySymbol">&#8380;</span>{{product.regular_price}}</span>								
+        </span>
+        {% endif %}
+        
+      <div class="shop-content-bottom">
+        {% if product.in_stock %}
+        <button
+          data-quantity="1"
+          class="add-cart-btn cart-button icon-btn product_type_simple add_to_cart_button ajax_add_to_cart"
+          data-product_id="{{product.id}}"
+          rel="nofollow"
+          ><i class="flaticon-shopping-cart-1"></i
+        ></button>
+        {% endif %}
+        <a href="{% url 'store:product-detail' category_slug=product.category.slug product_slug=product.slug %}" class="btn btn-two">
+          {% translate "Buy Now" %}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

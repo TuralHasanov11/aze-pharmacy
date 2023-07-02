@@ -1,0 +1,92 @@
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% block title %}{{service.name}}{% endblock title %}
+{% block content %}
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"></div>
+                            {{service.name}}
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-3">
+                        <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:service-list' %}">
+                            <i class="me-1" data-feather="list"></i>
+                            {% translate "Back to Service List" %}
+                        </a>
+                        <form class="delete-form" action="{% url 'administration:service-delete' pk=service.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                <i class="me-1" data-feather="trash-2"></i>
+                               {% translate "Delete Service" %}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid px-4">
+        {% include 'components/messages.html' with messages=messages %}
+        <div class="card mb-4">
+            <div class="card-header">{% translate "Edit Service" %}</div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data"> 
+                    {% csrf_token %}
+                    {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
+    
+                    {{ form.media }}
+                    <div class="row g-3 mb-3">
+                        <div class="col-12 col-md-6">
+                            <label class="mb-1 small" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                            {{ form.name }} 
+                            {{ form.name.errors }}
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="mb-1 small" for="{{ form.language.id_for_label }}">{{ form.language.label }}</label>
+                            {{form.language}} 
+                            {{ form.language.errors  }}
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="mb-1 small" for="{{ form.cover_image.id_for_label }}">{{ form.cover_image.label }}</label>
+                            {{form.cover_image}}
+                            {{ form.cover_image.errors  }}
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <img src="{{service.cover_image.url}}" width="80" height="80" alt="">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="mb-1 small" for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+                        {{ form.description }} 
+                        {{ form.description.errors  }}
+                    </div>
+                    <div class="mb-3">
+                        <div>
+                            <label class="small mb-1">{% translate "Creation Date" %}: </label>
+                            <small><b>{{service.created_date}}</b></small>
+                        </div>
+                        <div>
+                            <label class="small mb-1">{% translate "Last Modified by" %}: </label>
+                            <small><b>{{service.last_modified_by|default:'-'}}</b></small>,
+                            <small><b>{{service.updated_date}}</b></small>
+                        </div>
+                    </div>
+                    {{form.non_field_errors}} 
+                    {{form.non_form_errors}} 
+                    <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+
+
+
+

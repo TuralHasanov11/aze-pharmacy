@@ -1,0 +1,60 @@
+{% load i18n %} {% load route_list_contains %}
+<nav class="sidenav shadow-right sidenav-light">
+  <div class="sidenav-menu">
+    <div class="nav accordion" id="accordionSidenav">
+      <div class="sidenav-menu-heading d-sm-none">{% translate "Account" %}</div>
+      <a class="nav-link d-sm-none" href="#!">
+        <div class="nav-link-icon"><i data-feather="bell"></i></div>
+        Alerts
+        <span class="badge bg-warning-soft text-warning ms-auto">4 New!</span>
+      </a>
+      <a class="nav-link d-sm-none" href="#!">
+        <div class="nav-link-icon"><i data-feather="mail"></i></div>
+        Messages
+        <span class="badge bg-success-soft text-success ms-auto">2 New!</span>
+      </a>
+
+      {% for item in admin_menu %}
+      <div class="my-2"></div>
+      {% if item.children %}
+        <a
+          class="nav-link collapsed"
+          href="javascript:void(0);"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapse{{forloop.counter}}"
+          aria-expanded="false"
+          aria-controls="collapse{{forloop.counter}}"
+        >
+          <div class="nav-link-icon"><i data-feather="{{item.icon}}"></i></div>
+          {{item.title}}
+          <div class="sidenav-collapse-arrow">
+            <i class="fas fa-angle-down"></i>
+          </div>
+        </a>
+        <div
+          class="collapse {% if item.children|route_list_contains:request.path %}show{% endif %}"
+          id="collapse{{forloop.counter}}"
+          data-bs-parent="#accordionSidenav"
+        >
+          <nav class="sidenav-menu-nested nav">
+            {% for routeItem in item.children %}
+            <a class="nav-link {% if request.path == routeItem.route %}active{% endif %}" href="{{routeItem.route}}">{{routeItem.title}}</a>
+            {% endfor %}
+          </nav>
+        </div>
+      {% else %}
+      <a class="nav-link" href="{{item.route}}">
+        <div class="nav-link-icon"><i data-feather="{{item.icon}}"></i></div>
+        {{item.title}}
+      </a>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  <div class="sidenav-footer">
+    <div class="sidenav-footer-content">
+      <div class="sidenav-footer-subtitle">{% translate "Logged in as" %}:</div>
+      <div class="sidenav-footer-title">{{request.user.username}}</div>
+    </div>
+  </div>
+</nav>

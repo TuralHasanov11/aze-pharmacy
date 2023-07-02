@@ -1,0 +1,192 @@
+{% load static %}
+{% load i18n %}
+
+<header id="home">
+  <div id="header-top-fixed"></div>
+  <div id="sticky-header" class="menu-area">
+    <div class="container custom-container">
+      <div class="row">
+        <div class="col-12">
+          <div class="mobile-nav-toggler"><i class="flaticon-layout"></i></div>
+          <div class="menu-wrap">
+            <nav class="menu-nav">
+              <div class="logo">
+                <a class="sticky-logo" href="{% url 'main:index' %}">
+                  <img
+                    src="{% static 'images/logo.jpg' %}"
+                    alt="Logo"
+                  />
+                </a>
+              </div>
+              <div class="navbar-wrap main-menu d-none d-xl-flex">
+                <ul id="menu-main-menu" class="navigation">
+                  {% for item in default_menu %}
+                  {%include "components/navbar/navbar-item.html" with item=item %}
+                  {% endfor %}
+                  <li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-has-children">
+                    <a href="/{{ CURRENT_LANGUAGE }}{{ request.get_full_path|slice:'3:' }}" aria-current="page">{{CURRENT_LANGUAGE|upper}}</a>
+                    <ul class="sub-menu">
+                      {% for lang in languages %}
+                      <li class="menu-item menu-item-type-post_type menu-item-object-page">
+                        <a href="/{{ lang.code }}{{ request.get_full_path|slice:'3:' }}">{{lang.code|upper}}</a>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                  
+                </ul>
+              </div>
+              <div class="header-action d-none d-sm-block">
+                <ul>
+                  <li class="header-shop-cart">
+                    {% with total_quantity=cart|length %}
+                    <a href="{% url 'cart:index' %}" class="cart-count">
+                      <i class="flaticon-shopping-cart"></i>
+                      <span id="cart-quantity"  class="mini-cart-count">
+                        {{total_quantity}}
+                      </span>
+                    </a>
+                    <div class="header-mini-cart">
+                      <div class="woocommerce-mini-cart cart_list product_list_widget ">
+                        {% for item in cart %}
+                        {% with cartProduct=item.product %}
+                        <div class="woocommerce-mini-cart-item mini_cart_item" data-product_id="{{cartProduct.id}}">
+                          <div class="mini-cart-thumb">
+                            <a href="{% url 'store:product-detail' category_slug=cartProduct.category_slug product_slug=cartProduct.slug %}">
+                              <img width="350" height="350" src="{{cartProduct.image_feature}}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" loading="lazy" />							
+                            </a>
+                          </div>
+                          <div class="min-cart-content">
+                            <h3 class="mini-cart-title"><a href="{% url 'store:product-detail' category_slug=cartProduct.category_slug product_slug=cartProduct.slug %}">{{cartProduct.name}}</a></h3>
+                            <div class="min-cart-price">
+                            <span class="quantity"><span class="product-quantity">{{item.quantity}}</span> &times; <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#8380;</span>{{item.price}}</bdi></span></span>
+                          </div>
+                          </div>
+                        </div>
+                        {% endwith %}
+                        {% endfor %}
+                      </div>
+                      {% if not cart %}
+                      <p class="woocommerce-mini-cart__empty-message">
+                        {% translate "No products in the cart" %}.
+                      </p>
+                      {% endif %}
+                      <p class="woocommerce-mini-cart__total total">
+                        <strong>{% translate "Subtotal" %}:</strong> <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol"></span><span id="cart-total-price">{{cart.get_total_price}}</span></bdi> &#8380;</span>
+                      </p>
+                      <p class="woocommerce-mini-cart__buttons buttons"><a href="{% url 'cart:index' %}" class="button wc-forward">{% translate "View Cart" %}</a>
+                        <a href="{% url 'checkout:index' %}" class="button checkout wc-forward">{% translate "Checkout" %}</a>
+                      </p>
+                    </div>
+                    {% endwith %}
+                  </li>
+
+                  <li class="header-shop-cart">
+                    <a href="{% url 'wishlist:index' %}" class="cart-count text-success">
+                      <i class="fas fa-heart"></i>
+                      <span id="wishlist-quantity" class="mini-cart-count">
+                        {{wishlist|length}}
+                      </span>
+                    </a>
+                  </li>
+
+                  <li class="header-search">
+                    <a href="#"><i class="flaticon-search"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+
+          <div class="mobile-menu">
+            <nav class="menu-box">
+              <div class="close-btn"><i class="fas fa-times"></i></div>
+              <div class="nav-logo">
+                <a href="{% url 'main:index' %}">
+                  <img
+                    src="{% static 'images/logo.jpg' %}"
+                    alt="Logo"
+                  />
+                </a>
+              </div>
+
+              <div class="menu-outer">
+                <ul id="menu-main-menu-1" class="navigation">
+                  {% for item in default_menu %}
+                  {%include "components/navbar/navbar-mobile-item.html" with item=item %}
+                  {% endfor %}
+                  <li
+                  class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children has-children"
+                >
+                  <a href="/{{ CURRENT_LANGUAGE }}{{ request.get_full_path|slice:'3:' }}" aria-current="page">{{CURRENT_LANGUAGE|upper}}</a>
+                  <ul class="sub-menu">
+                    {% for lang in languages %}
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page">
+                      <a href="/{{ lang.code }}{{ request.get_full_path|slice:'3:' }}">{{lang.code|upper}}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </li>
+                <li
+                    class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home"
+                  >
+                    <a href="{% url 'cart:index' %}">
+                      <i class="flaticon-shopping-cart"></i>
+                    </a>
+                  </li>
+                  <li
+                    class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home"
+                  >
+                    <a href="{% url 'wishlist:index' %}" class="cart-count text-success">
+                      <i class="fas fa-heart"></i>
+                    </a>
+                  </li>
+                  <li class="header-search">
+                    <a href="#"><i class="flaticon-search"></i></a>
+                  </li>
+                  
+                </ul>
+              </div>
+
+              <div class="social-links">
+                <ul class="clearfix">
+                  {% for item in site_info.social_links %}
+                  <li class="facebook">
+                    <a target="_blank" rel="noopener noreferrer" href="{{item.link}}"><i class="{{item.icon}}"></i></a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </nav>
+          </div>
+          <div class="menu-backdrop"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="search-popup-wrap" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="search-wrap text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="search-form">
+              <form method="get" action="{% url 'store:products' %}">
+                <input
+                  type="text"
+                  name="search"
+                  value="{{request.GET.search}}"
+                  placeholder="{% translate "Search in Shop" %}"
+                />
+                <button type="submit" class="search-btn">
+                  <i class="flaticon-search"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="search-backdrop" style="cursor: url({% static 'images/main/icons/cross-out.png' %}), pointer;"></div>
+</header>

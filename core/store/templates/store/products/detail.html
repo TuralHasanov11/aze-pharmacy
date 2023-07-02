@@ -1,0 +1,150 @@
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %} 
+{% load product_extras %}
+{% block title %}{{product.name}}{% endblock title %}
+{% block description %}{{product.name}}{% endblock description %}
+{% block content %}
+<main class="main-area fix">
+  {%include "components/breadcrumb.html" with breadcrumb=breadcrumb %}
+
+  {% translate "Add to Wishlist" as addToWishListText%}
+  {% translate "Remove from Wishlist" as removeFromWishListText%}
+
+  <div class="inner-shop-area">
+    <div class="container">
+      <div
+        class="row product type-product status-publish first instock product_cat-fat-burners product_tag-energy-support product_tag-skin-nails has-post-thumbnail shipping-taxable purchasable product-type-simple"
+      >
+        <div class="col-lg-6">
+          <div class="inner-shop-details-flex-wrap mb-5">
+            <img src="{{product.get_image_feature}}" class="product-feature-image mb-5">
+            {% include "components/products/image-gallery.html" with images=product.images %}   
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="summary entry-summary inner-shop-details-content">
+            <h1 class="product_title title entry-title">{{product.name}}</h1>
+            <div class="inner-shop-details-price">
+              {% if product.discount %}
+              <del aria-hidden="true">
+                <span class="woocommerce-Price-amount amount"
+                  ><span class="woocommerce-Price-currencySymbol">&#8380;</span
+                  >{{product.regular_price}}</span
+                >
+              </del>
+              <ins>
+                <span class="woocommerce-Price-amount amount"
+                  ><span class="woocommerce-Price-currencySymbol">&#8380;</span
+                  >{{product.discount_price}}</span
+                >
+              </ins>
+              {% else %}
+              <span class="woocommerce-Price-amount amount"
+                ><span class="woocommerce-Price-currencySymbol">&#8380;</span
+                >{{product.regular_price}}</span
+              >
+              {% endif %}
+            </div>
+            {% if product.in_stock %}
+            <div class="inner-shop-perched-info">
+              <div
+                class="suxnix-cart-action"
+              >
+                <div class="quantity">
+                  <label class="screen-reader-text" for="quantity_64285501d87a0"
+                    >{{product.name}}</label
+                  >
+                  <div class="add_qty qty_button minus">-</div>
+                  <input
+                    type="text"
+                    id="quantity"
+                    class="input-text qty text"
+                    step="1"
+                    min="1"
+                    data-product_id="{{product.id}}"
+                    max="{{product.maximum_purchase_units}}"
+                    name="quantity"
+                    value="1"
+                    title="{% translate "Quantity" %}"
+                    size="4"
+                    inputmode="numeric"
+                    autocomplete="off"
+                  />
+                  <div class="add_qty qty_button plus">+</div>
+                </div>
+                <button
+                  id="addToCartButton"
+                  class="add_to_cart_button btn btn-primary"
+                  type="submit"
+                  name="add-to-cart"
+                  data-product_id="{{product.id}}"
+                  data-quantity="1"
+                  class="cart-btn product-quantity-button"
+                >
+                  {% translate "Add to Cart" %}
+                </button>
+              </div>
+            </div>
+            {% endif %}
+            <div
+              class="tinv-wraper woocommerce tinv-wishlist tinvwl-shortcode-add-to-cart"
+            >
+              <a
+                role="button"
+                tabindex="0"
+                {% if product.id in wishlist.wishlist %}style="display: none;"{% endif %}
+                class="tinvwl_add_to_wishlist_button add_to_wishlist_button wishlist-detail-btn tinvwl-position-after"
+                data-product_id="{{product.id}}"
+                ><i class="far fa-heart me-2"></i><span class="tinvwl_add_to_wishlist-text">{{addToWishListText}}</span>
+              </a>
+              
+              <a
+                role="button"
+                tabindex="0"
+                {% if product.id not in wishlist.wishlist %}style="display: none;"{% endif %}
+                class="tinvwl_add_to_wishlist_button remove_from_wishlist_button wishlist-detail-btn tinvwl-position-after"
+                data-product_id="{{product.id}}"
+                ><i class="fa fa-heart me-2"></i><span class="tinvwl_add_to_wishlist-text">{{removeFromWishListText}}</span>
+              </a>
+            </div>
+            <div class="inner-shop-details-bottom">
+              {% if product.weight %}
+              <div>
+                <b>{% translate "Weight" %} :</b> {{product.weight|convert_weight}}
+              </div>
+              {% endif %}
+              <div class="posted_in">
+                <b>{% translate "Category" %} :</b>
+                <a
+                  href="{% url 'store:category-products' category_slug=product.category.slug %}"
+                  rel="tag"
+                  >{{product.category.name}}</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h4>{% translate "Description" %}</h4>
+      <div class="product-desc-content">
+        <p>{{product.description|safe}}</p>
+      </div>
+
+      <div class="related-products-area">
+        <div class="related-products-wrap">
+          <h2 class="title">{% translate "Related Products" %}</h2>
+
+          <div class="row">
+            {% for product in related_products %}
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              {% include "components/products/product.html" with product=product %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

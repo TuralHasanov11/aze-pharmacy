@@ -1,0 +1,36 @@
+<div class="gallery-row">
+    {% for image in images %}
+    {% if image.image %}
+    <div class="gallery-column">
+      <img src="{{image.image.url}}" data-number="{{forloop.counter}}" class="gallery-hover-shadow">
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+  
+  <div id="productGalleryModal" class="gallery-modal">
+    <span class="gallery-close gallery-cursor">&times;</span>
+    <div class="gallery-modal-content">
+      {% for image in images %}
+      {% if image.image %}
+      <div class="gallery-slides">
+        <div class="gallery-numbertext">{{forloop.counter}} / {{images|length}}</div>
+        <img src="{{image.image.url}}">
+      </div>
+      {% endif %}
+      {% endfor %}
+
+      <a class="gallery-prev">&#10094;</a>
+      <a class="gallery-next">&#10095;</a>
+  
+      {% for image in images %}
+      {% if image.image %}
+      <div class="gallery-column mt-3">
+        <img class="gallery-demo" src="{{image.image.url}}" data-number="{{forloop.counter}}">
+      </div>
+      {% endif %}
+      {% endfor %}
+
+    </div>
+  </div>
+

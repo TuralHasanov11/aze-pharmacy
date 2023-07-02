@@ -1,0 +1,112 @@
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Home" %}{% endblock title %} {% block description %}
+{% translate "Home Description" %}{% endblock description %} 
+{% block content %}
+<main class="main-area fix">
+  <div
+    data-elementor-type="wp-page"
+    data-elementor-id="65"
+    class="elementor elementor-container"
+  >
+    <section
+      style="background-image: url('{{site_info.banner_image}}'); height:70vh; background-position: center; background-repeat: no-repeat; background-size: cover;"
+      class="elementor-section elementor-top-section elementor-element elementor-section-full_width elementor-section-height-default elementor-section-height-default"
+      data-element_type="section"
+    >
+      <div class="elementor-container elementor-column-gap-no h-100">
+        <div
+          class="elementor-column elementor-col-100 elementor-top-column elementor-element"
+          data-element_type="column"
+        >
+          <div class="elementor-widget-wrap elementor-element-populated">
+            <div
+              style="height:100%"
+              class="elementor-element elementor-widget"
+              data-element_type="widget"
+              data-widget_type="hero-banner.default"
+            >
+              <div style="height:100%" class="elementor-widget-container d-flex align-items-center justify-content-center">
+                {% include "components/main/banner.html" %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="elementor-section elementor-top-section elementor-element elementor-element-companies-section elementor-section-full_width elementor-section-height-default elementor-section-height-default"
+      data-element_type="section"
+    >
+      <div class="elementor-container elementor-column-gap-no">
+        <div
+          class="elementor-column elementor-col-100 elementor-top-column elementor-element"
+          data-element_type="column"
+        >
+          <div class="elementor-widget-wrap elementor-element-populated">
+            <div
+              class="elementor-element elementor-widget elementor-widget-brand"
+              data-element_type="widget"
+              data-widget_type="brand.default"
+            >
+              <div class="elementor-widget-container">
+                {% include "components/main/companies-area.html" with companies=companies %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="elementor-section elementor-top-section elementor-element elementor-section-full_width elementor-section-height-default elementor-section-height-default"
+      data-element_type="section"
+    >
+      <div class="elementor-container elementor-column-gap-no">
+        <div
+          class="elementor-column elementor-col-100 elementor-top-column elementor-element"
+          data-element_type="column"
+        >
+          <div class="elementor-widget-wrap elementor-element-populated">
+            <div
+              class="elementor-element elementor-widget elementor-widget-products"
+              data-element_type="widget"
+              data-widget_type="products.default"
+            >
+              <div class="elementor-widget-container">
+                {% include "components/main/discounted-products-area.html" with discounted_products=discounted_products %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="mb-5 elementor-section elementor-top-section elementor-element elementor-element-c58b431 elementor-section-full_width elementor-section-height-default elementor-section-height-default"
+      data-element_type="section"
+    >
+      <div class="elementor-container elementor-column-gap-no">
+        <div
+          class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-categories-container"
+          data-element_type="column"
+        >
+          <div class="elementor-widget-wrap elementor-element-populated">
+            <div
+              class="elementor-element elementor-element-categories-area elementor-widget elementor-widget-tp-fact"
+              data-element_type="widget"
+              data-widget_type="tp-fact.default"
+            >
+              <div class="elementor-widget-container">
+                {% include "components/main/categories-area.html" with categories=categories %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {% include "components/main/blog-area.html" with posts=posts %}
+  </div>
+</main>
+{% endblock content %}

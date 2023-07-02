@@ -1,0 +1,58 @@
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %}
+{% block title %}{% translate "Services" %}{% endblock title %}
+{% block description %}{% translate "Services Description" %}{% endblock description %}
+
+{% block content %}
+<main class="main-area fix">
+  {%include "components/breadcrumb.html" with breadcrumb=breadcrumb %}
+
+  <div
+    data-elementor-type="wp-page"
+    data-elementor-id="65"
+    class="elementor elementor-container"
+  >
+    <section
+      class="elementor-section elementor-top-section elementor-element elementor-element-services-section elementor-section-full_width elementor-section-height-default elementor-section-height-default"
+      data-id="services-section"
+      data-element_type="section"
+    >
+      <div class="elementor-container elementor-column-gap-no">
+        <div
+          class="elementor-column elementor-col-100 elementor-top-column elementor-element"
+          data-element_type="column"
+        >
+          <div class="elementor-widget-wrap elementor-element-populated">
+            <div
+              class="elementor-element elementor-widget"
+              data-element_type="widget"
+              data-widget_type="ingredient.default"
+            >
+              <div class="elementor-widget-container">
+                <section>
+                  <div class="container">
+                    <div class="row align-items-center justify-content-center">
+                      <div class="col-12">
+                        <div class="ingredients-items-wrap">
+                          <div
+                            class="row justify-content-center justify-content-lg-start"
+                          >
+                            {% for service in services %}
+                            <div class="col-xl-4 col-md-6 col-sm-8">
+                              {% include "components/services/service.html" with service=service %}
+                            </div>
+                            {% endfor %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+{% endblock content %}

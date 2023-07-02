@@ -1,0 +1,110 @@
+
+
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Edit User" %}{% endblock title %}
+{% block content %}
+
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-xl px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="user"></i></div>
+                            {% translate "Edit User" %}
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-3">
+                        <a class="btn btn-sm btn-warning text-dark" href="{% url 'administration:user-password-change' pk=user.pk %}">
+                            <i class="me-1" data-feather="lock"></i>
+                            {% translate "Reset Password" %}
+                        </a>
+                        <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:user-list' %}">
+                            <i class="me-1" data-feather="arrow-left"></i>
+                            {% translate "Back to User List" %}
+                        </a>
+                        <form class="delete-form" action="{% url 'administration:user-delete' pk=user.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger text-light">
+                                <i class="me-1" data-feather="trash-2"></i>
+                                {% translate "Delete User" %}
+                            </button>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container-xl px-4 mt-4">
+        {% include 'components/messages.html' with messages=messages %}
+                <div class="card mb-4">
+                    <div class="card-header">{% translate "Account Details" %}</div>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %} {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %} 
+                            {{form.errors}}
+                            {{form.non_form_errors}} 
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                                    {{ form.username }} 
+                                    {{ form.username.errors  }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                                    {{ form.email }} 
+                                    {{ form.email.errors  }}
+                                </div>
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                                    {{ form.first_name }} 
+                                    {{ form.first_name.errors  }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                                    {{ form.last_name }} 
+                                    {{ form.last_name.errors  }}
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="small mb-1" for="{{ form.role.id_for_label }}">{{ form.role.label }}</label>
+                                {{ form.role }} 
+                                {{ form.role.errors  }}
+                            </div>
+                            <div class="mb-3">
+                                <div>
+                                    <label class="small mb-1">{% translate "Creation Date" %}: </label>
+                                    <small><b>{{user.created_date}}</b></small>
+                                </div>
+                                <div>
+                                    <label class="small mb-1">{% translate "Last Modified by" %}: </label>
+                                    <small><b>{{user.last_modified_by|default:'-'}}</b></small>,
+                                    <small><b>{{user.updated_date}}</b></small>
+                                </div>
+                            </div>
+                            {{form.non_field_errors}} 
+                            {{form.non_form_errors}}
+                            <button class="btn btn-primary" type="submit">{% translate "Save" %}</button>
+                        </form>
+                    </div>
+                </div>
+    </div>
+</main>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+

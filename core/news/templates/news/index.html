@@ -1,0 +1,45 @@
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "News" %}{% endblock title %}
+{% block description %}{% translate "News Description" %}{% endblock description %}
+{% block content %}
+<main class="main-area fix">
+  {%include "components/breadcrumb.html" with breadcrumb=breadcrumb %}
+
+  <section class="blog-area pt-120 pb-120">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="postbox__wrapper">
+            <header>
+              <h1 class="page-title screen-reader-text">{% translate "News" %}</h1>
+            </header>
+            {% for post in posts %}
+                {% include "components/posts/post.html" with post=post %}
+            {% endfor %}
+
+            {% include "components/pagination.html" with pagination=page_obj %}
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-7">
+          <aside class="blog-sidebar pl-20">
+            <div
+              class="sidebar-widget widget mb-40 widget_tp-latest-posts"
+            >
+              <div class="sidebar-title mb-25">
+                <h3 class="title">{% translate "Recent News" %}</h3>
+              </div>
+              <div class="rc__post-wrapper">
+                {% for post in recent_news %}
+                    {% include "components/posts/feed.html" with post=post %}
+                {% endfor %}
+              </div>
+            </div>
+
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock content %}

@@ -1,0 +1,322 @@
+[
+  {
+    "city": "Bakı", 
+    "admin_name": "Bakı"
+  }, 
+  {
+    "city": "Sumqayıt", 
+    "admin_name": "Sumqayıt"
+  }, 
+  {
+    "city": "Gəncə", 
+    "admin_name": "Gəncə"
+  }, 
+  {
+    "city": "Mingəçevir", 
+    "admin_name": "Mingəçevir"
+  }, 
+  {
+    "city": "Xırdalan", 
+    "admin_name": "Abşeron"
+  }, 
+  {
+    "city": "Naxçıvan", 
+    "admin_name": "Naxçıvan"
+  }, 
+  {
+    "city": "Qaraçuxur", 
+    "admin_name": "Bakı"
+  }, 
+  {
+    "city": "Şəki", 
+    "admin_name": "Şəki"
+  }, 
+  {
+    "city": "Yevlax", 
+    "admin_name": "Yevlax"
+  }, 
+  {
+    "city": "Şirvan", 
+    "admin_name": "Şirvan"
+  }, 
+  {
+    "city": "M.Ə. Rəsulzadə", 
+    "admin_name": "Bakı"
+  }, 
+  {
+    "city": "Lənkəran", 
+    "admin_name": "Lənkəran"
+  }, 
+  {
+    "city": "Xankəndi", 
+    "admin_name": "Xankəndi"
+  }, 
+  {
+    "city": "Maştağa", 
+    "admin_name": "Bakı"
+  }, 
+  {
+    "city": "Qəzyan", 
+    "admin_name": "Qubadlı"
+  }, 
+  {
+    "city": "Şəmkir", 
+    "admin_name": "Şəmkir"
+  }, 
+  {
+    "city": "Xaçmaz", 
+    "admin_name": "Xaçmaz"
+  }, 
+  {
+    "city": "Ağcabədi", 
+    "admin_name": "Ağcabədi"
+  }, 
+  {
+    "city": "Bərdə", 
+    "admin_name": "Bərdə"
+  }, 
+  {
+    "city": "Göyçay", 
+    "admin_name": "Göyçay"
+  }, 
+  {
+    "city": "Lökbatan", 
+    "admin_name": "Bakı"
+  }, 
+  {
+    "city": "Buzovna", 
+    "admin_name": "Bakı"
+  }, 
+  {
+    "city": "İmişli", 
+    "admin_name": "İmişli"
+  }, 
+  {
+    "city": "Zaqatala", 
+    "admin_name": "Zaqatala"
+  }, 
+  {
+    "city": "Salyan", 
+    "admin_name": "Salyan"
+  }, 
+  {
+    "city": "Əmircan", 
+    "admin_name": "Bakı"
+  }, 
+  {
+    "city": "Ağdaş", 
+    "admin_name": "Ağdaş"
+  }, 
+  {
+    "city": "Cəlilabad", 
+    "admin_name": "Cəlilabad"
+  }, 
+  {
+    "city": "Şamaxı", 
+    "admin_name": "Şamaxı"
+  }, 
+  {
+    "city": "Biləsuvar", 
+    "admin_name": "Biləsuvar"
+  }, 
+  {
+    "city": "Hacıqabul", 
+    "admin_name": "Hacıqabul"
+  }, 
+  {
+    "city": "Quba", 
+    "admin_name": "Quba"
+  }, 
+  {
+    "city": "İsmayıllı", 
+    "admin_name": "İsmayıllı"
+  }, 
+  {
+    "city": "Ağsu", 
+    "admin_name": "Ağsu"
+  }, 
+  {
+    "city": "Ağstafa", 
+    "admin_name": "Ağstafa"
+  }, 
+  {
+    "city": "Siyəzən", 
+    "admin_name": "Siyəzən"
+  }, 
+  {
+    "city": "Sabirabad", 
+    "admin_name": "Sabirabad"
+  }, 
+  {
+    "city": "Saatlı", 
+    "admin_name": "Saatlı"
+  }, 
+  {
+    "city": "Füzuli", 
+    "admin_name": "Füzuli"
+  }, 
+  {
+    "city": "Astara", 
+    "admin_name": "Astara"
+  }, 
+  {
+    "city": "Kürdəmir", 
+    "admin_name": "Kürdəmir"
+  }, 
+  {
+    "city": "Göygöl", 
+    "admin_name": "Göygöl"
+  }, 
+  {
+    "city": "Masallı", 
+    "admin_name": "Masallı"
+  }, 
+  {
+    "city": "Neftçala", 
+    "admin_name": "Neftçala"
+  }, 
+  {
+    "city": "Qusar", 
+    "admin_name": "Qusar"
+  }, 
+  {
+    "city": "Tovuz", 
+    "admin_name": "Tovuz"
+  }, 
+  {
+    "city": "Tərtər", 
+    "admin_name": "Tərtər"
+  }, 
+  {
+    "city": "Culfa", 
+    "admin_name": "Culfa"
+  }, 
+  {
+    "city": "Beyləqan", 
+    "admin_name": "Beyləqan"
+  }, 
+  {
+    "city": "Qax", 
+    "admin_name": "Qax"
+  }, 
+  {
+    "city": "Daşkəsən", 
+    "admin_name": "Daşkəsən"
+  }, 
+  {
+    "city": "Ordubad", 
+    "admin_name": "Ordubad"
+  }, 
+  {
+    "city": "Naftalan", 
+    "admin_name": "Naftalan"
+  }, 
+  {
+    "city": "Lerik", 
+    "admin_name": "Lerik"
+  }, 
+  {
+    "city": "Zərdab", 
+    "admin_name": "Zərdab"
+  }, 
+  {
+    "city": "Balakən", 
+    "admin_name": "Balakən"
+  }, 
+  {
+    "city": "Qobustan", 
+    "admin_name": "Qobustan"
+  }, 
+  {
+    "city": "Yardımlı", 
+    "admin_name": "Yardımlı"
+  }, 
+  {
+    "city": "Goranboy", 
+    "admin_name": "Goranboy"
+  }, 
+  {
+    "city": "Oğuz", 
+    "admin_name": "Oğuz"
+  }, 
+  {
+    "city": "Cəbrayıl", 
+    "admin_name": "Cəbrayıl"
+  }, 
+  {
+    "city": "Babək", 
+    "admin_name": "Babək"
+  }, 
+  {
+    "city": "Qubadlı", 
+    "admin_name": "Qubadlı"
+  }, 
+  {
+    "city": "Gədəbəy", 
+    "admin_name": "Gədəbəy"
+  }, 
+  {
+    "city": "Şuşa", 
+    "admin_name": "Şuşa"
+  }, 
+  {
+    "city": "Ağdam", 
+    "admin_name": "Ağdam"
+  }, 
+  {
+    "city": "Laçın", 
+    "admin_name": "Laçın"
+  }, 
+  {
+    "city": "Xocalı", 
+    "admin_name": "Xocalı"
+  }, 
+  {
+    "city": "Heydərabad", 
+    "admin_name": "Sədərək"
+  }, 
+  {
+    "city": "Ucar", 
+    "admin_name": "Ucar"
+  }, 
+  {
+    "city": "Qazax", 
+    "admin_name": "Qazax"
+  }, 
+  {
+    "city": "Şərur", 
+    "admin_name": "Şərur"
+  }, 
+  {
+    "city": "Qəbələ", 
+    "admin_name": "Qəbələ"
+  }, 
+  {
+    "city": "Samux", 
+    "admin_name": "Samux"
+  }, 
+  {
+    "city": "Dəvəçi", 
+    "admin_name": "Şabran"
+  }, 
+  {
+    "city": "Qıvraq", 
+    "admin_name": "Kəngərli"
+  }, 
+  {
+    "city": "Kəlbəcər", 
+    "admin_name": "Kəlbəcər"
+  }, 
+  {
+    "city": "Xocavənd", 
+    "admin_name": "Xocavənd"
+  }, 
+  {
+    "city": "Şahbuz", 
+    "admin_name": "Şahbuz"
+  }, 
+  {
+    "city": "Xızı", 
+    "admin_name": "Xızı"
+  }
+]

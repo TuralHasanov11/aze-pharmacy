@@ -1,0 +1,105 @@
+
+
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% block title %}{{product.name}}{% endblock title %}
+{% block content %}
+{% load product_extras %}
+
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="file"></i></div>
+                            {{product.name}}
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-3">
+                        <a class="btn btn-sm btn-primary text-light" href="{% url 'store:product-detail' product_slug=product.slug category_slug=product.category.slug %}">
+                            <i class="me-1" data-feather="eye"></i>
+                            {% translate "View on website" %}
+                        </a>
+                        <a class="btn btn-sm btn-warning text-dark" href="{% url 'administration:store-product-update' pk=product.pk %}">
+                            <i class="me-1" data-feather="edit"></i>
+                            {% translate "Edit Product" %}
+                        </a>
+                        <a
+                          class="btn btn-sm btn-light text-primary"
+                          href="{% url 'administration:store-product-list' %}"
+                        >
+                            <i class="me-1" data-feather="list"></i>
+                            {% translate "Back to Product List" %}
+                        </a>
+                        <form class="delete-form" action="{% url 'administration:store-product-delete' pk=product.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger text-light"><i class="me-1" data-feather="trash-2"></i>{% translate "Delete Product" %}</button>
+                          </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">{{product.name}}</div>
+                    <img class="product-feature-image card-img-top" src="{{product.get_image_feature}}" alt="{{product.name}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{product.name}}</h5>
+                        <p class="card-text">{{product.description|safe}}</p>
+                        <div class="row">
+                            {% for product_image in product.images %}
+                            <div class="col-12 col-md-6">
+                                {% if product_image.image %}<img class="product-image" width="256" height="256" src="{{product_image.image.url}}" />{% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header"><a href="{% url 'administration:store-category-update' pk=product.category.pk %}">{{product.category}}</a></div>
+                    <div class="card-header">{% translate "Pricing" %}</div>
+                    <div class="card-body">
+                        <h6 class="card-title">{% translate "Regular Price" %}</h6>
+                        <p class="card-text">{{product.regular_price}}</p>
+                        <h6 class="card-title">{% translate "Discount" %}</h6>
+                        <p class="card-text">{{product.discount}}</p>
+                        <h6 class="card-title">{% translate "Discount Price" %}</h6>
+                        <p class="card-text">{{product.discount_price}}</p>
+                        <h6 class="card-title">{% translate "Weight" %}</h6>
+                        <p class="card-text">{{product.weight|default:'-'|convert_weight}}</p>
+                        <p class="card-text">                                            
+                            <span class="badge {% if product.in_stock %}bg-success{% else %}bg-danger{% endif %} rounded-pill">{{product.in_stock_display_value}}</span>
+                        </p>
+                        <p class="card-text">
+                            <span class="badge {% if product.is_active %}bg-success{% else %}bg-danger{% endif %} rounded-pill">{{product.is_active_display_value}}</span>
+                        </p>
+                        <h6 class="card-title">{% translate "Maximum Number of Purchase Units" %}</h6>
+                        <p class="card-text">{{product.maximum_purchase_units}}</p>
+                        <h6 class="card-title">{% translate "Creation Date" %}</h6>
+                        <p class="card-text">{{product.created_date}}</p>
+                        <h6 class="card-title">{% translate "Last Modified by" %}</h6>
+                        <p class="card-text">{{product.last_modified_by|default:'-'}}, {{product.updated_date}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+

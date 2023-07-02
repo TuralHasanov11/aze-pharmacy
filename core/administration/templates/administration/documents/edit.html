@@ -1,0 +1,76 @@
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% block title %}{{document.name}}{% endblock title %}
+{% block content %}
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"></div>
+                            {{document.name}}
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-3">
+                        <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:document-list' %}?page={{request.GET.prev_page|default:1}}">
+                            <i class="me-1" data-feather="list"></i>
+                            {% translate "Back to Document List" %}
+                        </a>
+                        <form class="delete-form" action="{% url 'administration:document-delete' pk=document.pk %}?page={{request.GET.prev_page|default:1}}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                <i class="me-1" data-feather="trash-2"></i>
+                                {% translate "Delete Document" %}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid px-4">
+        {% include 'components/messages.html' with messages=messages %}
+        <div class="card mb-4">
+            <div class="card-header">{% translate "Edit Document" %}</div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data"> 
+                    {% csrf_token %}
+                    {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
+                    {{ form.media }}
+                    <div class="mb-3">
+                        <label class="mb-1 small" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                        {{ form.name }} 
+                        {{ form.name.errors }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="mb-1 small" for="{{ form.file.id_for_label }}">{{ form.file.label }}</label>
+                        {{form.file}} 
+                        {{ form.file.errors }}
+                    </div>
+                    <div class="mb-3">
+                        <div>
+                            <label class="small mb-1">{% translate "Creation Date" %}: </label>
+                            <small><b>{{document.created_date}}</b></small>
+                        </div>
+                        <div>
+                            <label class="small mb-1">{% translate "Last Modified by" %}: </label>
+                            <small><b>{{document.last_modified_by|default:'-'}}</b></small>,
+                            <small><b>{{document.updated_date}}</b></small>
+                        </div>
+                    </div>
+                    {{form.non_field_errors}} 
+                    {{form.non_form_errors}} 
+                    <button class="btn btn-sm btn-success" type="submit"><i class="me-1" data-feather="edit"></i> {% translate "Save" %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+
+
+
+

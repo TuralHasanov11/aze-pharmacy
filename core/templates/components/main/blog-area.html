@@ -1,0 +1,17 @@
+{% load i18n %}
+<section id="news" class="blog-post-area">
+  <div class="container">
+    <div class="blog-inner-wrapper">
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+          <div class="blog-posts-wrapper">
+            <div class="section-title mb-50">
+              <h3 class="title">{% translate "Latest" %} {% translate "News" %}</h3>
+            </div>
+            {% for post in posts %} {% include "components/posts/post_mini.html" with post=post %} {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

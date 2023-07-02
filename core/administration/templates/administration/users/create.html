@@ -1,0 +1,101 @@
+
+
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Add User" %}{% endblock title %}
+{% block content %}
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-xl px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-4">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="user-plus"></i></div>
+                            {% translate "Add User" %}
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-4">
+                        <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:user-list' %}">
+                            <i class="me-1" data-feather="arrow-left"></i>
+                            {% translate "Back to User List" %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container-xl px-4 mt-4">
+        <div class="card mb-4">
+            <div class="card-header">{% translate "Account Details" %}</div>
+            <div class="card-body">
+                <form method="POST">
+                    {{form.errors}}
+                    {% csrf_token %} {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %} 
+                    <div class="row gx-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="mb-1 small" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                            {{ form.username }} 
+                            {{ form.username.errors  }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="mb-1 small" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                            {{ form.email }} 
+                            {{ form.email.errors  }}
+                        </div>
+                    </div>
+                    <div class="row gx-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="mb-1 small" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                            {{ form.first_name }} 
+                            {{ form.first_name.errors  }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="mb-1 small" for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                            {{ form.last_name }} 
+                            {{ form.last_name.errors  }}
+                        </div>
+                    </div>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-12">
+                            <label class="small mb-1">
+                                {% translate "Example Password" %}: <b>{{example_password}}</b>
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="mb-1 small" for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
+                            {{ form.password1 }} 
+                            {{ form.password1.errors  }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="mb-1 small" for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
+                            {{ form.password2 }} 
+                            {{ form.password2.errors  }}
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="mb-1 small" for="{{ form.role.id_for_label }}">{{ form.role.label }}</label>
+                        {{ form.role }} 
+                        {{ form.role.errors  }}
+                    </div>
+                    {{form.non_field_errors}} 
+                    {{form.non_form_errors}}
+                    <button class="btn btn-success btn-sm" type="submit"><i class="me-1" data-feather="user-plus"></i> {% translate "Save" %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+

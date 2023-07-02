@@ -1,0 +1,22 @@
+{% load static %}
+{% load i18n %}
+
+<section class="banner-area">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xxl-8 col-xl-7 col-lg-8 col-md-10">
+        <div class="banner-content text-center">
+          <h2 class="title">{{bannerText}}</h2>
+          <a
+            href="{% url 'store:products' %}"
+            target="_self"
+            rel="nofollow"
+            class="btn btn-two"
+          >
+            {% translate "Shop Now" %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,278 @@
+
+
+{% extends 'layouts/admin.html' %} 
+{% load static %} 
+{% load i18n %}
+{% load query_transform %} 
+{% block title %}{% translate "Order List" %}{% endblock title %}
+{% block content %}
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="list"></i></div>
+                            {% translate "Order List" %}
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid px-4">
+        <div id="orders-app">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-12 mb-4">
+                        <div class="d-flex justify-content-between">
+                            <form method="GET"> 
+                                <div class="mb-3 d-flex">
+                                    <input type="search" name="search" value="{{request.GET.search}}" class="form-control mx-2 form-control-sm" placeholder="{% translate 'Search' %}">
+                                    <button class="btn btn-success btn-sm" type="submit">{% translate "Search" %}</button>
+                                </div>
+                            </form>
+                            <div>
+                                {% if request.GET.is_flagged %}
+                                <a href="{% url 'administration:order-list' %}" class="btn btn-sm btn-warning">
+                                    {% translate "All Orders" %}
+                                </a>
+                                {% else %}
+                                <a href="?is_flagged=1" class="btn btn-sm btn-warning">
+                                    {% translate "Flagged Orders Only" %}
+                                </a>
+                                {% endif %}
+                                <div class="btn-group">
+                                    <button class="btn btn-sm dropdown-toggle 
+                                                text-{% if request.GET.status == "paid" %}success
+                                                {% elif request.GET.status == "failed" %}danger
+                                                {% elif request.GET.status == "pending" %}dark
+                                                {% elif request.GET.status == "refunded" %}warning
+                                                {% else %}primary{% endif %}" 
+                                        type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false"
+                                    >
+                                      {% if request.GET.status == "paid" %}
+                                      {% translate "Paid Orders Only" %}
+                                      {% elif request.GET.status == "failed" %}
+                                      {% translate "Failed Orders Only" %}
+                                      {% elif request.GET.status == "pending" %}
+                                      {% translate "Pending Orders Only" %}
+                                      {% elif request.GET.status == "refunded" %}
+                                      {% translate "Refunded Orders Only" %}
+                                      {% else %}
+                                      {% translate "All Orders" %}
+                                      {% endif %}
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                      <li>
+                                        <a href="?status=paid" class="dropdown-item text-success">
+                                            {% translate "Paid Orders Only" %}
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="?status=failed" class="dropdown-item text-danger">
+                                            {% translate "Failed Orders Only" %}
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="?status=pending" class="dropdown-item text-dark">
+                                            {% translate "Pending Orders Only" %}
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="?status=refunded" class="dropdown-item text-warning">
+                                            {% translate "Refunded Orders Only" %}
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="{% url 'administration:order-list' %}" class="dropdown-item text-primary">
+                                            {% translate "All Orders" %}
+                                        </a>
+                                      </li>
+                                    </ul>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div id="orders-container" class="list-group mb-4">
+                            
+                        </div>
+                        
+                        <div id="pagination-container">
+
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9000">
+    
+  </div>
+
+{% endblock content %}
+
+
+{% block scripts %}
+<script>
+    const ordersAPIURL = "{% url 'administration:orders' %}"
+    const ordersURL = "{% url 'administration:order-list' %}/" 
+    const newWord = "{% translate 'New' %}"
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentPage = urlParams.get('page') || 1;
+    const search = urlParams.get('search') || '';
+    const isFlagged = urlParams.get('is_flagged') || '';
+    const paymentStatus = urlParams.get('status') || '';
+    const ordersContainer = document.getElementById('orders-container')
+    const paginationContainer = document.getElementById('pagination-container')
+    const toastContainer = document.querySelector('.toast-container')
+    
+    getOrders()
+
+    var orders = {}
+
+    async function getOrders(){
+        const response = await fetch(`${ordersAPIURL}?` + new URLSearchParams({
+            page: currentPage,
+            search: search,
+            is_flagged: isFlagged,
+            status: paymentStatus
+        }), {
+            method: 'GET',
+            headers: { "X-CSRFToken": csrftoken },
+        });
+
+        const data = await response.json()
+        orders = data
+        setOrders()
+    }
+
+    async function flagOrder(element, orderId){
+        const response = await fetch(`/api/orders/${orderId}/flag`, {
+            method: 'POST',
+            headers: { "X-CSRFToken": csrftoken },
+        });
+        const order = await response.json()
+        element.innerHTML = `<i class="${order.is_flagged ? "fas fa-flag text-danger" : "fa-regular fa-flag"}"></i>`
+    }
+
+    function setOrders(){
+        content = ""
+
+        orders?.results.forEach((order)=>{
+            content += orderComponent(order)
+        })
+
+        ordersContainer.innerHTML = content
+
+        paginationContainer.innerHTML = paginationComponent(orders)
+    }
+
+    function orderComponent(order){
+        const orderDate = new Date(Date.parse(order.created_at)).toLocaleString('az', {hour: '2-digit', hour12: false, minute:'2-digit', year: 'numeric', month: '2-digit', day: '2-digit'})
+        const flag = order.is_flagged ? "fas fa-flag text-danger" : "fa-regular fa-flag"
+        return `<div class="list-group-item order-item border mb-1 ${order.seen?'bg-light':''}" data-id="${order.id}">
+            <div class="d-flex w-100 justify-content-between align-items-center p-1 text-decoration-none">
+                <span class="flag-btn"onclick="flagOrder(this, ${order.id})"><i class="${flag}"></i></span>
+                <a href="${ordersURL + order.id}?prev_page=${currentPage}" class="d-flex w-100 justify-content-between p-1 text-decoration-none">
+                    <span class="m-0 text-dark">
+                        <span class='order-customer-name'>${order.id} - ${order.full_name}</span> 
+                        ${!order.seen?`<span class="badge text-bg-success order-seen">${newWord}</span>`:''}
+                        <span class="badge text-bg-${order.payment_status_color} order-payment-status">${order.payment_status_value}</span>
+                    </span>
+                    <small class="text-dark d-flex justify-content-between">
+                        ${orderDate}
+                    </small>
+                </a>
+            </div>
+          </div>`
+    }
+
+    function toastComponent(message) {
+        return `<div class="toast align-items-center show text-bg-primary" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                  ${message}
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>`
+    }
+
+    function orderNotificationComponent(data){
+        return `<div class="dropdown-item dropdown-notifications-item">
+            <div class="dropdown-notifications-item-icon bg-success"><i data-feather="dollar-sign"></i></div>
+            <div class="dropdown-notifications-item-content">
+                <div class="dropdown-notifications-item-content-details">${data?.data?.created_date}</div>
+                <div class="dropdown-notifications-item-content-text">${data?.message}</div>
+            </div>
+        </div>`
+    }
+
+    function paginationComponent(pagination){
+        if(pagination.total_pages <= 1) return ""
+
+        let result = ""
+        if(pagination.links.previous){
+            let previousPage = "{% query_transform page='page_number' %}"
+            let firstPage = "{% query_transform page='page_number' %}"
+
+            result += `<li class="page-item">
+                <a class="prev page-link pagination-btn" href="?${firstPage.replace('page_number', 1)}">
+                  <i style="font-size: 0.8em;" class="fas fa-angle-double-left"></i>
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="prev page-link pagination-btn" href="?${previousPage.replace('page_number', pagination.current_page - 1)}">
+                  <i style="font-size: 0.8em;" class="fa fa-angle-left" aria-hidden="true"></i>
+                </a>
+              </li>`
+        }
+
+        let commonPage = "{% query_transform page='page_number' %}"
+        for (let number = 1; number <= pagination.total_pages; number++) {
+            if(number > pagination.current_page - 3 && number < pagination.current_page + 3  || number === pagination.total_pages || number === 1){
+                result += `<li class="page-item">
+                  <a class="page-link pagination-btn ${number === pagination.current_page && 'active'}" href="?${commonPage.replace('page_number', number)}">${number}</a>
+                </li>`
+            }else if(number > pagination.current_page - 4 && number < pagination.current_page + 4){
+                result += `<li class="page-item">
+                    <div class="page-link pagination-btn">...</div>
+                  </li>`
+            }
+        }
+
+        if(pagination.links.next){
+            let nextPage = "{% query_transform page='page_number' %}"
+            let lastPage = "{% query_transform page='page_number' %}"
+
+            result += `<li class="page-item">
+                <a class="next page-link pagination-btn" href="?${nextPage.replace('page_number', pagination.current_page + 1)}">
+                  <i style="font-size: 0.8em;" class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="next page-link pagination-btn" href="?${lastPage.replace('page_number', pagination.total_pages)}">
+                  <i style="font-size: 0.8em;" class="fas fa-angle-double-right"></i>
+                </a>
+              </li>`
+        }
+
+        return `<nav>
+            <ul class="pagination pagination-sm">
+                ${result}
+            </ul>							
+          </nav>`
+    }
+
+</script>
+
+{% endblock scripts %}
+
+

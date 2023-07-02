@@ -1,0 +1,114 @@
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Document List" %}{% endblock title %}
+{% block content %}
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="list"></i></div>
+                            {% translate "Document List" %}
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid px-4">
+        <div class="row">
+            {% include 'components/messages.html' with messages=messages %}
+            <div class="col-xl-8 col-12 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <form method="GET"> 
+                                    <div class="mb-3 d-flex">
+                                        <input type="search" name="search" value="{{request.GET.search}}" class="form-control form-control-sm me-2" placeholder="{% translate 'Search' %}">
+                                        <button type="submit" class="btn btn-primary btn-sm">{% translate "Search" %}</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover entry-table ">
+                                        <thead>
+                                            <tr>
+                                                <th>{% translate "Name" %} 
+                                                    {% include "components/tables/order-button.html" with orderBy='name' route='administration:document-list' %}
+                                                </th>
+                                                <th>{% translate "Update Date" %} 
+                                                    {% include "components/tables/order-button.html" with orderBy='updated_at' route='administration:document-list' %} 
+                                                </th>
+                                                <th>{% translate "Actions" %} </th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>{% translate "Name" %} 
+                                                    {% include "components/tables/order-button.html" with orderBy='name' route='administration:document-list' %}
+                                                </th>
+                                                <th>{% translate "Update Date" %} 
+                                                    {% include "components/tables/order-button.html" with orderBy='updated_at' route='administration:document-list' %} 
+                                                </th>
+                                                <th>{% translate "Actions" %}</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            {% for document in documents %}
+                                            <tr>
+                                                <td><a target="_blank" rel="noopener noreferrer" href="{{document.file.url}}">{{document.name}}</a></td>
+                                                <td>{{document.updated_date}}</td>
+                                                <td>
+                                                    <a href="{% url 'administration:document-update' pk=document.pk %}?prev_page={{documents.number}}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
+                                                    <form class="delete-form" action="{% url 'administration:document-delete' pk=document.pk %}?page={{documents.number}}" method="POST">
+                                                        {% csrf_token %}
+                                                        <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark"><i data-feather="trash-2"></i></button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {% include "components/admin/pagination.html" with pagination=documents %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-12">
+                <div class="card mb-4">
+                    <div class="card-header">{% translate "Add Document" %}</div>
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data"> 
+                            {% csrf_token %}
+                            {% include "components/form/hidden-fields.html" with hidden_fields=form.hidden_fields %}
+                            {{ form.media }}
+                            <div class="mb-3">
+                                <label class="small mb-1" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                                {{ form.name }} 
+                                {{ form.name.errors }}
+                            </div>
+                            <div class="mb-4">
+                                <label class="small mb-1" for="{{ form.file.id_for_label }}">{{ form.file.label }}</label>
+                                {{form.file}} 
+                                {{ form.file.errors }}
+                            </div>
+                            <button class="btn btn-success btn-sm" type="submit"><i class="me-1" data-feather="plus"></i> {% translate "Save" %}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+
+
+
+

@@ -1,0 +1,70 @@
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Account Settings" %} - {% translate "Profile" %}{% endblock title %} {% block content %}
+<main>
+  <header
+    class="page-header page-header-compact page-header-light border-bottom bg-white mb-4"
+  >
+    <div class="container-xl px-4">
+      <div class="page-header-content">
+        <div class="row align-items-center justify-content-between pt-3">
+          <div class="col-auto mb-3">
+            <h1 class="page-header-title">
+              <div class="page-header-icon"><i data-feather="user"></i></div>
+              {% translate "Account Settings" %} - {% translate "Profile" %}
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="container-xl px-4 mt-4">
+    {% include "components/admin/profile-nav.html" %}
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+          <div class="card-header">{% translate "Account Details" %}</div>
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <h5 class="fw-400">
+                  {% translate "Username" %}: <span class="fw-bold">{{ request.user.username}}</span>
+                </h5>
+              </li>
+              <li class="list-group-item">
+                <h5 class="fw-normal">
+                  {% translate "Email" %}: <span class="fw-bold">{{ request.user.email}}</span>
+                </h5>
+              </li>
+              <li class="list-group-item">
+                <h5 class="fw-normal">
+                  {% translate "First Name" %}: <span class="fw-bold">{{ request.user.first_name}}</span>
+                </h5>
+              </li>
+              <li class="list-group-item">
+                <h5 class="fw-normal">
+                  {% translate "Last Name" %}: <span class="fw-bold">{{ request.user.last_name}}</span>
+                </h5>
+              </li>
+              <li class="list-group-item">
+                <h5 class="fw-normal">
+                  {% translate "Role" %}: <span class="fw-bold">{{ request.user.role_name}}</span>
+                </h5>
+              </li>
+              <li class="list-group-item">
+                <h5 class="fw-normal">
+                  {% translate "Creation Date" %}: <span class="fw-bold">{{ request.user.created_date}}</span>
+                </h5>
+              </li>
+              <li class="list-group-item">
+                <h5 class="fw-normal">
+                  {% translate "Update Date" %}: <span class="fw-bold">{{ request.user.updated_date}}</span>
+                </h5>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

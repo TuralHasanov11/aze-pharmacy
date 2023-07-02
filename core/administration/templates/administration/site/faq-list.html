@@ -1,0 +1,73 @@
+
+
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "FAQ List" %}{% endblock title %}
+{% block content %}
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="list"></i></div>
+                            {% translate "FAQ List" %}
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-3">
+                        <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:site-faq-create' %}">
+                            <i class="me-1" data-feather="plus"></i>
+                            {% translate "Add New Question" %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid px-4">
+        {% include 'components/messages.html' with messages=messages %}
+        <div class="card">
+            <div class="card-body">
+                <table id="datatablesSimple" class="entry-table">
+                    <thead>
+                        <tr>
+                            <th>{% translate "Question" %}</th>
+                            <th>{% translate "Language" %}</th>
+                            <th>{% translate "Actions" %}</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>{% translate "Question" %}</th>
+                            <th>{% translate "Language" %}</th>
+                            <th>{% translate "Actions" %}</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for question in questions %}
+                        <tr>
+                            <td>{{question.question|truncatechars:100}}</td>
+                            <td>{{question.language|upper}}</td>
+                            <td>
+                                <a href="{% url 'administration:site-faq-update' pk=question.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
+                                <form class="delete-form" action="{% url 'administration:site-faq-delete' pk=question.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark"><i data-feather="trash-2"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+
+
+
+
+

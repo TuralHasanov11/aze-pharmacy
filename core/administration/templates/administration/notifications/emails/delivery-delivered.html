@@ -1,0 +1,31 @@
+{% extends 'components/notifications/email-layout.html' %} 
+{% block content %}
+<p class="mb-4">Hörmətli {{order.full_name}},</p>
+<p class="mb-4">
+  Əla xəbər! {{order.id}} nömrəli Myprotein sifarişiniz bu gün,
+  {{delivery.delivery_date|date:'d.m.Y'}} tarixində
+  {{delivery.courier_name|default:''}} kuryerimiz tərəfindən çatdırıldı.
+</p>
+<p class="mb-4">
+  Sifarişiniz haqqında ən son məlumatı əldə etmək və bizə rəy bildirmək üçün
+  saytımıza daxil olun.
+</p>
+<p class="text-center mb-4">
+  <a
+    href="{{config.app.site_url}}{% url 'store:products' %}"
+    class="btn-success btn-lg btn"
+    >ALIŞVERİŞƏ DAVAM EDİN</a
+  >
+</p>
+<p class="mb-4">
+  Ümid edirik ki, hər şey sizi qane etdi. Əgər köməyə ehtiyacınız varsa, müştəri
+  xidməti komandamızla əlaqə saxlayın.
+  <a
+    class="text-success"
+    href="{{config.app.site_url}}{% url 'main:contact' %}"
+    rel="noopener noreferrer"
+    target="_blank"
+    >Yardım mərkəzimizi ziyarət edin</a
+  >
+</p>
+{% endblock content %}

@@ -1,0 +1,178 @@
+
+
+{% extends 'layouts/admin.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Product List" %}{% endblock title %}
+{% block content %}
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="list"></i></div>
+                            {% translate "Product List" %}
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-3">
+                        <a class="btn btn-sm btn-light text-primary" href="{% url 'administration:store-product-create' %}">
+                            <i class="me-1" data-feather="plus"></i>
+                            {% translate "Add Product" %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid px-4">
+        {% include 'components/messages.html' with messages=messages %}
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <form method="GET"> 
+                            <div class="mb-3 d-flex">
+                                <input type="search" name="search" value="{{request.GET.search}}" class="form-control form-control-sm me-2" placeholder="{% translate 'Search' %}">
+                                <button type="submit" class="btn btn-primary btn-sm">{% translate "Search" %}</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-12">
+                        <form method="GET"> 
+                            <div class="row g-3 align-items-center mb-3">
+                                <div class="col-12 col-lg-6">
+                                    <label class="mb-1 small" for="{{ filter_form.category.id_for_label }}">{{ filter_form.category.label }}</label>
+                                    {{filter_form.category}}
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <label class="mb-1 small" for="{{ filter_form.is_active.id_for_label }}">{{ filter_form.is_active.label }}</label>
+                                    {{filter_form.is_active}}
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <label class="mb-1 small" for="{{ filter_form.in_stock.id_for_label }}">{{ filter_form.in_stock.label }}</label>
+                                    {{filter_form.in_stock}}
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary btn-sm">{% translate "Filter" %}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover entry-table ">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            {% translate "Name" %}
+                                            {% include "components/tables/order-button.html" with orderBy='name' route='administration:store-product-list' %}
+                                        </th>
+                                        <th>
+                                            {% translate "SKU" %}
+                                            {% include "components/tables/order-button.html" with orderBy='sku' route='administration:store-product-list' %}
+                                        </th>
+                                        <th>
+                                            {% translate "Price" %} &#8380;
+                                            {% include "components/tables/order-button.html" with orderBy='regular_price' route='administration:store-product-list' %}
+                                        </th>
+                                        <th>
+                                            {% translate "Discount" %}
+                                            {% include "components/tables/order-button.html" with orderBy='discount' route='administration:store-product-list' %}
+                                        </th>
+                                        <th>
+                                            {% translate "Category" %}
+                                            {% include "components/tables/order-button.html" with orderBy='category' route='administration:store-product-list' %}
+                                        </th>
+                                        <th>
+                                            {% translate "Status" %}
+                                            {% include "components/tables/order-button.html" with orderBy='status' route='administration:store-product-list' %}
+                                        </th>
+                                        <th>
+                                            {% translate "Stock" %}
+                                        </th>
+                                        <th>
+                                            {% translate "Update Date" %}
+                                            {% include "components/tables/order-button.html" with orderBy='updated_at' route='administration:store-product-list' %}
+                                        </th>                            
+                                        <th>{% translate "Actions" %}</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>
+                                            {% translate "Name" %}
+                                            {% include "components/tables/order-button.html" with orderBy='name' route='administration:store-product-list' %}
+                                        </th>
+                                        <th>
+                                            {% translate "SKU" %}
+                                            {% include "components/tables/order-button.html" with orderBy='sku' route='administration:store-product-list' %}
+                                        </th>
+                                        <th>
+                                            {% translate "Price" %} &#8380;
+                                            {% include "components/tables/order-button.html" with orderBy='regular_price' route='administration:store-product-list' %}
+                                        </th>
+                                        <th>
+                                            {% translate "Discount" %}
+                                            {% include "components/tables/order-button.html" with orderBy='discount' route='administration:store-product-list' %}
+                                        </th>
+                                        <th>
+                                            {% translate "Category" %}
+                                            {% include "components/tables/order-button.html" with orderBy='category' route='administration:store-product-list' %}
+                                        </th>
+                                        <th>
+                                            {% translate "Status" %}
+                                            {% include "components/tables/order-button.html" with orderBy='status' route='administration:store-product-list' %}
+                                        </th>
+                                        <th>
+                                            {% translate "Stock" %}
+                                        </th>
+                                        <th>
+                                            {% translate "Update Date" %}
+                                            {% include "components/tables/order-button.html" with orderBy='updated_at' route='administration:store-product-list' %}
+                                        </th>                            
+                                        <th>{% translate "Actions" %}</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    {% for product in products %}
+                                    <tr>
+                                        <td><a target="_blank" rel="noopener noreferrer" href="{% url 'store:product-detail' product_slug=product.slug category_slug=product.category.slug %}">{{product.name}}</a></td>
+                                        <td>{{product.sku|default:""}}</td>
+                                        <td>{{product.regular_price}}</td>
+                                        <td>{{product.discount}}%</td>
+                                        <td><a href="{% url 'administration:store-category-update' pk=product.category.id %}">{{product.category}}</a></td>
+                                        <td>
+                                            <span class="badge {% if product.is_active %}bg-success{% else %}bg-danger{% endif %} rounded-pill">{{product.is_active_display_value}}</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge {% if product.in_stock %}bg-success{% else %}bg-danger{% endif %} rounded-pill">{{product.in_stock_display_value}}</span>
+                                        </td>
+                                        <td>{{product.updated_date}}</td>
+                                        <td>
+                                            <a href="{% url 'administration:store-product-detail' pk=product.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="file"></i></a>
+                                            <a href="{% url 'administration:store-product-update' pk=product.pk %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="edit"></i></a>
+                                            <form class="delete-form" action="{% url 'administration:store-product-delete' pk=product.pk %}" method="POST">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark"><i data-feather="trash-2"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% include "components/admin/pagination.html" with pagination=products %}
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+
+
+
+

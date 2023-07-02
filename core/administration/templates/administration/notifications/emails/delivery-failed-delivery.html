@@ -1,0 +1,26 @@
+{% extends 'components/notifications/email-layout.html' %} 
+
+{% block content %}
+<p class="mb-4">Hörmətli {{order.full_name}},</p>
+<p class="mb-4">
+  {{order.id}} saylı sifarişinizi çatdırmağa cəhd etdik, lakin təəssüf ki,
+  çatdırılmanı tamamlaya bilmədik. Çatdırılma partnyorumuz paketinizi çatdırmaq
+  üçün çoxsaylı uğursuz cəhdlər etdi.
+</p>
+<p class="mb-4">
+  Bu problemi həll etmək üçün lütfən, yenilənmiş çatdırılma ünvanını təqdim
+  etmək və ya uyğun çatdırılma vaxtını təyin etmək üçün mümkün qədər tez
+  <a
+    class="text-success"
+    href="{{config.app.site_url}}{% url 'main:contact' %}"
+    rel="noopener noreferrer"
+    target="_blank"
+    >Müştəri Dəstəyi Əlaqəsi</a
+  >
+  ünvanında müştəri dəstək komandamızla əlaqə saxlayın.
+</p>
+<p class="mb-4">
+  Yaranmış hər hansı narahatlığa görə üzr istəyirik və əməkdaşlığınız üçün
+  təşəkkür edirik.
+</p>
+{% endblock content %}

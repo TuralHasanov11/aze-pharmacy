@@ -1,0 +1,172 @@
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %} 
+{% block title %}{% translate "Order Details" %}{% endblock title %} 
+{% block description %}{% translate "Order Details Description" %}{% endblock description %} 
+{% block content %}
+<main class="main-area fix">
+  {%include "components/breadcrumb.html" with breadcrumb=breadcrumb%}
+
+  <div class="tg-page-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="tg-page-content suxnix-page-content">
+            <div class="tp-page-post">
+              <div class="woocommerce">
+                {% include 'components/messages.html' with messages=messages %}
+                <div id="order-summary" class="row shoppong-car-wrap">
+                  <div class="col-12 col-lg-6">
+                    <div class="list-group mb-4">
+                      <li
+                        class="list-group-item list-group-item-action text-light bg-success text-center"
+                      >
+                        {% translate "Order Details" %}
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center"
+                      >
+                        <h6 class="mb-1">{% translate "Order Date" %}</h6>
+                        <span>{{order.created_date}}</span>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center"
+                      >
+                        <h6 class="mb-1">{% translate "Total Paid" %}</h6>
+                        <span>{{order.total_paid}} &#8380;</span>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center"
+                      >
+                        <h6 class="mb-1">{% translate "Quantity" %}</h6>
+                        <span>{{order_quantity}}</span>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center"
+                      >
+                        <h6 class="mb-1">{% translate "Order Number" %}</h6>
+                        <span>{{order.id}}</span>
+                      </li>
+                      <li class="list-group-item list-group-item-action">
+                        <h6 class="mb-1">{% translate "Customer Notes" %}</h6>
+                        <p class="mb-1">{{order.notes}}</p>
+                      </li>
+                    </div>
+                    <div class="list-group mb-4">
+                      <li
+                        class="list-group-item list-group-item-action text-light bg-success text-center"
+                      >
+                        {% translate "Delivery Details" %}
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center"
+                      >
+                        <h6 class="mb-1">{% translate "Address" %}</h6>
+                        <span>{{order.address}}, {{order.city}}</span>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center"
+                      >
+                        <h6 class="mb-1">{% translate "Delivery Date" %}</h6>
+                        <span
+                          >{% if order.order_delivery.delivery_date %}{{order.order_delivery.delivery_date|date:'d.m.Y'}}{%else%}{% translate "Will be published" %}{% endif %}</span
+                        >
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center"
+                      >
+                        <h6 class="mb-1">{% translate "Tracking Number" %}</h6>
+                        <span>{% if order.order_delivery.tracking_number %}{{order.order_delivery.tracking_number}}{%else%}{% translate "Will be published" %}{% endif %}</span>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center"
+                      >
+                        <h6 class="mb-1">{% translate "Courier Name" %}</h6>
+                        <span>{% if order.order_delivery.courier_name %}{{order.order_delivery.courier_name}}{%else%}{% translate "Will be published" %}{% endif %}</span>
+                      </li>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-6">
+                    <div class="card">
+                      <div class="card-header bg-success text-light">
+                        {% translate "Product Summary" %}
+                      </div>
+                      <div class="card-body">
+                        <div class="woocommerce-cart-form">
+                          <table
+                            class="shop_table shop_table_responsive cart woocommerce-cart-form__contents"
+                            cellspacing="0"
+                          >
+                            <thead>
+                              <tr>
+                                <th class="product-thumbnail">&nbsp;</th>
+                                <th class="product-name">
+                                  {% translate "Product" %}
+                                </th>
+                                <th class="product-quantity">
+                                  {% translate "Quantity" %}
+                                </th>
+                                <th class="product-price">
+                                  {% translate "Price" %} &#8380;
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for item in order.items.all %}
+                              <tr
+                                class="woocommerce-cart-form__cart-item cart_item"
+                              >
+                                <td class="product-thumbnail">
+                                  {% if item.product.get_image_feature %}
+                                  <a
+                                    href="{% url 'store:product-detail' category_slug=item.product.category.slug product_slug=item.product.slug %}"
+                                    ><img
+                                      width="350"
+                                      height="350"
+                                      src="{{item.product.get_image_feature}}"
+                                      class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
+                                      decoding="async"
+                                      loading="lazy"
+                                      srcset="
+                                        {{item.product.get_image_feature}} 350w,
+                                        {{item.product.get_image_feature}} 150w
+                                      "
+                                      sizes="(max-width: 350px) 100vw, 350px"
+                                  /></a>
+                                  {% endif %}
+                                </td>
+                                <td class="product-name" data-title="Product">
+                                  <a
+                                    href="{% url 'store:product-detail' category_slug=item.product.category.slug product_slug=item.product.slug %}"
+                                    >{{item.product.name}}</a
+                                  >
+                                </td>
+                                <td
+                                  class="product-quantity"
+                                  data-title="Quantity"
+                                >
+                                  {{item.quantity}}
+                                </td>
+                                <td class="product-price" data-title="Price">
+                                  <span class="woocommerce-Price-amount amount"
+                                    ><bdi
+                                      >{{item.sub_total}}</bdi
+                                    ></span
+                                  >
+                                </td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

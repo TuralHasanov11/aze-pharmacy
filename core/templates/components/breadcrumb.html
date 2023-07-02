@@ -1,0 +1,39 @@
+{% load static %}
+{% load i18n %}
+<section
+  class="breadcrumb-area breadcrumb-bg"
+  data-background="{{site_info.breadcrumb_image}}"
+>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-10">
+        <div class="breadcrumb-content text-center">
+          <h2 class="title">
+            {% with breadcrumb|first as firstItem %}
+              {{firstItem.title}}
+            {% endwith %}
+          </h2>
+          <nav aria-label="breadcrumb" class="breadcrumb">
+            {% for item in breadcrumb|slice:"1:-1" %}
+            <span><a
+              href="{{item.route}}"
+              class="home"
+              ><span>{{item.title}}</span></a
+              ></span
+            ><span class="breadcrumb-separator"
+              ><i class="fas fa-angle-right"></i></span
+            >
+            {% endfor %}
+            <span>
+              <span class="post post-page current-item">
+                {% with breadcrumb|last as lastItem %}
+                {{lastItem.title}}
+                {% endwith %}
+              </span>
+            </span>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

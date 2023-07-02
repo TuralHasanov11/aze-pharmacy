@@ -1,0 +1,40 @@
+{% load static %}
+{% load i18n %}
+{% load query_transform %}
+{% get_current_language as CURRENT_LANGUAGE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages%}
+<!DOCTYPE html>
+<html lang="{{CURRENT_LANGUAGE}}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="max-image-preview:large" />
+
+    {% include "components/default/imports/links.html" %}
+    {% block stylesheet %}{% endblock stylesheet %}
+    
+    <title>{% block title %}{% endblock title %} | {{config.app.name}}</title>
+    <meta name="description" content="{% block description %}{% endblock description %}"/>
+  </head>
+
+  <body
+    class="home page-template page-template-elementor_header_footer page page-id-65 wp-embed-responsive theme-suxnix woocommerce-no-js tinvwl-theme-style no-sidebar elementor-default elementor-template-full-width elementor-kit-6 elementor-page elementor-page-65"
+  >
+    {% include "components/svg.html" %} 
+    {% include "components/preloader.html" %}
+    {% include "components/scroll_top.html" %}
+
+    {% include "components/default/header.html" %}
+
+    {% block content %} 
+    {% endblock content %} 
+
+    {% include "components/default/footer.html" %}
+
+    {% include "components/default/imports/scripts.html" %}
+
+    {% block scripts %}{% endblock scripts %}
+  </body>
+</html>

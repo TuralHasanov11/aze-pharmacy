@@ -1,0 +1,58 @@
+{% extends 'layouts/default.html' %} {% load static %} 
+{% load i18n %}
+{% block title %}{% translate "Shop" %}{% endblock title %}
+{% block description %}{% translate "Shop Description" %}{% endblock description %}
+{% block content %}
+<main class="main-area fix">
+  {%include "components/breadcrumb.html" with breadcrumb=breadcrumb%}
+
+  <div class="inner-shop-area">
+    <div class="container">
+      {% if products %}
+      <div class="row justify-content-center">
+        <div class="col-xl-9 col-lg-8 col-md-12 col-sm-8">
+          <div class="shop-top-wrap">
+            <div class="shop-top-left">
+              <label for="order_by">{% translate "Order by" %}</label>
+              <form method="get" id="orderingForm">
+                <select
+                  id="order_by"
+                  name="order_by"
+                  class="form-select order_by"
+                >
+                  {% for sortItem in orderingContainer %}
+                  <option value="{{sortItem.value}}" 
+                    {% if selectedOrderByValue == sortItem.value %}selected{% endif %}>
+                    {{sortItem.name}}
+                  </option>
+                  {% endfor %}
+                </select>
+              </form>
+            </div>
+          </div>
+          <div class="row row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-1">
+            {% for product in products %}
+            <div class="col">
+              {% include "components/products/product.html" with product=product %}
+            </div>
+            {% endfor %}
+          </div>
+          <div class="suxnix-shop-pagination">
+            {% include "components/pagination.html" with pagination=products %}
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-4 col-md-8 col-sm-8">
+          {% include "components/products/categories-list.html" with categories=categories %}
+        </div>
+      </div>
+      {% else %}
+      <div class="d-flex justify-content-center flex-column align-items-center">
+        <h4>{% translate "The products you searched for do not exist" %}</h4>
+        <a href="{% url 'store:products' %}" class="btn">{% translate "Continue Shopping" %}</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</main>
+{% endblock content %}

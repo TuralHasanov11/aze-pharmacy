@@ -1,0 +1,55 @@
+{% extends 'layouts/default.html' %} {% load static %} {% load i18n %}
+{% block title %}{% translate "FAQ" %}{% endblock title %}
+{% block description %}{% translate "FAQ Description" %}{% endblock description %}
+
+{% block content %}
+<main class="main-area fix">
+  {%include "components/breadcrumb.html" with breadcrumb=breadcrumb%}
+
+  <div
+    data-elementor-type="wp-page"
+    data-elementor-id="65"
+    class="elementor elementor-container"
+  >
+    <section
+      class="elementor-section elementor-top-section elementor-element elementor-section-full_width elementor-section-height-default elementor-section-height-default"
+      data-element_type="section"
+    >
+      <div class="elementor-container elementor-column-gap-no">
+        <div
+          class="elementor-column elementor-col-100 elementor-top-column elementor-element"
+          data-element_type="column"
+        >
+          <div class="elementor-widget-wrap elementor-element-populated">
+            <div
+              class="elementor-element elementor-element-library-widget elementor-widget elementor-widget-tg-blog-faq"
+              data-element_type="widget"
+              data-widget_type="tg-blog-faq.default"
+            >
+              <div class="elementor-widget-container">
+                <section class="blog-post-area">
+                  <div class="container">
+                    <div class="blog-inner-wrapper">
+                      <div class="row justify-content-center">
+                        <div class="col-12">
+                          <div class="faq-wrapper">
+                            <div class="accordion" id="faqAccordion">
+                              {% for question in questions %}
+                                {% include "components/main/faq-single.html" with question=question question_number=forloop.counter %}
+                              {% endfor %}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+{% endblock content %} 
