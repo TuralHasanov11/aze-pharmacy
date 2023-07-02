@@ -837,6 +837,12 @@ h1.entry-title {
     -o-transition: background .3s, border .3s, border-radius .3s, box-shadow .3s;
     transition: background .3s, border .3s, border-radius .3s, box-shadow .3s;
     transition: background .3s, border .3s, border-radius .3s, box-shadow .3s, -webkit-box-shadow .3s;
+<<<<<<< HEAD
+    display: flex;
+    align-items: center;
+    justify-content: center;
+=======
+>>>>>>> c9517af8ae940176a7801a9b72694cb938e62458
 }
 
 .elementor-tab-title a {
