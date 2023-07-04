@@ -68,6 +68,7 @@ class DeliveryEmailNotification(Notification):
                 body=self.message,
                 from_email=os.environ.get("DEFAULT_FROM_EMAIL"),
                 to=[self.order.email],
+                reply_to={os.environ.get("SUPPORT_EMAIL_ADDRESS")}
             )
             msg.content_subtype = "html"
             msg.send(fail_silently=True)
@@ -155,6 +156,7 @@ class RefundEmailNotification(Notification):
                 body=self.message,
                 from_email=os.environ.get("DEFAULT_FROM_EMAIL"),
                 to=[self.order.email],
+                reply_to={os.environ.get("SUPPORT_EMAIL_ADDRESS")}
             )
             msg.content_subtype = "html"
             msg.send(fail_silently=True)

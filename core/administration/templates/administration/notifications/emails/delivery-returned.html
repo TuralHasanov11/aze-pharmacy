@@ -1,16 +1,16 @@
 {% extends 'components/notifications/email-layout.html' %} 
 
 {% block content %}
-<p class="mb-4">Hörmətli {{order.full_name}},</p>
-<p class="mb-4">
+<p style="margin-bottom: 1.5rem !important;">Hörmətli {{order.full_name}},</p>
+<p style="margin-bottom: 1.5rem !important;">
   Təəssüflə bildiririk ki, sifariş nömrəsi {{order.id}} olan sifarişiniz uğursuz
   çatdırılma cəhdi səbəbindən bizə qaytarılıb. Paket göstərilən çatdırılma
   ünvanına çata bilmədi.
 </p>
-<p class="mb-4">
+<p style="margin-bottom: 1.5rem !important;">
   Bu problemi həll etmək və uğurlu çatdırılmanı təmin etmək üçün
   <a
-    class="text-success"
+    style="--bs-text-opacity: 1;color: rgba(0, 172, 105, 1) !important;"
     href="{{config.app.site_url}}{% url 'main:contact' %}"
     rel="noopener noreferrer"
     target="_blank"
@@ -19,7 +19,7 @@
   ünvanında müştəri dəstək komandamızla əlaqə saxlayın. Çatdırılma ünvanını
   yoxlamaqda və ya yeni çatdırılma cəhdini təşkil etməkdə sizə kömək edəcəyik.
 </p>
-<p class="mb-4">
+<p style="margin-bottom: 1.5rem !important;">
   Yaranmış hər hansı narahatlığa görə üzr istəyirik və əməkdaşlığınız üçün
   təşəkkür edirik.
 </p>

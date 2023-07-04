@@ -1,15 +1,15 @@
 {% extends 'components/notifications/email-layout.html' %} 
 {% block content %}
-<p class="mb-4">Hörmətli {{order.full_name}},</p>
-<p class="mb-4">
+<p style="margin-bottom: 1.5rem !important;">Hörmətli {{order.full_name}},</p>
+<p style="margin-bottom: 1.5rem !important;">
   Sifariş nömrəsi {{order.id}} ilə sifarişinizin çatdırılmasının ləğv edildiyini
   təəssüflə bildiririk. Bunun səbəb ola biləcəyi hər hansı narahatlığa görə üzr
   istəyirik.
 </p>
-<p class="mb-4">
+<p style="margin-bottom: 1.5rem !important;">
   Hər hansı bir sualınız varsa və ya əlavə yardıma ehtiyacınız varsa,
   <a
-    class="text-success"
+    style="--bs-text-opacity: 1;color: rgba(0, 172, 105, 1) !important;"
     href="{{config.app.site_url}}{% url 'main:contact' %}"
     rel="noopener noreferrer"
     target="_blank"

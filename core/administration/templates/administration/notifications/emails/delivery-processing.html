@@ -1,69 +1,64 @@
 {% extends 'components/notifications/email-layout.html' %} 
 
 {% block content %}
-<p class="mb-4">Hörmətli {{order.full_name}},</p>
-<h4 class="mb-4">Sifarişiniz üçün təşəkkür edirik.</h4>
-<p class="mb-4">Sifarişinizin təfərrüatları aşağıdakı görə bilərsiniz:</p>
-<p class="text-center mb-4">
-  <a
-    href="{{config.app.site_url}}{% url 'orders:detail' id=order.id %}?order_key={{order.order_key}}"
-    class="btn-success btn-lg btn"
-    >Sifarişi İzlə</a
-  >
+<p style="margin-bottom: 1.5rem !important;">Hörmətli {{order.full_name}},</p>
+<h4 style="margin-bottom: 1.5rem !important;">Sifarişiniz üçün təşəkkür edirik.</h4>
+<p style="margin-bottom: 1.5rem !important;">Sifarişinizin təfərrüatları aşağıdakı görə bilərsiniz:</p>
+<p style="text-align: center !important;margin-bottom: 1.5rem !important;">
+  <a href="{{config.app.site_url}}{% url 'orders:detail' id=order.id %}?order_key={{order.order_key}}"
+    style="--bs-btn-color: #fff;--bs-btn-bg: #00ac69;--bs-btn-border-color: #00ac69;--bs-btn-hover-color: #fff;--bs-btn-hover-bg: #009259;--bs-btn-hover-border-color: #008a54;--bs-btn-focus-shadow-rgb: 38, 184, 128;--bs-btn-active-color: #fff;--bs-btn-active-bg: #008a54;--bs-btn-active-border-color: #00814f;--bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);--bs-btn-disabled-color: #fff;--bs-btn-disabled-bg: #00ac69;--bs-btn-disabled-border-color: #00ac69;--bs-btn-padding-y: 1.125rem;--bs-btn-padding-x: 1.5rem;--bs-btn-font-size: 1rem;--bs-btn-border-radius: 0.5rem;--bs-btn-padding-x: 1.125rem;--bs-btn-padding-y: 0.875rem;--bs-btn-font-family: ;--bs-btn-font-size: 0.875rem;--bs-btn-font-weight: 400;--bs-btn-line-height: 1;--bs-btn-color: #69707a;--bs-btn-bg: transparent;--bs-btn-border-width: 1px;--bs-btn-border-color: transparent;--bs-btn-border-radius: 0.35rem;--bs-btn-hover-border-color: transparent;--bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);--bs-btn-disabled-opacity: 0.65;--bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(38, 184, 128, .5);display: inline-block;padding: 1.125rem 1.5rem;font-size: 1rem;font-weight: 400;line-height: 1;color: #fff;text-align: center;vertical-align: middle;cursor: pointer;-webkit-user-select: none;-moz-user-select: none;user-select: none;border: 1px solid #00ac69;border-radius: 0.5rem;background-color: #00ac69;transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
+    >Sifarişi İzlə</a>
 </p>
-<div class="list-group mb-4">
-  <li class="list-group-item list-group-item-action active text-center">
+<div style="--bs-list-group-color: #212832;--bs-list-group-bg: #fff;--bs-list-group-border-color: rgba(0, 0, 0, 0.125);--bs-list-group-border-width: 1px;--bs-list-group-border-radius: 0.35rem;--bs-list-group-item-padding-x: 1rem;--bs-list-group-item-padding-y: 0.5rem;--bs-list-group-action-color: #4a515b;--bs-list-group-action-hover-color: #4a515b;--bs-list-group-action-hover-bg: #f2f6fc;--bs-list-group-action-active-color: #69707a;--bs-list-group-action-active-bg: #e0e5ec;--bs-list-group-disabled-color: #69707a;--bs-list-group-disabled-bg: #fff;--bs-list-group-active-color: #fff;--bs-list-group-active-bg: #0061f2;--bs-list-group-active-border-color: #0061f2;display: flex;flex-direction: column;padding-left: 0;margin-bottom: 0;border-radius: 0.35rem;margin-bottom: 1.5rem !important;">
+  <li style="position: relative;display: block;padding: 0.5rem 1rem;color: #212832;background-color: #fff;border: 1px solid rgba(0, 0, 0, 0.125); width: 100%;color: #4a515b;text-align: inherit;z-index: 1;color: #4a515b;text-decoration: none;background-color: #f2f6fc;z-index: 2;color: #fff;background-color: #0061f2;border-color: #0061f2;  text-align: center !important;">
     Sifarişiniz
   </li>
   {% for item in order.items.all %}
   <a
     href="{{config.app.site_url}}{% url 'store:product-detail' category_slug=item.product.category.slug product_slug=item.product.slug %}"
-    class="list-group-item d-flex justify-content-between align-items-center"
+    style="position: relative;display: block;padding: 0.5rem 1rem;color: #212832;background-color: #fff;border: 1px solid rgba(0, 0, 0, 0.125); display: flex !important;  justify-content: space-between !important;  align-items: center !important;"
   >
     <h6>{{item.product.name}}</h6>
-    <span class="badge bg-success rounded-pill">{{item.quantity}}</span>
+    <span style="--bs-badge-padding-x: 0.65em;--bs-badge-padding-y: 0.35em;--bs-badge-font-size: 0.75em;--bs-badge-font-weight: 400;--bs-badge-color: #fff;--bs-badge-border-radius: 0.35rem;display: inline-block;padding: 0.35em 0.65em;font-size: 0.75em;font-weight: 400;line-height: 1;color: #fff;text-align: center;white-space: nowrap;vertical-align: baseline;border-radius: 0.35rem;--bs-bg-opacity: 1;background-color: rgba(0, 172, 105, 1) !important;border-radius: 50rem !important;">{{item.quantity}}</span>
   </a>
   {% endfor %}
 </div>
-<div class="list-group mb-4">
-  <li class="list-group-item list-group-item-action active text-center">
+<div style="--bs-list-group-color: #212832;--bs-list-group-bg: #fff;--bs-list-group-border-color: rgba(0, 0, 0, 0.125);--bs-list-group-border-width: 1px;--bs-list-group-border-radius: 0.35rem;--bs-list-group-item-padding-x: 1rem;--bs-list-group-item-padding-y: 0.5rem;--bs-list-group-action-color: #4a515b;--bs-list-group-action-hover-color: #4a515b;--bs-list-group-action-hover-bg: #f2f6fc;--bs-list-group-action-active-color: #69707a;--bs-list-group-action-active-bg: #e0e5ec;--bs-list-group-disabled-color: #69707a;--bs-list-group-disabled-bg: #fff;--bs-list-group-active-color: #fff;--bs-list-group-active-bg: #0061f2;--bs-list-group-active-border-color: #0061f2;display: flex;flex-direction: column;padding-left: 0;margin-bottom: 0;border-radius: 0.35rem;margin-bottom: 1.5rem !important;">
+  <li style="position: relative;display: block;padding: 0.5rem 1rem;color: #212832;background-color: #fff;border: 1px solid rgba(0, 0, 0, 0.125);width: 100%;color: #4a515b;text-align: inherit;z-index: 1;color: #4a515b;text-decoration: none;background-color: #f2f6fc;z-index: 2;color: #fff;background-color: #0061f2;border-color: #0061f2;  text-align: center !important;">
     Sifarişin Detalları
   </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
+  <li style="--bs-list-group-color: #212832;--bs-list-group-bg: #fff;--bs-list-group-border-color: rgba(0, 0, 0, 0.125);--bs-list-group-border-width: 1px;--bs-list-group-border-radius: 0.35rem;--bs-list-group-item-padding-x: 1rem;--bs-list-group-item-padding-y: 0.5rem;--bs-list-group-action-color: #4a515b;--bs-list-group-action-hover-color: #4a515b;--bs-list-group-action-hover-bg: #f2f6fc;--bs-list-group-action-active-color: #69707a;--bs-list-group-action-active-bg: #e0e5ec;--bs-list-group-disabled-color: #69707a;--bs-list-group-disabled-bg: #fff;--bs-list-group-active-color: #fff;--bs-list-group-active-bg: #0061f2;--bs-list-group-active-border-color: #0061f2;display: flex;flex-direction: column;padding-left: 0;margin-bottom: 0;border-radius: 0.35rem;margin-bottom: 1.5rem !important;">
     <h6>Sifariş nömrəsi</h6>
     <span>{{order.id}}</span>
   </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
+  <li style="--bs-list-group-color: #212832;--bs-list-group-bg: #fff;--bs-list-group-border-color: rgba(0, 0, 0, 0.125);--bs-list-group-border-width: 1px;--bs-list-group-border-radius: 0.35rem;--bs-list-group-item-padding-x: 1rem;--bs-list-group-item-padding-y: 0.5rem;--bs-list-group-action-color: #4a515b;--bs-list-group-action-hover-color: #4a515b;--bs-list-group-action-hover-bg: #f2f6fc;--bs-list-group-action-active-color: #69707a;--bs-list-group-action-active-bg: #e0e5ec;--bs-list-group-disabled-color: #69707a;--bs-list-group-disabled-bg: #fff;--bs-list-group-active-color: #fff;--bs-list-group-active-bg: #0061f2;--bs-list-group-active-border-color: #0061f2;display: flex;flex-direction: column;padding-left: 0;margin-bottom: 0;border-radius: 0.35rem;margin-bottom: 1.5rem !important;">
     <h6>Sifariş tarixi</h6>
     <span>{{order.created_date}}</span>
   </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
+  <li style="--bs-list-group-color: #212832;--bs-list-group-bg: #fff;--bs-list-group-border-color: rgba(0, 0, 0, 0.125);--bs-list-group-border-width: 1px;--bs-list-group-border-radius: 0.35rem;--bs-list-group-item-padding-x: 1rem;--bs-list-group-item-padding-y: 0.5rem;--bs-list-group-action-color: #4a515b;--bs-list-group-action-hover-color: #4a515b;--bs-list-group-action-hover-bg: #f2f6fc;--bs-list-group-action-active-color: #69707a;--bs-list-group-action-active-bg: #e0e5ec;--bs-list-group-disabled-color: #69707a;--bs-list-group-disabled-bg: #fff;--bs-list-group-active-color: #fff;--bs-list-group-active-bg: #0061f2;--bs-list-group-active-border-color: #0061f2;display: flex;flex-direction: column;padding-left: 0;margin-bottom: 0;border-radius: 0.35rem;margin-bottom: 1.5rem !important;">
     <h6>Ümumi Məbləğ</h6>
     <span>{{order.total_paid}} &#8380;</span>
   </li>
 </div>
-<div class="list-group mb-4">
-  <li class="list-group-item list-group-item-action active text-center">
+<div style="--bs-list-group-color: #212832;--bs-list-group-bg: #fff;--bs-list-group-border-color: rgba(0, 0, 0, 0.125);--bs-list-group-border-width: 1px;--bs-list-group-border-radius: 0.35rem;--bs-list-group-item-padding-x: 1rem;--bs-list-group-item-padding-y: 0.5rem;--bs-list-group-action-color: #4a515b;--bs-list-group-action-hover-color: #4a515b;--bs-list-group-action-hover-bg: #f2f6fc;--bs-list-group-action-active-color: #69707a;--bs-list-group-action-active-bg: #e0e5ec;--bs-list-group-disabled-color: #69707a;--bs-list-group-disabled-bg: #fff;--bs-list-group-active-color: #fff;--bs-list-group-active-bg: #0061f2;--bs-list-group-active-border-color: #0061f2;display: flex;flex-direction: column;padding-left: 0;margin-bottom: 0;border-radius: 0.35rem;margin-bottom: 1.5rem !important;">
+  <li style="position: relative;display: block;padding: 0.5rem 1rem;color: #212832;background-color: #fff;border: 1px solid rgba(0, 0, 0, 0.125); width: 100%;color: #4a515b;text-align: inherit;z-index: 1;color: #4a515b;text-decoration: none;background-color: #f2f6fc;z-index: 2;color: #fff;background-color: #0061f2;border-color: #0061f2;  text-align: center !important;">
     Çatdırılma Məlumatları
   </li>
-  <li class="list-group-item">{{order.full_name}}</li>
+  <li style="--bs-list-group-color: #212832;--bs-list-group-bg: #fff;--bs-list-group-border-color: rgba(0, 0, 0, 0.125);--bs-list-group-border-width: 1px;--bs-list-group-border-radius: 0.35rem;--bs-list-group-item-padding-x: 1rem;--bs-list-group-item-padding-y: 0.5rem;--bs-list-group-action-color: #4a515b;--bs-list-group-action-hover-color: #4a515b;--bs-list-group-action-hover-bg: #f2f6fc;--bs-list-group-action-active-color: #69707a;--bs-list-group-action-active-bg: #e0e5ec;--bs-list-group-disabled-color: #69707a;--bs-list-group-disabled-bg: #fff;--bs-list-group-active-color: #fff;--bs-list-group-active-bg: #0061f2;--bs-list-group-active-border-color: #0061f2;display: flex;flex-direction: column;padding-left: 0;margin-bottom: 0;border-radius: 0.35rem;margin-bottom: 1.5rem !important;">{{order.full_name}}</li>
   {% if order.email %}
-  <li class="list-group-item">{{order.email}}</li>
+  <li style="--bs-list-group-color: #212832;--bs-list-group-bg: #fff;--bs-list-group-border-color: rgba(0, 0, 0, 0.125);--bs-list-group-border-width: 1px;--bs-list-group-border-radius: 0.35rem;--bs-list-group-item-padding-x: 1rem;--bs-list-group-item-padding-y: 0.5rem;--bs-list-group-action-color: #4a515b;--bs-list-group-action-hover-color: #4a515b;--bs-list-group-action-hover-bg: #f2f6fc;--bs-list-group-action-active-color: #69707a;--bs-list-group-action-active-bg: #e0e5ec;--bs-list-group-disabled-color: #69707a;--bs-list-group-disabled-bg: #fff;--bs-list-group-active-color: #fff;--bs-list-group-active-bg: #0061f2;--bs-list-group-active-border-color: #0061f2;display: flex;flex-direction: column;padding-left: 0;margin-bottom: 0;border-radius: 0.35rem;margin-bottom: 1.5rem !important;">{{order.email}}</li>
   {% endif %}
-  <li class="list-group-item">{{order.city}}</li>
-  <li class="list-group-item">{{order.address}}</li>
+  <li style="--bs-list-group-color: #212832;--bs-list-group-bg: #fff;--bs-list-group-border-color: rgba(0, 0, 0, 0.125);--bs-list-group-border-width: 1px;--bs-list-group-border-radius: 0.35rem;--bs-list-group-item-padding-x: 1rem;--bs-list-group-item-padding-y: 0.5rem;--bs-list-group-action-color: #4a515b;--bs-list-group-action-hover-color: #4a515b;--bs-list-group-action-hover-bg: #f2f6fc;--bs-list-group-action-active-color: #69707a;--bs-list-group-action-active-bg: #e0e5ec;--bs-list-group-disabled-color: #69707a;--bs-list-group-disabled-bg: #fff;--bs-list-group-active-color: #fff;--bs-list-group-active-bg: #0061f2;--bs-list-group-active-border-color: #0061f2;display: flex;flex-direction: column;padding-left: 0;margin-bottom: 0;border-radius: 0.35rem;margin-bottom: 1.5rem !important;">{{order.city}}</li>
+  <li style="--bs-list-group-color: #212832;--bs-list-group-bg: #fff;--bs-list-group-border-color: rgba(0, 0, 0, 0.125);--bs-list-group-border-width: 1px;--bs-list-group-border-radius: 0.35rem;--bs-list-group-item-padding-x: 1rem;--bs-list-group-item-padding-y: 0.5rem;--bs-list-group-action-color: #4a515b;--bs-list-group-action-hover-color: #4a515b;--bs-list-group-action-hover-bg: #f2f6fc;--bs-list-group-action-active-color: #69707a;--bs-list-group-action-active-bg: #e0e5ec;--bs-list-group-disabled-color: #69707a;--bs-list-group-disabled-bg: #fff;--bs-list-group-active-color: #fff;--bs-list-group-active-bg: #0061f2;--bs-list-group-active-border-color: #0061f2;display: flex;flex-direction: column;padding-left: 0;margin-bottom: 0;border-radius: 0.35rem;margin-bottom: 1.5rem !important;">{{order.address}}</li>
 </div>
-<p class="mb-4">
+<p style="margin-bottom: 1.5rem !important;">
   Bu e-poçt sifarişinizin qəbulunu təsdiqləyir. Tezliklə məhsulların
   çatdırılmasını təsdiq edən e-poçt göndəriləcək. Ümid edirik ki, sizi tezliklə
   saytımıza yenidən salamlayacağıq. Sualiniz var?
-  <a
-    class="text-success"
+  <a style="--bs-text-opacity: 1;color: rgba(0, 172, 105, 1) !important;"
     href="{{config.app.site_url}}{% url 'main:contact' %}"
     rel="noopener noreferrer"
-    target="_blank"
-    >Əlaqə</a
-  >
+    target="_blank">Əlaqə</a>
   bölməmizə daxil olun
 </p>
 {% endblock content %}

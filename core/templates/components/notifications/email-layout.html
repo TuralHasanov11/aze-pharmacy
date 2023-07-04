@@ -4,20 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{config.app.site_url}}{% static 'css/main/bootstrap.css' %}">
 </head>
 <body>
-    <div class="container bg-light p-3">
-        <main class="mb-5">
-            <h2 class="text-center mb-4">
-                <a href="" target="_blank" rel="noopener noreferrer" 
-                    class="text-decoration-none text-dark fw-bold">{{config.app.name}}
+    <div style="--bs-gutter-x: 1.5rem;--bs-gutter-y: 0;width: 100%;padding-right: calc(var(--bs-gutter-x) * 0.5);padding-left: calc(var(--bs-gutter-x) * 0.5);margin-right: auto;margin-left: auto;--bs-bg-opacity: 1;background-color: rgba(242, 246, 252, var(--bs-bg-opacity)) !important;padding: 1rem !important;">
+        <main style="margin-bottom: 2.5rem !important">
+            <h2 style="text-align: center !important;margin-bottom: 1.5rem !important;">
+                <a href="{{config.app.site_url}}" target="_blank" rel="noopener noreferrer" 
+                    style="text-decoration: none !important;--bs-text-opacity: 1;color: rgba(33, 40, 50, var(--bs-text-opacity)) !important;font-weight: 500 !important;" >
+                    {{config.app.name}}
                 </a>
             </h2>
             {% block content %}{% endblock content %}            
         </main>
-        <footer class="text-center">
-            <img src="{% static 'images/logo.jpg' %}" style="width: 30px; height:30px">
+        <footer style="text-align: center !important;">
+            <img src="{{config.app.site_url}}{% static 'images/logo.jpg' %}" style="width: 30px; height:30px">
             <p>Hörmətlə,<br>{{config.app.name}}</p>
         </footer>
     </div>

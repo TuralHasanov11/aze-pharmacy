@@ -1,48 +1,48 @@
 {% extends 'components/notifications/email-layout.html' %} 
 
 {% block content %}
-    <p class="mb-2">Hörmətli {{order.full_name}},</p>
-    <p class="mb-4">
+    <p style="margin-bottom: 0.5rem !important;">Hörmətli {{order.full_name}},</p>
+    <p style="margin-bottom: 1.5rem !important;">
         Qeyd etmək istəyirik ki, {{order.id}} nömrəli sifarişin ödənişi geri
         qaytarılmışdır.
     </p>
-    <div class="list-group mb-4">
-    <li class="list-group-item list-group-item-action active text-center">
-        Sifarişin Detalları
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <h6>Sifariş nömrəsi</h6>
-        <span>{{order.id}}</span>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <h6>Sifariş tarixi</h6>
-        <span>{{order.created_date}}</span>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <h6>Ödənilən Məbləğ</h6>
-        <span>{{order.total_paid}} &#8380;</span>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <h6>Son geri qaytarılan məbləğ</h6>
-        <span>{{refund.amount}} &#8380;</span>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <h6>Ümumi geri qaytarılan məbləğ</h6>
-        <span>{{order.total_refund}} &#8380;</span>
-    </li>
+    <div style="--bs-list-group-color: #212832;--bs-list-group-bg: #fff;--bs-list-group-border-color: rgba(0, 0, 0, 0.125);--bs-list-group-border-width: 1px;--bs-list-group-border-radius: 0.35rem;--bs-list-group-item-padding-x: 1rem;--bs-list-group-item-padding-y: 0.5rem;--bs-list-group-action-color: #4a515b;--bs-list-group-action-hover-color: #4a515b;--bs-list-group-action-hover-bg: #f2f6fc;--bs-list-group-action-active-color: #69707a;--bs-list-group-action-active-bg: #e0e5ec;--bs-list-group-disabled-color: #69707a;--bs-list-group-disabled-bg: #fff;--bs-list-group-active-color: #fff;--bs-list-group-active-bg: #0061f2;--bs-list-group-active-border-color: #0061f2;display: flex;flex-direction: column;padding-left: 0;margin-bottom: 0;border-radius: 0.35rem;margin-bottom: 1.5rem !important;">
+        <li style="position: relative;display: block;padding: 0.5rem 1rem;color: #212832;background-color: #fff;border: 1px solid rgba(0, 0, 0, 0.125); width: 100%;color: #4a515b;text-align: inherit;z-index: 1;color: #4a515b;text-decoration: none;background-color: #f2f6fc;z-index: 2;color: #fff;background-color: #0061f2;border-color: #0061f2;  text-align: center !important;">
+            Sifarişin Detalları
+        </li>
+        <li style="position: relative;display: block;padding: 0.5rem 1rem;color: #212832;background-color: #fff;border: 1px solid rgba(0, 0, 0, 0.125); display: flex !important;  justify-content: space-between !important;  align-items: center !important;">
+            <h6>Sifariş nömrəsi</h6>
+            <span>{{order.id}}</span>
+        </li>
+        <li style="position: relative;display: block;padding: 0.5rem 1rem;color: #212832;background-color: #fff;border: 1px solid rgba(0, 0, 0, 0.125); display: flex !important;  justify-content: space-between !important;  align-items: center !important;">
+            <h6>Sifariş tarixi</h6>
+            <span>{{order.created_date}}</span>
+        </li>
+        <li style="position: relative;display: block;padding: 0.5rem 1rem;color: #212832;background-color: #fff;border: 1px solid rgba(0, 0, 0, 0.125); display: flex !important;  justify-content: space-between !important;  align-items: center !important;">
+            <h6>Ödənilən Məbləğ</h6>
+            <span>{{order.total_paid}} &#8380;</span>
+        </li>
+        <li style="position: relative;display: block;padding: 0.5rem 1rem;color: #212832;background-color: #fff;border: 1px solid rgba(0, 0, 0, 0.125); display: flex !important;  justify-content: space-between !important;  align-items: center !important;">
+            <h6>Son geri qaytarılan məbləğ</h6>
+            <span>{{refund.amount}} &#8380;</span>
+        </li>
+        <li style="position: relative;display: block;padding: 0.5rem 1rem;color: #212832;background-color: #fff;border: 1px solid rgba(0, 0, 0, 0.125); display: flex !important;  justify-content: space-between !important;  align-items: center !important;">
+            <h6>Ümumi geri qaytarılan məbləğ</h6>
+            <span>{{order.total_refund}} &#8380;</span>
+        </li>
     </div>
-    <p class="mb-3">
+    <p style="margin-bottom: 1rem !important;">
         Geri qaytarılma səbəbi: <br />
         {{refund.reason}}
     </p>
-    <p class="mb-3">
+    <p style="margin-bottom: 1rem !important;">
         Ödənişin geri qaytarılması ilə bağlı yaranmış narahatlığa görə üzr istəyirik.
     </p>
-    <p class="mb-5">
+    <p style="margin-bottom: 2.5rem !important;">
         Ödənişin geri qaytarılması ilə bağlı hər hansı sualınız və ya narahatlığınız
         varsa,
         <a
-            class="text-success"
+            style="--bs-text-opacity: 1;color: rgba(0, 172, 105, 1) !important;"
             href="{{config.app.site_url}}{% url 'main:contact' %}"
             target="_blank"
             rel="noopener noreferrer"
